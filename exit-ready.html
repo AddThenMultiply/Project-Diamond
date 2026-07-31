@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Ready Diagnostic | Add Then Multiply</title>
+    <style>
+        :root {
+            --primary: #0A192F;
+            --secondary: #172A45;
+            --accent: #D4AF37; /* Gold */
+            --text-main: #333333;
+            --text-light: #666666;
+            --bg-light: #F8F9FA;
+            --white: #FFFFFF;
+            --border: #E0E0E0;
+            --error: #D32F2F;
+            --success: #2E7D32;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1.5rem 0;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .intro h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .question-group {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-group:last-of-type {
+            border-bottom: none;
+            margin-bottom: 1rem;
+            padding-bottom: 0;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dimension-tag {
+            font-size: 0.75rem;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-items: flex-start;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent);
+            background-color: #FDFBF5;
+        }
+
+        .option-label.selected {
+            border-color: var(--accent);
+            background-color: #FDFBF5;
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .option-input {
+            margin-top: 0.25rem;
+            margin-right: 1rem;
+            accent-color: var(--primary);
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #C09D2E;
+        }
+
+        .btn:disabled {
+            background-color: #E0E0E0;
+            color: #999999;
+            cursor: not-allowed;
+        }
+
+        /* Results section */
+        #results-section {
+            display: none;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background-color: #FDFBF5;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--accent);
+        }
+
+        .score-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .gap-summary {
+            margin-bottom: 2.5rem;
+        }
+
+        .gap-summary h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .gap-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--error);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .gap-item.medium {
+            border-left-color: #F57C00;
+        }
+
+        .gap-item.low {
+            border-left-color: var(--success);
+        }
+
+        .gap-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+        
+        .gap-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .cta-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .error-message {
+            color: var(--error);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">Add<span>Then</span>Multiply</div>
+            <div style="font-weight: 500; opacity: 0.9;">Exit Ready Diagnostic</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="assessment-section">
+            <div class="intro">
+                <h1>Are you ready for your exit?</h1>
+                <p>Evaluate your business readiness across Founder Clarity, Commercial Capability, Finance, and Transaction Execution. Discover your gaps before you go to market.</p>
+            </div>
+
+            <div class="card">
+                <form id="diagnostic-form">
+                    <div id="questions-container"></div>
+                    
+                    <div class="error-message" id="form-error">
+                        Please answer all questions before submitting.
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submit-btn">Calculate Readiness Score</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="results-section">
+            <div class="intro">
+                <h1>Your Exit Readiness Report</h1>
+                <p>Based on the FACE methodology (Fund, Acquire, Consolidate, Exit).</p>
+            </div>
+
+            <div class="card">
+                <div class="score-display">
+                    <div class="score-circle" id="overall-score">0%</div>
+                    <div class="score-label">Overall Readiness Score</div>
+                    <p style="margin-top: 1rem; color: var(--text-light);" id="score-context"></p>
+                </div>
+
+                <div class="gap-summary">
+                    <h3>Priority Gap Analysis</h3>
+                    <div id="gap-items-container"></div>
+                </div>
+
+                <div class="cta-section">
+                    <h3>Discuss your results</h3>
+                    <p>Review your gap analysis with David B Horne on a complimentary Readiness Call.</p>
+                    <a href="#" id="booking-cta" class="btn" style="width: auto;">Book Readiness Call</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration
+        const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=Readiness%20Call";
+
+        // Question Bank
+        const questionBank = [
+            {
+                id: "q1",
+                dimension: "Founder Clarity",
+                tag: "F/C",
+                text: "How dependent is the business on you personally for day-to-day operations and revenue generation?",
+                options: [
+                    { value: 1, text: "Highly dependent; the business struggles if I am away for a week." },
+                    { value: 2, text: "Somewhat dependent; my team handles operations but I drive major sales and decisions." },
+                    { value: 3, text: "Mostly independent; I focus on strategy and the team runs the day-to-day." },
+                    { value: 4, text: "Fully independent; the business grows and operates without my daily involvement." }
+                ],
+                gapAdvice: {
+                    1: "Founder dependence is a critical red flag for buyers. You need to build a second-tier management team.",
+                    2: "You are still a keyman risk. Begin transitioning key relationships and sales to your team.",
+                    3: "Good progress. Ensure all strategic processes are documented to prove independence.",
+                    4: "Excellent. A business that runs without its founder commands a premium multiple."
+                }
+            },
+            {
+                id: "q2",
+                dimension: "Founder Clarity",
+                tag: "E",
+                text: "Do you have a clear, documented personal plan for the 'day after the sale'?",
+                options: [
+                    { value: 1, text: "No, I haven't thought much about it yet." },
+                    { value: 2, text: "I have some ideas, but nothing concrete." },
+                    { value: 3, text: "Yes, I have a clear vision for my next chapter." },
+                    { value: 4, text: "Yes, and my personal financial target for the exit supports this vision." }
+                ],
+                gapAdvice: {
+                    1: "Without a 'day after' plan, founders often sabotage their own deals at the 11th hour.",
+                    2: "Solidify your post-exit vision to maintain motivation during the gruelling transaction phase.",
+                    3: "A clear vision will help you navigate the emotional toll of selling your business.",
+                    4: "Perfect. Knowing your 'why' and your required 'number' anchors your negotiation strategy."
+                }
+            },
+            {
+                id: "q3",
+                dimension: "Commercial Capability",
+                tag: "A",
+                text: "How formalised is your strategic growth plan for the next 3–5 years?",
+                options: [
+                    { value: 1, text: "We operate mostly reactively or year-to-year." },
+                    { value: 2, text: "We have a high-level plan, but it's not detailed or shared with the wider team." },
+                    { value: 3, text: "We have a clear 3-year plan with specific targets, shared with leadership." },
+                    { value: 4, text: "We have a rigorous, fully costed 3–5 year roadmap that we track monthly." }
+                ],
+                gapAdvice: {
+                    1: "Buyers buy future cash flows. You must document a credible, costed path for growth.",
+                    2: "Your plan needs more rigor to survive buyer due diligence.",
+                    3: "Strong. Ensure your historical data supports the projections in your plan.",
+                    4: "Excellent. A costed, tracked growth plan gives buyers confidence in your projections."
+                }
+            },
+            {
+                id: "q4",
+                dimension: "Commercial Capability",
+                tag: "A/C",
+                text: "How concentrated is your customer base and revenue stream?",
+                options: [
+                    { value: 1, text: "Very concentrated; a few key clients make up the majority of our revenue." },
+                    { value: 2, text: "Somewhat concentrated; we have a mix, but losing a top client would hurt significantly." },
+                    { value: 3, text: "Well diversified; no single client represents more than 10-15% of revenue." },
+                    { value: 4, text: "Highly diversified with strong recurring/repeat revenue streams across many clients." }
+                ],
+                gapAdvice: {
+                    1: "Customer concentration risk will severely discount your valuation or kill the deal.",
+                    2: "You have concentration risk. Focus on diversifying your revenue before going to market.",
+                    3: "Good diversification protects your valuation from customer churn risk.",
+                    4: "Ideal. High diversification with recurring revenue commands the best multiples."
+                }
+            },
+            {
+                id: "q5",
+                dimension: "Finance & Systems",
+                tag: "C",
+                text: "How robust and timely is your financial reporting?",
+                options: [
+                    { value: 1, text: "We review finances annually with our accountant; visibility is poor." },
+                    { value: 2, text: "We have basic bookkeeping but management accounts are often late or lack detail." },
+                    { value: 3, text: "We produce accurate management accounts within 15 days of month-end." },
+                    { value: 4, text: "We have rigorous, board-level financial reporting and forecasting every month." }
+                ],
+                gapAdvice: {
+                    1: "Poor financial controls will fail due diligence. Immediate upgrade required.",
+                    2: "Late or inaccurate accounts erode buyer trust. You need a CFO-level review.",
+                    3: "Good standard. Ensure your historical accounts can withstand a Quality of Earnings review.",
+                    4: "Excellent. Board-level reporting drastically reduces risk in financial due diligence."
+                }
+            },
+            {
+                id: "q6",
+                dimension: "Finance & Systems",
+                tag: "C",
+                text: "Are your core business processes documented and consistently followed?",
+                options: [
+                    { value: 1, text: "Processes are informal and mostly live in people's heads." },
+                    { value: 2, text: "Some key processes are documented, but compliance is patchy." },
+                    { value: 3, text: "Most core operations are documented and followed by the team." },
+                    { value: 4, text: "We have comprehensive, actively managed SOPs across all departments." }
+                ],
+                gapAdvice: {
+                    1: "Undocumented processes mean the business is not scalable or transferable.",
+                    2: "Incomplete documentation creates integration risk for buyers.",
+                    3: "Strong operational maturity. Regular audits will ensure compliance.",
+                    4: "Perfect. Comprehensive SOPs prove the business is a turnkey asset."
+                }
+            },
+            {
+                id: "q7",
+                dimension: "Transaction Readiness",
+                tag: "E",
+                text: "Do you have a clear, realistic valuation target based on current market multiples?",
+                options: [
+                    { value: 1, text: "No, I haven't formally valued the business." },
+                    { value: 2, text: "I have a number in mind, but it's not based on external validation." },
+                    { value: 3, text: "Yes, I have a valuation based on industry benchmarks." },
+                    { value: 4, text: "Yes, we have a professionally validated valuation and a clear bridge to our target exit number." }
+                ],
+                gapAdvice: {
+                    1: "You cannot plan an exit without reverse-engineering from a realistic valuation.",
+                    2: "Unrealistic valuation expectations waste time and destroy deals.",
+                    3: "Good baseline. You now need a gap analysis to bridge your current state to your target.",
+                    4: "Excellent. A validated valuation grounds your negotiation strategy."
+                }
+            },
+            {
+                id: "q8",
+                dimension: "Transaction Readiness",
+                tag: "E",
+                text: "How prepared is your data room (financials, legal, HR, commercial) for buyer due diligence?",
+                options: [
+                    { value: 1, text: "We don't have a data room; gathering documents would be a huge task." },
+                    { value: 2, text: "We have most files, but they are disorganised and not ready for scrutiny." },
+                    { value: 3, text: "We have started compiling a structured data room." },
+                    { value: 4, text: "Our data room is fully populated, indexed, and ready for immediate investor/buyer review." }
+                ],
+                gapAdvice: {
+                    1: "A missing data room will stall the deal momentum and invite price-chipping.",
+                    2: "Disorganised data creates the perception of hidden risks. Start structuring immediately.",
+                    3: "Good progress. Ensure completeness against a standard M&A checklist.",
+                    4: "Ideal. A ready data room maintains deal momentum and demonstrates high competence."
+                }
+            }
+        ];
+
+        // Render questions
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            questionBank.forEach((q, index) => {
+                const group = document.createElement('div');
+                group.className = 'question-group';
+                
+                const title = document.createElement('div');
+                title.className = 'question-title';
+                title.innerHTML = `
+                    <span class="dimension-tag">${q.tag}</span>
+                    <span>${index + 1}. ${q.text}</span>
+                `;
+                
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+                
+                q.options.forEach(opt => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = q.id;
+                    input.value = opt.value;
+                    input.className = 'option-input';
+                    
+                    input.addEventListener('change', (e) => {
+                        // Update styling for selected option
+                        const siblings = optionsGrid.querySelectorAll('.option-label');
+                        siblings.forEach(s => s.classList.remove('selected'));
+                        if (e.target.checked) {
+                            label.classList.add('selected');
+                        }
+                    });
+                    
+                    const text = document.createElement('div');
+                    text.className = 'option-text';
+                    text.textContent = opt.text;
+                    
+                    label.appendChild(input);
+                    label.appendChild(text);
+                    optionsGrid.appendChild(label);
+                });
+                
+                group.appendChild(title);
+                group.appendChild(optionsGrid);
+                container.appendChild(group);
+            });
+        }
+
+        // Scoring Engine
+        function calculateScore(answers) {
+            let totalScore = 0;
+            const maxPossible = questionBank.length * 4;
+            const gaps = [];
+            
+            questionBank.forEach(q => {
+                const val = answers[q.id];
+                if (val) {
+                    totalScore += val;
+                    
+                    // Identify gaps (scores 1 or 2 are high priority, 3 is medium)
+                    if (val <= 2) {
+                        gaps.push({
+                            dimension: q.dimension,
+                            severity: 'high',
+                            advice: q.gapAdvice[val]
+                        });
+                    } else if (val === 3) {
+                        gaps.push({
+                            dimension: q.dimension,
+                            severity: 'medium',
+                            advice: q.gapAdvice[val]
+                        });
+                    }
+                }
+            });
+            
+            const percentage = Math.round((totalScore / maxPossible) * 100);
+            
+            // Group gaps by dimension for cleaner output, take top 4
+            const sortedGaps = gaps.sort((a, b) => a.severity === 'high' ? -1 : 1).slice(0, 4);
+            
+            return {
+                percentage,
+                totalScore,
+                maxPossible,
+                gaps: sortedGaps
+            };
+        }
+
+        // Form submission
+        document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const answers = {};
+            let answeredCount = 0;
+            
+            for (let [key, value] of formData.entries()) {
+                answers[key] = parseInt(value, 10);
+                answeredCount++;
+            }
+            
+            if (answeredCount < questionBank.length) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('form-error').style.display = 'none';
+            
+            const results = calculateScore(answers);
+            showResults(results);
+        });
+
+        function showResults(results) {
+            document.getElementById('assessment-section').style.display = 'none';
+            document.getElementById('results-section').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            const scoreCircle = document.getElementById('overall-score');
+            scoreCircle.textContent = `${results.percentage}%`;
+            
+            // Set circle color based on score
+            if (results.percentage >= 80) {
+                scoreCircle.style.color = 'var(--success)';
+                scoreCircle.style.borderColor = 'var(--success)';
+            } else if (results.percentage >= 60) {
+                scoreCircle.style.color = '#F57C00';
+                scoreCircle.style.borderColor = '#F57C00';
+            } else {
+                scoreCircle.style.color = 'var(--error)';
+                scoreCircle.style.borderColor = 'var(--error)';
+            }
+            
+            const contextText = document.getElementById('score-context');
+            if (results.percentage >= 80) {
+                contextText.textContent = "Strong position. You are highly prepared for a transaction, though minor optimisations remain.";
+            } else if (results.percentage >= 60) {
+                contextText.textContent = "Fair position. You have foundational elements in place but critical gaps need addressing before going to market.";
+            } else {
+                contextText.textContent = "High risk. Significant capability and documentation gaps will currently prevent a successful exit at optimal valuation.";
+            }
+            
+            const gapsContainer = document.getElementById('gap-items-container');
+            gapsContainer.innerHTML = '';
+            
+            if (results.gaps.length === 0) {
+                gapsContainer.innerHTML = '<p>No significant gaps identified. You are in an excellent position to exit.</p>';
+            } else {
+                results.gaps.forEach(gap => {
+                    const item = document.createElement('div');
+                    item.className = `gap-item ${gap.severity === 'high' ? '' : gap.severity}`;
+                    
+                    item.innerHTML = `
+                        <div class="gap-content">
+                            <h4>${gap.dimension}</h4>
+                            <p>${gap.advice}</p>
+                        </div>
+                    `;
+                    gapsContainer.appendChild(item);
+                });
+            }
+        }
+
+        // Set CTA link
+        document.getElementById('booking-cta').href = BOOKING_URL;
+
+        // Test Harness (as requested in Blueprint)
+        window.runTests = function() {
+            console.log("Running ATM Exit Ready diagnostic tests...");
+            let passed = 0;
+            let total = 0;
+            
+            function assert(condition, message) {
+                total++;
+                if (condition) {
+                    console.log(`? PASS: ${message}`);
+                    passed++;
+                } else {
+                    console.error(`? FAIL: ${message}`);
+                }
+            }
+            
+            // Test 1: Minimum score
+            const minAnswers = {};
+            questionBank.forEach(q => minAnswers[q.id] = 1);
+            const minResult = calculateScore(minAnswers);
+            assert(minResult.percentage === 25, "All 1s should result in 25% score");
+            assert(minResult.gaps.length > 0 && minResult.gaps[0].severity === 'high', "All 1s should generate high severity gaps");
+            
+            // Test 2: Maximum score
+            const maxAnswers = {};
+            questionBank.forEach(q => maxAnswers[q.id] = 4);
+            const maxResult = calculateScore(maxAnswers);
+            assert(maxResult.percentage === 100, "All 4s should result in 100% score");
+            assert(maxResult.gaps.length === 0, "All 4s should generate no top-priority gaps");
+            
+            // Test 3: Mixed score
+            const mixedAnswers = {
+                q1: 4, q2: 4, q3: 4, q4: 4, // 16
+                q5: 2, q6: 2, q7: 2, q8: 2  // 8 = 24 / 32 = 75%
+            };
+            const mixedResult = calculateScore(mixedAnswers);
+            assert(mixedResult.percentage === 75, "Mixed 4s and 2s correctly calculates to 75%");
+            assert(mixedResult.gaps.some(g => g.dimension === 'Finance & Systems'), "Gap engine identifies low-scoring dimensions");
+            
+            console.log(`\nTest Summary: ${passed}/${total} passed.`);
+            return passed === total;
+        };
+
+        // Init
+        renderQuestions();
+    </script>
+</body>
+</html>
