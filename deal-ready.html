@@ -7,11 +7,15 @@
     <style>
         :root {
             --primary: #0A192F;
+            --secondary: #172A45;
             --accent: #D4AF37; /* Gold */
             --text-main: #333333;
             --text-light: #666666;
             --bg-light: #F8F9FA;
             --white: #FFFFFF;
+            --border: #E0E0E0;
+            --error: #D32F2F;
+            --success: #2E7D32;
         }
 
         * {
@@ -25,9 +29,6 @@
             background-color: var(--bg-light);
             color: var(--text-main);
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
@@ -41,7 +42,6 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 0 1.5rem;
-            width: 100%;
         }
 
         .header-content {
@@ -54,8 +54,6 @@
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.5px;
-            text-decoration: none;
-            color: var(--white);
         }
 
         .logo span {
@@ -63,33 +61,102 @@
         }
 
         main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 3rem 0;
         }
 
-        .card {
-            background: var(--white);
-            border-radius: 8px;
-            padding: 4rem 2.5rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        .intro {
             text-align: center;
-            max-width: 600px;
-            width: 100%;
+            margin-bottom: 3rem;
         }
 
-        h1 {
+        .intro h1 {
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1rem;
         }
 
-        p {
+        .intro p {
             font-size: 1.1rem;
             color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             margin-bottom: 2rem;
+        }
+
+        .question-group {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-group:last-of-type {
+            border-bottom: none;
+            margin-bottom: 1rem;
+            padding-bottom: 0;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dimension-tag {
+            font-size: 0.75rem;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-items: flex-start;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent);
+            background-color: #FDFBF5;
+        }
+
+        .option-label.selected {
+            border-color: var(--accent);
+            background-color: #FDFBF5;
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .option-input {
+            margin-top: 0.25rem;
+            margin-right: 1rem;
+            accent-color: var(--primary);
+        }
+
+        .option-text {
+            flex: 1;
         }
 
         .btn {
@@ -101,12 +168,127 @@
             padding: 1rem 2rem;
             border: none;
             border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
             text-decoration: none;
             transition: background-color 0.2s ease;
+            width: 100%;
         }
 
         .btn:hover {
             background-color: #C09D2E;
+        }
+
+        .btn:disabled {
+            background-color: #E0E0E0;
+            color: #999999;
+            cursor: not-allowed;
+        }
+
+        /* Results section */
+        #results-section {
+            display: none;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background-color: #FDFBF5;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--accent);
+        }
+
+        .score-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .gap-summary {
+            margin-bottom: 2.5rem;
+        }
+
+        .gap-summary h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .gap-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--error);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .gap-item.medium {
+            border-left-color: #F57C00;
+        }
+
+        .gap-item.low {
+            border-left-color: var(--success);
+        }
+
+        .gap-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+        
+        .gap-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .cta-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .error-message {
+            color: var(--error);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -114,18 +296,459 @@
 
     <header>
         <div class="container header-content">
-            <a href="index.html" class="logo">Add<span>Then</span>Multiply</a>
+            <div class="logo">Add<span>Then</span>Multiply</div>
             <div style="font-weight: 500; opacity: 0.9;">Deal Ready Diagnostic</div>
         </div>
     </header>
 
     <main class="container">
-        <div class="card">
-            <h1>Coming Soon</h1>
-            <p>The Add Then Multiply M&A Advisory diagnostic is currently in development. It will guide you through strategic logic, target identification, approach, and integration planning.</p>
-            <a href="exit-ready.html" class="btn">Try the Exit Ready Diagnostic</a>
+        <div id="assessment-section">
+            <div class="intro">
+                <h1>Are you ready to buy?</h1>
+                <p>Evaluate your acquisition readiness across the seven phases of the ATM M&amp;A process — from Strategic Logic and Target Identification through Founder-to-Founder, Due Diligence and Integration. Discover your gaps before you approach a target.</p>
+            </div>
+
+            <div class="card">
+                <form id="diagnostic-form">
+                    <div id="questions-container"></div>
+                    
+                    <div class="error-message" id="form-error">
+                        Please answer all questions before submitting.
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submit-btn">Calculate Deal Readiness Score</button>
+                </form>
+            </div>
         </div>
+
+        <div id="results-section">
+            <div class="intro">
+                <h1>Your Deal Readiness Report</h1>
+                <p>Based on the FACE methodology (Fund, Acquire, Consolidate, Exit).</p>
+            </div>
+
+            <div class="card">
+                <div class="score-display">
+                    <div class="score-circle" id="overall-score">0%</div>
+                    <div class="score-label">Overall Readiness Score</div>
+                    <p style="margin-top: 1rem; color: var(--text-light);" id="score-context"></p>
+                </div>
+
+                <div class="gap-summary">
+                    <h3>Priority Gap Analysis</h3>
+                    <div id="gap-items-container"></div>
+                </div>
+
+                <div class="cta-section">
+                    <h3>Discuss your results</h3>
+                    <p>Review your acquisition readiness with David B Horne on a complimentary Readiness Call.</p>
+                    <a href="#" id="booking-cta" class="btn" style="width: auto;">Book Readiness Call</a>
+                </div>
+            </div>
+        </div>
+        <p style="text-align:center; color: var(--text-light); font-size: 0.85rem; margin: 2rem 0;">
+            Existing clients: <a href="deal-ready-workspace.html" style="color: var(--primary); font-weight: 600;">Deal Ready workspace sign-in</a>
+        </p>
     </main>
 
+    <script>
+        // Configuration
+        const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=Deal%20Readiness%20Call";
+
+        // Question Bank
+        const questionBank = [
+            { id: "q1", dimension: "Strategic Logic", tag: "A",
+                text: "How clear and documented is the strategic case for growing by acquisition rather than building organically?",
+                options: [
+                    { value: 1, text: "We have an appetite to acquire but no written strategic case." },
+                    { value: 2, text: "We have headline reasons, but no build-vs-buy analysis." },
+                    { value: 3, text: "We have a documented case with target criteria agreed by leadership." },
+                    { value: 4, text: "We have a rigorous, costed build-vs-buy analysis tied to our growth plan." } ],
+                gapAdvice: {
+                    1: "Acquisition without a strategic case destroys value. Write down why M&A, why now, and what it must deliver.",
+                    2: "Test your reasons against a build-vs-buy analysis — sometimes M&A is the wrong route, and knowing that early is cheap.",
+                    3: "Good. Pressure-test the criteria against your capacity to fund and integrate.",
+                    4: "Excellent. A costed strategic case anchors every later decision in the process." } },
+            { id: "q2", dimension: "Strategic Logic", tag: "F",
+                text: "How certain are you of the funding route for an acquisition (debt, equity, vendor terms or a blend)?",
+                options: [
+                    { value: 1, text: "We have not explored funding options yet." },
+                    { value: 2, text: "We know the options in theory but have no numbers against them." },
+                    { value: 3, text: "We have indicative funding conversations under way." },
+                    { value: 4, text: "We have a funded envelope agreed and know our walk-away limits." } ],
+                gapAdvice: {
+                    1: "Fund comes before Acquire in FACE for a reason. Map debt, equity and vendor-terms options before approaching anyone.",
+                    2: "Put numbers on each funding route — your envelope shapes which targets are realistic.",
+                    3: "Good progress. Convert indicative conversations into committed terms before heads of terms.",
+                    4: "Excellent. A funded envelope and walk-away discipline protect you in negotiation." } },
+            { id: "q3", dimension: "Target Identification", tag: "A",
+                text: "How developed is your target longlist and shortlist?",
+                options: [
+                    { value: 1, text: "We have a few names in our heads, nothing written." },
+                    { value: 2, text: "We keep an informal list, not scored against criteria." },
+                    { value: 3, text: "We have a researched longlist and a scored shortlist." },
+                    { value: 4, text: "We maintain a scored pipeline with financials, ownership and timing signals per target." } ],
+                gapAdvice: {
+                    1: "Build a researched longlist first — the best deals come from a wide, deliberate funnel, not chance encounters.",
+                    2: "Score your list against your strategic criteria so effort goes to the right targets.",
+                    3: "Strong. Enrich the shortlist with financials, ownership and timing signals.",
+                    4: "Excellent. A living pipeline means you are never dependent on one deal." } },
+            { id: "q4", dimension: "Target Identification", tag: "A",
+                text: "How well do you understand each priority target's ownership, motivations and likely appetite to sell?",
+                options: [
+                    { value: 1, text: "We know little beyond what their website says." },
+                    { value: 2, text: "We know the owners' names but not their situations or motivations." },
+                    { value: 3, text: "We have researched the owners and have a view on their likely appetite." },
+                    { value: 4, text: "We have live intelligence on each owner's situation and warm routes to them." } ],
+                gapAdvice: {
+                    1: "Deals are done between people. Research the owners — their age, situation and ambitions — before anything else.",
+                    2: "Understand what each owner wants from life, not just from a deal.",
+                    3: "Good. Now map who in your network can make a warm introduction.",
+                    4: "Excellent. Owner intelligence plus warm routes is how approaches succeed." } },
+            { id: "q5", dimension: "Human Approach", tag: "A",
+                text: "How do you plan to make the first approach to a target founder?",
+                options: [
+                    { value: 1, text: "Probably a cold email or a broker's letter." },
+                    { value: 2, text: "A direct approach, but without much preparation on the person." },
+                    { value: 3, text: "A personal, researched approach, ideally through a warm introduction." },
+                    { value: 4, text: "A relationship-first approach built over time, with no pressure to transact." } ],
+                gapAdvice: {
+                    1: "Cold, formal approaches get deleted. The ATM process is founder-to-founder and human by design.",
+                    2: "Prepare properly on the person — the first conversation sets the tone for everything after.",
+                    3: "Good. Keep the approach personal and unformalised; no corporate language.",
+                    4: "Excellent. Relationships opened without pressure create the best deals." } },
+            { id: "q6", dimension: "Human Approach", tag: "C",
+                text: "Who in your organisation owns relationships with targets, and how protected are those relationships?",
+                options: [
+                    { value: 1, text: "Nobody owns this; contact happens ad hoc." },
+                    { value: 2, text: "I own it personally but nothing is recorded." },
+                    { value: 3, text: "Ownership is clear and every contact is logged." },
+                    { value: 4, text: "Clear ownership, full contact history, and agreed rules on who may approach whom." } ],
+                gapAdvice: {
+                    1: "An uncoordinated approach can burn a relationship permanently. Name a single owner for each target.",
+                    2: "Record every contact — in a long process, memory is not a system.",
+                    3: "Good discipline. Agree rules on who may approach whom to protect trust.",
+                    4: "Excellent. Protected relationships are an asset competitors cannot copy." } },
+            { id: "q7", dimension: "Founder-to-Founder", tag: "A",
+                text: "How prepared are you to assess personal chemistry and cultural fit with a target founder?",
+                options: [
+                    { value: 1, text: "We would focus mainly on the numbers." },
+                    { value: 2, text: "We would form an impression informally, without structure." },
+                    { value: 3, text: "We plan founder-to-founder meetings specifically to test chemistry and values." },
+                    { value: 4, text: "Chemistry and culture are explicit go/no-go criteria, tested across several meetings." } ],
+                gapAdvice: {
+                    1: "Chemistry is everything — deals with the wrong people fail even when the numbers work.",
+                    2: "Create deliberate settings to test how you work together before talking terms.",
+                    3: "Good. Involve both leadership teams, not just the two founders.",
+                    4: "Excellent. Treating chemistry as a gate protects you from an expensive mistake." } },
+            { id: "q8", dimension: "Founder-to-Founder", tag: "A",
+                text: "Can you articulate what the deal would mean for the other founder — their people, their legacy and their life after?",
+                options: [
+                    { value: 1, text: "We have not thought about the deal from their side." },
+                    { value: 2, text: "We assume price is what matters most to them." },
+                    { value: 3, text: "We have a considered view of their goals beyond price." },
+                    { value: 4, text: "We shape the deal around their people, legacy and life-after as well as price." } ],
+                gapAdvice: {
+                    1: "Sellers choose buyers they trust with their life's work. See the deal through their eyes.",
+                    2: "Price matters, but legacy, people and life-after usually decide founder sales.",
+                    3: "Good. Reflect their goals explicitly in how you structure and talk about the deal.",
+                    4: "Excellent. Deals designed around both founders' outcomes close faster and integrate better." } },
+            { id: "q9", dimension: "HoT & Due Diligence", tag: "A",
+                text: "How prepared are you to draft and negotiate heads of terms?",
+                options: [
+                    { value: 1, text: "We would rely entirely on lawyers to tell us what to include." },
+                    { value: 2, text: "We know the headline terms but not the detail that matters." },
+                    { value: 3, text: "We can draft heads covering price, structure, earn-outs and exclusivity." },
+                    { value: 4, text: "We have a heads-of-terms playbook and know which points we will trade or hold." } ],
+                gapAdvice: {
+                    1: "If you cannot hold the pen on heads of terms, you negotiate from weakness. Learn the anatomy of the document.",
+                    2: "The detail — earn-outs, exclusivity, completion mechanics — is where value is won and lost.",
+                    3: "Good. Decide in advance which points you will trade and where you walk away.",
+                    4: "Excellent. A playbook keeps negotiation fast, calm and consistent." } },
+            { id: "q10", dimension: "HoT & Due Diligence", tag: "A",
+                text: "How will you run due diligence and control advisor costs?",
+                options: [
+                    { value: 1, text: "We would hand it to the lawyers and accountants and await the bills." },
+                    { value: 2, text: "We would manage it loosely, without a tracker or budget." },
+                    { value: 3, text: "We would run a scoped DD plan with a question log and agreed budgets." },
+                    { value: 4, text: "Scoped DD, live question log, red-flag triage and weekly advisor cost tracking." } ],
+                gapAdvice: {
+                    1: "Unmanaged DD burns six figures fast. Scope it, budget it, and manage your advisers actively.",
+                    2: "A question log and budget turn DD from a cost centre into a decision tool.",
+                    3: "Good. Add red-flag triage so issues surface early, when you can still act on them.",
+                    4: "Excellent. Disciplined DD protects both the deal and your bank balance." } },
+            { id: "q11", dimension: "SPA & Completion", tag: "A",
+                text: "How familiar are you with the sale and purchase agreement (SPA), warranties and the disclosure process?",
+                options: [
+                    { value: 1, text: "Not familiar; we would rely wholly on advisers." },
+                    { value: 2, text: "We know the concepts but have never been through one." },
+                    { value: 3, text: "We understand warranties, indemnities and disclosure well enough to instruct advisers." },
+                    { value: 4, text: "We have completed deals and know exactly which SPA points matter commercially." } ],
+                gapAdvice: {
+                    1: "The SPA allocates risk. Understand warranties and disclosure before you are negotiating them under time pressure.",
+                    2: "Walk through a precedent SPA with your lawyer now, not during a live deal.",
+                    3: "Good. Keep the commercial decisions with you — advisers advise, founders decide.",
+                    4: "Excellent. SPA fluency keeps legal costs down and negotiations commercial." } },
+            { id: "q12", dimension: "SPA & Completion", tag: "A",
+                text: "Do you know your walk-away triggers — the findings or term changes that would end the deal?",
+                options: [
+                    { value: 1, text: "No; we would decide in the moment." },
+                    { value: 2, text: "We have a general sense but nothing agreed or written." },
+                    { value: 3, text: "We have written walk-away triggers agreed by the leadership team." },
+                    { value: 4, text: "Written triggers, agreed in advance, with the discipline to have walked away before." } ],
+                gapAdvice: {
+                    1: "Deal fever is real. Agree your walk-away triggers before emotions and sunk costs take over.",
+                    2: "Write the triggers down — unwritten limits move under pressure.",
+                    3: "Good. Revisit the triggers at each phase gate so they stay honest.",
+                    4: "Excellent. The willingness to walk away is your strongest negotiating position." } },
+            { id: "q13", dimension: "Integration", tag: "C",
+                text: "When does integration planning start in your acquisition process?",
+                options: [
+                    { value: 1, text: "After completion — we would work it out once the deal is done." },
+                    { value: 2, text: "During due diligence, informally." },
+                    { value: 3, text: "A 100-day plan is drafted before completion." },
+                    { value: 4, text: "Integration is planned from the beginning and shapes target selection and deal terms." } ],
+                gapAdvice: {
+                    1: "Consolidate is planned from the beginning, not bolted on — integration failures destroy more value than bad prices.",
+                    2: "Formalise it: a drafted 100-day plan should exist before you complete.",
+                    3: "Good. Name the integration lead and steering rhythm before completion day.",
+                    4: "Excellent. Integration-led deal design is how acquisitions actually add then multiply." } },
+            { id: "q14", dimension: "Integration", tag: "C",
+                text: "How will you protect culture and retain key people in the acquired business?",
+                options: [
+                    { value: 1, text: "We assume people will stay if the business is stable." },
+                    { value: 2, text: "We would address people issues as they arise." },
+                    { value: 3, text: "We identify key people pre-completion and plan retention and communication." },
+                    { value: 4, text: "Culture risks are mapped from both sides, with named owners, retention plans and a communication rhythm." } ],
+                gapAdvice: {
+                    1: "The value you are buying walks out of the door if key people leave. Plan retention before completion.",
+                    2: "Reactive people management loses the people you most need. Get ahead of it.",
+                    3: "Good. Communicate early and personally — uncertainty is what makes people leave.",
+                    4: "Excellent. Culture-risk mapping from both sides is the Consolidate playbook done properly." } }
+        ];
+
+        // Render questions
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            questionBank.forEach((q, index) => {
+                const group = document.createElement('div');
+                group.className = 'question-group';
+                
+                const title = document.createElement('div');
+                title.className = 'question-title';
+                title.innerHTML = `
+                    <span class="dimension-tag">${q.tag}</span>
+                    <span>${index + 1}. ${q.text}</span>
+                `;
+                
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+                
+                q.options.forEach(opt => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = q.id;
+                    input.value = opt.value;
+                    input.className = 'option-input';
+                    
+                    input.addEventListener('change', (e) => {
+                        // Update styling for selected option
+                        const siblings = optionsGrid.querySelectorAll('.option-label');
+                        siblings.forEach(s => s.classList.remove('selected'));
+                        if (e.target.checked) {
+                            label.classList.add('selected');
+                        }
+                    });
+                    
+                    const text = document.createElement('div');
+                    text.className = 'option-text';
+                    text.textContent = opt.text;
+                    
+                    label.appendChild(input);
+                    label.appendChild(text);
+                    optionsGrid.appendChild(label);
+                });
+                
+                group.appendChild(title);
+                group.appendChild(optionsGrid);
+                container.appendChild(group);
+            });
+        }
+
+        // Scoring Engine
+        function calculateScore(answers) {
+            let totalScore = 0;
+            const maxPossible = questionBank.length * 4;
+            const gaps = [];
+            
+            questionBank.forEach(q => {
+                const val = answers[q.id];
+                if (val) {
+                    totalScore += val;
+                    
+                    // Identify gaps (scores 1 or 2 are high priority, 3 is medium)
+                    if (val <= 2) {
+                        gaps.push({
+                            dimension: q.dimension,
+                            severity: 'high',
+                            advice: q.gapAdvice[val]
+                        });
+                    } else if (val === 3) {
+                        gaps.push({
+                            dimension: q.dimension,
+                            severity: 'medium',
+                            advice: q.gapAdvice[val]
+                        });
+                    }
+                }
+            });
+            
+            const percentage = Math.round((totalScore / maxPossible) * 100);
+            
+            // Group gaps by dimension for cleaner output, take top 4
+            const sortedGaps = gaps.sort((a, b) => a.severity === 'high' ? -1 : 1).slice(0, 4);
+            
+            return {
+                percentage,
+                totalScore,
+                maxPossible,
+                gaps: sortedGaps
+            };
+        }
+
+        // Form submission
+        document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const answers = {};
+            let answeredCount = 0;
+            
+            for (let [key, value] of formData.entries()) {
+                answers[key] = parseInt(value, 10);
+                answeredCount++;
+            }
+            
+            if (answeredCount < questionBank.length) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('form-error').style.display = 'none';
+            
+            const results = calculateScore(answers);
+            showResults(results);
+        });
+
+        function showResults(results) {
+            document.getElementById('assessment-section').style.display = 'none';
+            document.getElementById('results-section').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            const scoreCircle = document.getElementById('overall-score');
+            scoreCircle.textContent = `${results.percentage}%`;
+            
+            // Set circle color based on score
+            if (results.percentage >= 80) {
+                scoreCircle.style.color = 'var(--success)';
+                scoreCircle.style.borderColor = 'var(--success)';
+            } else if (results.percentage >= 60) {
+                scoreCircle.style.color = '#F57C00';
+                scoreCircle.style.borderColor = '#F57C00';
+            } else {
+                scoreCircle.style.color = 'var(--error)';
+                scoreCircle.style.borderColor = 'var(--error)';
+            }
+            
+            const contextText = document.getElementById('score-context');
+            if (results.percentage >= 80) {
+                contextText.textContent = "Strong position. You are well prepared to run a disciplined acquisition process, though minor optimisations remain.";
+            } else if (results.percentage >= 60) {
+                contextText.textContent = "Fair position. Foundations are in place but critical gaps need addressing before you approach a target.";
+            } else {
+                contextText.textContent = "High risk. Approaching targets now would risk overpaying, damaging relationships or a failed integration. Close the gaps first.";
+            }
+            
+            const gapsContainer = document.getElementById('gap-items-container');
+            gapsContainer.innerHTML = '';
+            
+            if (results.gaps.length === 0) {
+                gapsContainer.innerHTML = '<p>No significant gaps identified. You are in an excellent position to acquire.</p>';
+            } else {
+                results.gaps.forEach(gap => {
+                    const item = document.createElement('div');
+                    item.className = `gap-item ${gap.severity === 'high' ? '' : gap.severity}`;
+                    
+                    item.innerHTML = `
+                        <div class="gap-content">
+                            <h4>${gap.dimension}</h4>
+                            <p>${gap.advice}</p>
+                        </div>
+                    `;
+                    gapsContainer.appendChild(item);
+                });
+            }
+        }
+
+        // Set CTA link
+        document.getElementById('booking-cta').href = BOOKING_URL;
+
+        // Test Harness (as requested in Blueprint)
+        window.runTests = function() {
+            console.log("Running ATM Deal Ready diagnostic tests...");
+            let passed = 0;
+            let total = 0;
+            
+            function assert(condition, message) {
+                total++;
+                if (condition) {
+                    console.log(`? PASS: ${message}`);
+                    passed++;
+                } else {
+                    console.error(`? FAIL: ${message}`);
+                }
+            }
+            
+            // Test 1: Minimum score
+            const minAnswers = {};
+            questionBank.forEach(q => minAnswers[q.id] = 1);
+            const minResult = calculateScore(minAnswers);
+            assert(minResult.percentage === 25, "All 1s should result in 25% score");
+            assert(minResult.gaps.length > 0 && minResult.gaps[0].severity === 'high', "All 1s should generate high severity gaps");
+            
+            // Test 2: Maximum score
+            const maxAnswers = {};
+            questionBank.forEach(q => maxAnswers[q.id] = 4);
+            const maxResult = calculateScore(maxAnswers);
+            assert(maxResult.percentage === 100, "All 4s should result in 100% score");
+            assert(maxResult.gaps.length === 0, "All 4s should generate no top-priority gaps");
+            
+            // Test 3: Mixed score
+            const mixedAnswers = {
+                q1: 4, q2: 4, q3: 4, q4: 4, q5: 4, q6: 4, q7: 4,     // 28
+                q8: 2, q9: 2, q10: 2, q11: 2, q12: 2, q13: 2, q14: 2 // 14 => 42/56 = 75%
+            };
+            const mixedResult = calculateScore(mixedAnswers);
+            assert(mixedResult.percentage === 75, "Mixed 4s and 2s correctly calculates to 75%");
+            assert(mixedResult.gaps.length === 4 && mixedResult.gaps.every(g => g.severity === 'high'), "Gap list is capped at top 4, all high severity");
+
+            // Test 4: single weak dimension is surfaced
+            const singleWeak = {};
+            questionBank.forEach(q => singleWeak[q.id] = 4);
+            singleWeak.q9 = 1; // HoT & Due Diligence
+            const singleResult = calculateScore(singleWeak);
+            assert(singleResult.gaps.length === 1 && singleResult.gaps[0].dimension === 'HoT & Due Diligence', "Gap engine identifies the low-scoring dimension");
+            
+            console.log(`\nTest Summary: ${passed}/${total} passed.`);
+            return passed === total;
+        };
+
+        // Init
+        renderQuestions();
+    </script>
 </body>
 </html>
