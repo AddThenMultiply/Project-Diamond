@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advisor Console | Add Then Multiply</title>
+<style>
+:root{--primary:#0A192F;--secondary:#172A45;--accent:#D4AF37;--text-main:#333;--text-light:#666;
+--bg-light:#F8F9FA;--white:#FFF;--border:#E0E0E0;--error:#D32F2F;--success:#2E7D32;--warn:#B26A00;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+body{background:var(--bg-light);color:var(--text-main);line-height:1.6;}
+header{background:var(--primary);color:var(--white);padding:1.2rem 0;border-bottom:4px solid var(--accent);}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem;width:100%;}
+.header-content{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.logo{font-size:1.4rem;font-weight:700;}.logo span{color:var(--accent);}
+main{padding:2.5rem 0 4rem;}
+.card{background:var(--white);border-radius:8px;padding:2rem;box-shadow:0 4px 6px rgba(0,0,0,.05);margin-bottom:1.5rem;}
+h1{color:var(--primary);font-size:1.9rem;margin-bottom:.5rem;}
+h2{color:var(--primary);font-size:1.2rem;margin-bottom:1rem;}
+p.sub{color:var(--text-light);margin-bottom:1.2rem;}
+label{display:block;font-weight:600;font-size:.9rem;margin:.8rem 0 .25rem;color:var(--secondary);}
+input{width:100%;padding:.6rem .7rem;border:1px solid var(--border);border-radius:6px;font-size:.95rem;}
+button{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:.65rem 1.2rem;font-size:.95rem;font-weight:600;cursor:pointer;}
+button:hover{background:var(--secondary);}
+button.ghost{background:transparent;color:var(--primary);border:1px solid var(--primary);}
+button.small{padding:.3rem .7rem;font-size:.8rem;}
+.hidden{display:none!important;}
+.notice{padding:.8rem 1rem;border-radius:6px;margin:.8rem 0;font-size:.92rem;}
+.notice.ok{background:#E8F5E9;color:var(--success);}
+.notice.err{background:#FDECEA;color:var(--error);}
+.notice.info{background:#E3F2FD;color:#0D47A1;}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.kpi{background:var(--white);border-radius:8px;padding:1.2rem;box-shadow:0 4px 6px rgba(0,0,0,.05);text-align:center;}
+.kpi .n{font-size:2rem;font-weight:700;color:var(--primary);}
+.kpi .l{font-size:.8rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;}
+.kpi.warn .n{color:var(--warn);}.kpi.red .n{color:var(--error);}
+table{width:100%;border-collapse:collapse;font-size:.9rem;}
+th{text-align:left;background:var(--bg-light);color:var(--secondary);padding:.5rem .6rem;border-bottom:2px solid var(--border);}
+td{padding:.5rem .6rem;border-bottom:1px solid var(--border);vertical-align:top;}
+.tag{display:inline-block;padding:.1rem .5rem;border-radius:4px;font-size:.72rem;font-weight:700;}
+.tag.exit{background:#E8F5E9;color:#2E7D32;}
+.tag.deal{background:#F3E5F5;color:#6A1B9A;}
+.muted{color:var(--text-light);font-size:.85rem;}
+.right{text-align:right;}
+.redflag{color:var(--error);font-weight:700;}
+footer{background:var(--primary);color:#B0BEC5;padding:1.5rem 0;font-size:.85rem;text-align:center;}
+a{color:var(--primary);font-weight:600;}
+</style>
+</head>
+<body>
+<header><div class="container header-content">
+  <div class="logo">ADD THEN <span>MULTIPLY</span> — Advisor Console</div>
+  <div><span id="whoami" class="muted" style="color:#B0BEC5;"></span>
+  <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#fff;margin-left:.8rem;">Sign out</button></div>
+</div></header>
+<main><div class="container">
+
+  <section id="view-auth" class="card" style="max-width:520px;margin:2rem auto;">
+    <h1>Advisor sign-in</h1>
+    <p class="sub">The console is for advisors and admins. Enter your email for a magic link.</p>
+    <label for="auth-email">Email address</label>
+    <input id="auth-email" type="email" placeholder="you@addthenmultiply.com" autocomplete="email">
+    <div style="margin-top:1rem;"><button id="btn-magic">Send magic link</button></div>
+    <div id="auth-msg"></div>
+  </section>
+
+  <section id="view-denied" class="card hidden" style="max-width:560px;margin:2rem auto;">
+    <h1>Advisor access required</h1>
+    <p class="sub">Your account is signed in but does not hold the advisor or admin role.
+    Roles are granted by the administrator in the database — ask Madeleine or David.</p>
+  </section>
+
+  <section id="view-console" class="hidden">
+    <h1>Portfolio</h1>
+    <p class="sub">Every engagement you advise, at a glance — phases, open gaps, red flags, documents and the sign-off state. This is the scale dashboard: many concurrent engagements, one advisor, audit-defensible quality.</p>
+    <div class="kpis" id="kpis"></div>
+    <div class="card">
+      <h2>Engagements</h2>
+      <div id="portfolio-table"><span class="muted">Loading…</span></div>
+    </div>
+    <div class="card">
+      <h2>Attention required</h2>
+      <div id="attention"><span class="muted">Loading…</span></div>
+    </div>
+  </section>
+
+</div></main>
+<footer><div class="container">Add Then Multiply — Advisor Console · Private and confidential.</div></footer>
+
+<script src="assets/supabase.js"></script>
+<script>
+"use strict";
+/* ================= CONFIG ================= */
+const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
+const EXIT_PHASES = ["Founder Clarity","Gap Analysis","Business Readiness","Transaction Execution"];
+const DEAL_PHASES = ["Strategic Logic","Target ID","Human Approach","Founder-to-Founder","HoT & DD","SPA & Completion","Integration"];
+
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let session=null, profile=null;
+
+const $ = (id)=>document.getElementById(id);
+const esc = (s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function show(view){ ["view-auth","view-denied","view-console"].forEach(v=>$(v).classList.toggle("hidden", v!==view)); }
+function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
+
+/* Pure helper — portfolio aggregation (tested by runTests) */
+function summarise(engagements, gaps, dd, docs, signoffs){
+  const byEng = (rows, key)=>rows.reduce((m,r)=>{ (m[r.engagement_id] = m[r.engagement_id]||[]).push(r); return m; },{});
+  const gapsBy = byEng(gaps), ddBy = byEng(dd), docsBy = byEng(docs), signsBy = byEng(signoffs);
+  return engagements.map(e=>{
+    const g = gapsBy[e.id]||[], d = ddBy[e.id]||[], dc = docsBy[e.id]||[], s = signsBy[e.id]||[];
+    const phases = e.asset==="exit_ready" ? EXIT_PHASES : DEAL_PHASES;
+    return {
+      id:e.id, company:e.company_name, asset:e.asset, status:e.status,
+      phase:e.phase, phaseName:phases[e.phase-1]||"?", phaseCount:phases.length,
+      openGaps: g.filter(x=>x.status!=="closed").length,
+      redFlags: d.filter(x=>x.red_flag).length,
+      docsApproved: dc.filter(x=>x.status==="approved").length,
+      docsTotal: dc.length,
+      lastSignoff: s.length ? s.map(x=>x.signed_at).sort().slice(-1)[0] : null
+    };
+  });
+}
+
+async function init(){
+  const {data:{session:s}} = await sb.auth.getSession();
+  session = s;
+  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
+  route();
+}
+async function route(){
+  if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; return; }
+  $("btn-signout").classList.remove("hidden");
+  $("whoami").textContent = session.user.email;
+  const {data:p} = await sb.from("profiles").select("*").eq("id", session.user.id).single();
+  profile = p;
+  if(!profile || !["advisor","admin"].includes(profile.role)){ show("view-denied"); return; }
+  show("view-console");
+  await loadPortfolio();
+}
+$("btn-magic").onclick = async ()=>{
+  const email = $("auth-email").value.trim();
+  if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
+  msg("auth-msg","Sending magic link…","info");
+  const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
+  msg("auth-msg", error ? error.message : "Check your inbox.", error?"err":"ok");
+};
+$("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); };
+
+async function loadPortfolio(){
+  const [{data:engs,error:e1},{data:gaps},{data:dd},{data:docs},{data:signs}] = await Promise.all([
+    sb.from("engagements").select("*").order("created_at",{ascending:false}),
+    sb.from("gap_items").select("engagement_id,status"),
+    sb.from("dd_items").select("engagement_id,red_flag"),
+    sb.from("documents").select("engagement_id,status"),
+    sb.from("human_signoffs").select("engagement_id,signed_at")
+  ]);
+  if(e1){ $("portfolio-table").innerHTML = `<div class="notice err">${esc(e1.message)}</div>`; return; }
+  const rows = summarise(engs||[], gaps||[], dd||[], docs||[], signs||[]);
+
+  const active = rows.filter(r=>r.status==="active");
+  const totalRed = rows.reduce((a,r)=>a+r.redFlags,0);
+  const totalGaps = rows.reduce((a,r)=>a+r.openGaps,0);
+  $("kpis").innerHTML = `
+    <div class="kpi"><div class="n">${rows.length}</div><div class="l">Engagements</div></div>
+    <div class="kpi"><div class="n">${active.length}</div><div class="l">Active</div></div>
+    <div class="kpi ${totalGaps?"warn":""}"><div class="n">${totalGaps}</div><div class="l">Open gap items</div></div>
+    <div class="kpi ${totalRed?"red":""}"><div class="n">${totalRed}</div><div class="l">DD red flags</div></div>`;
+
+  $("portfolio-table").innerHTML = rows.length ? `<table>
+    <tr><th>Company</th><th>Asset</th><th>Phase</th><th>Open gaps</th><th>Red flags</th><th>Docs approved</th><th>Last sign-off</th><th></th></tr>
+    ${rows.map(r=>`<tr>
+      <td><strong>${esc(r.company)}</strong><div class="muted">${esc(r.status)}</div></td>
+      <td><span class="tag ${r.asset==="exit_ready"?"exit":"deal"}">${r.asset==="exit_ready"?"Exit Ready":"Deal Ready"}</span></td>
+      <td>${r.phase}/${r.phaseCount} — ${esc(r.phaseName)}</td>
+      <td>${r.openGaps||"—"}</td>
+      <td>${r.redFlags?`<span class="redflag">${r.redFlags} ⚑</span>`:"—"}</td>
+      <td>${r.docsTotal?`${r.docsApproved}/${r.docsTotal}`:"—"}</td>
+      <td class="muted">${r.lastSignoff?new Date(r.lastSignoff).toLocaleDateString("en-GB"):"none"}</td>
+      <td class="right"><a href="${r.asset==="exit_ready"?"exit-ready-workspace.html":"deal-ready-workspace.html"}">Open →</a></td>
+    </tr>`).join("")}</table>` : `<p class="muted">No engagements in your portfolio yet.</p>`;
+
+  const attention = rows.filter(r=>r.redFlags>0 || r.openGaps>=3 || !r.lastSignoff);
+  $("attention").innerHTML = attention.length ? attention.map(r=>{
+    const why = [];
+    if(r.redFlags) why.push(`${r.redFlags} DD red flag${r.redFlags>1?"s":""}`);
+    if(r.openGaps>=3) why.push(`${r.openGaps} open gap items`);
+    if(!r.lastSignoff) why.push("no sign-off recorded yet");
+    return `<div class="notice ${r.redFlags?"err":"info"}"><strong>${esc(r.company)}</strong> — ${why.join(" · ")}</div>`;
+  }).join("") : `<div class="notice ok">Nothing urgent — no red flags, gap build-ups or missing sign-offs.</div>`;
+}
+
+/* ================= TEST HARNESS ================= */
+window.runTests = function(){
+  const results=[]; const t=(name,pass)=>{results.push({name,pass}); console.log((pass?"✅":"❌")+" "+name);};
+  const engs=[{id:"e1",company_name:"A Ltd",asset:"exit_ready",phase:2,status:"active"},
+              {id:"e2",company_name:"B Ltd",asset:"deal_ready",phase:5,status:"active"}];
+  const gaps=[{engagement_id:"e1",status:"open"},{engagement_id:"e1",status:"closed"},{engagement_id:"e1",status:"open"}];
+  const dd=[{engagement_id:"e2",red_flag:true},{engagement_id:"e2",red_flag:false}];
+  const docs=[{engagement_id:"e1",status:"approved"},{engagement_id:"e1",status:"draft"}];
+  const signs=[{engagement_id:"e1",signed_at:"2026-07-01T10:00:00Z"},{engagement_id:"e1",signed_at:"2026-07-20T10:00:00Z"}];
+  const s = summarise(engs,gaps,dd,docs,signs);
+  t("two portfolio rows", s.length===2);
+  t("open gaps counts only non-closed", s[0].openGaps===2);
+  t("red flags counted for the right engagement", s[0].redFlags===0 && s[1].redFlags===1);
+  t("docs approved 1/2", s[0].docsApproved===1 && s[0].docsTotal===2);
+  t("last sign-off picks the latest", s[0].lastSignoff==="2026-07-20T10:00:00Z");
+  t("deal-ready phase name resolves from 7-phase list", s[1].phaseName==="HoT & DD");
+  t("exit-ready phase count is 4, deal 7", s[0].phaseCount===4 && s[1].phaseCount===7);
+  const passed = results.filter(r=>r.pass).length;
+  console.log(`${passed}/${results.length} tests passed`);
+  return {passed, total:results.length, ok:passed===results.length};
+};
+
+init();
+</script>
+</body>
+</html>
