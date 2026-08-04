@@ -44,7 +44,10 @@ h2{font-family:Georgia,serif;font-size:1.5rem;color:var(--navy);margin:0.3rem 0 
 section{margin-top:3rem;}
 .quote{font-family:Georgia,serif;font-size:1.15rem;color:var(--navy);border-left:4px solid var(--navy);padding-left:1.2rem;margin:1.5rem 0;max-width:60ch;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
-@media(max-width:700px){.duo,.face{grid-template-columns:1fr}.hero h1{font-size:1.7rem}.tier{grid-template-columns:auto 1fr}.tier .tag{grid-column:2}}
+.fork{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fork a{transition:transform 0.15s;}
+.fork a:hover{transform:translateY(-2px);}
+@media(max-width:700px){.duo,.face,.fork{grid-template-columns:1fr}.hero h1{font-size:1.7rem}.tier{grid-template-columns:auto 1fr}.tier .tag{grid-column:2}}
 </style>
 </head>
 <body>
@@ -64,9 +67,16 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <div class="hero">
   <span class="kicker">Founder readiness · built on the FACE methodology</span>
   <h1>Arrive at the table prepared. Leave it with the outcome you wanted.</h1>
-  <p>Founders who know what they want from an exit — and have a business ready to deliver it — achieve significantly better outcomes than those who go to market unprepared. An exit is not just a transaction. It is a life event, and we treat it as one.</p>
-  <a class="cta" href="diagnostic.html">Begin the free diagnostic</a>
-  <a class="ghost" href="readiness-project.html">How we work</a>
+  <p>Every good engagement starts with one question — the same one we'll ask you: <b style="color:#fff;">what do you want?</b> Founders who can answer it, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared.</p>
+  <div class="fork" style="max-width:720px;margin:0 auto;text-align:left;">
+    <a href="deal-ready.html" style="display:block;background:#fff;border-radius:6px;padding:1.3rem 1.4rem;color:var(--ink);">
+      <b style="color:var(--navy);font-family:Georgia,serif;font-size:1.05rem;">I want to grow by acquiring →</b>
+      <span style="display:block;font-size:0.85rem;color:var(--slate);margin-top:0.3rem;">Funding to buy resources from — or merge with — another company, to gear for growth.</span></a>
+    <a href="diagnostic.html" style="display:block;background:#fff;border-radius:6px;padding:1.3rem 1.4rem;color:var(--ink);">
+      <b style="color:var(--navy);font-family:Georgia,serif;font-size:1.05rem;">I'm preparing my exit →</b>
+      <span style="display:block;font-size:0.85rem;color:var(--slate);margin-top:0.3rem;">Exit on your terms, funded by your assets and equity, with the right investors at the table.</span></a>
+  </div>
+  <p style="margin-top:1.6rem;font-size:0.85rem;"><a class="ghost" style="margin-left:0;" href="readiness-project.html">How we work</a></p>
 </div>
 <main>
   <section>

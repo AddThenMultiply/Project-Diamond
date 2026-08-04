@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investor Mandates — Add Then Multiply</title>
+<style>
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--bad:#B91C1C;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
+header nav a{color:#CBD5E1;font-size:0.85rem;}
+header button{background:none;border:1px solid #475569;color:#CBD5E1;border-radius:4px;padding:0.3rem 0.8rem;font-size:0.8rem;cursor:pointer;}
+main{max-width:1000px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
+.kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
+h1{font-family:Georgia,serif;font-size:1.9rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
+h2{font-family:Georgia,serif;font-size:1.2rem;color:var(--navy);margin:1.6rem 0 0.6rem;}
+p.lede{color:var(--slate);font-size:0.95rem;max-width:70ch;}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.3rem 1.4rem;margin:1rem 0;}
+label.f{display:block;font-size:0.78rem;font-weight:600;color:var(--navy);margin:0.8rem 0 0.2rem;}
+input,textarea,select{width:100%;border:1px solid var(--line);border-radius:4px;padding:0.5rem 0.7rem;font-size:0.86rem;font-family:inherit;background:#fff;color:var(--ink);}
+textarea{min-height:56px;resize:vertical;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 1rem;}
+button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.75rem 1.5rem;font-size:0.92rem;font-weight:600;cursor:pointer;margin-top:1.1rem;}
+.notice{border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;margin:0.8rem 0;}
+.notice.ok{background:#DCFCE7;color:#14532D;}
+.notice.err{background:#FEE2E2;color:#7F1D1D;}
+.notice.info{background:#DBEAFE;color:#1E3A8A;}
+.hidden{display:none;}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:0.6rem;}
+th,td{border-bottom:1px solid var(--line);padding:0.5rem 0.6rem;text-align:left;vertical-align:top;}
+th{color:var(--slate);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;}
+.tag{font-size:0.68rem;font-weight:700;padding:0.15rem 0.5rem;border-radius:99px;background:#DBEAFE;color:#1D4ED8;white-space:nowrap;}
+.warnbox{background:#FEF3C7;border-left:3px solid #B45309;padding:0.7rem 1rem;font-size:0.82rem;border-radius:0 4px 4px 0;margin:1rem 0;}
+footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
+@media(max-width:700px){.row,.row3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">ADD THEN MULTIPLY</span>
+  <nav><a href="advisor-console.html">Advisor Console</a><a href="intake.html">Founder Intake</a></nav>
+  <span id="whoami" style="font-size:0.78rem;color:#94A3B8;"></span>
+  <button id="btn-signout" class="hidden">Sign out</button>
+</header>
+<main>
+
+<section id="view-auth">
+  <span class="kicker">Advisors and administrators only</span>
+  <h1>Investor mandate register</h1>
+  <p class="lede">The structured layer over the investor relationship base: each mandate records what an investor is actually looking for — cheque size, thresholds, sectors, involvement, dealbreakers — so engagement dossiers can be assessed against real criteria before any conversation happens.</p>
+  <div class="card">
+    <label class="f">Email address</label>
+    <input type="email" id="auth-email" placeholder="you@…">
+    <button class="cta" id="btn-magic">Email me a sign-in link</button>
+    <div id="auth-msg"></div>
+  </div>
+</section>
+
+<section id="view-denied" class="hidden">
+  <h1>Advisor access required</h1>
+  <p class="lede">This register is restricted to advisor and admin roles. If you believe you should have access, contact the platform administrator.</p>
+</section>
+
+<section id="view-main" class="hidden">
+  <span class="kicker">Advisors and administrators only</span>
+  <h1>Investor mandate register</h1>
+  <div class="warnbox"><b>Confidentiality and regulatory position:</b> mandate data never appears on the public site and is never shown to founders. Matching output is advisory input only — introductions are made offline through the authorised transaction partner. The platform does not arrange investments.</div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Add a mandate</h2>
+    <div class="row">
+      <span><label class="f">Organisation</label><input type="text" id="m-org"></span>
+      <span><label class="f">Type</label><select id="m-type">
+        <option value="pe_buyout">Private equity / buyout</option>
+        <option value="growth_equity">Growth equity</option>
+        <option value="family_office">Family office</option>
+        <option value="strategic">Strategic / trade buyer</option>
+        <option value="angel">Angel</option>
+        <option value="debt">Debt provider</option>
+      </select></span>
+    </div>
+    <div class="row">
+      <span><label class="f">Cheque size min (£)</label><input type="number" id="m-cmin" min="0" step="100000"></span>
+      <span><label class="f">Cheque size max (£)</label><input type="number" id="m-cmax" min="0" step="100000"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">Minimum revenue (£)</label><input type="number" id="m-rmin" min="0" step="100000"></span>
+      <span><label class="f">Minimum EBITDA (£)</label><input type="number" id="m-emin" min="0" step="50000"></span>
+    </div>
+    <div class="row3">
+      <span><label class="f">Sectors (comma-separated)</label><input type="text" id="m-sectors" placeholder="SaaS, healthcare, services"></span>
+      <span><label class="f">Geographies (comma-separated)</label><input type="text" id="m-geos" placeholder="UK, Europe"></span>
+      <span><label class="f">Horizon (years)</label><input type="number" id="m-horizon" min="1" max="30"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">Involvement style</label><select id="m-involve"><option value="">—</option><option>Board seat</option><option>Hands-on operational</option><option>Strategic oversight</option><option>Silent / patient capital</option></select></span>
+      <span><label class="f">Relationship owner</label><input type="text" id="m-owner" placeholder="Who holds this relationship"></span>
+    </div>
+    <label class="f">Must-haves</label><textarea id="m-must"></textarea>
+    <label class="f">Dealbreakers</label><textarea id="m-breakers"></textarea>
+    <label class="f">Notes</label><textarea id="m-notes"></textarea>
+    <button class="cta" id="btn-add">Add mandate</button>
+    <div id="add-msg"></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Register (<span id="m-count">0</span>)</h2>
+    <div style="overflow-x:auto;"><table>
+      <thead><tr><th>Organisation</th><th>Type</th><th>Cheque</th><th>Thresholds</th><th>Sectors</th><th>Dealbreakers</th><th>Status</th></tr></thead>
+      <tbody id="m-rows"></tbody>
+    </table></div>
+  </div>
+</section>
+
+</main>
+<footer>© Add Then Multiply · Private register · Never founder-visible · Introductions via authorised transaction partner only</footer>
+<script src="assets/supabase.js"></script>
+<script>
+"use strict";
+const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let session=null, profile=null;
+const $=(id)=>document.getElementById(id);
+const esc=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
+function show(v){ ["view-auth","view-denied","view-main"].forEach(x=>$(x).classList.toggle("hidden", x!==v)); }
+const csv=(v)=>String(v||"").split(",").map(s=>s.trim()).filter(Boolean);
+const numOrNull=(v)=>{ const n=parseFloat(v); return isFinite(n)?n:null; };
+const fmtK=(n)=> n==null ? "—" : (n>=1e6 ? "£"+(n/1e6)+"m" : "£"+Math.round(n/1e3)+"k");
+
+function buildMandate(f){
+  if(!f.org || !f.type) return null;
+  return { org_name:f.org, investor_type:f.type,
+    cheque_min:numOrNull(f.cmin), cheque_max:numOrNull(f.cmax),
+    revenue_min:numOrNull(f.rmin), ebitda_min:numOrNull(f.emin),
+    sectors:csv(f.sectors), geographies:csv(f.geos),
+    horizon_years:numOrNull(f.horizon), involvement:f.involve||null,
+    must_haves:f.must||null, dealbreakers:f.breakers||null,
+    relationship_owner:f.owner||null, notes:f.notes||null };
+}
+
+async function init(){
+  const {data:{session:s}} = await sb.auth.getSession(); session=s;
+  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
+  route();
+}
+async function route(){
+  if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); return; }
+  $("btn-signout").classList.remove("hidden");
+  $("whoami").textContent = session.user.email;
+  const {data:p} = await sb.from("profiles").select("*").eq("id", session.user.id).single();
+  profile = p;
+  if(!p || !["advisor","admin"].includes(p.role)){ show("view-denied"); return; }
+  show("view-main"); await loadMandates();
+}
+$("btn-magic").onclick = async ()=>{
+  const email=$("auth-email").value.trim();
+  if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
+  msg("auth-msg","Sending your sign-in link…","info");
+  const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
+  msg("auth-msg", error?error.message:"Check your inbox.", error?"err":"ok");
+};
+$("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); };
+
+async function loadMandates(){
+  const {data, error} = await sb.from("investor_mandates").select("*").order("org_name");
+  if(error){ msg("add-msg", error.message, "err"); return; }
+  $("m-count").textContent = (data||[]).length;
+  const typeLabel={pe_buyout:"PE / buyout",growth_equity:"Growth",family_office:"Family office",strategic:"Strategic",angel:"Angel",debt:"Debt"};
+  $("m-rows").innerHTML = (data||[]).map(m=>`<tr>
+    <td><b>${esc(m.org_name)}</b>${m.relationship_owner?`<br><span style="color:var(--slate);font-size:0.74rem">${esc(m.relationship_owner)}</span>`:""}</td>
+    <td><span class="tag">${typeLabel[m.investor_type]||esc(m.investor_type)}</span></td>
+    <td>${fmtK(m.cheque_min)}–${fmtK(m.cheque_max)}</td>
+    <td>rev ${fmtK(m.revenue_min)} · EBITDA ${fmtK(m.ebitda_min)}</td>
+    <td>${esc((m.sectors||[]).join(", "))||"—"}</td>
+    <td style="max-width:220px">${esc(m.dealbreakers||"—")}</td>
+    <td>${esc(m.status)}</td></tr>`).join("");
+}
+$("btn-add").onclick = async ()=>{
+  const payload = buildMandate({
+    org:$("m-org").value.trim(), type:$("m-type").value,
+    cmin:$("m-cmin").value, cmax:$("m-cmax").value, rmin:$("m-rmin").value, emin:$("m-emin").value,
+    sectors:$("m-sectors").value, geos:$("m-geos").value, horizon:$("m-horizon").value,
+    involve:$("m-involve").value, owner:$("m-owner").value.trim(),
+    must:$("m-must").value.trim(), breakers:$("m-breakers").value.trim(), notes:$("m-notes").value.trim(),
+  });
+  if(!payload){ msg("add-msg","Organisation and type are required.","err"); return; }
+  const {error} = await sb.from("investor_mandates").insert(payload);
+  if(error){ msg("add-msg", error.message, "err"); return; }
+  msg("add-msg","Mandate added.","ok");
+  ["m-org","m-cmin","m-cmax","m-rmin","m-emin","m-sectors","m-geos","m-horizon","m-owner","m-must","m-breakers","m-notes"].forEach(id=>$(id).value="");
+  await loadMandates();
+};
+
+function runTests(){
+  const results=[]; const t=(n,c)=>results.push({name:n,pass:!!c});
+  const m = buildMandate({org:"Acme Capital",type:"pe_buyout",cmin:"1000000",cmax:"10000000",rmin:"5000000",emin:"1000000",sectors:"SaaS, services",geos:"UK",horizon:"5",involve:"Board seat",owner:"DH",must:"",breakers:"No founder exit day one",notes:""});
+  t("mandate built", !!m && m.org_name==="Acme Capital");
+  t("sectors parsed", m.sectors.length===2 && m.sectors[1]==="services");
+  t("empty must -> null", m.must_haves===null);
+  t("numbers parsed", m.cheque_min===1000000 && m.ebitda_min===1000000);
+  t("missing org rejected", buildMandate({org:"",type:"pe_buyout"})===null);
+  t("fmtK millions", fmtK(2500000)==="£2.5m");
+  t("fmtK thousands", fmtK(250000)==="£250k");
+  t("fmtK null", fmtK(null)==="—");
+  const passed=results.filter(r=>r.pass).length;
+  console.table(results); console.log(`${passed}/${results.length} tests passed`);
+  return passed===results.length;
+}
+window.runTests=runTests;
+init();
+</script>
+</body>
+</html>
