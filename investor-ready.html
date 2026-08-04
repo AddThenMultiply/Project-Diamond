@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Ready Diagnostic | Add Then Multiply</title>
+    <style>
+        :root {
+            --primary: #0A192F;
+            --secondary: #172A45;
+            --accent: #D4AF37; /* Gold */
+            --text-main: #333333;
+            --text-light: #666666;
+            --bg-light: #F8F9FA;
+            --white: #FFFFFF;
+            --border: #E0E0E0;
+            --error: #D32F2F;
+            --success: #2E7D32;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1.5rem 0;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .intro h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .question-group {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-group:last-of-type {
+            border-bottom: none;
+            margin-bottom: 1rem;
+            padding-bottom: 0;
+        }
+
+        .question-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dimension-tag {
+            font-size: 0.75rem;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-items: flex-start;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent);
+            background-color: #FDFBF5;
+        }
+
+        .option-label.selected {
+            border-color: var(--accent);
+            background-color: #FDFBF5;
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+
+        .option-input {
+            margin-top: 0.25rem;
+            margin-right: 1rem;
+            accent-color: var(--primary);
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #C09D2E;
+        }
+
+        .btn:disabled {
+            background-color: #E0E0E0;
+            color: #999999;
+            cursor: not-allowed;
+        }
+
+        /* Results section */
+        #results-section {
+            display: none;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background-color: #FDFBF5;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--accent);
+        }
+
+        .score-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .gap-summary {
+            margin-bottom: 2.5rem;
+        }
+
+        .gap-summary h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .gap-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--error);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .gap-item.medium {
+            border-left-color: #F57C00;
+        }
+
+        .gap-item.low {
+            border-left-color: var(--success);
+        }
+
+        .gap-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+        
+        .gap-content p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .cta-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .error-message {
+            color: var(--error);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">Add<span>Then</span>Multiply</div>
+            <div style="font-weight: 500; opacity: 0.9;">Investor Ready Diagnostic</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="assessment-section">
+            <div class="intro">
+                <h1>Are you Investor Ready?</h1>
+                <p>You are raising investment to buy the resources, technology and people your growth needs. Evaluate your readiness across the seven things investors test — your ask, your numbers, your assets, your data room, your pipeline, your story and your terms — before you approach a single investor.</p>
+            </div>
+
+            <div class="card">
+                <form id="diagnostic-form">
+                    <div id="questions-container"></div>
+                    
+                    <div class="error-message" id="form-error">
+                        Please answer all questions before submitting.
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submit-btn">Calculate Investor Readiness Score</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="results-section">
+            <div class="intro">
+                <h1>Your Investor Readiness Report</h1>
+                <p>Based on the FACE methodology (Fund, Acquire, Consolidate, Exit) and the fundraising-asset discipline of <em>Funded Female Founders</em>.</p>
+            </div>
+
+            <div class="card">
+                <div class="score-display">
+                    <div class="score-circle" id="overall-score">0%</div>
+                    <div class="score-label">Overall Readiness Score</div>
+                    <p style="margin-top: 1rem; color: var(--text-light);" id="score-context"></p>
+                </div>
+
+                <div class="gap-summary">
+                    <h3>Priority Gap Analysis</h3>
+                    <div id="gap-items-container"></div>
+                </div>
+
+                <div class="cta-section">
+                    <h3>Discuss your results</h3>
+                    <p>Review your investor readiness with David B Horne on a complimentary Readiness Call.</p>
+                    <a href="#" id="booking-cta" class="btn" style="width: auto;">Book Readiness Call</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuration
+        const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=Investor%20Readiness%20Call";
+
+        // Question Bank
+        const questionBank = [
+            { id: "q1", dimension: "Clarity of Ask", tag: "F",
+                text: "How clearly can you state how much you are raising and exactly what the money buys?",
+                options: [
+                    { value: 1, text: "We know we need money but the amount and uses are vague." },
+                    { value: 2, text: "We have a number, but the use of funds is a broad list." },
+                    { value: 3, text: "We have a costed use of funds — people, technology, resources — behind the number." },
+                    { value: 4, text: "A fully costed use of funds tied to specific milestones and the runway it creates." } ],
+                gapAdvice: {
+                    1: "Investors fund plans, not gaps in the bank. Cost the people, technology and resources the raise buys before any conversation.",
+                    2: "Break the broad list into a costed, month-by-month use of funds.",
+                    3: "Good. Now link every line to the milestone it unlocks.",
+                    4: "Excellent. A milestone-linked ask is the mark of an investor-ready founder." } },
+            { id: "q2", dimension: "Clarity of Ask", tag: "F",
+                text: "Do you know what this round must achieve to earn the next one (or reach profitability)?",
+                options: [
+                    { value: 1, text: "We have not mapped beyond this raise." },
+                    { value: 2, text: "We have a rough idea of what comes next." },
+                    { value: 3, text: "We know the metrics this round must deliver for the next raise." },
+                    { value: 4, text: "A staged funding roadmap: this round's milestones, the next round's entry metrics, and the path to profitability." } ],
+                gapAdvice: {
+                    1: "Every raise is a bridge to the next proof point. Map the staging before investors ask — because they will.",
+                    2: "Firm up the metrics: what must be true in 18 months for the next cheque?",
+                    3: "Good. Sense-check those metrics against what the next-stage investors actually require.",
+                    4: "Excellent. A staged roadmap shows investors you understand their exit as well as your own journey." } },
+            { id: "q3", dimension: "Growth Plan & Numbers", tag: "F",
+                text: "How robust are your financial projections?",
+                options: [
+                    { value: 1, text: "We have a simple revenue forecast in a spreadsheet." },
+                    { value: 2, text: "Annual projections, but not monthly and not fully integrated." },
+                    { value: 3, text: "Multi-year monthly projections covering profit and loss and cash." },
+                    { value: 4, text: "Five-year monthly three-statement projections (P&L, balance sheet, cash flow) with clear assumptions." } ],
+                gapAdvice: {
+                    1: "A single revenue line will not survive an investor meeting. Build integrated projections with visible assumptions.",
+                    2: "Move to monthly and integrate the three statements — cash timing is where credibility lives.",
+                    3: "Good. Add the balance sheet and stress-test the assumptions.",
+                    4: "Excellent. Three-statement monthly projections are big-company-grade preparation." } },
+            { id: "q4", dimension: "Growth Plan & Numbers", tag: "F",
+                text: "How well can you evidence traction and unit economics?",
+                options: [
+                    { value: 1, text: "We talk about the opportunity more than the numbers." },
+                    { value: 2, text: "We have headline revenue but limited metric depth." },
+                    { value: 3, text: "We track the key metrics for our model and can explain the trends." },
+                    { value: 4, text: "We know our unit economics cold — acquisition cost, lifetime value, margins, payback — with evidence." } ],
+                gapAdvice: {
+                    1: "Vision opens the meeting; numbers close the round. Instrument the business now.",
+                    2: "Add depth: cohorts, retention, margins — whatever proves your model works.",
+                    3: "Good. Be ready to defend every trend line under questioning.",
+                    4: "Excellent. Founders who know their unit economics cold command the room — and the valuation." } },
+            { id: "q5", dimension: "Fundraising Assets", tag: "F",
+                text: "What state is your pitch deck in?",
+                options: [
+                    { value: 1, text: "We do not have a current deck." },
+                    { value: 2, text: "We have a deck, but it is long, dated or unfocused." },
+                    { value: 3, text: "A tight, current deck covering the essentials." },
+                    { value: 4, text: "A disciplined 12-slide deck — problem, solution, market, model, traction, team, numbers, ask — tested on real audiences." } ],
+                gapAdvice: {
+                    1: "The deck is your entry ticket. Build the 12-slide structure before approaching anyone.",
+                    2: "Cut it to 12 focused slides — investors give a first deck three minutes.",
+                    3: "Good. Test it on friendly investors and iterate on the questions they ask.",
+                    4: "Excellent. A tested 12-slide deck is precisely the fundraising-asset discipline that gets meetings." } },
+            { id: "q6", dimension: "Fundraising Assets", tag: "F",
+                text: "Do you have a full business plan behind the deck?",
+                options: [
+                    { value: 1, text: "No — the deck is all we have." },
+                    { value: 2, text: "A short document exists but it is thin or out of date." },
+                    { value: 3, text: "A solid current business plan backing every claim in the deck." },
+                    { value: 4, text: "A comprehensive 30–50 page plan — strategy, market, operations, people, financials — kept current." } ],
+                gapAdvice: {
+                    1: "Serious investors go deeper than the deck. The plan is where diligence questions get answered before they are asked.",
+                    2: "Rebuild the plan so every deck claim has a chapter of substance behind it.",
+                    3: "Good. Keep it current — a stale plan reads worse than no plan.",
+                    4: "Excellent. A 30–50 page plan means diligence confirms rather than discovers." } },
+            { id: "q7", dimension: "Data Room & Governance", tag: "F",
+                text: "If an investor asked for your data room tomorrow, what would they find?",
+                options: [
+                    { value: 1, text: "We would need weeks to assemble anything." },
+                    { value: 2, text: "Key documents exist but are scattered across inboxes and drives." },
+                    { value: 3, text: "A structured data room with the main documents in place." },
+                    { value: 4, text: "A complete, checklist-driven data room — corporate, financial, commercial, people — ready to share." } ],
+                gapAdvice: {
+                    1: "A slow data room kills deal momentum. Start assembling against a proper checklist now.",
+                    2: "Centralise everything into one structured room before the raise, not during it.",
+                    3: "Good. Audit it against a full checklist for the gaps you cannot see.",
+                    4: "Excellent. An instant, complete data room signals a well-run company — and speeds the cheque." } },
+            { id: "q8", dimension: "Data Room & Governance", tag: "F",
+                text: "How clean are your cap table, legals and company housekeeping?",
+                options: [
+                    { value: 1, text: "There are known issues we have not addressed." },
+                    { value: 2, text: "Mostly fine, we think, but never professionally reviewed." },
+                    { value: 3, text: "Clean cap table and legals, reviewed within the last year." },
+                    { value: 4, text: "Clean and current: cap table, shareholder agreements, IP assignments, contracts and filings all verified." } ],
+                gapAdvice: {
+                    1: "Cap table or legal issues surface in diligence at the worst moment. Fix them before you raise.",
+                    2: "Get a light-touch legal review now — cheap insurance against a broken deal later.",
+                    3: "Good. Confirm IP assignments and employment contracts are watertight.",
+                    4: "Excellent. Clean housekeeping removes every excuse to reprice or delay." } },
+            { id: "q9", dimension: "Investor Pipeline", tag: "F",
+                text: "How researched is your investor target list?",
+                options: [
+                    { value: 1, text: "We plan to approach whoever we can reach." },
+                    { value: 2, text: "A short informal list of names we have heard of." },
+                    { value: 3, text: "A researched longlist filtered to investors who back our stage and sector." },
+                    { value: 4, text: "A scored shortlist of 30–50 investors matched on stage, sector, cheque size and portfolio fit." } ],
+                gapAdvice: {
+                    1: "Spray-and-pray wastes months and burns reputation. Research who actually funds your stage and sector.",
+                    2: "Expand to a proper longlist, then filter hard — most investors are wrong for you.",
+                    3: "Good. Score the list so your energy goes to the best-fit 30–50.",
+                    4: "Excellent. The longlist-to-shortlist discipline is how funded founders run a raise like a sales pipeline." } },
+            { id: "q10", dimension: "Investor Pipeline", tag: "F",
+                text: "How will you reach the investors on your list?",
+                options: [
+                    { value: 1, text: "Cold emails and online applications." },
+                    { value: 2, text: "Mostly cold, with one or two possible introductions." },
+                    { value: 3, text: "We have mapped warm routes to a good share of the list." },
+                    { value: 4, text: "A warm-introduction path mapped to most of the shortlist, with introducers briefed and sequenced." } ],
+                gapAdvice: {
+                    1: "Warm introductions convert many times better than cold approaches. Map your network before you launch the raise.",
+                    2: "Work your network deliberately — second-degree connections cover more of your list than you think.",
+                    3: "Good. Brief every introducer so the first impression lands right.",
+                    4: "Excellent. A sequenced warm-intro campaign creates the momentum that closes rounds." } },
+            { id: "q11", dimension: "Pitch & Story", tag: "F",
+                text: "How compelling and rehearsed is your fundraising story?",
+                options: [
+                    { value: 1, text: "We explain the business differently every time." },
+                    { value: 2, text: "The story exists but has not been tested under pressure." },
+                    { value: 3, text: "A clear narrative — problem, insight, why us, why now — delivered consistently." },
+                    { value: 4, text: "A tested narrative, rehearsed against hostile questioning, consistent across the team." } ],
+                gapAdvice: {
+                    1: "An inconsistent story reads as an unclear business. Write it, test it, fix it.",
+                    2: "Rehearse under pressure — friendly practice does not prepare you for a partner meeting.",
+                    3: "Good. Make sure co-founders tell exactly the same story.",
+                    4: "Excellent. A pressure-tested, consistent story is what conviction sounds like." } },
+            { id: "q12", dimension: "Pitch & Story", tag: "F",
+                text: "How prepared are you for the hard questions — competition, churn, why the last round's promises slipped?",
+                options: [
+                    { value: 1, text: "We would answer on instinct in the room." },
+                    { value: 2, text: "We have thought about the obvious ones." },
+                    { value: 3, text: "We keep a written objection list with agreed answers." },
+                    { value: 4, text: "A maintained objection bank, rehearsed regularly, with evidence attached to every answer." } ],
+                gapAdvice: {
+                    1: "The hard questions decide the meeting. List them and agree the answers before you pitch.",
+                    2: "Go beyond the obvious — the question that hurts is the one you avoided writing down.",
+                    3: "Good. Attach evidence to each answer; assertion alone does not survive diligence.",
+                    4: "Excellent. Rehearsed, evidenced answers turn objections into credibility." } },
+            { id: "q13", dimension: "Deal Terms", tag: "F",
+                text: "How grounded are your valuation expectations?",
+                options: [
+                    { value: 1, text: "We have a number in mind based on what we have read about other startups." },
+                    { value: 2, text: "A rough range, not benchmarked against comparable raises." },
+                    { value: 3, text: "A range benchmarked against comparable companies at our stage and sector." },
+                    { value: 4, text: "A benchmarked range plus a clear view of the dilution we will and will not accept." } ],
+                gapAdvice: {
+                    1: "Headline-driven valuations end raises before they start. Benchmark against real comparable rounds.",
+                    2: "Do the benchmarking work — your range should survive an investor asking 'based on what?'",
+                    3: "Good. Now decide your dilution limits before negotiation pressure arrives.",
+                    4: "Excellent. Grounded valuation plus dilution discipline is a negotiation position, not a hope." } },
+            { id: "q14", dimension: "Deal Terms", tag: "F",
+                text: "How fluent are you in term sheets — liquidation preferences, board seats, investor rights, and the tax reliefs available to your investors?",
+                options: [
+                    { value: 1, text: "We would rely entirely on a lawyer to explain the terms." },
+                    { value: 2, text: "We know the headline terms but not their long-term consequences." },
+                    { value: 3, text: "We understand the main terms and which ones are dangerous." },
+                    { value: 4, text: "Fluent — preferences, anti-dilution, board control, investor tax reliefs — and we know our red lines." } ],
+                gapAdvice: {
+                    1: "Terms shape your company for years. Learn the anatomy of a term sheet before one is in front of you.",
+                    2: "Understand the consequences — a bad preference stack costs more than a lower valuation.",
+                    3: "Good. Write down your red lines while there is no pressure.",
+                    4: "Excellent. Term-sheet fluency protects the company you have built — and the exit you want." } }
+        ];
+
+        // Render questions
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            questionBank.forEach((q, index) => {
+                const group = document.createElement('div');
+                group.className = 'question-group';
+                
+                const title = document.createElement('div');
+                title.className = 'question-title';
+                title.innerHTML = `
+                    <span class="dimension-tag">${q.tag}</span>
+                    <span>${index + 1}. ${q.text}</span>
+                `;
+                
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+                
+                q.options.forEach(opt => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = q.id;
+                    input.value = opt.value;
+                    input.className = 'option-input';
+                    
+                    input.addEventListener('change', (e) => {
+                        // Update styling for selected option
+                        const siblings = optionsGrid.querySelectorAll('.option-label');
+                        siblings.forEach(s => s.classList.remove('selected'));
+                        if (e.target.checked) {
+                            label.classList.add('selected');
+                        }
+                    });
+                    
+                    const text = document.createElement('div');
+                    text.className = 'option-text';
+                    text.textContent = opt.text;
+                    
+                    label.appendChild(input);
+                    label.appendChild(text);
+                    optionsGrid.appendChild(label);
+                });
+                
+                group.appendChild(title);
+                group.appendChild(optionsGrid);
+                container.appendChild(group);
+            });
+        }
+
+        // Scoring Engine
+        function calculateScore(answers) {
+            let totalScore = 0;
+            const maxPossible = questionBank.length * 4;
+            const gaps = [];
+            
+            questionBank.forEach(q => {
+                const val = answers[q.id];
+                if (val) {
+                    totalScore += val;
+                    
+                    // Identify gaps (scores 1 or 2 are high priority, 3 is medium)
+                    if (val <= 2) {
+                        gaps.push({
+                            dimension: q.dimension,
+                            severity: 'high',
+                            advice: q.gapAdvice[val]
+                        });
+                    } else if (val === 3) {
+                        gaps.push({
+                            dimension: q.dimension,
+                            severity: 'medium',
+                            advice: q.gapAdvice[val]
+                        });
+                    }
+                }
+            });
+            
+            const percentage = Math.round((totalScore / maxPossible) * 100);
+            
+            // Group gaps by dimension for cleaner output, take top 4
+            const sortedGaps = gaps.sort((a, b) => a.severity === 'high' ? -1 : 1).slice(0, 4);
+            
+            return {
+                percentage,
+                totalScore,
+                maxPossible,
+                gaps: sortedGaps
+            };
+        }
+
+        // Form submission
+        document.getElementById('diagnostic-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const answers = {};
+            let answeredCount = 0;
+            
+            for (let [key, value] of formData.entries()) {
+                answers[key] = parseInt(value, 10);
+                answeredCount++;
+            }
+            
+            if (answeredCount < questionBank.length) {
+                document.getElementById('form-error').style.display = 'block';
+                return;
+            }
+            
+            document.getElementById('form-error').style.display = 'none';
+            
+            const results = calculateScore(answers);
+            showResults(results);
+        });
+
+        function showResults(results) {
+            document.getElementById('assessment-section').style.display = 'none';
+            document.getElementById('results-section').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            const scoreCircle = document.getElementById('overall-score');
+            scoreCircle.textContent = `${results.percentage}%`;
+            
+            // Set circle color based on score
+            if (results.percentage >= 80) {
+                scoreCircle.style.color = 'var(--success)';
+                scoreCircle.style.borderColor = 'var(--success)';
+            } else if (results.percentage >= 60) {
+                scoreCircle.style.color = '#F57C00';
+                scoreCircle.style.borderColor = '#F57C00';
+            } else {
+                scoreCircle.style.color = 'var(--error)';
+                scoreCircle.style.borderColor = 'var(--error)';
+            }
+            
+            const contextText = document.getElementById('score-context');
+            if (results.percentage >= 80) {
+                contextText.textContent = "Strong position. You are ready to run your raise like a professional process, though minor optimisations remain.";
+            } else if (results.percentage >= 60) {
+                contextText.textContent = "Fair position. Foundations are in place, but the gaps below will cost you meetings or valuation if you launch the raise now.";
+            } else {
+                contextText.textContent = "High risk. Approaching investors now risks burning your best prospects. Close the priority gaps first — investors rarely give second first-impressions.";
+            }
+            
+            const gapsContainer = document.getElementById('gap-items-container');
+            gapsContainer.innerHTML = '';
+            
+            if (results.gaps.length === 0) {
+                gapsContainer.innerHTML = '<p>No significant gaps identified. You are in an excellent position to raise.</p>';
+            } else {
+                results.gaps.forEach(gap => {
+                    const item = document.createElement('div');
+                    item.className = `gap-item ${gap.severity === 'high' ? '' : gap.severity}`;
+                    
+                    item.innerHTML = `
+                        <div class="gap-content">
+                            <h4>${gap.dimension}</h4>
+                            <p>${gap.advice}</p>
+                        </div>
+                    `;
+                    gapsContainer.appendChild(item);
+                });
+            }
+        }
+
+        // Set CTA link
+        document.getElementById('booking-cta').href = BOOKING_URL;
+
+        // Test Harness (as requested in Blueprint)
+        window.runTests = function() {
+            console.log("Running ATM Investor Ready diagnostic tests...");
+            let passed = 0;
+            let total = 0;
+            
+            function assert(condition, message) {
+                total++;
+                if (condition) {
+                    console.log(`? PASS: ${message}`);
+                    passed++;
+                } else {
+                    console.error(`? FAIL: ${message}`);
+                }
+            }
+            
+            // Test 1: Minimum score
+            const minAnswers = {};
+            questionBank.forEach(q => minAnswers[q.id] = 1);
+            const minResult = calculateScore(minAnswers);
+            assert(minResult.percentage === 25, "All 1s should result in 25% score");
+            assert(minResult.gaps.length > 0 && minResult.gaps[0].severity === 'high', "All 1s should generate high severity gaps");
+            
+            // Test 2: Maximum score
+            const maxAnswers = {};
+            questionBank.forEach(q => maxAnswers[q.id] = 4);
+            const maxResult = calculateScore(maxAnswers);
+            assert(maxResult.percentage === 100, "All 4s should result in 100% score");
+            assert(maxResult.gaps.length === 0, "All 4s should generate no top-priority gaps");
+            
+            // Test 3: Mixed score
+            const mixedAnswers = {
+                q1: 4, q2: 4, q3: 4, q4: 4, q5: 4, q6: 4, q7: 4,     // 28
+                q8: 2, q9: 2, q10: 2, q11: 2, q12: 2, q13: 2, q14: 2 // 14 => 42/56 = 75%
+            };
+            const mixedResult = calculateScore(mixedAnswers);
+            assert(mixedResult.percentage === 75, "Mixed 4s and 2s correctly calculates to 75%");
+            assert(mixedResult.gaps.length === 4 && mixedResult.gaps.every(g => g.severity === 'high'), "Gap list is capped at top 4, all high severity");
+
+            // Test 4: single weak dimension is surfaced
+            const singleWeak = {};
+            questionBank.forEach(q => singleWeak[q.id] = 4);
+            singleWeak.q9 = 1; // Investor Pipeline
+            const singleResult = calculateScore(singleWeak);
+            assert(singleResult.gaps.length === 1 && singleResult.gaps[0].dimension === 'Investor Pipeline', "Gap engine identifies the low-scoring dimension");
+            
+            console.log(`\nTest Summary: ${passed}/${total} passed.`);
+            return passed === total;
+        };
+
+        // Init
+        renderQuestions();
+    </script>
+</body>
+</html>
