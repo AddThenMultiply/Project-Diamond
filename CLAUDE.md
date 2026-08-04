@@ -4,14 +4,13 @@ This repo is the **ATM Founder Platform** for addthenmultiply.com — David B Ho
 
 **Core rule of the product:** AI drafts, analyses, tracks and assembles; the human advisor (David) decides, relates and signs off. Nothing customer-facing ships without a named human approval. Encode this in the UX and the database.
 
-## The two assets
+## The platform (four-tier value stream)
 
-1. **Exit Ready** (`exit-ready.html`) — productises the ATM Exit Advisory Process: Founder Clarity → Gap Analysis → Business Readiness → Transaction Execution. Audience: founder-led businesses, £1m+ revenue, first external sale.
-2. **Deal Ready** (`deal-ready.html`) — productises the ATM M&A Advisory Process: Strategic Logic → Target ID → Human Approach → Founder-to-Founder → HoT & DD → SPA & Completion → Integration.
+Public site pages (all single-file HTML): `index.html` (overview + value stream + ecosystem) · `diagnostic.html` (free 24-metric weighted diagnostic: Exit 35% / Deal 40% / Operational 25%, 1–5 rubric per metric, classification bands 85+/70/50) · `roadmap.html` · `sourcing.html` · `readiness-project.html` (the three engagement tiers) · `funding.html` (FFF module: assets checklist, capital-routes table, promotion-language checker, grant application builder) · `investors.html` (900 institutional relationships) · `founders.html` (3,000 founder CEO network). `exit-ready.html`/`deal-ready.html` are legacy redirects — keep them.
 
-Each asset = free ungated diagnostic front door + paid Supabase-backed engagement workspace. Full design: `BLUEPRINT.md`.
+Value stream: **Diagnostics (free) → Personalised Roadmap → Insource Sourcing → Readiness Project (full engagement)**, which maps onto the ATM Exit Advisory phases (Founder Clarity → Gap Analysis → Business Readiness → Transaction Execution) and the 7-phase M&A Advisory Process. Content taxonomy is the **FACE methodology** (Fund, Acquire, Consolidate, Exit). Full design: `BLUEPRINT.md`.
 
-Content taxonomy is the **FACE methodology** (Fund, Acquire, Consolidate, Exit) — tag scores, gap items and roadmap actions F/A/C/E.
+Voice: ATM founder-first — warm, direct, UK English ("an exit is a life event"). Visual system: charcoal `#111827`, slate `#475569`, off-white `#F8FAFC`, borders `#E2E8F0`, navy `#0F172A`, Georgia serif headings. Rigour in substance, warmth in tone — never institutional jargon.
 
 ## Hard rules
 
@@ -23,6 +22,9 @@ Content taxonomy is the **FACE methodology** (Fund, Acquire, Consolidate, Exit) 
 - The Readiness Call CTA uses a single `BOOKING_URL` constant (mailto placeholder until the scheduler link exists).
 - Deploys: GitHub Pages. If Actions-path deploys fail repeatedly, use the legacy build trigger: `POST /repos/{owner}/{repo}/pages/builds`.
 - **Brand isolation:** ATM assets only. Never copy content, code or links from any other client's repositories or websites.
+- **Regulatory guardrail (FCA):** the platform must never arrange investments, match founders to investors, or publish financial promotions. Investor introductions happen only through ATM's authorised transaction partner, offline. Keep the wording on `investors.html` ("does not arrange investments…") intact in spirit whenever editing.
+- **Verified numbers only:** the 3,000 founder CEO network and 900 investor relationships are real, owner-verified figures. Do not invent statistics; book-sourced claims ($8.7tn opportunity, 13× warm introductions, Kanze research) must keep their citations.
+- **Commercial terms are private:** the Story-C Ltd / ATM revenue-share agreement is documented in a private annex outside this repo. Never publish fee splits, settlement terms or the ownership structure on the public site.
 
 ## Build sequence
 

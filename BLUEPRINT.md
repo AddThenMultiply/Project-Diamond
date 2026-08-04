@@ -123,4 +123,20 @@ RLS: membership predicate on `engagement_id` throughout; `human_signoffs` insert
 4. **Sprint 4 — Deal Ready.** Reuses the spine: diagnostic front door + target pipeline + DD tracker + integration planner.
 5. **Sprint 5 — Advisor console.** Portfolio view across engagements — the scale dashboard.
 
-**Open items:** (1) asset naming — "Exit Ready"/"Deal Ready" are working titles pending approval; (2) Supabase account/org to create the project in; (3) the scheduler URL to replace the `BOOKING_URL` mailto placeholder.
+**Open items:** (1) Supabase account/org to create the project in; (2) the scheduler URL to replace the `BOOKING_URL` mailto placeholder.
+
+---
+
+# v0.2 addendum — four-tier value stream (31 July 2026)
+
+The front door was redesigned from two separate asset pages into one platform with a four-tier value stream, reflecting the commercial packaging agreed by the owners:
+
+**Diagnostics (free) → Personalised Roadmap → Insource Sourcing → Readiness Project (full engagement).**
+
+The tiers package the same underlying advisory phases (Exit Advisory Phases 1–4; M&A Advisory Phases 1–7); nothing in the AI/Human operating model changes. Key elements:
+
+- **`diagnostic.html`** — a 24-metric weighted diagnostic across three pillars: Exit Readiness (35%), Deal Readiness (40%), Operational Readiness (25%). Each metric is a 1–5 evidence-anchored rubric (not self-assessed yes/no), producing a 0–100 Readiness Index with four classification bands: 85+ Transaction-Ready · 70–84 Readiness Project Candidate · 50–69 Roadmap Tier · <50 Foundation Tier. Scored entirely client-side; `runTests()` covers the scoring maths and band boundaries.
+- **`funding.html`** — the *Funded Female Founders* module: the ten-asset fundraising checklist, the angels/VC/family-office comparison, a promotion-vs-prevention language checker (Kanze research), and a client-side grant application draft builder. AI-assisted drafting matched to specific grant programmes and investor mandates is the Supabase-era upgrade path.
+- **Ecosystem pages** — `founders.html` (3,000 founder CEO network, ATM-owned) and `investors.html` (900 institutional relationships). Regulatory position by design: the platform prepares businesses and does not arrange investments or communicate financial promotions; investor introductions occur exclusively through ATM's authorised transaction partner (see the FCA guardrail in CLAUDE.md).
+- **Verified claims** — $8.7tn opportunity (Rose Review gap applied to global GDP, per *FFF*), 13× warm-introduction advantage (British Business Bank research), promotion/prevention question bias (Kanze et al., AMJ/HBR). Network figures are owner-verified.
+- Commercial terms between the platform's owners are documented privately, off-repo.
