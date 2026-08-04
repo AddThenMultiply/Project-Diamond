@@ -133,6 +133,53 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </div>
 
   <div class="card">
+    <h2 style="margin-top:0;">The deal realities</h2>
+    <p style="font-size:0.83rem;color:var(--slate);">These are the questions every serious counterparty asks in week one. Answering them now — honestly — is what separates prepared founders from the half of deals that die on diligence surprises. Uncomfortable answers cost nothing here; discovered ones cost the deal.</p>
+    <div class="row">
+      <span><label class="f">Adjusted EBITDA (£, after owner add-backs)</label><input type="number" id="i-adjebitda" step="10000"></span>
+      <span><label class="f">Revenue growth rate (% year on year)</label><input type="number" id="i-growth" step="1"></span>
+    </div>
+    <label class="f">Basis of the adjustments (owner salary, one-offs, related-party items)</label>
+    <textarea id="i-adjbasis"></textarea>
+    <div class="row">
+      <span><label class="f">Largest customer — % of revenue</label><input type="number" id="i-top1" min="0" max="100"></span>
+      <span><label class="f">Top five customers — % of revenue</label><input type="number" id="i-top5" min="0" max="100"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">State of your financials</label><select id="i-hygiene"><option value="">—</option><option value="audited">Audited</option><option value="externally_reviewed">Externally reviewed</option><option value="management_monthly">Monthly management accounts</option><option value="annual_only">Annual accounts only</option></select></span>
+      <span><label class="f">Your valuation expectation (£, if you have one)</label><input type="number" id="i-valexp" step="100000"></span>
+    </div>
+    <label class="f">What that expectation is based on (formal valuation? multiple? instinct?)</label>
+    <textarea id="i-valbasis"></textarea>
+    <label class="f">Anything a buyer or investor will find that we should know first? (litigation, disputes, related-party arrangements — disclosed early, these are manageable; discovered late, they end deals)</label>
+    <textarea id="i-skeletons"></textarea>
+  </div>
+
+  <div class="card" id="card-exit">
+    <h2 style="margin-top:0;">Your exit, specifically</h2>
+    <div class="row">
+      <span><label class="f">What kind of exit do you actually want?</label><select id="i-exitintent"><option value="">—</option><option value="full_sale">Full sale — I leave</option><option value="majority_with_rollover">Sell majority, keep a stake</option><option value="minority">Minority investment — I keep control</option><option value="stay_on">Sell but stay on to lead</option></select></span>
+      <span><label class="f">How ready do you feel, honestly? (1 = not at all, 5 = completely)</label><select id="i-emotional"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
+    </div>
+    <p class="kicker" style="margin-top:1rem;">Structures you would consider</p>
+    <div class="assets" id="structures-list"></div>
+  </div>
+
+  <div class="card" id="card-acq">
+    <h2 style="margin-top:0;">Your acquisition, specifically</h2>
+    <label class="f">Your acquisition criteria — what does the right target look like, and why?</label>
+    <textarea id="i-acqcriteria"></textarea>
+    <div class="row">
+      <span><label class="f">Who will own the integration?</label><input type="text" id="i-integration" placeholder="Named person or role"></span>
+      <span><label class="f">Acquisitions you've completed before</label><input type="number" id="i-prioracq" min="0" max="99"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">Existing debt position</label><input type="text" id="i-leverage" placeholder="e.g. £500k term loan, 1.2x EBITDA"></span>
+      <span><label class="f" style="margin-top:1.4rem;"><input type="checkbox" id="i-pg" style="width:auto;margin-right:0.4rem;">I would consider a personal guarantee</label></span>
+    </div>
+  </div>
+
+  <div class="card">
     <h2 style="margin-top:0;">Needs, wants, fears</h2>
     <label class="f">What do you most need right now?</label>
     <textarea id="i-need"></textarea>
@@ -183,6 +230,13 @@ const DOC_CHECKLIST = [
   {key:"dataroom_comm",    label:"Commercial contracts"},
   {key:"dataroom_people",  label:"People & HR documents"},
 ];
+const STRUCTURE_KEYS = [
+  ["earnout","Earnout tied to future performance"],
+  ["rollover","Rolling equity into the new owner"],
+  ["seller_note","Seller financing / loan note"],
+  ["deferred","Deferred consideration"],
+  ["transition","Staying 1–3 years through transition"],
+];
 const OBJ_COPY = {
   acquire_growth: {
     title:"Intake — growing by acquisition",
@@ -230,6 +284,26 @@ function buildIntakePayload(engagementId, objective, f){
     funding_need: numOrNull(f.funding),
     equity_available_pct: numOrNull(f.equity),
     assets_held: f.assets || {},
+    // deal realities (research-ranked fields)
+    adjusted_ebitda: numOrNull(f.adjebitda),
+    ebitda_adjustments: f.adjbasis || null,
+    growth_rate_pct: numOrNull(f.growth),
+    top1_customer_pct: numOrNull(f.top1),
+    top5_customer_pct: numOrNull(f.top5),
+    financials_hygiene: f.hygiene || null,
+    valuation_expectation: numOrNull(f.valexp),
+    valuation_basis: f.valbasis || null,
+    skeletons: f.skeletons || null,
+    // exit persona
+    exit_intent: objective==="exit" ? (f.exitintent || null) : null,
+    emotional_readiness: objective==="exit" ? numOrNull(f.emotional) : null,
+    structure_openness: objective==="exit" ? (f.structures || {}) : {},
+    // acquirer persona
+    acquisition_criteria: objective==="acquire_growth" ? (f.acqcriteria || null) : null,
+    integration_owner: objective==="acquire_growth" ? (f.integration || null) : null,
+    prior_acquisitions: objective==="acquire_growth" ? numOrNull(f.prioracq) : null,
+    existing_leverage: objective==="acquire_growth" ? (f.leverage || null) : null,
+    pg_willing: objective==="acquire_growth" ? !!f.pg : null,
   };
 }
 function docPath(engagementId, key, filename){
@@ -297,6 +371,9 @@ async function openIntake(id){
   $("lbl-after").textContent = copy.after;
   $("lbl-funding").textContent = copy.funding;
   $("assets-list").innerHTML = ASSET_KEYS.map(([k,l])=>`<label><input type="checkbox" data-ak="${k}"> ${l}</label>`).join("");
+  $("structures-list").innerHTML = STRUCTURE_KEYS.map(([k,l])=>`<label><input type="checkbox" data-sk="${k}"> ${l}</label>`).join("");
+  $("card-exit").classList.toggle("hidden", obj!=="exit");
+  $("card-acq").classList.toggle("hidden", obj!=="acquire_growth");
   const {data:fi} = await sb.from("founder_intake").select("*").eq("engagement_id", id).maybeSingle();
   if(fi){
     $("i-target").value = fi.financial_target ?? ""; $("i-after").value = fi.life_after ?? "";
@@ -308,6 +385,16 @@ async function openIntake(id){
     $("i-nonneg").value = fi.non_negotiables ?? ""; $("i-funding").value = fi.funding_need ?? "";
     $("i-equity").value = fi.equity_available_pct ?? "";
     document.querySelectorAll("#assets-list input").forEach(cb=>{ cb.checked = !!(fi.assets_held||{})[cb.dataset.ak]; });
+    $("i-adjebitda").value = fi.adjusted_ebitda ?? ""; $("i-adjbasis").value = fi.ebitda_adjustments ?? "";
+    $("i-growth").value = fi.growth_rate_pct ?? ""; $("i-top1").value = fi.top1_customer_pct ?? "";
+    $("i-top5").value = fi.top5_customer_pct ?? ""; $("i-hygiene").value = fi.financials_hygiene ?? "";
+    $("i-valexp").value = fi.valuation_expectation ?? ""; $("i-valbasis").value = fi.valuation_basis ?? "";
+    $("i-skeletons").value = fi.skeletons ?? "";
+    $("i-exitintent").value = fi.exit_intent ?? ""; $("i-emotional").value = fi.emotional_readiness ?? "";
+    document.querySelectorAll("#structures-list input").forEach(cb=>{ cb.checked = !!(fi.structure_openness||{})[cb.dataset.sk]; });
+    $("i-acqcriteria").value = fi.acquisition_criteria ?? ""; $("i-integration").value = fi.integration_owner ?? "";
+    $("i-prioracq").value = fi.prior_acquisitions ?? ""; $("i-leverage").value = fi.existing_leverage ?? "";
+    $("i-pg").checked = !!fi.pg_willing;
   }
   await renderDocs();
   show("view-intake");
@@ -317,6 +404,8 @@ window.openIntake = openIntake;
 $("btn-save").onclick = async ()=>{
   const assets = {};
   document.querySelectorAll("#assets-list input").forEach(cb=>{ assets[cb.dataset.ak] = cb.checked; });
+  const structures = {};
+  document.querySelectorAll("#structures-list input").forEach(cb=>{ structures[cb.dataset.sk] = cb.checked; });
   const payload = buildIntakePayload(eng.id, eng._objective, {
     target:$("i-target").value, after:$("i-after").value.trim(), timeline:$("i-timeline").value,
     sector:$("i-sector").value.trim(), region:$("i-region").value.trim(),
@@ -324,6 +413,12 @@ $("btn-save").onclick = async ()=>{
     team:$("i-team").value, dependency:$("i-dependency").value,
     need:$("i-need").value.trim(), fear:$("i-fear").value.trim(), nonneg:$("i-nonneg").value.trim(),
     funding:$("i-funding").value, equity:$("i-equity").value, assets,
+    adjebitda:$("i-adjebitda").value, adjbasis:$("i-adjbasis").value.trim(), growth:$("i-growth").value,
+    top1:$("i-top1").value, top5:$("i-top5").value, hygiene:$("i-hygiene").value,
+    valexp:$("i-valexp").value, valbasis:$("i-valbasis").value.trim(), skeletons:$("i-skeletons").value.trim(),
+    exitintent:$("i-exitintent").value, emotional:$("i-emotional").value, structures,
+    acqcriteria:$("i-acqcriteria").value.trim(), integration:$("i-integration").value.trim(),
+    prioracq:$("i-prioracq").value, leverage:$("i-leverage").value.trim(), pg:$("i-pg").checked,
   });
   const {error} = await sb.from("founder_intake").upsert(payload, {onConflict:"engagement_id"});
   msg("intake-msg", error ? error.message : "Saved. Your advisor sees this before your first conversation.", error?"err":"ok");
@@ -361,12 +456,19 @@ async function uploadDoc(key, file){
 /* ===== TESTS ===== */
 function runTests(){
   const results=[]; const t=(n,c)=>results.push({name:n,pass:!!c});
-  const p = buildIntakePayload("e1","exit",{target:"5000000",after:"beach",timeline:"18",sector:"SaaS",region:"UK",revband:"£1m–£3m",ebitdaband:"£250k–£1m",recurring:"60",team:"12",dependency:"3",need:"n",fear:"f",nonneg:"x",funding:"",equity:"20",assets:{pitch_deck:true}});
+  const p = buildIntakePayload("e1","exit",{target:"5000000",after:"beach",timeline:"18",sector:"SaaS",region:"UK",revband:"£1m–£3m",ebitdaband:"£250k–£1m",recurring:"60",team:"12",dependency:"3",need:"n",fear:"f",nonneg:"x",funding:"",equity:"20",assets:{pitch_deck:true},adjebitda:"800000",adjbasis:"owner salary",growth:"25",top1:"18",top5:"55",hygiene:"management_monthly",valexp:"6000000",valbasis:"5x multiple",skeletons:"",exitintent:"majority_with_rollover",emotional:"3",structures:{earnout:true},acqcriteria:"ignored",integration:"ignored",prioracq:"2",leverage:"ignored",pg:true});
   t("payload built", !!p && p.financial_target===5000000 && p.objective==="exit");
   t("empty funding -> null", p.funding_need===null);
   t("assets carried", p.assets_held.pitch_deck===true);
+  t("deal realities captured", p.adjusted_ebitda===800000 && p.top1_customer_pct===18 && p.financials_hygiene==="management_monthly");
+  t("exit fields captured", p.exit_intent==="majority_with_rollover" && p.emotional_readiness===3 && p.structure_openness.earnout===true);
+  t("acq fields nulled for exit", p.acquisition_criteria===null && p.prior_acquisitions===null && p.pg_willing===null);
+  const pa = buildIntakePayload("e1","acquire_growth",{acqcriteria:"bolt-on SaaS",integration:"COO",prioracq:"1",leverage:"none",pg:false,structures:{earnout:true},exitintent:"full_sale",emotional:"4",assets:{}});
+  t("acq fields captured", pa.acquisition_criteria==="bolt-on SaaS" && pa.integration_owner==="COO" && pa.prior_acquisitions===1);
+  t("exit fields nulled for acq", pa.exit_intent===null && pa.emotional_readiness===null && Object.keys(pa.structure_openness).length===0);
   t("bad objective rejected", buildIntakePayload("e1","wrong",{})===null);
   t("missing engagement rejected", buildIntakePayload(null,"exit",{})===null);
+  t("structure keys 5", STRUCTURE_KEYS.length===5);
   const path = docPath("abc-123","pitch_deck","My Deck (v2).pdf");
   t("doc path starts with engagement", path.startsWith("abc-123/pitch_deck/"));
   t("doc path sanitised", !/[() ]/.test(path));

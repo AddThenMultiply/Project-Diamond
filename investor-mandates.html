@@ -96,9 +96,25 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       <span><label class="f">Geographies (comma-separated)</label><input type="text" id="m-geos" placeholder="UK, Europe"></span>
       <span><label class="f">Horizon (years)</label><input type="number" id="m-horizon" min="1" max="30"></span>
     </div>
+    <div class="row3">
+      <span><label class="f">Control preference</label><select id="m-control"><option value="">—</option><option value="majority">Majority / buyout</option><option value="minority">Minority only</option><option value="either">Either</option></select></span>
+      <span><label class="f">Max single-customer concentration (%)</label><input type="number" id="m-conc" min="0" max="100" placeholder="e.g. 15"></span>
+      <span><label class="f">Founder transition required</label><select id="m-transition"><option value="">—</option><option value="exit_at_close">Exit at close</option><option value="transition_1_3yr">1–3 year transition</option><option value="stay_and_roll">Stay on and roll equity</option><option value="flexible">Flexible</option></select></span>
+    </div>
     <div class="row">
       <span><label class="f">Involvement style</label><select id="m-involve"><option value="">—</option><option>Board seat</option><option>Hands-on operational</option><option>Strategic oversight</option><option>Silent / patient capital</option></select></span>
+      <span><label class="f">Leverage appetite</label><select id="m-leverage"><option value="">—</option><option>None / all-equity</option><option>Low (0–3x EBITDA)</option><option>Standard buyout leverage</option></select></span>
+    </div>
+    <label class="f">Structures offered (the asymmetry-bridging levers)</label>
+    <div style="display:flex;gap:1.2rem;flex-wrap:wrap;font-size:0.85rem;color:#334155;padding:0.3rem 0;" id="m-structs">
+      <label><input type="checkbox" data-ms="earnout"> Earnout</label>
+      <label><input type="checkbox" data-ms="seller_note"> Seller note</label>
+      <label><input type="checkbox" data-ms="rollover"> Equity rollover</label>
+      <label><input type="checkbox" data-ms="deferred"> Deferred consideration</label>
+    </div>
+    <div class="row">
       <span><label class="f">Relationship owner</label><input type="text" id="m-owner" placeholder="Who holds this relationship"></span>
+      <span></span>
     </div>
     <label class="f">Must-haves</label><textarea id="m-must"></textarea>
     <label class="f">Dealbreakers</label><textarea id="m-breakers"></textarea>
@@ -141,7 +157,12 @@ function buildMandate(f){
     sectors:csv(f.sectors), geographies:csv(f.geos),
     horizon_years:numOrNull(f.horizon), involvement:f.involve||null,
     must_haves:f.must||null, dealbreakers:f.breakers||null,
-    relationship_owner:f.owner||null, notes:f.notes||null };
+    relationship_owner:f.owner||null, notes:f.notes||null,
+    control_pref:f.control||null,
+    concentration_tolerance_pct:numOrNull(f.conc),
+    founder_transition:f.transition||null,
+    structures_offered:f.structs||{},
+    leverage_appetite:f.leverage||null };
 }
 
 async function init(){
@@ -182,28 +203,35 @@ async function loadMandates(){
     <td>${esc(m.status)}</td></tr>`).join("");
 }
 $("btn-add").onclick = async ()=>{
+  const structs = {};
+  document.querySelectorAll("#m-structs input").forEach(cb=>{ structs[cb.dataset.ms]=cb.checked; });
   const payload = buildMandate({
     org:$("m-org").value.trim(), type:$("m-type").value,
     cmin:$("m-cmin").value, cmax:$("m-cmax").value, rmin:$("m-rmin").value, emin:$("m-emin").value,
     sectors:$("m-sectors").value, geos:$("m-geos").value, horizon:$("m-horizon").value,
     involve:$("m-involve").value, owner:$("m-owner").value.trim(),
     must:$("m-must").value.trim(), breakers:$("m-breakers").value.trim(), notes:$("m-notes").value.trim(),
+    control:$("m-control").value, conc:$("m-conc").value, transition:$("m-transition").value,
+    structs, leverage:$("m-leverage").value,
   });
   if(!payload){ msg("add-msg","Organisation and type are required.","err"); return; }
   const {error} = await sb.from("investor_mandates").insert(payload);
   if(error){ msg("add-msg", error.message, "err"); return; }
   msg("add-msg","Mandate added.","ok");
-  ["m-org","m-cmin","m-cmax","m-rmin","m-emin","m-sectors","m-geos","m-horizon","m-owner","m-must","m-breakers","m-notes"].forEach(id=>$(id).value="");
+  ["m-org","m-cmin","m-cmax","m-rmin","m-emin","m-sectors","m-geos","m-horizon","m-owner","m-must","m-breakers","m-notes","m-conc"].forEach(id=>$(id).value="");
+  document.querySelectorAll("#m-structs input").forEach(cb=>cb.checked=false);
   await loadMandates();
 };
 
 function runTests(){
   const results=[]; const t=(n,c)=>results.push({name:n,pass:!!c});
-  const m = buildMandate({org:"Acme Capital",type:"pe_buyout",cmin:"1000000",cmax:"10000000",rmin:"5000000",emin:"1000000",sectors:"SaaS, services",geos:"UK",horizon:"5",involve:"Board seat",owner:"DH",must:"",breakers:"No founder exit day one",notes:""});
+  const m = buildMandate({org:"Acme Capital",type:"pe_buyout",cmin:"1000000",cmax:"10000000",rmin:"5000000",emin:"1000000",sectors:"SaaS, services",geos:"UK",horizon:"5",involve:"Board seat",owner:"DH",must:"",breakers:"No founder exit day one",notes:"",control:"majority",conc:"15",transition:"transition_1_3yr",structs:{earnout:true,rollover:false},leverage:"Low (0–3x EBITDA)"});
   t("mandate built", !!m && m.org_name==="Acme Capital");
   t("sectors parsed", m.sectors.length===2 && m.sectors[1]==="services");
   t("empty must -> null", m.must_haves===null);
   t("numbers parsed", m.cheque_min===1000000 && m.ebitda_min===1000000);
+  t("routing fields captured", m.control_pref==="majority" && m.concentration_tolerance_pct===15 && m.founder_transition==="transition_1_3yr");
+  t("structures carried", m.structures_offered.earnout===true && m.structures_offered.rollover===false);
   t("missing org rejected", buildMandate({org:"",type:"pe_buyout"})===null);
   t("fmtK millions", fmtK(2500000)==="£2.5m");
   t("fmtK thousands", fmtK(250000)==="£250k");
