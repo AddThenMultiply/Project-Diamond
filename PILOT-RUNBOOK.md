@@ -45,6 +45,19 @@ The point of the pilot is evidence. Collect, per founder:
 
 Three founders × four weeks of that table is the pitch: *"the methodology, productised — here is the audit trail."*
 
+## Scaling auth — supporting hundreds of logins
+
+The platform's auth already scales (Supabase handles 50,000 monthly active users on every tier); the only bottleneck is **email delivery**. Fix that once and you're done:
+
+1. **Transactional email provider (the core fix).** Create an account with **Resend** (recommended — first-class Supabase integration, 3,000 emails/month free, then ~£16/month for 50,000) or Postmark/AWS SES. Verify your sending domain there (it gives you three DNS records — SPF, DKIM, DMARC — to add), then copy its SMTP credentials into Supabase → Authentication → Emails → **SMTP Settings**. Magic links now come from your own domain with proper deliverability instead of Supabase's shared, throttled mailer.
+2. **Raise the rate limits.** Supabase → Authentication → Rate Limits → increase "emails per hour" from the default (only applies once custom SMTP is on) to e.g. 300/hour. This is the setting that turns "2 logins an hour" into "hundreds".
+3. **Sending domain — one decision needed.** Best deliverability and brand: `auth.addthenmultiply.com` (needs David to add the three DNS records — a 10-minute favour that doesn't expose anything). If you want zero dependency on David pre-sale, buy a neutral domain you own (e.g. a product-named .com) and switch to his domain after the sale — the swap is just re-verifying in Resend and editing the SMTP "from" address.
+4. **Sessions do the heavy lifting.** A magic-link email is needed only for *sign-in*, not every visit — Supabase keeps founders logged in with refresh tokens for weeks. Hundreds of users does not mean hundreds of emails a day; expect roughly one email per founder per device per month.
+5. **Optional, for zero-email logins at scale:** enable Google and/or LinkedIn OAuth (Authentication → Providers) — one-click sign-in for founders, no email round-trip at all. Worth adding before opening the platform to the 3,000-CEO network.
+6. **Supabase Pro plan (£20/month) before real founders depend on it.** Free-tier projects **pause after a week of inactivity** and have daily backup limits — fine for building, not for a live pilot holding client engagement data. Upgrade the `wfejarowrlalwgbqvloi` project before founder one signs in.
+
+Order of operations for the pilot: Resend account → domain decision + DNS → SMTP into Supabase → raise rate limit → Pro plan → test with your own email → invite founders.
+
 ## Known limits during pilot
 
 - Booking CTA is a mailto placeholder (`BOOKING_URL`) — swap when the scheduler exists.
