@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Founder Readiness Diagnostic — Add Then Multiply</title>
+<title>The Multiplier Diagnostic — Add Then Multiply</title>
 <style>
 :root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -18,28 +18,27 @@ main{max-width:880px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
 h1{font-family:Georgia,serif;font-size:2rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
 h2{font-family:Georgia,serif;font-size:1.3rem;color:var(--navy);margin:2rem 0 0.8rem;}
 p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
-.pillbar{display:flex;gap:0.6rem;margin:1.6rem 0;flex-wrap:wrap;}
-.pill{border:1px solid var(--line);background:#fff;border-radius:4px;padding:0.5rem 0.9rem;font-size:0.8rem;color:var(--slate);}
-.pill b{color:var(--navy);display:block;font-size:0.9rem;}
+.themehead{margin-top:2.4rem;padding:1rem 1.3rem;background:var(--navy);color:#fff;border-radius:6px;}
+.themehead h2{color:#fff;margin:0;font-size:1.15rem;}
+.themehead p{color:#CBD5E1;font-size:0.83rem;margin-top:0.2rem;}
 .metric{background:#fff;border:1px solid var(--line);border-radius:6px;margin:1rem 0;padding:1.2rem 1.3rem;}
-.metric h3{font-size:0.98rem;color:var(--navy);margin-bottom:0.15rem;}
-.metric .prompt{font-size:0.86rem;color:var(--slate);margin-bottom:0.7rem;}
-.metric label{display:flex;gap:0.6rem;align-items:flex-start;padding:0.45rem 0.5rem;border-radius:4px;font-size:0.85rem;cursor:pointer;color:#334155;}
-.metric label:hover{background:var(--bg);}
-.metric input{margin-top:0.28rem;accent-color:var(--accent);}
-.metric .pts{font-weight:700;color:var(--navy);white-space:nowrap;}
-.pilhead{margin-top:2.4rem;padding:1rem 1.3rem;background:var(--navy);color:#fff;border-radius:6px;}
-.pilhead h2{color:#fff;margin:0;font-size:1.15rem;}
-.pilhead p{color:#CBD5E1;font-size:0.83rem;margin-top:0.2rem;}
+.metric h3{font-size:0.98rem;color:var(--navy);margin-bottom:0.7rem;font-weight:600;}
+.scale{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.scale label{flex:1 1 110px;border:1px solid var(--line);border-radius:4px;padding:0.5rem 0.6rem;font-size:0.8rem;color:#334155;cursor:pointer;text-align:center;}
+.scale label:hover{background:var(--bg);}
+.scale input{display:block;margin:0 auto 0.3rem;accent-color:var(--accent);}
+.scale b{display:block;color:var(--navy);}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
 button.cta:hover{background:#1E40AF;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
 .big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
 .band{display:inline-block;padding:0.25rem 0.8rem;border-radius:99px;font-size:0.8rem;font-weight:700;color:#fff;margin-left:0.8rem;vertical-align:middle;}
-.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:0.35rem 0 0.9rem;}
-.bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width 0.6s;}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:0.35rem 0 0.4rem;}
+.bar i{display:block;height:100%;border-radius:99px;transition:width 0.6s;}
+.tinsight{font-size:0.83rem;color:#334155;margin:0 0 1rem;}
 .gaps li{font-size:0.88rem;margin:0.35rem 0 0.35rem 1.2rem;color:#334155;}
+.svcmatch{border-left:4px solid var(--accent);padding-left:1rem;margin-top:1rem;font-size:0.9rem;}
 .note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:600px){h1{font-size:1.5rem}.big{font-size:2rem}}
@@ -60,240 +59,145 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </nav>
 </header>
 <main>
-  <span class="kicker">Free diagnostic · 24 evidence-based metrics · instant results</span>
-  <h1>How ready is your business — really?</h1>
-  <p class="lede">Founders who know what they want from an exit, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared. Answer honestly — pick the statement closest to your reality today. Your Readiness Index is scored across three weighted pillars.</p>
-  <div class="pillbar">
-    <span class="pill"><b>Exit Readiness · 35%</b>Structural cleanliness, legal hygiene, risk</span>
-    <span class="pill"><b>Deal Readiness · 40%</b>Financial quality, growth, unit economics</span>
-    <span class="pill"><b>Operational Readiness · 25%</b>Leadership depth, systems, resilience</span>
-  </div>
+  <span class="kicker">The Multiplier Diagnostic · 20 questions · 3 minutes · instant results</span>
+  <h1>Is your business ready to multiply?</h1>
+  <p class="lede">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions — and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
   <form id="diag"></form>
-  <button class="cta" onclick="scoreDiagnostic()">Calculate my Readiness Index</button>
+  <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>
   <section id="results">
     <span class="kicker">Your results</span>
     <div class="scorebox">
-      <span class="big" id="totalScore">–</span><span style="color:var(--slate)"> / 100</span><span class="band" id="bandLabel"></span>
+      <span class="big" id="totalScore">–</span><span style="color:var(--slate)">%</span><span class="band" id="bandLabel"></span>
       <p id="bandDesc" style="font-size:0.9rem;color:#334155;margin-top:0.6rem;"></p>
     </div>
-    <div class="scorebox" id="pillarBars"></div>
-    <div class="scorebox"><h2 style="margin-top:0;font-size:1.05rem;">Your three biggest gaps</h2><ul class="gaps" id="gapList"></ul>
-      <p style="font-size:0.88rem;margin-top:1rem;">This is a snapshot, not the full picture. The full gap analysis, your personalised roadmap and the plan to close it start with a conversation.</p>
-      <p style="margin-top:0.8rem;"><a id="bookBtn" href="#" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM Readiness Call →</a></p>
+    <div class="scorebox" id="themeBars"></div>
+    <div class="scorebox"><h2 style="margin-top:0;font-size:1.05rem;">Your immediate priorities</h2><ul class="gaps" id="gapList"></ul>
+      <div class="svcmatch" id="svcMatch"></div>
+      <p style="margin-top:1.2rem;" id="ctaLine"></p>
+      <p style="margin-top:0.8rem;"><a id="bookBtn" href="#" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM call →</a></p>
+      <p id="deepLink" style="display:none;font-size:0.88rem;margin-top:1rem;">Scoring this well? Go a level deeper with the <a href="transaction-readiness.html">Transaction Readiness Assessment</a> — the 24-metric instrument a buyer's advisers would use.</p>
     </div>
   </section>
-  <p class="note">Your answers are scored entirely in your browser. Nothing is transmitted, stored or shared. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored entirely in your browser. Nothing is transmitted, stored or shared. This diagnostic indicates business readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses</footer>
 <script>
-const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=ATM%20Readiness%20Call";
-const PILLARS = [
-  {key:"exit", name:"Exit Readiness", weight:0.35},
-  {key:"deal", name:"Deal Readiness", weight:0.40},
-  {key:"ops",  name:"Operational Readiness", weight:0.25},
+const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=ATM%20Multiplier%20Call";
+const SCALE = ["Not at all","Slightly","Somewhat","Mostly","Completely"];
+const THEMES = [
+ {key:"growth", name:"Growth Ambition & Readiness", weight:1.0,
+  low:["Build a documented growth roadmap with milestones","Integrate acquisitions into your growth strategy"],
+  qs:["Do you have a clear plan to scale your business to £10M+ within the next 3–5 years?",
+      "Are you confident your current growth strategy will get you there fast enough?",
+      "Do you actively explore acquisitions as part of your growth plan?",
+      "Do you have a documented, step-by-step roadmap for achieving your growth targets?"]},
+ {key:"finance", name:"Financial Clarity & Control", weight:1.5,
+  low:["Introduce financial modelling and scenario planning","Install a 13-week cashflow and KPI dashboard"],
+  qs:["Do you receive regular, insightful financial reports that you fully understand?",
+      "Can you predict your cash flow position for the next 6–12 months with confidence?",
+      "Do you have a financial model that allows you to test “what if?” scenarios before making big decisions?",
+      "Is your finance function delivering timely, accurate information that supports decision-making?"]},
+ {key:"funding", name:"Funding & Investor Readiness", weight:1.5,
+  low:["Define your funding requirement and the best route to secure it","Prepare your investor deck and data room"],
+  qs:["If you needed to raise funding in the next 3 months, would your business be “investor-ready”?",
+      "Do you know exactly how much funding you need and the best way to secure it?",
+      "Have you successfully secured external finance or investment in the past 2 years?"]},
+ {key:"ops", name:"Operational Efficiency & Scalability", weight:1.0,
+  low:["Document your core processes so they are repeatable","Strengthen the leadership team for scale"],
+  qs:["Are your operations ready to handle a sudden doubling in sales without chaos?",
+      "Do you have the right leadership team and structures to sustain rapid growth?",
+      "Are your processes documented and repeatable, rather than dependent on key individuals?"]},
+ {key:"exit", name:"Exit Planning & Value Creation", weight:1.5,
+  low:["Get a professional view of your current valuation and its drivers","Align your personal exit plan with the business plan"],
+  qs:["Do you know the current value of your business and what drives it up or down?",
+      "Have you taken active steps to make your business “exit-ready” in the next 3–5 years?",
+      "Do you have a clear personal exit plan that aligns with your financial goals?"]},
+ {key:"mindset", name:"Mindset & External Support", weight:1.0,
+  low:["Secure an advisor who has scaled and exited before","Access specialist M&A, funding and finance skills without full-time hires"],
+  qs:["Do you have a trusted advisor or partner who understands rapid growth and has done it before?",
+      "Are you willing to make bold, strategic changes to accelerate growth?",
+      "Do you have access to the specialist skills needed for M&A, funding, and scaling — without hiring full-time?"]},
 ];
-const METRICS = [
- // ---- Pillar 1: Exit Readiness (8) ----
- {p:"exit", t:"Cap table and equity cleanliness", q:"How clean and defensible is your ownership structure?", o:[
-  "Messy cap table; unwritten promises; missing founder IP assignments; untracked early convertibles",
-  "Cap table in spreadsheets; basic IP assignments signed but historical contractor gaps",
-  "Managed on a cap-table platform; all historical IP assigned; minor option-pool ambiguities",
-  "Fully audited cap table; standardised option pool; convertibles converted; clean tax elections (EIS/SEIS) filed",
-  "Institutional-grade cap table; pre-vetted tax structure; buyer can verify ownership instantly"]},
- {p:"exit", t:"Data room maturity", q:"What is the state of your transactional data room?", o:[
-  "No central repository; records scattered across drives and inboxes",
-  "Basic shared folder; incomplete contracts; missing board minutes",
-  "Structured data-room framework with core legal, tax and customer documents, updated within 6 months",
-  "Fully indexed data room updated quarterly, including financials, employment agreements and IP registrations",
-  "Live, institutional-grade data room, pre-audited by external counsel, ready for immediate buyer access"]},
- {p:"exit", t:"Intellectual property defensibility", q:"Is all core IP fully owned, protected and unencumbered?", o:[
-  "Product built by third parties with no formal IP transfer; unvetted open-source reliance",
-  "Standard IP transfer agreements signed, but never audited for gaps",
-  "Core IP fully owned by the company; trademarks registered in primary markets",
-  "Comprehensive IP strategy; protection filed across growth markets; clean open-source audit",
-  "Defensible proprietary moat; full international protection; unencumbered title"]},
- {p:"exit", t:"Customer contract hygiene", q:"How standardised and enforceable are your commercial agreements?", o:[
-  "Non-standard contracts; custom terms per client; no limitation of liability",
-  "Standard terms exist but frequently overridden; change-of-control clauses unmanaged",
-  "Standard agreements cover most revenue; change-of-control and assignment clauses tracked",
-  "Standardised terms; assignment rights preserved on a sale; no uncapped liabilities",
-  "Fully standardised, seamlessly assignable contracts; customer-consent playbook ready for a transaction"]},
- {p:"exit", t:"Tax, legal and regulatory compliance", q:"What is your exposure to compliance liabilities?", o:[
-  "Unresolved filings, unquantified VAT/sales-tax exposure, or live/threatened litigation",
-  "Compliant at home; exposure in secondary markets unquantified; informal tracking",
-  "Filings up to date; annual legal health check; no active litigation",
-  "Multi-jurisdiction compliance verified externally; proactive data-protection posture",
-  "Immaculate record; annual external legal and tax audits; clearance certificates transaction-ready"]},
- {p:"exit", t:"Founder dependency risk", q:"How much of the value is locked up in you personally?", o:[
-  "The business cannot function two weeks without me; I hold the key relationships and knowledge",
-  "A leadership team exists, but key decisions, clients and sign-offs still route through me",
-  "A capable senior team runs day-to-day; I focus on strategy and key relationships",
-  "The business runs without me for 60+ days; retention plans drafted for key people",
-  "Fully autonomous management team; documented, stress-tested founder transition plan"]},
- {p:"exit", t:"Financial auditability", q:"What is the quality and depth of your accounting records?", o:[
-  "Cash-basis records on spreadsheets; personal and business expenses mixed",
-  "Accrual accounting in a cloud package; self-prepared annual accounts; no revenue-recognition policy",
-  "Monthly accrual closes; external accountant review; standards-compliant",
-  "Audited or externally reviewed financials for two years; formal revenue-recognition policy",
-  "Audited financials for 3+ years; monthly board-ready packs; zero restatements"]},
- {p:"exit", t:"Buyer landscape", q:"How clearly defined and engaged is your potential buyer universe?", o:[
-  "No buyers identified; a vague assumption of eventual acquisition",
-  "A list of possible acquirers compiled; no relationships or dialogue",
-  "Top ten strategic buyers identified; early relationships with two or three",
-  "Active dialogue with strategic and financial buyers; clear view of their valuation logic",
-  "Commercial partnerships with several likely acquirers; inbound interest tracked"]},
- // ---- Pillar 2: Deal Readiness (8) ----
- {p:"deal", t:"Revenue quality and predictability", q:"How much of your revenue is contracted, recurring or predictable?", o:[
-  "Entirely one-off, transactional revenue with no forward visibility",
-  "Repeat customers but little under contract (under 20% recurring)",
-  "20–50% recurring or contracted revenue (subscriptions, retainers, long-term agreements)",
-  "51–80% recurring with multi-year contracts and renewals",
-  "Over 80% recurring or contractually predictable revenue on 12-month-plus terms"]},
- {p:"deal", t:"Revenue growth", q:"What is your year-on-year revenue growth over the past 12–24 months?", o:[
-  "Declining or flat", "Single-digit growth (1–15%)", "Solid growth (16–40%)",
-  "High growth (41–100%)", "Exceptional growth (over 100% year on year)"]},
- {p:"deal", t:"Gross margin and unit economics", q:"What is your fully loaded gross margin?", o:[
-  "Below 30%, or losing money on each customer once acquisition cost is counted",
-  "30–49%; roughly break-even at the unit level",
-  "50–69%; each customer clearly profitable",
-  "70–79%; a clear path to strong operating leverage",
-  "80%+ with excellent lifetime-value economics"]},
- {p:"deal", t:"Revenue retention", q:"What happens to revenue from existing customers each year?", o:[
-  "We lose more than 20% of existing revenue annually",
-  "We retain 80–94%; churn is eroding growth",
-  "We retain 95–105%; a stable base with modest upsells",
-  "Existing customers grow 6–20% net each year through expansion",
-  "Existing customers grow more than 20% net each year — growth compounds without new sales"]},
- {p:"deal", t:"Customer concentration", q:"How dependent are you on your largest customers?", o:[
-  "One customer is over 40% of revenue, or the top five are over 75%",
-  "Largest customer is 25–40% of revenue",
-  "Largest customer is 15–24%; top five are 40–60%",
-  "Largest customer is 10–14%; a well-distributed book",
-  "No customer over 10%; top five under 25% combined"]},
- {p:"deal", t:"Market opportunity and moat", q:"How well-defined and defensible is your market position?", o:[
-  "Market size unquantified; fragmented space; low barriers; price-driven competition",
-  "Bottom-up market sizing done but local; differentiation is feature- or price-based",
-  "£1bn+ addressable market; clear differentiation; local leadership established",
-  "£3bn+ expanding market; distinct category position; real switching costs",
-  "£10bn+ opportunity; category-defining offer with network effects or a proprietary moat"]},
- {p:"deal", t:"Capital efficiency", q:"How efficiently does the business convert cash into growth?", o:[
-  "Burning cash with flat or declining revenue",
-  "Growth is heavily capital-intensive; every pound of growth costs well over two",
-  "Growth efficiency in line with market benchmarks",
-  "Highly efficient — close to a pound of burn per pound of new recurring revenue",
-  "Cash-flow positive (or near it) with accelerating growth"]},
- {p:"deal", t:"Quality of earnings", q:"How well would your numbers withstand a buyer's forensic review?", o:[
-  "Personal expenses, one-offs and inconsistent revenue recognition throughout",
-  "Basic profit tracking; unverified adjustments; possible timing discrepancies",
-  "Clean profit baseline; one-off adjustments tracked and documented",
-  "Pre-vetted normalised earnings; documented add-backs and working-capital trends",
-  "Sell-side quality-of-earnings review already completed; no audit surprises expected"]},
- // ---- Pillar 3: Operational Readiness (8) ----
- {p:"ops", t:"Leadership team depth", q:"How capable and complete is your non-founder leadership team?", o:[
-  "No formal leadership team; functional leads operate at coordinator level",
-  "Partial team in place, but execution still leans heavily on the founder",
-  "Full management layer; sales, operations, finance and product led by experienced managers",
-  "Complete senior team with track records of scaling to the next stage",
-  "A team capable of running a business three times this size, with succession planned"]},
- {p:"ops", t:"Processes and documentation", q:"How well are core workflows documented and systemised?", o:[
-  "Nothing written down; the business runs on what's in people's heads",
-  "Ad-hoc notes scattered across wikis and drives; rarely updated",
-  "Core workflows documented in a central knowledge base; reviewed annually",
-  "Standard operating procedures systemised across departments and built into onboarding",
-  "Audit-grade documentation with monitored, continuously improved workflows"]},
- {p:"ops", t:"Systems and scalability", q:"Could your systems handle five times today's volume without a rebuild?", o:[
-  "Manual, spreadsheet-driven operations or ageing systems; regular breakage",
-  "Basic cloud tools held together by brittle custom fixes",
-  "Modern, scalable systems with manageable technical debt",
-  "Modular, well-integrated systems with automated testing and deployment",
-  "Enterprise-grade, secure, certified infrastructure audited for critical debt"]},
- {p:"ops", t:"Management information", q:"How good is your operational reporting?", o:[
-  "Numbers reviewed once a year at accounts time; no forward view",
-  "Monthly statements arrive three weeks after month end; lagging indicators only",
-  "Management pack within ten days of month end; core KPIs tracked",
-  "Automated live dashboards covering leading and lagging indicators",
-  "Predictive reporting woven into daily operations, down to cohort and unit level"]},
- {p:"ops", t:"Talent retention and incentives", q:"How protected is your key talent through a transaction?", o:[
-  "High turnover (over 25% a year); no long-term incentives or options",
-  "An option pool exists but grants are unvested or poorly communicated",
-  "Standard vesting in place; competitive packages; turnover under 15%",
-  "Structured share-option scheme (e.g. EMI) covering key people; protections enforced",
-  "Retention and stay-bonus agreements pre-drafted for a transaction; turnover under 5%"]},
- {p:"ops", t:"Supplier and vendor dependency", q:"What is your exposure to single points of failure in supply?", o:[
-  "Critical reliance on one supplier or provider with no fallback",
-  "Alternatives identified but switching would take more than 90 days",
-  "Secondary vendors identified; key supplier agreements actively managed",
-  "Multi-vendor strategy operational for critical inputs; transition playbooks documented",
-  "No single point of failure; pre-negotiated terms and instant failover in place"]},
- {p:"ops", t:"Security and data protection", q:"What is your security and privacy posture?", o:[
-  "No formal security policies, multi-factor authentication or privacy protocols",
-  "Basic protections and a website privacy policy; no testing or training",
-  "UK GDPR compliant; annual penetration testing; centralised access management",
-  "Certified security programme; continuous vulnerability scanning; automated access control",
-  "Independently certified, insured, with a clean breach history"]},
- {p:"ops", t:"Culture and integration readiness", q:"How well would your organisation absorb new ownership?", o:[
-  "Informal, founder-centric culture likely to resist governance or new owners",
-  "Values documented but weakly connected to how performance is managed",
-  "Performance-driven culture with clear objectives cascaded across teams",
-  "High-performing culture with a proven ability to absorb new teams and change",
-  "Integration playbook ready; experience of acquiring or being integrated successfully"]},
-];
+const MAX_WEIGHTED = THEMES.reduce((s,t)=>s + t.qs.length*5*t.weight, 0); // 125
 const BANDS = [
-  {min:85, label:"Transaction-Ready", color:"#15803D", desc:"You are in the top tier. The conversation now is about timing, valuation and the right buyer — routed through our transaction partner and investor relationships."},
-  {min:70, label:"Readiness Project Candidate", color:"#1D4ED8", desc:"The fundamentals are strong. A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table."},
-  {min:50, label:"Roadmap Tier", color:"#B45309", desc:"There is real value here, and real gaps. A structured roadmap with targeted remediation is the right next step before any market conversation."},
-  {min:0,  label:"Foundation Tier", color:"#B91C1C", desc:"The honest answer: fundamental strengthening comes first. That is not bad news — it is the map. Every gap identified here is fixable, and fixing it adds value."},
+  {min:91, label:"Highly Ready", color:"var(--good)",
+   desc:"You have clear goals, strong financial foundations and genuine readiness for exponential growth. You are well placed to fund, acquire and build towards a high-value exit.",
+   svc:"<b>Your ATM service match:</b> the full <a href='roadmap.html'>FACE Pathway</a> — Fund, Acquire, Consolidate, Exit — with hands-on strategic guidance end to end.",
+   cta:"You're ATM Ready. With funding, acquisitions and exit in view, let's accelerate together.", deep:true},
+  {min:71, label:"Strong Potential", color:"var(--accent)",
+   desc:"Solid foundations and clear ambition, with targeted gaps that structured expert input would close quickly.",
+   svc:"<b>Your ATM service match:</b> a <b>Commercial Velocity day</b> to sharpen the growth engine, and a <b>Fundable Growth Sprint</b> to put numbers and narrative in investor-grade shape.",
+   cta:"You're close to scaling. We can help you fund, acquire and prepare for exit. Let's talk.", deep:true},
+  {min:41, label:"Emerging", color:"var(--warn)",
+   desc:"Clear ambition, but gaps in financial clarity, funding readiness or exit planning are holding the multiplier back.",
+   svc:"<b>Your ATM service match:</b> <b>Financial Modelling</b> to give you a decision-grade model, with <b>Insourced CFO</b> support and a <b>Funding Fitness Index</b> review.",
+   cta:"You're growth-ready. Let's sharpen your financials and strategy to unlock the next level.", deep:false},
+  {min:0, label:"At Risk", color:"var(--bad)",
+   desc:"The foundations need strengthening before rapid growth is safe. That is not bad news — it is the map, and every gap identified here is fixable.",
+   svc:"<b>Your ATM service match:</b> start with a <b>Financial Deep Dive</b> to establish the true picture, then an <b>Insourced Finance Function</b> to build the rhythm that growth needs.",
+   cta:"Let's build your foundation. Book a call to take control of your finances and prepare for growth.", deep:false},
 ];
 // Render form
 const form = document.getElementById("diag");
-let html = "";
-PILLARS.forEach(pl => {
-  const ms = METRICS.filter(m => m.p === pl.key);
-  html += `<div class="pilhead"><h2>${pl.name}</h2><p>${ms.length} metrics · ${Math.round(pl.weight*100)}% of your Readiness Index</p></div>`;
-  ms.forEach(m => {
-    const gi = METRICS.indexOf(m);
-    html += `<div class="metric"><h3>${gi+1}. ${m.t}</h3><p class="prompt">${m.q}</p>`;
-    m.o.forEach((opt,j) => {
-      html += `<label><input type="radio" name="m${gi}" value="${j+1}"><span><span class="pts">${j+1} —</span> ${opt}</span></label>`;
+let html = ""; let qn = 0;
+THEMES.forEach(t => {
+  html += `<div class="themehead"><h2>${t.name}</h2><p>${t.qs.length} questions${t.weight>1 ? " · weighted ×"+t.weight : ""}</p></div>`;
+  t.qs.forEach(q => {
+    html += `<div class="metric"><h3>${qn+1}. ${q}</h3><div class="scale">`;
+    SCALE.forEach((s,j) => {
+      html += `<label><input type="radio" name="q${qn}" value="${j+1}"><b>${j+1}</b>${s}</label>`;
     });
-    html += `</div>`;
+    html += `</div></div>`;
+    qn++;
   });
 });
 form.innerHTML = html;
 document.getElementById("bookBtn").href = BOOKING_URL;
 
-function computeScores(answers){ // answers: array of 24 ints (1..5)
-  const pillarScores = {};
-  PILLARS.forEach(pl => {
-    const idx = METRICS.map((m,i)=>m.p===pl.key?i:-1).filter(i=>i>=0);
-    const sum = idx.reduce((s,i)=>s+answers[i],0);
-    pillarScores[pl.key] = (sum/40)*100;
+function computeScores(answers){ // answers: array of 20 ints (1..5)
+  let i = 0, weighted = 0;
+  const themeScores = {};
+  THEMES.forEach(t => {
+    let sum = 0;
+    t.qs.forEach(()=>{ sum += answers[i]; i++; });
+    themeScores[t.key] = Math.round((sum/(t.qs.length*5))*100);
+    weighted += sum * t.weight;
   });
-  const total = PILLARS.reduce((s,pl)=>s+pl.weight*pillarScores[pl.key],0);
-  return {pillarScores, total: Math.round(total*10)/10};
+  const total = Math.round((weighted/MAX_WEIGHTED)*100);
+  return {themeScores, total};
 }
 function bandFor(score){ return BANDS.find(b=>score>=b.min); }
+function insightFor(t, pct){
+  if(pct < 50) return `This area presents material risk. Focus on: ${t.low[0].toLowerCase()}; ${t.low[1].toLowerCase()}.`;
+  if(pct < 75) return "Progressing, but not yet consistent. Prioritise closing the weakest answers above.";
+  return "A strength. Maintain it with light-touch governance and monitoring.";
+}
+function barColor(pct){ return pct>=75 ? "var(--good)" : pct>=50 ? "var(--warn)" : "var(--bad)"; }
 
 function scoreDiagnostic(){
   const answers = [];
-  for(let i=0;i<METRICS.length;i++){
-    const sel = document.querySelector(`input[name="m${i}"]:checked`);
-    if(!sel){ alert(`Please answer question ${i+1} (${METRICS[i].t}).`); document.getElementsByName("m"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
+  const allQs = THEMES.flatMap(t=>t.qs);
+  for(let i=0;i<allQs.length;i++){
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){ alert(`Please answer question ${i+1}.`); document.getElementsByName("q"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
     answers.push(parseInt(sel.value,10));
   }
-  const {pillarScores, total} = computeScores(answers);
+  const {themeScores, total} = computeScores(answers);
   const band = bandFor(total);
   document.getElementById("totalScore").textContent = total;
   const bl = document.getElementById("bandLabel");
   bl.textContent = band.label; bl.style.background = band.color;
   document.getElementById("bandDesc").textContent = band.desc;
-  document.getElementById("pillarBars").innerHTML = PILLARS.map(pl=>{
-    const s = Math.round(pillarScores[pl.key]);
-    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${pl.name} — ${s}/100</div><div class="bar"><i style="width:${s}%"></i></div>`;
+  document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
+    const s = themeScores[t.key];
+    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name} — ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
   }).join("");
   const ranked = answers.map((a,i)=>({a,i})).sort((x,y)=>x.a-y.a).slice(0,3);
   document.getElementById("gapList").innerHTML = ranked.map(r=>
-    `<li><b>${METRICS[r.i].t}</b> (scored ${r.a}/5) — next step: ${METRICS[r.i].o[Math.min(r.a,4)]}</li>`).join("");
+    `<li><b>Q${r.i+1}:</b> ${allQs[r.i]} <span style="color:var(--slate)">(you answered ${r.a}/5 — ${SCALE[r.a-1]})</span></li>`).join("");
+  document.getElementById("svcMatch").innerHTML = band.svc;
+  document.getElementById("ctaLine").innerHTML = `<b>${band.cta}</b>`;
+  document.getElementById("deepLink").style.display = band.deep ? "block" : "none";
   const res = document.getElementById("results");
   res.style.display = "block"; res.scrollIntoView({behavior:"smooth"});
 }
@@ -302,24 +206,25 @@ function scoreDiagnostic(){
 function runTests(){
   const results = [];
   const t = (name, cond) => results.push({name, pass: !!cond});
-  t("24 metrics defined", METRICS.length === 24);
-  t("8 metrics per pillar", PILLARS.every(pl=>METRICS.filter(m=>m.p===pl.key).length===8));
-  t("weights sum to 1", Math.abs(PILLARS.reduce((s,p)=>s+p.weight,0)-1) < 1e-9);
-  t("every metric has 5 options", METRICS.every(m=>m.o.length===5));
-  const allOnes = computeScores(new Array(24).fill(1));
-  t("all 1s -> total 20", allOnes.total === 20);
-  const allFives = computeScores(new Array(24).fill(5));
-  t("all 5s -> total 100", allFives.total === 100);
-  const allThrees = computeScores(new Array(24).fill(3));
-  t("all 3s -> total 60", allThrees.total === 60);
-  // weighted asymmetry: max deal pillar only
-  const dealMax = METRICS.map(m=>m.p==="deal"?5:1);
-  const dm = computeScores(dealMax);
-  t("deal-only max -> 20 + 0.4*80 = 52", dm.total === 52);
-  t("band 100 = Transaction-Ready", bandFor(100).label==="Transaction-Ready");
-  t("band 84.9 = Readiness Project Candidate", bandFor(84.9).label==="Readiness Project Candidate");
-  t("band 69.9 = Roadmap Tier", bandFor(69.9).label==="Roadmap Tier");
-  t("band 20 = Foundation Tier", bandFor(20).label==="Foundation Tier");
+  const nQs = THEMES.reduce((s,th)=>s+th.qs.length,0);
+  t("20 questions defined", nQs === 20);
+  t("theme sizes 4/4/3/3/3/3", THEMES.map(th=>th.qs.length).join(",") === "4,4,3,3,3,3");
+  t("weighted max is 125", MAX_WEIGHTED === 125);
+  t("finance/funding/exit weighted 1.5", THEMES.filter(th=>th.weight===1.5).map(th=>th.key).join(",") === "finance,funding,exit");
+  t("all 1s -> 20%", computeScores(new Array(20).fill(1)).total === 20);
+  t("all 3s -> 60%", computeScores(new Array(20).fill(3)).total === 60);
+  t("all 5s -> 100%", computeScores(new Array(20).fill(5)).total === 100);
+  // weighted asymmetry: finance theme (Q5-8) all 5s, rest 1s => 25 - 6 + 30 = 49 => 39%
+  const finMax = new Array(20).fill(1).map((v,i)=> (i>=4 && i<8) ? 5 : 1);
+  t("finance-only max -> 39%", computeScores(finMax).total === 39);
+  t("band 100 = Highly Ready", bandFor(100).label==="Highly Ready");
+  t("band 91 = Highly Ready", bandFor(91).label==="Highly Ready");
+  t("band 90 = Strong Potential", bandFor(90).label==="Strong Potential");
+  t("band 71 = Strong Potential", bandFor(71).label==="Strong Potential");
+  t("band 70 = Emerging", bandFor(70).label==="Emerging");
+  t("band 41 = Emerging", bandFor(41).label==="Emerging");
+  t("band 40 = At Risk", bandFor(40).label==="At Risk");
+  t("band 20 = At Risk", bandFor(20).label==="At Risk");
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
   const passed = results.filter(r=>r.pass).length;
   console.table(results);
