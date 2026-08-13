@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Multiplier Diagnostic — Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
 a{color:var(--accent);text-decoration:none;}
@@ -29,7 +29,7 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .scale input{display:block;margin:0 auto 0.3rem;accent-color:var(--accent);}
 .scale b{display:block;color:var(--navy);}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
-button.cta:hover{background:#1E40AF;}
+button.cta:hover{background:#8A3E06;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
 .big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
@@ -46,7 +46,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 </head>
 <body>
 <header>
-  <span class="brand">ADD THEN MULTIPLY</span>
+  <span class="brand">ADD THEN <span style="color:#F38E00">MULTIPLY</span></span>
   <nav>
     <a href="index.html">Overview</a>
     <a href="diagnostic.html" class="active">Diagnostic</a>
@@ -150,7 +150,7 @@ const BANDS = [
    desc:"You have clear goals, strong financial foundations and genuine readiness for exponential growth. You are well placed to fund, acquire and build towards a high-value exit.",
    svc:"<b>Your ATM service match:</b> the full <a href='roadmap.html'>FACE Pathway</a> — Fund, Acquire, Consolidate, Exit — with hands-on strategic guidance end to end.",
    cta:"You're ATM Ready. With funding, acquisitions and exit in view, let's accelerate together.", deep:true},
-  {min:71, label:"Strong Potential", color:"var(--accent)",
+  {min:71, label:"Strong Potential", color:"#4D7C0F",
    desc:"Solid foundations and clear ambition, with targeted gaps that structured expert input would close quickly.",
    svc:"<b>Your ATM service match:</b> a <b>Commercial Velocity day</b> to sharpen the growth engine, and a <b>Fundable Growth Sprint</b> to put numbers and narrative in investor-grade shape.",
    cta:"You're close to scaling. We can help you fund, acquire and prepare for exit. Let's talk.", deep:true},

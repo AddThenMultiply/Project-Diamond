@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Transaction Readiness Assessment — Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
 a{color:var(--accent);text-decoration:none;}
@@ -32,7 +32,7 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .pilhead h2{color:#fff;margin:0;font-size:1.15rem;}
 .pilhead p{color:#CBD5E1;font-size:0.83rem;margin-top:0.2rem;}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
-button.cta:hover{background:#1E40AF;}
+button.cta:hover{background:#8A3E06;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
 .big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
@@ -47,7 +47,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 </head>
 <body>
 <header>
-  <span class="brand">ADD THEN MULTIPLY</span>
+  <span class="brand">ADD THEN <span style="color:#F38E00">MULTIPLY</span></span>
   <nav>
     <a href="index.html">Overview</a>
     <a href="diagnostic.html" class="active">Diagnostic</a>
@@ -240,7 +240,7 @@ const METRICS = [
 ];
 const BANDS = [
   {min:85, label:"Transaction-Ready", color:"#15803D", desc:"You are in the top tier. The conversation now is about timing, valuation and the right buyer — routed through our transaction partner and investor relationships."},
-  {min:70, label:"Readiness Project Candidate", color:"#1D4ED8", desc:"The fundamentals are strong. A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table."},
+  {min:70, label:"Readiness Project Candidate", color:"#4D7C0F", desc:"The fundamentals are strong. A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table."},
   {min:50, label:"Roadmap Tier", color:"#B45309", desc:"There is real value here, and real gaps. A structured roadmap with targeted remediation is the right next step before any market conversation."},
   {min:0,  label:"Foundation Tier", color:"#B91C1C", desc:"The honest answer: fundamental strengthening comes first. That is not bad news — it is the map. Every gap identified here is fixable, and fixing it adds value."},
 ];
