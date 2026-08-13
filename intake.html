@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founder Intake — Add Then Multiply</title>
+<style>
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
+header nav a{color:#CBD5E1;font-size:0.85rem;}
+header nav a.active,header nav a:hover{color:#fff;}
+header button{background:none;border:1px solid #475569;color:#CBD5E1;border-radius:4px;padding:0.3rem 0.8rem;font-size:0.8rem;cursor:pointer;}
+main{max-width:820px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
+.kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
+h1{font-family:Georgia,serif;font-size:1.9rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
+h2{font-family:Georgia,serif;font-size:1.2rem;color:var(--navy);margin:1.8rem 0 0.6rem;}
+p.lede{color:var(--slate);font-size:0.98rem;max-width:66ch;}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.3rem 1.4rem;margin:1rem 0;}
+label.f{display:block;font-size:0.8rem;font-weight:600;color:var(--navy);margin:0.9rem 0 0.2rem;}
+input[type=text],input[type=number],input[type=email],textarea,select{width:100%;border:1px solid var(--line);border-radius:4px;padding:0.55rem 0.7rem;font-size:0.88rem;font-family:inherit;background:#fff;color:var(--ink);}
+textarea{min-height:64px;resize:vertical;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 1rem;}
+button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.8rem 1.6rem;font-size:0.95rem;font-weight:600;cursor:pointer;margin-top:1.2rem;}
+button.cta:hover{background:#1E40AF;}
+.objective{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:0.8rem 0;}
+.objective label{border:2px solid var(--line);border-radius:6px;padding:1rem;cursor:pointer;font-size:0.88rem;background:#fff;}
+.objective label.sel{border-color:var(--accent);background:#EFF6FF;}
+.objective b{display:block;color:var(--navy);margin-bottom:0.2rem;}
+.notice{border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;margin:0.8rem 0;}
+.notice.ok{background:#DCFCE7;color:#14532D;}
+.notice.err{background:#FEE2E2;color:#7F1D1D;}
+.notice.info{background:#DBEAFE;color:#1E3A8A;}
+.hidden{display:none;}
+.doc{display:flex;align-items:center;gap:0.8rem;border-top:1px solid var(--line);padding:0.7rem 0;font-size:0.86rem;}
+.doc:first-of-type{border-top:none;}
+.doc b{color:var(--navy);flex:1;font-weight:600;}
+.doc .st{font-size:0.72rem;font-weight:700;letter-spacing:0.06em;padding:0.2rem 0.6rem;border-radius:99px;}
+.st.missing{background:#FEE2E2;color:#7F1D1D;}
+.st.uploaded{background:#DCFCE7;color:#14532D;}
+.doc input[type=file]{display:none;}
+.doc .up{border:1px solid var(--line);background:#fff;border-radius:4px;padding:0.3rem 0.8rem;font-size:0.78rem;cursor:pointer;color:var(--navy);font-weight:600;}
+.assets label{display:flex;gap:0.5rem;align-items:center;font-size:0.85rem;padding:0.25rem 0;color:#334155;}
+.note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
+footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
+@media(max-width:640px){.row,.row3,.objective{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">ADD THEN MULTIPLY</span>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="intake.html" class="active">Founder Intake</a>
+    <a href="exit-ready-workspace.html">Workspace</a>
+  </nav>
+  <span id="whoami" style="font-size:0.78rem;color:#94A3B8;"></span>
+  <button id="btn-signout" class="hidden">Sign out</button>
+</header>
+<main>
+
+<!-- AUTH -->
+<section id="view-auth">
+  <span class="kicker">Private workspace · your data, verified and secure</span>
+  <h1>Tell us what you're building towards</h1>
+  <p class="lede">This intake takes about fifteen minutes and does two jobs: it gives your advisor the full picture before your first conversation, and it gives the platform's analysis engine verified data to work from — so everything drafted for you starts from facts, not guesses. Sign in to begin; everything you enter is private to you and your advisor.</p>
+  <div class="card">
+    <label class="f">Email address</label>
+    <input type="email" id="auth-email" placeholder="you@company.co.uk">
+    <button class="cta" id="btn-magic">Email me a sign-in link</button>
+    <div id="auth-msg"></div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT PICK/CREATE -->
+<section id="view-list" class="hidden">
+  <span class="kicker">Your engagements</span>
+  <h1>Choose or create your engagement</h1>
+  <div id="eng-list" class="card"></div>
+  <div class="card">
+    <h2 style="margin-top:0;">Start a new engagement</h2>
+    <label class="f">Company name</label>
+    <input type="text" id="new-company" placeholder="Your company">
+    <p class="kicker" style="margin-top:1rem;">Your objective</p>
+    <div class="objective" id="obj-pick">
+      <label data-obj="acquire_growth"><b>Grow by acquiring</b>I'm looking for funding to buy resources from — or merge with — another company, to gear for growth.</label>
+      <label data-obj="exit"><b>Prepare my exit</b>I want to exit, funding that exit with the business's assets and equity, and I'm looking for the right investors or buyers.</label>
+    </div>
+    <button class="cta" id="btn-create">Create engagement</button>
+    <div id="list-msg"></div>
+  </div>
+</section>
+
+<!-- INTAKE -->
+<section id="view-intake" class="hidden">
+  <span class="kicker" id="intake-kicker">Founder intake</span>
+  <h1 id="intake-title">Your intake</h1>
+  <p class="lede">Answer what you can — everything is editable later, and nothing here is shared with anyone but your advisor. The two questions at the top matter most: they are where every good engagement starts.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0;" id="q-human">The two questions</h2>
+    <label class="f" id="lbl-target">What do you want to achieve in financial terms? (£)</label>
+    <input type="number" id="i-target" min="0" step="10000" placeholder="e.g. 5000000">
+    <label class="f" id="lbl-after">And what does life look like the day after?</label>
+    <textarea id="i-after" placeholder="In your own words — this is the question that drives everything else."></textarea>
+    <label class="f">Your timeline (months)</label>
+    <input type="number" id="i-timeline" min="1" max="120" placeholder="e.g. 18">
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Your business, in facts</h2>
+    <div class="row">
+      <span><label class="f">Sector</label><input type="text" id="i-sector" placeholder="e.g. B2B services"></span>
+      <span><label class="f">Region</label><input type="text" id="i-region" placeholder="e.g. UK"></span>
+    </div>
+    <div class="row3">
+      <span><label class="f">Revenue band</label><select id="i-revband"><option value="">—</option><option>£1m–£3m</option><option>£3m–£10m</option><option>£10m–£25m</option><option>£25m+</option></select></span>
+      <span><label class="f">EBITDA band</label><select id="i-ebitdaband"><option value="">—</option><option>Below £250k</option><option>£250k–£1m</option><option>£1m–£3m</option><option>£3m+</option></select></span>
+      <span><label class="f">Recurring revenue %</label><input type="number" id="i-recurring" min="0" max="100" placeholder="0–100"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">Team size</label><input type="number" id="i-team" min="0" placeholder="e.g. 25"></span>
+      <span><label class="f">How founder-dependent is the business? (1 = runs without you, 5 = it's all you)</label><select id="i-dependency"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
+    </div>
+    <div class="row" id="capital-row">
+      <span><label class="f" id="lbl-funding">Capital sought (£)</label><input type="number" id="i-funding" min="0" step="10000"></span>
+      <span><label class="f">Equity you'd consider offering (%)</label><input type="number" id="i-equity" min="0" max="100"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">The deal realities</h2>
+    <p style="font-size:0.83rem;color:var(--slate);">These are the questions every serious counterparty asks in week one. Answering them now — honestly — is what separates prepared founders from the half of deals that die on diligence surprises. Uncomfortable answers cost nothing here; discovered ones cost the deal.</p>
+    <div class="row">
+      <span><label class="f">Adjusted EBITDA (£, after owner add-backs)</label><input type="number" id="i-adjebitda" step="10000"></span>
+      <span><label class="f">Revenue growth rate (% year on year)</label><input type="number" id="i-growth" step="1"></span>
+    </div>
+    <label class="f">Basis of the adjustments (owner salary, one-offs, related-party items)</label>
+    <textarea id="i-adjbasis"></textarea>
+    <div class="row">
+      <span><label class="f">Largest customer — % of revenue</label><input type="number" id="i-top1" min="0" max="100"></span>
+      <span><label class="f">Top five customers — % of revenue</label><input type="number" id="i-top5" min="0" max="100"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">State of your financials</label><select id="i-hygiene"><option value="">—</option><option value="audited">Audited</option><option value="externally_reviewed">Externally reviewed</option><option value="management_monthly">Monthly management accounts</option><option value="annual_only">Annual accounts only</option></select></span>
+      <span><label class="f">Your valuation expectation (£, if you have one)</label><input type="number" id="i-valexp" step="100000"></span>
+    </div>
+    <label class="f">What that expectation is based on (formal valuation? multiple? instinct?)</label>
+    <textarea id="i-valbasis"></textarea>
+    <label class="f">Anything a buyer or investor will find that we should know first? (litigation, disputes, related-party arrangements — disclosed early, these are manageable; discovered late, they end deals)</label>
+    <textarea id="i-skeletons"></textarea>
+  </div>
+
+  <div class="card" id="card-exit">
+    <h2 style="margin-top:0;">Your exit, specifically</h2>
+    <div class="row">
+      <span><label class="f">What kind of exit do you actually want?</label><select id="i-exitintent"><option value="">—</option><option value="full_sale">Full sale — I leave</option><option value="majority_with_rollover">Sell majority, keep a stake</option><option value="minority">Minority investment — I keep control</option><option value="stay_on">Sell but stay on to lead</option></select></span>
+      <span><label class="f">How ready do you feel, honestly? (1 = not at all, 5 = completely)</label><select id="i-emotional"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
+    </div>
+    <p class="kicker" style="margin-top:1rem;">Structures you would consider</p>
+    <div class="assets" id="structures-list"></div>
+  </div>
+
+  <div class="card" id="card-acq">
+    <h2 style="margin-top:0;">Your acquisition, specifically</h2>
+    <label class="f">Your acquisition criteria — what does the right target look like, and why?</label>
+    <textarea id="i-acqcriteria"></textarea>
+    <div class="row">
+      <span><label class="f">Who will own the integration?</label><input type="text" id="i-integration" placeholder="Named person or role"></span>
+      <span><label class="f">Acquisitions you've completed before</label><input type="number" id="i-prioracq" min="0" max="99"></span>
+    </div>
+    <div class="row">
+      <span><label class="f">Existing debt position</label><input type="text" id="i-leverage" placeholder="e.g. £500k term loan, 1.2x EBITDA"></span>
+      <span><label class="f" style="margin-top:1.4rem;"><input type="checkbox" id="i-pg" style="width:auto;margin-right:0.4rem;">I would consider a personal guarantee</label></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Needs, wants, fears</h2>
+    <label class="f">What do you most need right now?</label>
+    <textarea id="i-need"></textarea>
+    <label class="f">What worries you most about this process?</label>
+    <textarea id="i-fear"></textarea>
+    <label class="f">What is non-negotiable for you? (people, brand, values, terms)</label>
+    <textarea id="i-nonneg"></textarea>
+  </div>
+
+  <div class="card assets">
+    <h2 style="margin-top:0;">Which of these do you already have?</h2>
+    <div id="assets-list"></div>
+  </div>
+
+  <button class="cta" id="btn-save">Save intake</button>
+  <div id="intake-msg"></div>
+
+  <div class="card">
+    <h2 style="margin-top:0;">Upload your verified documents</h2>
+    <p style="font-size:0.85rem;color:var(--slate);">Files go into your engagement's private data room — visible only to you and your advisor, and used as the verified source for everything the platform drafts. Upload what exists today; the checklist tracks the rest.</p>
+    <div id="doc-list"></div>
+    <div id="doc-msg"></div>
+  </div>
+</section>
+
+</main>
+<footer>© Add Then Multiply · Private and confidential · AI drafts; your advisor decides and signs off</footer>
+<script src="assets/supabase.js"></script>
+<script>
+"use strict";
+/* ===== CONFIG ===== */
+const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
+const ASSET_KEYS = [
+  ["pitch_deck","12-slide pitch deck"],
+  ["projections_5yr","Five-year monthly projections"],
+  ["business_plan","Full business plan"],
+  ["historical_accounts","Historical financial statements"],
+  ["cap_table","Current cap table"],
+  ["key_contracts","Key contracts & IP assignments"],
+];
+const DOC_CHECKLIST = [
+  {key:"pitch_deck",       label:"Pitch deck"},
+  {key:"projections_5yr",  label:"Financial projections"},
+  {key:"business_plan",    label:"Business plan"},
+  {key:"dataroom_legal",   label:"Corporate & legal documents"},
+  {key:"dataroom_fin",     label:"Financial records"},
+  {key:"dataroom_comm",    label:"Commercial contracts"},
+  {key:"dataroom_people",  label:"People & HR documents"},
+];
+const STRUCTURE_KEYS = [
+  ["earnout","Earnout tied to future performance"],
+  ["rollover","Rolling equity into the new owner"],
+  ["seller_note","Seller financing / loan note"],
+  ["deferred","Deferred consideration"],
+  ["transition","Staying 1–3 years through transition"],
+];
+const OBJ_COPY = {
+  acquire_growth: {
+    title:"Intake — growing by acquisition",
+    target:"What growth do you want the acquisition to deliver, in financial terms? (£ revenue or value)",
+    after:"And what does the combined business look like when it works?",
+    funding:"Capital sought for the acquisition (£)",
+  },
+  exit: {
+    title:"Intake — preparing your exit",
+    target:"What do you want to achieve from the exit, in financial terms? (£)",
+    after:"And what does life look like the day after you sell?",
+    funding:"Capital sought before exit, if any (£)",
+  },
+};
+
+/* ===== STATE ===== */
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let session=null, eng=null, chosenObj=null;
+
+const $ = (id)=>document.getElementById(id);
+const esc = (s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
+function show(view){ ["view-auth","view-list","view-intake"].forEach(v=>$(v).classList.toggle("hidden", v!==view)); }
+const numOrNull = (v)=>{ const n = parseFloat(v); return isFinite(n) ? n : null; };
+
+/* ===== PURE: intake payload builder (tested) ===== */
+function buildIntakePayload(engagementId, objective, f){
+  if(!engagementId || !["acquire_growth","exit"].includes(objective)) return null;
+  return {
+    engagement_id: engagementId,
+    objective,
+    financial_target: numOrNull(f.target),
+    life_after: f.after || null,
+    timeline_months: numOrNull(f.timeline),
+    sector: f.sector || null,
+    region: f.region || null,
+    revenue_band: f.revband || null,
+    ebitda_band: f.ebitdaband || null,
+    recurring_revenue_pct: numOrNull(f.recurring),
+    team_size: numOrNull(f.team),
+    founder_dependency: numOrNull(f.dependency),
+    biggest_need: f.need || null,
+    biggest_fear: f.fear || null,
+    non_negotiables: f.nonneg || null,
+    funding_need: numOrNull(f.funding),
+    equity_available_pct: numOrNull(f.equity),
+    assets_held: f.assets || {},
+    // deal realities (research-ranked fields)
+    adjusted_ebitda: numOrNull(f.adjebitda),
+    ebitda_adjustments: f.adjbasis || null,
+    growth_rate_pct: numOrNull(f.growth),
+    top1_customer_pct: numOrNull(f.top1),
+    top5_customer_pct: numOrNull(f.top5),
+    financials_hygiene: f.hygiene || null,
+    valuation_expectation: numOrNull(f.valexp),
+    valuation_basis: f.valbasis || null,
+    skeletons: f.skeletons || null,
+    // exit persona
+    exit_intent: objective==="exit" ? (f.exitintent || null) : null,
+    emotional_readiness: objective==="exit" ? numOrNull(f.emotional) : null,
+    structure_openness: objective==="exit" ? (f.structures || {}) : {},
+    // acquirer persona
+    acquisition_criteria: objective==="acquire_growth" ? (f.acqcriteria || null) : null,
+    integration_owner: objective==="acquire_growth" ? (f.integration || null) : null,
+    prior_acquisitions: objective==="acquire_growth" ? numOrNull(f.prioracq) : null,
+    existing_leverage: objective==="acquire_growth" ? (f.leverage || null) : null,
+    pg_willing: objective==="acquire_growth" ? !!f.pg : null,
+  };
+}
+function docPath(engagementId, key, filename){
+  const clean = String(filename).replace(/[^A-Za-z0-9._-]+/g,"_");
+  return `${engagementId}/${key}/${Date.now()}_${clean}`;
+}
+
+/* ===== AUTH ===== */
+async function init(){
+  const {data:{session:s}} = await sb.auth.getSession();
+  session = s;
+  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
+  route();
+}
+async function route(){
+  if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; return; }
+  $("btn-signout").classList.remove("hidden");
+  $("whoami").textContent = session.user.email;
+  await loadEngagements();
+}
+$("btn-magic").onclick = async ()=>{
+  const email = $("auth-email").value.trim();
+  if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
+  msg("auth-msg","Sending your sign-in link…","info");
+  const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
+  msg("auth-msg", error ? error.message : "Check your inbox — the link signs you straight in.", error?"err":"ok");
+};
+$("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); eng=null; };
+
+/* ===== ENGAGEMENTS ===== */
+async function loadEngagements(){
+  show("view-list");
+  const {data, error} = await sb.from("engagements").select("*").order("created_at",{ascending:false});
+  if(error){ msg("list-msg", error.message, "err"); return; }
+  $("eng-list").innerHTML = (data && data.length)
+    ? data.map(e=>`<div class="doc"><b>${esc(e.company_name)}</b><span style="font-size:0.78rem;color:var(--slate)">${e.asset==="deal_ready"?"Deal Ready":"Exit Ready"} · phase ${e.phase}</span><button class="up" onclick="openIntake('${e.id}')">Open intake →</button></div>`).join("")
+    : `<p style="font-size:0.88rem;color:var(--slate)">No engagements yet — create one below.</p>`;
+}
+document.querySelectorAll("#obj-pick label").forEach(l=>{
+  l.onclick = ()=>{ chosenObj = l.dataset.obj;
+    document.querySelectorAll("#obj-pick label").forEach(x=>x.classList.toggle("sel", x===l)); };
+});
+$("btn-create").onclick = async ()=>{
+  const name = $("new-company").value.trim();
+  if(!name){ msg("list-msg","Enter your company name.","err"); return; }
+  if(!chosenObj){ msg("list-msg","Choose your objective.","err"); return; }
+  const asset = chosenObj==="acquire_growth" ? "deal_ready" : "exit_ready";
+  const {data, error} = await sb.from("engagements")
+    .insert({company_name:name, asset, founder_id:session.user.id, target_outcome:{objective:chosenObj}})
+    .select().single();
+  if(error){ msg("list-msg", error.message, "err"); return; }
+  openIntake(data.id);
+};
+
+/* ===== INTAKE ===== */
+async function openIntake(id){
+  const {data:e, error} = await sb.from("engagements").select("*").eq("id", id).single();
+  if(error){ msg("list-msg", error.message, "err"); return; }
+  eng = e;
+  const obj = (e.target_outcome && e.target_outcome.objective) || (e.asset==="deal_ready"?"acquire_growth":"exit");
+  eng._objective = obj;
+  const copy = OBJ_COPY[obj];
+  $("intake-title").textContent = copy.title + " — " + e.company_name;
+  $("lbl-target").textContent = copy.target;
+  $("lbl-after").textContent = copy.after;
+  $("lbl-funding").textContent = copy.funding;
+  $("assets-list").innerHTML = ASSET_KEYS.map(([k,l])=>`<label><input type="checkbox" data-ak="${k}"> ${l}</label>`).join("");
+  $("structures-list").innerHTML = STRUCTURE_KEYS.map(([k,l])=>`<label><input type="checkbox" data-sk="${k}"> ${l}</label>`).join("");
+  $("card-exit").classList.toggle("hidden", obj!=="exit");
+  $("card-acq").classList.toggle("hidden", obj!=="acquire_growth");
+  const {data:fi} = await sb.from("founder_intake").select("*").eq("engagement_id", id).maybeSingle();
+  if(fi){
+    $("i-target").value = fi.financial_target ?? ""; $("i-after").value = fi.life_after ?? "";
+    $("i-timeline").value = fi.timeline_months ?? ""; $("i-sector").value = fi.sector ?? "";
+    $("i-region").value = fi.region ?? ""; $("i-revband").value = fi.revenue_band ?? "";
+    $("i-ebitdaband").value = fi.ebitda_band ?? ""; $("i-recurring").value = fi.recurring_revenue_pct ?? "";
+    $("i-team").value = fi.team_size ?? ""; $("i-dependency").value = fi.founder_dependency ?? "";
+    $("i-need").value = fi.biggest_need ?? ""; $("i-fear").value = fi.biggest_fear ?? "";
+    $("i-nonneg").value = fi.non_negotiables ?? ""; $("i-funding").value = fi.funding_need ?? "";
+    $("i-equity").value = fi.equity_available_pct ?? "";
+    document.querySelectorAll("#assets-list input").forEach(cb=>{ cb.checked = !!(fi.assets_held||{})[cb.dataset.ak]; });
+    $("i-adjebitda").value = fi.adjusted_ebitda ?? ""; $("i-adjbasis").value = fi.ebitda_adjustments ?? "";
+    $("i-growth").value = fi.growth_rate_pct ?? ""; $("i-top1").value = fi.top1_customer_pct ?? "";
+    $("i-top5").value = fi.top5_customer_pct ?? ""; $("i-hygiene").value = fi.financials_hygiene ?? "";
+    $("i-valexp").value = fi.valuation_expectation ?? ""; $("i-valbasis").value = fi.valuation_basis ?? "";
+    $("i-skeletons").value = fi.skeletons ?? "";
+    $("i-exitintent").value = fi.exit_intent ?? ""; $("i-emotional").value = fi.emotional_readiness ?? "";
+    document.querySelectorAll("#structures-list input").forEach(cb=>{ cb.checked = !!(fi.structure_openness||{})[cb.dataset.sk]; });
+    $("i-acqcriteria").value = fi.acquisition_criteria ?? ""; $("i-integration").value = fi.integration_owner ?? "";
+    $("i-prioracq").value = fi.prior_acquisitions ?? ""; $("i-leverage").value = fi.existing_leverage ?? "";
+    $("i-pg").checked = !!fi.pg_willing;
+  }
+  await renderDocs();
+  show("view-intake");
+}
+window.openIntake = openIntake;
+
+$("btn-save").onclick = async ()=>{
+  const assets = {};
+  document.querySelectorAll("#assets-list input").forEach(cb=>{ assets[cb.dataset.ak] = cb.checked; });
+  const structures = {};
+  document.querySelectorAll("#structures-list input").forEach(cb=>{ structures[cb.dataset.sk] = cb.checked; });
+  const payload = buildIntakePayload(eng.id, eng._objective, {
+    target:$("i-target").value, after:$("i-after").value.trim(), timeline:$("i-timeline").value,
+    sector:$("i-sector").value.trim(), region:$("i-region").value.trim(),
+    revband:$("i-revband").value, ebitdaband:$("i-ebitdaband").value, recurring:$("i-recurring").value,
+    team:$("i-team").value, dependency:$("i-dependency").value,
+    need:$("i-need").value.trim(), fear:$("i-fear").value.trim(), nonneg:$("i-nonneg").value.trim(),
+    funding:$("i-funding").value, equity:$("i-equity").value, assets,
+    adjebitda:$("i-adjebitda").value, adjbasis:$("i-adjbasis").value.trim(), growth:$("i-growth").value,
+    top1:$("i-top1").value, top5:$("i-top5").value, hygiene:$("i-hygiene").value,
+    valexp:$("i-valexp").value, valbasis:$("i-valbasis").value.trim(), skeletons:$("i-skeletons").value.trim(),
+    exitintent:$("i-exitintent").value, emotional:$("i-emotional").value, structures,
+    acqcriteria:$("i-acqcriteria").value.trim(), integration:$("i-integration").value.trim(),
+    prioracq:$("i-prioracq").value, leverage:$("i-leverage").value.trim(), pg:$("i-pg").checked,
+  });
+  const {error} = await sb.from("founder_intake").upsert(payload, {onConflict:"engagement_id"});
+  msg("intake-msg", error ? error.message : "Saved. Your advisor sees this before your first conversation.", error?"err":"ok");
+};
+
+/* ===== DOCUMENT UPLOADS ===== */
+async function renderDocs(){
+  const {data:docs} = await sb.from("documents").select("checklist_key,status,storage_path").eq("engagement_id", eng.id);
+  const byKey = {}; (docs||[]).forEach(d=>byKey[d.checklist_key]=d);
+  $("doc-list").innerHTML = DOC_CHECKLIST.map(d=>{
+    const have = byKey[d.key] && byKey[d.key].storage_path;
+    return `<div class="doc"><b>${d.label}</b>
+      <span class="st ${have?"uploaded":"missing"}">${have?"UPLOADED":"AWAITING"}</span>
+      <label class="up">Upload<input type="file" data-dk="${d.key}"></label></div>`;
+  }).join("");
+  document.querySelectorAll('#doc-list input[type=file]').forEach(inp=>{
+    inp.onchange = ()=>uploadDoc(inp.dataset.dk, inp.files[0]);
+  });
+}
+async function uploadDoc(key, file){
+  if(!file) return;
+  if(file.size > 50*1024*1024){ msg("doc-msg","Files over 50MB — share via your advisor for now.","err"); return; }
+  msg("doc-msg",`Uploading ${file.name}…`,"info");
+  const path = docPath(eng.id, key, file.name);
+  const {error:upErr} = await sb.storage.from("dataroom").upload(path, file);
+  if(upErr){ msg("doc-msg", upErr.message, "err"); return; }
+  const {error:dbErr} = await sb.from("documents").upsert(
+    {engagement_id:eng.id, checklist_key:key, doc_type:key, storage_path:path, status:"review"},
+    {onConflict:"engagement_id,checklist_key"});
+  if(dbErr){ msg("doc-msg", dbErr.message, "err"); return; }
+  msg("doc-msg",`${file.name} uploaded to your private data room.`,"ok");
+  await renderDocs();
+}
+
+/* ===== TESTS ===== */
+function runTests(){
+  const results=[]; const t=(n,c)=>results.push({name:n,pass:!!c});
+  const p = buildIntakePayload("e1","exit",{target:"5000000",after:"beach",timeline:"18",sector:"SaaS",region:"UK",revband:"£1m–£3m",ebitdaband:"£250k–£1m",recurring:"60",team:"12",dependency:"3",need:"n",fear:"f",nonneg:"x",funding:"",equity:"20",assets:{pitch_deck:true},adjebitda:"800000",adjbasis:"owner salary",growth:"25",top1:"18",top5:"55",hygiene:"management_monthly",valexp:"6000000",valbasis:"5x multiple",skeletons:"",exitintent:"majority_with_rollover",emotional:"3",structures:{earnout:true},acqcriteria:"ignored",integration:"ignored",prioracq:"2",leverage:"ignored",pg:true});
+  t("payload built", !!p && p.financial_target===5000000 && p.objective==="exit");
+  t("empty funding -> null", p.funding_need===null);
+  t("assets carried", p.assets_held.pitch_deck===true);
+  t("deal realities captured", p.adjusted_ebitda===800000 && p.top1_customer_pct===18 && p.financials_hygiene==="management_monthly");
+  t("exit fields captured", p.exit_intent==="majority_with_rollover" && p.emotional_readiness===3 && p.structure_openness.earnout===true);
+  t("acq fields nulled for exit", p.acquisition_criteria===null && p.prior_acquisitions===null && p.pg_willing===null);
+  const pa = buildIntakePayload("e1","acquire_growth",{acqcriteria:"bolt-on SaaS",integration:"COO",prioracq:"1",leverage:"none",pg:false,structures:{earnout:true},exitintent:"full_sale",emotional:"4",assets:{}});
+  t("acq fields captured", pa.acquisition_criteria==="bolt-on SaaS" && pa.integration_owner==="COO" && pa.prior_acquisitions===1);
+  t("exit fields nulled for acq", pa.exit_intent===null && pa.emotional_readiness===null && Object.keys(pa.structure_openness).length===0);
+  t("bad objective rejected", buildIntakePayload("e1","wrong",{})===null);
+  t("missing engagement rejected", buildIntakePayload(null,"exit",{})===null);
+  t("structure keys 5", STRUCTURE_KEYS.length===5);
+  const path = docPath("abc-123","pitch_deck","My Deck (v2).pdf");
+  t("doc path starts with engagement", path.startsWith("abc-123/pitch_deck/"));
+  t("doc path sanitised", !/[() ]/.test(path));
+  t("obj copy has both personas", !!OBJ_COPY.acquire_growth && !!OBJ_COPY.exit);
+  t("checklist 7 docs", DOC_CHECKLIST.length===7);
+  t("asset keys 6", ASSET_KEYS.length===6);
+  const passed=results.filter(r=>r.pass).length;
+  console.table(results); console.log(`${passed}/${results.length} tests passed`);
+  return passed===results.length;
+}
+window.runTests = runTests;
+init();
+</script>
+</body>
+</html>

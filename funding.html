@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funding Readiness — Add Then Multiply</title>
+<style>
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--warn:#B45309;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:var(--accent);text-decoration:none;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
+header nav a{color:#CBD5E1;font-size:0.85rem;}
+header nav a.active,header nav a:hover{color:#fff;}
+main{max-width:880px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
+.kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
+h1{font-family:Georgia,serif;font-size:2rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
+h2{font-family:Georgia,serif;font-size:1.3rem;color:var(--navy);margin:2.2rem 0 0.8rem;}
+p.lede{color:var(--slate);font-size:1.02rem;max-width:66ch;}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.3rem 1.4rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;margin:0.8rem 0;}
+th,td{border:1px solid var(--line);padding:0.55rem 0.7rem;text-align:left;vertical-align:top;}
+th{background:var(--navy);color:#fff;font-weight:600;}
+td b{color:var(--navy);}
+.check label{display:flex;gap:0.6rem;align-items:flex-start;padding:0.4rem 0.4rem;font-size:0.88rem;cursor:pointer;color:#334155;}
+.check input{margin-top:0.3rem;accent-color:var(--accent);}
+.progress{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:0.8rem 0 0.3rem;}
+.progress i{display:block;height:100%;background:var(--good);border-radius:99px;transition:width 0.4s;}
+label.f{display:block;font-size:0.8rem;font-weight:600;color:var(--navy);margin:0.9rem 0 0.2rem;}
+input[type=text],textarea,select{width:100%;border:1px solid var(--line);border-radius:4px;padding:0.55rem 0.7rem;font-size:0.88rem;font-family:inherit;background:#fff;color:var(--ink);}
+textarea{min-height:70px;resize:vertical;}
+button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.8rem 1.6rem;font-size:0.95rem;font-weight:600;cursor:pointer;margin-top:1.2rem;}
+button.cta:hover{background:#1E40AF;}
+button.ghost{background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:4px;padding:0.8rem 1.6rem;font-size:0.95rem;font-weight:600;cursor:pointer;margin:1.2rem 0 0 0.6rem;}
+#draftOut{white-space:pre-wrap;font-size:0.85rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1rem;margin-top:1rem;display:none;}
+.flag{background:#FEF3C7;border-left:3px solid var(--warn);padding:0.5rem 0.8rem;font-size:0.83rem;margin:0.4rem 0;border-radius:0 4px 4px 0;}
+.okflag{background:#DCFCE7;border-left:3px solid var(--good);padding:0.5rem 0.8rem;font-size:0.83rem;margin:0.4rem 0;border-radius:0 4px 4px 0;}
+.note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
+footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
+@media(max-width:600px){h1{font-size:1.5rem}table{font-size:0.75rem}}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">ADD THEN MULTIPLY</span>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="diagnostic.html">Diagnostic</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="sourcing.html">Sourcing</a>
+    <a href="readiness-project.html">Readiness Projects</a>
+    <a href="funding.html" class="active">Funding</a>
+    <a href="investors.html">Investors</a>
+    <a href="founders.html">Founders</a>
+  </nav>
+</header>
+<main>
+  <span class="kicker">The F in FACE · levelling the playing field</span>
+  <h1>Funding readiness, done properly</h1>
+  <p class="lede">Backing female founders at the same level as their male counterparts is an <b>$8.7 trillion</b> global opportunity — yet the playing field remains uneven. Deals reaching a venture firm through a warm introduction are <b>thirteen times</b> more likely to reach the investment committee. Preparation and routing are everything. This page gives you the tools from <em>Funded Female Founders</em> — free.</p>
+
+  <h2>1 · Your fundraising assets checklist</h2>
+  <div class="card check" id="checklist">
+    <p style="font-size:0.88rem;color:var(--slate);margin-bottom:0.6rem;">Before approaching any investor or grant body, these assets should be ready in a secure data room. Tick what you have today.</p>
+    <div class="progress"><i id="pbar" style="width:0%"></i></div>
+    <p id="ptext" style="font-size:0.8rem;color:var(--slate);margin-bottom:0.8rem;">0 of 10 ready</p>
+  </div>
+
+  <p style="font-size:0.88rem;margin:0.6rem 0 0;">Want a scored assessment? Take the <a href="investor-ready.html"><b>Investor Ready diagnostic</b></a> — seven dimensions investors test, evaluated in minutes.</p>
+
+  <h2>2 · Which capital, from whom?</h2>
+  <div class="card" style="overflow-x:auto;">
+  <table>
+    <tr><th>Feature</th><th>Angel investors</th><th>Venture capital</th><th>Family offices</th></tr>
+    <tr><td><b>Whose money</b></td><td>Their own personal wealth</td><td>Pooled from institutional limited partners</td><td>Private wealth of one or a few families</td></tr>
+    <tr><td><b>Typical stage</b></td><td>Pre-seed to seed</td><td>Series A and beyond</td><td>Variable — early alongside angels, or later rounds</td></tr>
+    <tr><td><b>Decision speed</b></td><td>Fast and personal</td><td>Structured committees, strict mandates</td><td>More formal than angels, freer than VCs</td></tr>
+    <tr><td><b>Horizon</b></td><td>5–10 years, high risk accepted</td><td>Fixed fund life (~10 years) — needs a big exit inside it</td><td>Patient, often generational capital</td></tr>
+    <tr><td><b>Involvement</b></td><td>Hands-on mentoring and networks</td><td>Board seat, aggressive scaling push</td><td>Varies from hands-on to silent</td></tr>
+  </table>
+  <p style="font-size:0.85rem;color:var(--slate);">If your plan is strong, steady growth rather than unicorn-or-bust, angels and family offices are often a better fit than venture capital. Add debt funding and grants to the picture and the map widens further — that conversation is exactly what the Readiness Call is for.</p>
+  </div>
+
+  <h2>3 · The promotion test — check your pitch language</h2>
+  <div class="card">
+    <p style="font-size:0.88rem;color:var(--slate);">Research by Dr Dana Kanze (London Business School) shows investors ask female founders <em>prevention</em> questions (safety, protection, stability) and male founders <em>promotion</em> questions (growth, vision, acquisition) — and founders who answer every question in promotion language raise up to fourteen times more. Paste a paragraph of your pitch or grant narrative; this checks it in your browser.</p>
+    <textarea id="pitchIn" placeholder="Paste your pitch or application paragraph here…"></textarea>
+    <button class="cta" onclick="checkLanguage()">Run the promotion test</button>
+    <div id="langOut" style="margin-top:1rem;"></div>
+  </div>
+
+  <h2>4 · Grant &amp; funding application builder</h2>
+  <div class="card">
+    <p style="font-size:0.88rem;color:var(--slate);">Answer once, and generate a structured first draft you can adapt for grant applications and investor materials. Everything stays in your browser — nothing is uploaded. (Full AI-assisted drafting, matched to specific grant programmes and investor mandates, arrives with the founder workspace.)</p>
+    <form id="grantForm" onsubmit="return false;">
+      <label class="f">Company name</label><input type="text" id="g_name">
+      <label class="f">What you do, in one sentence (your elevator pitch)</label><input type="text" id="g_pitch">
+      <label class="f">The problem you solve, and for whom</label><textarea id="g_problem"></textarea>
+      <label class="f">Your solution, and why it wins</label><textarea id="g_solution"></textarea>
+      <label class="f">Traction so far (revenue, customers, partnerships, milestones)</label><textarea id="g_traction"></textarea>
+      <label class="f">The team (who, and why you're the ones to back)</label><textarea id="g_team"></textarea>
+      <label class="f">Amount sought and what it will be used for</label><textarea id="g_ask"></textarea>
+      <label class="f">Impact and growth in the next 3–5 years</label><textarea id="g_impact"></textarea>
+      <button class="cta" onclick="buildDraft()">Generate application draft</button>
+      <button class="ghost" onclick="copyDraft()">Copy draft</button>
+    </form>
+    <div id="draftOut"></div>
+  </div>
+
+  <p class="note">Sources: <em>Funded Female Founders</em>, David B Horne (Rethink Press, 2022) — the $8.7tn calculation applies the Rose Review funding-gap estimate to global GDP; warm-introduction data from British Business Bank research; question-bias research: Kanze et al., Academy of Management Journal / Harvard Business Review. This page is educational and is not financial advice or a financial promotion; introductions to investors are made only through ATM's authorised transaction partner.</p>
+</main>
+<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses</footer>
+<script>
+const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=ATM%20Readiness%20Call";
+const ASSETS = [
+ "Pitch deck — 12 slides: cover, elevator pitch, team, problem, solution, traction, market (TAM/SAM/SOM), competition, financials, ask & exit, use of funds, contact",
+ "Five-year financial projections — income statement, balance sheet and cash flow, month by month, with assumptions stated",
+ "Full business plan — 30–50 pages expanding everything in the deck and the model",
+ "Historical financial statements (if trading), professionally prepared",
+ "Secure data room set up (even a well-structured secure drive) for due diligence",
+ "Cap table — current, accurate, with all options and convertibles recorded",
+ "Key contracts and IP assignments collected and signed",
+ "Investor longlist researched — then a shortlist of 30–50 genuine fits (never spray-and-pray)",
+ "Warm-introduction paths mapped for every shortlisted investor or grant body",
+ "One-page teaser / executive summary ready to share on first contact",
+];
+const cl = document.getElementById("checklist");
+ASSETS.forEach((a,i)=>{
+  const l = document.createElement("label");
+  l.innerHTML = `<input type="checkbox" data-i="${i}" onchange="updateProgress()"> <span>${a}</span>`;
+  cl.appendChild(l);
+});
+function updateProgress(){
+  const boxes = cl.querySelectorAll("input[type=checkbox]");
+  const done = [...boxes].filter(b=>b.checked).length;
+  document.getElementById("pbar").style.width = (done/ASSETS.length*100)+"%";
+  document.getElementById("ptext").textContent = `${done} of ${ASSETS.length} ready`;
+}
+// Promotion / prevention language check (from regulatory-focus research)
+const PREVENTION = [
+ {rx:/\b(protect|protecting|defend|defending|retain|retention)\b/gi, hint:"Reframe protection/retention language around growth: what you will win, not what you will keep."},
+ {rx:/\b(avoid|avoiding|prevent|preventing|mitigate|mitigating)\b/gi, hint:"Swap avoidance framing for ambition: state the upside you are pursuing."},
+ {rx:/\b(safe|safety|secure|security|stable|stability|conservative|cautious|caution)\b/gi, hint:"Investors back accomplishment and aspiration. Replace safety language with the scale of the opportunity."},
+ {rx:/\b(we hope|hopefully|we aim to try|we will try|might be able)\b/gi, hint:"Replace tentative phrasing with confident commitment: 'we will', 'we are'."},
+ {rx:/\b(survive|survival|weather|downside|risk-averse)\b/gi, hint:"Speak to the future you are building, not the storm you are enduring."},
+];
+const PROMOTION = /\b(grow|growth|growing|expand|expansion|scale|scaling|acquire|acquisition|capture|win|winning|pioneer|lead|leading|accelerate|opportunity|vision|ambition)\b/gi;
+function checkLanguage(){
+  const text = document.getElementById("pitchIn").value;
+  const out = document.getElementById("langOut");
+  if(!text.trim()){ out.innerHTML = '<div class="flag">Paste some text first.</div>'; return; }
+  let flags = [];
+  PREVENTION.forEach(p=>{
+    const m = text.match(p.rx);
+    if(m) flags.push(`<div class="flag"><b>Prevention language:</b> ${[...new Set(m.map(x=>x.toLowerCase()))].join(", ")} — ${p.hint}</div>`);
+  });
+  const promo = text.match(PROMOTION) || [];
+  let verdict;
+  if(flags.length===0 && promo.length>0) verdict = `<div class="okflag"><b>Strong promotion focus.</b> ${promo.length} growth-oriented terms, no prevention flags. This is the language that gets funded.</div>`;
+  else if(flags.length===0) verdict = `<div class="okflag">No prevention language found — now add explicit growth and vision language (${"grow, scale, capture, lead"}) to make the ambition unmissable.</div>`;
+  else verdict = flags.join("") + `<div class="flag" style="background:#EFF6FF;border-color:var(--accent);"><b>The rule from the research:</b> whatever you are asked, give a promotion answer. Founders who do raise up to fourteen times more.</div>`;
+  out.innerHTML = verdict;
+}
+// Grant application draft builder
+function val(id){ return document.getElementById(id).value.trim(); }
+function buildDraft(){
+  const name = val("g_name") || "[Company]";
+  const sections = [
+   ["Executive summary", `${name}: ${val("g_pitch") || "[one-sentence elevator pitch]"}\n\n${name} is seeking ${val("g_ask") ? "the funding described below" : "[amount]"} to accelerate its growth. This application sets out the problem we solve, the traction we have earned, the team behind it, and the impact this funding will unlock.`],
+   ["The problem", val("g_problem") || "[Describe the problem and who it harms]"],
+   ["Our solution", val("g_solution") || "[Describe your solution and why it wins]"],
+   ["Traction and evidence", val("g_traction") || "[Revenue, customers, partnerships, milestones]"],
+   ["The team", val("g_team") || "[Who you are and why you're the ones to back]"],
+   ["Funding sought and use of funds", val("g_ask") || "[Amount and allocation]"],
+   ["Impact and growth plan", val("g_impact") || "[3–5 year trajectory and impact]"],
+  ];
+  let draft = sections.map(([h,b])=>`## ${h}\n\n${b}`).join("\n\n");
+  // run promotion pass over the assembled draft and append advisory notes
+  let notes = [];
+  PREVENTION.forEach(p=>{ const m = draft.match(p.rx); if(m) notes.push(`• Consider reframing: ${[...new Set(m.map(x=>x.toLowerCase()))].join(", ")} — ${p.hint}`); });
+  if(notes.length) draft += `\n\n---\nLANGUAGE NOTES (from the promotion test — delete before submitting):\n${notes.join("\n")}`;
+  const out = document.getElementById("draftOut");
+  out.textContent = draft; out.style.display = "block";
+}
+function copyDraft(){
+  const out = document.getElementById("draftOut");
+  if(out.style.display==="none"||!out.textContent){ buildDraft(); }
+  navigator.clipboard.writeText(document.getElementById("draftOut").textContent).then(()=>alert("Draft copied to clipboard."));
+}
+function runTests(){
+  const results = [];
+  const t=(n,c)=>results.push({name:n,pass:!!c});
+  t("10 checklist assets", ASSETS.length===10);
+  t("checklist rendered", cl.querySelectorAll("input[type=checkbox]").length===10);
+  t("prevention rules present", PREVENTION.length>=5);
+  document.getElementById("pitchIn").value = "We hope to avoid losing money and protect our customers. A safe bet.";
+  checkLanguage();
+  t("prevention text flagged", document.getElementById("langOut").innerHTML.includes("Prevention language"));
+  document.getElementById("pitchIn").value = "We will grow aggressively, capture the market and scale internationally.";
+  checkLanguage();
+  t("promotion text passes", document.getElementById("langOut").innerHTML.includes("Strong promotion focus"));
+  document.getElementById("g_name").value="TestCo"; document.getElementById("g_pitch").value="We grow things.";
+  buildDraft();
+  t("draft generated with sections", document.getElementById("draftOut").textContent.includes("## Executive summary") && document.getElementById("draftOut").textContent.includes("TestCo"));
+  t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
+  const passed = results.filter(r=>r.pass).length;
+  console.table(results); console.log(`${passed}/${results.length} tests passed`);
+  return passed===results.length;
+}
+window.runTests = runTests;
+</script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Ready Workspace | Add Then Multiply</title>
+<style>
+:root{--primary:#0A192F;--secondary:#172A45;--accent:#D4AF37;--text-main:#333;--text-light:#666;
+--bg-light:#F8F9FA;--white:#FFF;--border:#E0E0E0;--error:#D32F2F;--success:#2E7D32;--warn:#B26A00;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+body{background:var(--bg-light);color:var(--text-main);line-height:1.6;}
+header{background:var(--primary);color:var(--white);padding:1.2rem 0;border-bottom:4px solid var(--accent);}
+.container{max-width:1050px;margin:0 auto;padding:0 1.5rem;width:100%;}
+.header-content{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.logo{font-size:1.4rem;font-weight:700;}.logo span{color:var(--accent);}
+main{padding:2.5rem 0 4rem;}
+.card{background:var(--white);border-radius:8px;padding:2rem;box-shadow:0 4px 6px rgba(0,0,0,.05);margin-bottom:1.5rem;}
+h1{color:var(--primary);font-size:1.9rem;margin-bottom:.5rem;}
+h2{color:var(--primary);font-size:1.3rem;margin-bottom:1rem;}
+h3{color:var(--secondary);font-size:1.05rem;margin:1rem 0 .5rem;}
+p.sub{color:var(--text-light);margin-bottom:1.2rem;}
+label{display:block;font-weight:600;font-size:.9rem;margin:.8rem 0 .25rem;color:var(--secondary);}
+input,select,textarea{width:100%;padding:.6rem .7rem;border:1px solid var(--border);border-radius:6px;font-size:.95rem;}
+textarea{min-height:70px;resize:vertical;}
+button{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:.65rem 1.2rem;font-size:.95rem;font-weight:600;cursor:pointer;}
+button:hover{background:var(--secondary);}
+button.gold{background:var(--accent);color:var(--primary);}
+button.ghost{background:transparent;color:var(--primary);border:1px solid var(--primary);}
+button.small{padding:.3rem .7rem;font-size:.8rem;}
+.hidden{display:none!important;}
+.notice{padding:.8rem 1rem;border-radius:6px;margin:.8rem 0;font-size:.92rem;}
+.notice.ok{background:#E8F5E9;color:var(--success);}
+.notice.err{background:#FDECEA;color:var(--error);}
+.notice.info{background:#E3F2FD;color:#0D47A1;}
+.phase-bar{display:flex;gap:.35rem;flex-wrap:wrap;margin:1rem 0 1.5rem;}
+.phase-pill{padding:.4rem .75rem;border-radius:20px;font-size:.78rem;font-weight:600;background:#E9ECEF;color:var(--text-light);border:2px solid transparent;}
+.phase-pill.active{background:var(--primary);color:#fff;}
+.phase-pill.done{border-color:var(--success);color:var(--success);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+table{width:100%;border-collapse:collapse;font-size:.9rem;}
+th{text-align:left;background:var(--bg-light);color:var(--secondary);padding:.5rem .6rem;border-bottom:2px solid var(--border);}
+td{padding:.5rem .6rem;border-bottom:1px solid var(--border);vertical-align:top;}
+.tag{display:inline-block;padding:.1rem .5rem;border-radius:4px;font-size:.75rem;font-weight:700;}
+.tag.F{background:#E3F2FD;color:#0D47A1;}.tag.A{background:#F3E5F5;color:#6A1B9A;}
+.tag.C{background:#FFF3E0;color:#B26A00;}
+.redflag{color:var(--error);font-weight:700;}
+.gate-box{border:2px dashed var(--accent);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;background:#FFFDF5;}
+.muted{color:var(--text-light);font-size:.85rem;}
+.right{text-align:right;}
+.stage-col{background:var(--bg-light);border-radius:8px;padding:.8rem;min-height:90px;}
+.stage-col h4{font-size:.8rem;color:var(--secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
+.target-chip{background:#fff;border:1px solid var(--border);border-radius:6px;padding:.45rem .6rem;margin-bottom:.45rem;font-size:.85rem;}
+footer{background:var(--primary);color:#B0BEC5;padding:1.5rem 0;font-size:.85rem;text-align:center;}
+a{color:var(--accent);}
+</style>
+</head>
+<body>
+<header><div class="container header-content">
+  <div class="logo">ADD THEN <span>MULTIPLY</span> — Deal Ready Workspace</div>
+  <div><span id="whoami" class="muted" style="color:#B0BEC5;"></span>
+  <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#fff;margin-left:.8rem;">Sign out</button></div>
+</div></header>
+<main><div class="container">
+
+  <section id="view-auth" class="card" style="max-width:520px;margin:2rem auto;">
+    <h1>Engagement sign-in</h1>
+    <p class="sub">Enter your email for a secure magic link.</p>
+    <label for="auth-email">Email address</label>
+    <input id="auth-email" type="email" placeholder="you@company.co.uk" autocomplete="email">
+    <div style="margin-top:1rem;"><button id="btn-magic">Send magic link</button></div>
+    <div id="auth-msg"></div>
+    <p class="muted" style="margin-top:1.2rem;">Start with the free <a href="deal-ready.html">Deal Ready diagnostic</a>.</p>
+  </section>
+
+  <section id="view-list" class="hidden">
+    <div class="card">
+      <h1>Your Deal Ready engagements</h1>
+      <div id="eng-list"></div>
+      <h3 style="margin-top:1.5rem;">Create a new engagement</h3>
+      <div class="grid2">
+        <div><label>Company name (the acquirer)</label><input id="new-company" placeholder="Company Ltd"></div>
+        <div><label>Strategic goal</label><input id="new-goal" placeholder="e.g. Acquire capability in X / consolidate the Y market"></div>
+      </div>
+      <div style="margin-top:1rem;"><button id="btn-create-eng" class="gold">Create engagement</button></div>
+      <div id="list-msg"></div>
+    </div>
+  </section>
+
+  <section id="view-ws" class="hidden">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.6rem;">
+        <div><h1 id="ws-company"></h1><p class="sub" id="ws-meta"></p></div>
+        <button id="btn-back" class="ghost small">← All engagements</button>
+      </div>
+      <div class="phase-bar" id="phase-bar"></div>
+      <div class="gate-box" id="gate-box"></div>
+      <p class="muted">The honest verdict — including “M&amp;A is the wrong route” — the approach itself, chemistry, negotiation and completion decisions are made by people, never by the platform.</p>
+    </div>
+
+    <!-- Target pipeline -->
+    <div class="card">
+      <h2>Target pipeline <span class="tag A">A</span></h2>
+      <p class="sub">Longlist → shortlist of 30–50 → warm-intro pathfinding (the FFF research method, repurposed). Advisors protect the relationships; the platform tracks the funnel.</p>
+      <div class="grid3">
+        <div><label>Target name</label><input id="tg-name" placeholder="Target Ltd"></div>
+        <div><label>Stage</label><select id="tg-stage">
+          <option>longlist</option><option>shortlist</option><option>approached</option><option>meeting</option>
+          <option>hot</option><option>dd</option><option>spa</option><option>completed</option>
+          <option>integration</option><option>dropped</option></select></div>
+        <div><label>Relationship notes</label><input id="tg-notes" placeholder="Who knows whom; warmth of the route in"></div>
+      </div>
+      <div style="margin-top:.8rem;"><button id="btn-tg-add">Add target</button></div>
+      <div id="pipeline-board" style="margin-top:1.2rem;"></div>
+    </div>
+
+    <!-- DD tracker -->
+    <div class="card">
+      <h2>Due diligence tracker <span class="tag A">A</span></h2>
+      <p class="sub">The DD question log with red-flag surfacing — and the legal-cost discipline the process insists on. Red flags are decisions for people.</p>
+      <div class="grid3">
+        <div><label>Target</label><select id="dd-target"></select></div>
+        <div><label>Area</label><select id="dd-area">
+          <option>Financial</option><option>Legal</option><option>Commercial</option>
+          <option>People</option><option>Tax</option><option>Technology</option><option>Other</option></select></div>
+        <div><label>Question / item</label><input id="dd-question" placeholder="e.g. Customer concentration in top 3 accounts"></div>
+      </div>
+      <div style="margin-top:.8rem;"><button id="btn-dd-add">Add DD item</button></div>
+      <div id="dd-table" style="margin-top:1rem;"></div>
+    </div>
+
+    <!-- Integration planner -->
+    <div class="card">
+      <h2>Integration planner — the 100-day plan <span class="tag C">C</span></h2>
+      <p class="sub">Consolidate: “planned from the beginning, not bolted on” (<em>Add Then Multiply</em> Ch. 7). Seed the standard plan, then tailor it.</p>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem;">
+        <button id="btn-int-seed" class="gold">Seed standard 100-day plan</button>
+      </div>
+      <div class="grid3">
+        <div><label>Day (0–100)</label><input id="int-day" type="number" min="0" max="100" value="0"></div>
+        <div><label>Action</label><input id="int-action" placeholder="e.g. Joint all-hands; name the integration lead"></div>
+        <div><label>Owner</label><input id="int-owner" placeholder="Who"></div>
+      </div>
+      <label style="display:flex;align-items:center;gap:.5rem;margin-top:.5rem;">
+        <input type="checkbox" id="int-culture" style="width:auto;"> Culture-change risk item</label>
+      <div style="margin-top:.8rem;"><button id="btn-int-add">Add action</button></div>
+      <div id="int-table" style="margin-top:1rem;"></div>
+    </div>
+
+    <!-- Audit trail -->
+    <div class="card">
+      <h2>Audit trail</h2>
+      <div class="grid2">
+        <div><h3>AI runs</h3><div id="airuns-table"><span class="muted">None yet.</span></div></div>
+        <div><h3>Human sign-offs</h3><div id="signoffs-table"><span class="muted">None yet.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+</div></main>
+<footer><div class="container">Add Then Multiply — Deal Ready Workspace · Private and confidential ·
+Built on the ATM M&amp;A Advisory Process. AI drafts and tracks; your advisor decides.</div></footer>
+
+<script src="assets/supabase.js"></script>
+<script>
+"use strict";
+/* ================= CONFIG ================= */
+const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
+const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=Readiness%20Call";
+const PHASES = ["Strategic Logic","Target ID","Human Approach","Founder-to-Founder","HoT & DD","SPA & Completion","Integration"];
+const STAGES = ["longlist","shortlist","approached","meeting","hot","dd","spa","completed","integration","dropped"];
+const STANDARD_100_DAY = [
+  {day_offset:0,  action:"Completion day: joint announcement to both teams, in person where possible", owner:"Advisor + both founders", culture_risk:true},
+  {day_offset:1,  action:"Name the integration lead and the joint steering rhythm", owner:"Acquirer CEO", culture_risk:false},
+  {day_offset:7,  action:"One-to-ones with every key person in the acquired business", owner:"Integration lead", culture_risk:true},
+  {day_offset:14, action:"Customer communication plan executed for the top 20 accounts", owner:"Commercial lead", culture_risk:false},
+  {day_offset:30, action:"Systems and finance consolidation plan agreed (not necessarily executed)", owner:"Finance lead", culture_risk:false},
+  {day_offset:45, action:"Culture pulse check: retention risks named, mitigations owned", owner:"Integration lead", culture_risk:true},
+  {day_offset:60, action:"Synergy tracker reviewed against the strategic case", owner:"Advisor", culture_risk:false},
+  {day_offset:90, action:"Founder-to-founder review: what we promised each other vs what is true", owner:"Both founders", culture_risk:true},
+  {day_offset:100,action:"100-day review and hand-off to business-as-usual governance", owner:"Steering group", culture_risk:false}
+];
+
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let session=null, profile=null, eng=null, targetsCache=[];
+
+const $ = (id)=>document.getElementById(id);
+const esc = (s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
+function show(view){ ["view-auth","view-list","view-ws"].forEach(v=>$(v).classList.toggle("hidden", v!==view)); }
+
+/* ================= AUTH ================= */
+async function init(){
+  const {data:{session:s}} = await sb.auth.getSession();
+  session = s;
+  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
+  route();
+}
+async function route(){
+  if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; return; }
+  $("btn-signout").classList.remove("hidden");
+  $("whoami").textContent = session.user.email;
+  const {data:p} = await sb.from("profiles").select("*").eq("id", session.user.id).single();
+  profile = p || {id:session.user.id, role:"founder"};
+  await loadEngagements();
+}
+$("btn-magic").onclick = async ()=>{
+  const email = $("auth-email").value.trim();
+  if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
+  msg("auth-msg","Sending magic link…","info");
+  const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
+  msg("auth-msg", error ? error.message : "Check your inbox — the link signs you straight in.", error?"err":"ok");
+};
+$("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); eng=null; };
+
+/* ================= ENGAGEMENTS ================= */
+async function loadEngagements(){
+  show("view-list");
+  const {data, error} = await sb.from("engagements").select("*").eq("asset","deal_ready").order("created_at",{ascending:false});
+  if(error){ msg("list-msg", error.message, "err"); return; }
+  const rows = (data||[]).map(e=>`<tr><td><strong>${esc(e.company_name)}</strong></td>
+    <td>Phase ${e.phase} — ${esc(PHASES[e.phase-1]||"")}</td><td>${esc(e.status)}</td>
+    <td class="right"><button class="small gold" onclick="openEng('${e.id}')">Open workspace</button></td></tr>`).join("");
+  $("eng-list").innerHTML = rows
+    ? `<table><tr><th>Company</th><th>Phase</th><th>Status</th><th></th></tr>${rows}</table>`
+    : `<p class="muted">No engagements yet — create your first below.</p>`;
+}
+$("btn-create-eng").onclick = async ()=>{
+  const company = $("new-company").value.trim();
+  if(!company){ msg("list-msg","Company name is required.","err"); return; }
+  const {error} = await sb.from("engagements").insert({asset:"deal_ready", company_name:company,
+    founder_id:session.user.id, target_outcome:{strategic_goal: $("new-goal").value.trim()||null}});
+  if(error){ msg("list-msg", error.message, "err"); return; }
+  $("new-company").value=""; $("new-goal").value="";
+  loadEngagements();
+};
+window.openEng = async (id)=>{
+  const {data, error} = await sb.from("engagements").select("*").eq("id", id).single();
+  if(error){ msg("list-msg", error.message, "err"); return; }
+  eng = data; renderWorkspace();
+};
+$("btn-back").onclick = ()=>{ eng=null; loadEngagements(); };
+
+/* ================= WORKSPACE ================= */
+async function renderWorkspace(){
+  show("view-ws");
+  $("ws-company").textContent = eng.company_name;
+  $("ws-meta").textContent = `Deal Ready engagement · ${esc((eng.target_outcome||{}).strategic_goal||"strategic goal not set")} · status ${eng.status}`;
+  $("phase-bar").innerHTML = PHASES.map((p,i)=>{
+    const n=i+1, cls = n<eng.phase ? "done" : (n===eng.phase ? "active":"");
+    return `<span class="phase-pill ${cls}">${n}. ${p}</span>`;
+  }).join("");
+  renderGate();
+  await Promise.all([loadTargets(), loadDD(), loadIntegration(), loadAudit()]);
+}
+function renderGate(){
+  const next = eng.phase+1, isAdvisor = ["advisor","admin"].includes(profile.role);
+  if(eng.phase>=PHASES.length){ $("gate-box").innerHTML = `<strong>All phases complete.</strong>`; return; }
+  $("gate-box").innerHTML = `
+    <strong>Phase gate — advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
+    <p class="muted">A named human sign-off is required; the gate is enforced in the database.</p>
+    ${isAdvisor ? `
+      <label>Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
+      <div style="margin-top:.6rem;display:flex;gap:.6rem;">
+        <button class="gold" onclick="signGate('approved')">Approve &amp; advance</button>
+        <button class="ghost" onclick="signGate('needs_work')">Record: needs work</button>
+      </div>` : `<p class="muted">Your advisor approves this gate after the phase review.</p>`}`;
+}
+window.signGate = async (decision)=>{
+  const next = eng.phase+1, note = ($("gate-note")||{}).value||"";
+  const {error} = await sb.from("human_signoffs").insert({engagement_id:eng.id, gate:"advance_to_"+next, signed_by:session.user.id, decision, note});
+  if(error){ alert("Sign-off failed: "+error.message); return; }
+  if(decision==="approved"){
+    const {error:e2} = await sb.from("engagements").update({phase:next}).eq("id", eng.id);
+    if(e2){ alert("Phase advance blocked: "+e2.message); return; }
+    eng.phase = next;
+  }
+  renderWorkspace();
+};
+
+/* ================= PIPELINE ================= */
+$("btn-tg-add").onclick = async ()=>{
+  const name = $("tg-name").value.trim();
+  if(!name) return;
+  await sb.from("targets").insert({engagement_id:eng.id, name, stage:$("tg-stage").value, relationship_notes:$("tg-notes").value.trim()||null});
+  $("tg-name").value=""; $("tg-notes").value="";
+  loadTargets();
+};
+async function loadTargets(){
+  const {data} = await sb.from("targets").select("*").eq("engagement_id",eng.id).order("created_at");
+  targetsCache = data||[];
+  const active = STAGES.filter(s=>s!=="dropped");
+  $("pipeline-board").innerHTML = `<div class="grid3">`+active.map(stage=>{
+    const items = targetsCache.filter(t=>t.stage===stage);
+    return `<div class="stage-col"><h4>${stage} (${items.length})</h4>
+      ${items.map(t=>`<div class="target-chip"><strong>${esc(t.name)}</strong>
+        ${t.relationship_notes?`<div class="muted">${esc(t.relationship_notes)}</div>`:""}
+        <select class="small" style="margin-top:.3rem;font-size:.78rem;padding:.2rem;" onchange="moveTarget('${t.id}',this.value)">
+          ${STAGES.map(s=>`<option ${s===t.stage?"selected":""}>${s}</option>`).join("")}
+        </select></div>`).join("")||`<span class="muted">—</span>`}</div>`;
+  }).join("")+`</div>`+
+  (targetsCache.some(t=>t.stage==="dropped")?`<p class="muted" style="margin-top:.6rem;">Dropped: ${targetsCache.filter(t=>t.stage==="dropped").map(t=>esc(t.name)).join(", ")}</p>`:"");
+  const dd = $("dd-target");
+  dd.innerHTML = `<option value="">— general —</option>`+targetsCache.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");
+}
+window.moveTarget = async (id, stage)=>{ await sb.from("targets").update({stage}).eq("id",id); loadTargets(); };
+
+/* ================= DD TRACKER ================= */
+$("btn-dd-add").onclick = async ()=>{
+  const q = $("dd-question").value.trim();
+  if(!q) return;
+  await sb.from("dd_items").insert({engagement_id:eng.id, target_id:$("dd-target").value||null, area:$("dd-area").value, question:q});
+  $("dd-question").value="";
+  loadDD();
+};
+async function loadDD(){
+  const {data} = await sb.from("dd_items").select("*").eq("engagement_id",eng.id).order("created_at");
+  const tName = (id)=>{const t=targetsCache.find(x=>x.id===id); return t?t.name:"—";};
+  const red = (data||[]).filter(d=>d.red_flag).length;
+  $("dd-table").innerHTML = (data&&data.length)?
+    `${red?`<div class="notice err">${red} red flag${red>1?"s":""} open — advisor attention required.</div>`:""}
+    <table><tr><th>Target</th><th>Area</th><th>Question</th><th>Status</th><th>Red flag</th><th></th></tr>
+    ${data.map(d=>`<tr><td>${esc(tName(d.target_id))}</td><td>${esc(d.area)}</td><td>${esc(d.question)}
+      ${d.response?`<div class="muted">↳ ${esc(d.response)}</div>`:""}</td>
+      <td>${esc(d.status)}</td>
+      <td>${d.red_flag?`<span class="redflag">⚑</span>`:""}</td>
+      <td class="right">
+        <button class="small ghost" onclick="ddFlag('${d.id}',${!d.red_flag})">${d.red_flag?"Unflag":"Flag"}</button>
+        <button class="small ghost" onclick="ddAnswer('${d.id}')">Answer</button>
+      </td></tr>`).join("")}</table>`
+    : `<p class="muted">No DD items yet.</p>`;
+}
+window.ddFlag = async (id, flag)=>{ await sb.from("dd_items").update({red_flag:flag, status:flag?"red":"open"}).eq("id",id); loadDD(); };
+window.ddAnswer = async (id)=>{
+  const response = prompt("Response / evidence reference:");
+  if(response===null) return;
+  await sb.from("dd_items").update({response, status:"answered"}).eq("id",id);
+  loadDD();
+};
+
+/* ================= INTEGRATION ================= */
+$("btn-int-seed").onclick = async ()=>{
+  const rows = STANDARD_100_DAY.map(x=>({...x, engagement_id:eng.id}));
+  const {error} = await sb.from("integration_actions").insert(rows);
+  if(error) alert(error.message);
+  loadIntegration();
+};
+$("btn-int-add").onclick = async ()=>{
+  const action = $("int-action").value.trim();
+  if(!action) return;
+  await sb.from("integration_actions").insert({engagement_id:eng.id, day_offset:Number($("int-day").value)||0,
+    action, owner:$("int-owner").value.trim()||null, culture_risk:$("int-culture").checked});
+  $("int-action").value=""; $("int-owner").value=""; $("int-culture").checked=false;
+  loadIntegration();
+};
+async function loadIntegration(){
+  const {data} = await sb.from("integration_actions").select("*").eq("engagement_id",eng.id).order("day_offset");
+  $("int-table").innerHTML = (data&&data.length)?
+    `<table><tr><th>Day</th><th>Action</th><th>Owner</th><th>Culture risk</th><th>Status</th><th></th></tr>
+    ${data.map(a=>`<tr><td>${a.day_offset}</td><td>${esc(a.action)}</td><td>${esc(a.owner||"—")}</td>
+      <td>${a.culture_risk?`<span class="redflag">culture</span>`:""}</td><td>${esc(a.status)}</td>
+      <td class="right"><button class="small ghost" onclick="cycleInt('${a.id}','${a.status}')">${a.status==="todo"?"Start":a.status==="doing"?"Done":"Reopen"}</button></td></tr>`).join("")}</table>`
+    : `<p class="muted">No integration actions yet — seed the standard plan or add your own.</p>`;
+}
+window.cycleInt = async (id, cur)=>{
+  const next = cur==="todo"?"doing":cur==="doing"?"done":"todo";
+  await sb.from("integration_actions").update({status:next}).eq("id",id);
+  loadIntegration();
+};
+
+/* ================= AUDIT ================= */
+async function loadAudit(){
+  const [{data:runs},{data:signs}] = await Promise.all([
+    sb.from("ai_runs").select("task,model,created_at").eq("engagement_id",eng.id).order("created_at",{ascending:false}).limit(10),
+    sb.from("human_signoffs").select("gate,decision,signed_at").eq("engagement_id",eng.id).order("signed_at",{ascending:false}).limit(10)
+  ]);
+  $("airuns-table").innerHTML = (runs&&runs.length)?`<table><tr><th>Task</th><th>Model</th><th>When</th></tr>
+    ${runs.map(r=>`<tr><td>${esc(r.task)}</td><td>${esc(r.model||"")}</td><td>${new Date(r.created_at).toLocaleString("en-GB")}</td></tr>`).join("")}</table>`:`<span class="muted">None yet.</span>`;
+  $("signoffs-table").innerHTML = (signs&&signs.length)?`<table><tr><th>Gate</th><th>Decision</th><th>When</th></tr>
+    ${signs.map(s=>`<tr><td>${esc(s.gate)}</td><td>${esc(s.decision)}</td><td>${new Date(s.signed_at).toLocaleString("en-GB")}</td></tr>`).join("")}</table>`:`<span class="muted">None yet.</span>`;
+}
+
+/* ================= TEST HARNESS ================= */
+window.runTests = function(){
+  const results=[]; const t=(name,pass)=>{results.push({name,pass}); console.log((pass?"✅":"❌")+" "+name);};
+  t("7 phases defined", PHASES.length===7);
+  t("10 pipeline stages defined", STAGES.length===10);
+  t("standard 100-day plan spans day 0 to 100",
+    STANDARD_100_DAY[0].day_offset===0 && STANDARD_100_DAY[STANDARD_100_DAY.length-1].day_offset===100);
+  t("100-day plan is sorted by day", STANDARD_100_DAY.every((x,i,a)=>i===0||a[i-1].day_offset<=x.day_offset));
+  t("100-day plan contains culture-risk items", STANDARD_100_DAY.some(x=>x.culture_risk));
+  t("every plan item has an owner", STANDARD_100_DAY.every(x=>x.owner && x.owner.length>0));
+  t("esc() neutralises HTML", esc("<b>&\"'</b>")==="&lt;b&gt;&amp;&quot;&#39;&lt;/b&gt;");
+  const passed = results.filter(r=>r.pass).length;
+  console.log(`${passed}/${results.length} tests passed`);
+  return {passed, total:results.length, ok:passed===results.length};
+};
+
+init();
+</script>
+</body>
+</html>
