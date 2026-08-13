@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Multiplier Diagnostic — Add Then Multiply</title>
+<title>Ethical Acquisitions Scorecard — Add Then Multiply</title>
 <style>
 :root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#0F172A;--accent:#1D4ED8;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -28,6 +28,10 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .scale label:hover{background:var(--bg);}
 .scale input{display:block;margin:0 auto 0.3rem;accent-color:var(--accent);}
 .scale b{display:block;color:var(--navy);}
+.rolegrid{display:flex;gap:0.6rem;flex-wrap:wrap;margin:1rem 0;}
+.rolegrid label{flex:1 1 180px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:0.9rem;font-size:0.88rem;cursor:pointer;text-align:center;color:#334155;}
+.rolegrid input{display:block;margin:0 auto 0.4rem;accent-color:var(--accent);}
+.rolegrid b{color:var(--navy);}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
 button.cta:hover{background:#1E40AF;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
@@ -49,7 +53,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <span class="brand">ADD THEN MULTIPLY</span>
   <nav>
     <a href="index.html">Overview</a>
-    <a href="diagnostic.html" class="active">Diagnostic</a>
+    <a href="diagnostic.html">Diagnostic</a>
     <a href="roadmap.html">Roadmap</a>
     <a href="sourcing.html">Sourcing</a>
     <a href="readiness-project.html">Readiness Projects</a>
@@ -59,11 +63,20 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </nav>
 </header>
 <main>
-  <span class="kicker">The Multiplier Diagnostic · 20 questions · 3 minutes · instant results</span>
-  <h1>Is your business ready to multiply?</h1>
-  <p class="lede">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions — and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
+  <span class="kicker">Ethical Acquisitions Scorecard · 20 questions · 3 minutes · instant results</span>
+  <h1>Buy or sell a business the right way</h1>
+  <p class="lede">Whether you are preparing to sell the business you built, or acquiring to grow, the difference between a fair deal and a painful one is readiness — financial, structural and ethical. This scorecard measures all three, and shows you where you stand before you sit down at the table.</p>
+
+  <div class="themehead"><h2>First — which best describes you today?</h2><p>This personalises your results. It is not scored.</p></div>
+  <div class="rolegrid">
+    <label><input type="radio" name="q0" value="seller"><b>Seller / owner</b>preparing to exit</label>
+    <label><input type="radio" name="q0" value="buyer"><b>Buyer / acquirer</b>growing by acquisition</label>
+    <label><input type="radio" name="q0" value="advisor"><b>Advisor</b>exploring options for a client</label>
+  </div>
+
   <form id="diag"></form>
-  <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>
+  <button class="cta" onclick="scoreDiagnostic()">Calculate my Readiness Score</button>
+
   <section id="leadgate" style="display:none;margin-top:2.4rem;">
     <div class="scorebox">
       <h2 style="margin-top:0;font-size:1.15rem;">Your score is ready</h2>
@@ -72,8 +85,8 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
         <label style="font-size:0.8rem;color:var(--slate);">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
         <label style="font-size:0.8rem;color:var(--slate);">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
         <label style="font-size:0.8rem;color:var(--slate);">Company<input id="ld-company" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
-        <label style="font-size:0.8rem;color:var(--slate);">Your role<select id="ld-role" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Founder / CEO</option><option>Co-founder</option><option>Finance lead</option><option>Advisor</option><option>Other</option></select></label>
-        <label style="font-size:0.8rem;color:var(--slate);">Annual revenue<select id="ld-revenue" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Under £250k</option><option>£250k–£1M</option><option>£1M–£5M</option><option>£5M–£10M</option><option>Over £10M</option></select></label>
+        <label style="font-size:0.8rem;color:var(--slate);">Turnover band<select id="ld-revenue" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Under £1M</option><option>£1M–£5M</option><option>£5M–£10M</option><option>£10M–£25M</option><option>Over £25M</option></select></label>
+        <label style="font-size:0.8rem;color:var(--slate);">Timeframe to act<select id="ld-timeframe" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>0–3 months</option><option>3–6 months</option><option>6–12 months</option><option>Exploring</option></select></label>
       </div>
       <label style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:var(--slate);margin-top:1rem;"><input id="ld-consent" type="checkbox" style="margin-top:0.2rem;accent-color:var(--accent);">I agree to Add Then Multiply storing my answers and contacting me about my results.</label>
       <p id="ld-error" style="display:none;color:var(--bad);font-size:0.82rem;margin-top:0.6rem;"></p>
@@ -83,6 +96,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       </div>
     </div>
   </section>
+
   <section id="results">
     <span class="kicker">Your results</span>
     <div class="scorebox">
@@ -94,75 +108,76 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       <div class="svcmatch" id="svcMatch"></div>
       <p style="margin-top:1.2rem;" id="ctaLine"></p>
       <p style="margin-top:0.8rem;"><a id="bookBtn" href="#" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM call →</a></p>
-      <p id="deepLink" style="display:none;font-size:0.88rem;margin-top:1rem;">Scoring this well? Go a level deeper with the <a href="transaction-readiness.html">Transaction Readiness Assessment</a> — the 24-metric instrument a buyer's advisers would use.</p>
     </div>
   </section>
-  <p class="note">Your answers are scored in your browser. They are stored securely by Add Then Multiply only if you choose to share your details for a follow-up, and are never shared with third parties. This diagnostic indicates business readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored in your browser. They are stored securely by Add Then Multiply only if you choose to share your details for a follow-up, and are never shared with third parties. This scorecard indicates readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses</footer>
 <script src="assets/supabase.js"></script>
 <script>
-const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=ATM%20Multiplier%20Call";
+const BOOKING_URL = "mailto:david@addthenmultiply.com?subject=ATM%20Ethical%20Acquisitions%20Call";
 const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
-const INSTRUMENT = "multiplier_diagnostic";
+const INSTRUMENT = "ethical_acquisitions";
 const INSTRUMENT_VERSION = "1.0";
 let sb = null;
 try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY); } catch(e) { /* offline-safe */ }
-const SCALE = ["Not at all","Slightly","Somewhat","Mostly","Completely"];
+
+const SCALE = ["Not at all","Slightly","Partly","Mostly","Completely"];
 const THEMES = [
- {key:"growth", name:"Growth Ambition & Readiness", weight:1.0,
-  low:["Build a documented growth roadmap with milestones","Integrate acquisitions into your growth strategy"],
-  qs:["Do you have a clear plan to scale your business to £10M+ within the next 3–5 years?",
-      "Are you confident your current growth strategy will get you there fast enough?",
-      "Do you actively explore acquisitions as part of your growth plan?",
-      "Do you have a documented, step-by-step roadmap for achieving your growth targets?"]},
- {key:"finance", name:"Financial Clarity & Control", weight:1.5,
-  low:["Introduce financial modelling and scenario planning","Install a 13-week cashflow and KPI dashboard"],
-  qs:["Do you receive regular, insightful financial reports that you fully understand?",
-      "Can you predict your cash flow position for the next 6–12 months with confidence?",
-      "Do you have a financial model that allows you to test “what if?” scenarios before making big decisions?",
-      "Is your finance function delivering timely, accurate information that supports decision-making?"]},
- {key:"funding", name:"Funding & Investor Readiness", weight:1.5,
-  low:["Define your funding requirement and the best route to secure it","Prepare your investor deck and data room"],
-  qs:["If you needed to raise funding in the next 3 months, would your business be “investor-ready”?",
-      "Do you know exactly how much funding you need and the best way to secure it?",
-      "Have you successfully secured external finance or investment in the past 2 years?"]},
- {key:"ops", name:"Operational Efficiency & Scalability", weight:1.0,
-  low:["Document your core processes so they are repeatable","Strengthen the leadership team for scale"],
-  qs:["Are your operations ready to handle a sudden doubling in sales without chaos?",
-      "Do you have the right leadership team and structures to sustain rapid growth?",
-      "Are your processes documented and repeatable, rather than dependent on key individuals?"]},
- {key:"exit", name:"Exit Planning & Value Creation", weight:1.5,
-  low:["Get a professional view of your current valuation and its drivers","Align your personal exit plan with the business plan"],
-  qs:["Do you know the current value of your business and what drives it up or down?",
-      "Have you taken active steps to make your business “exit-ready” in the next 3–5 years?",
-      "Do you have a clear personal exit plan that aligns with your financial goals?"]},
- {key:"mindset", name:"Mindset & External Support", weight:1.0,
-  low:["Secure an advisor who has scaled and exited before","Access specialist M&A, funding and finance skills without full-time hires"],
-  qs:["Do you have a trusted advisor or partner who understands rapid growth and has done it before?",
-      "Are you willing to make bold, strategic changes to accelerate growth?",
-      "Do you have access to the specialist skills needed for M&A, funding, and scaling — without hiring full-time?"]},
+ {key:"seller", name:"Seller Readiness and Priorities", weight:1.0,
+  low:["Define your personal objectives and exit criteria","Compare route options — EOT, MBO, trade sale — with advice"],
+  qs:["Do you have clear personal and family objectives from the sale, such as financial security, legacy, or succession?",
+      "Are you confident your business could continue to thrive under new ownership?",
+      "Have you explored different exit routes such as MBO, EOT, trade sale, or private equity?",
+      "Is protecting your employees, culture, and reputation a top priority in the sale process?",
+      "Do you fully understand the risks and pitfalls of seller financing, earn-outs, or deferred consideration?"]},
+ {key:"buyer", name:"Buyer and Acquirer Preparedness", weight:1.0,
+  low:["Document your capital stack policy and credibility pack","Build an operator plan for the first 100 days"],
+  qs:["Are you confident in your ability to acquire a business without significant upfront capital?",
+      "Do you have experience with acquisition models such as LBO, deferred or earn-out, or equity rollover?",
+      "Do you fully understand the financial and operational responsibilities that come with no-money-down acquisitions?",
+      "Is your approach to financing acquisitions structured and sustainable rather than opportunistic?",
+      "Are you well prepared to present yourself as a credible and trustworthy buyer to family business sellers?"]},
+ {key:"ethics", name:"Ethics and Trust", weight:1.5,
+  low:["Adopt ethical term-sheet standards with independent fairness review","Prepare a transparency pack for the other side"],
+  qs:["Is ethical practice, such as fairness, transparency, and accountability, central to your approach to buying or selling a business?",
+      "Can you spot warning signs of unethical acquisition practices with confidence?",
+      "Do you believe risk should be fairly shared between sellers and buyers in structuring a deal?",
+      "Are you confident that you would avoid the overleveraging trap that puts businesses and employees at risk?",
+      "Are you open to working with experienced advisers to structure deals that protect all parties involved?"]},
+ {key:"finance", name:"Financial Fitness and Growth Potential", weight:1.5,
+  low:["Implement monthly reporting and a 13-week cashflow","Prepare a pre-funding data room and KPI dashboard"],
+  qs:["Do you have strong financial systems in place, including reporting, cash flow management, and forecasting?",
+      "Are you confident your business, or a target business, could attract external funding if required?",
+      "Do you use financial models and scenario planning to support your strategic decisions?",
+      "Are you prepared for integration challenges after an acquisition, including operations, teams, and culture?",
+      "Are you confident in your ability to create long term value from a transaction, rather than only short term gains?"]},
 ];
 const MAX_WEIGHTED = THEMES.reduce((s,t)=>s + t.qs.length*5*t.weight, 0); // 125
 const BANDS = [
   {min:91, label:"Highly Ready", color:"var(--good)",
-   desc:"You have clear goals, strong financial foundations and genuine readiness for exponential growth. You are well placed to fund, acquire and build towards a high-value exit.",
-   svc:"<b>Your ATM service match:</b> the full <a href='roadmap.html'>FACE Pathway</a> — Fund, Acquire, Consolidate, Exit — with hands-on strategic guidance end to end.",
-   cta:"You're ATM Ready. With funding, acquisitions and exit in view, let's accelerate together.", deep:true},
+   desc:"Clear goals, ethical alignment, and strong financial and strategic readiness. You are well placed to achieve a successful, fair, and sustainable transaction.",
+   svc:"<b>Your ATM service match:</b> FACE pathway discovery — Fund, Acquire, Consolidate, Exit."},
   {min:71, label:"Strong Potential", color:"var(--accent)",
-   desc:"Solid foundations and clear ambition, with targeted gaps that structured expert input would close quickly.",
-   svc:"<b>Your ATM service match:</b> a <b>Commercial Velocity day</b> to sharpen the growth engine, and a <b>Fundable Growth Sprint</b> to put numbers and narrative in investor-grade shape.",
-   cta:"You're close to scaling. We can help you fund, acquire and prepare for exit. Let's talk.", deep:true},
+   desc:"Well prepared, with good awareness of risks and opportunities. Targeted expert guidance would secure the best outcome and build long-term value.",
+   svc:"<b>Your ATM service match:</b> an <b>ATM Commercial Velocity day</b> or an <b>Insourced CFO</b> scoping call."},
   {min:41, label:"Emerging", color:"var(--warn)",
-   desc:"Clear ambition, but gaps in financial clarity, funding readiness or exit planning are holding the multiplier back.",
-   svc:"<b>Your ATM service match:</b> <b>Financial Modelling</b> to give you a decision-grade model, with <b>Insourced CFO</b> support and a <b>Funding Fitness Index</b> review.",
-   cta:"You're growth-ready. Let's sharpen your financials and strategy to unlock the next level.", deep:false},
+   desc:"Some readiness, but gaps remain in strategy, financial systems, or ethical safeguards. With structured support you can avoid the common pitfalls.",
+   svc:"<b>Your ATM service match:</b> an <b>Ethical Deal Readiness session</b> and a <b>Funding Fitness Index</b> review."},
   {min:0, label:"At Risk", color:"var(--bad)",
-   desc:"The foundations need strengthening before rapid growth is safe. That is not bad news — it is the map, and every gap identified here is fixable.",
-   svc:"<b>Your ATM service match:</b> start with a <b>Financial Deep Dive</b> to establish the true picture, then an <b>Insourced Finance Function</b> to build the rhythm that growth needs.",
-   cta:"Let's build your foundation. Book a call to take control of your finances and prepare for growth.", deep:false},
+   desc:"You are exposed to significant risks in the acquisition or sale process. Limited preparedness could leave you vulnerable to unfair deal structures or missed opportunities.",
+   svc:"<b>Your ATM service match:</b> a <b>Financial Deep Dive</b> diagnostic and risk review."},
 ];
+function roleCta(role, total){
+  if(role==="seller") return total<=70
+    ? "Your pathway: Exit Ready in 90 Days — an Exit Readiness call and an options overview (EOT, MBO with vendor support, trade sale)."
+    : "Your pathway: an Exit Readiness call, then FACE discovery and a Commercial Velocity day.";
+  if(role==="buyer") return total<=70
+    ? "Your pathway: Credible Acquirer in 60 Days — an Ethical Acquisition Strategy call, Funding Fitness Index and credibility pack."
+    : "Your pathway: an Ethical Acquisition Strategy call, then FACE discovery and deal modelling.";
+  return "Your pathway: a partner discussion about a co-branded readiness pathway for your clients.";
+}
 // Render form
 const form = document.getElementById("diag");
 let html = ""; let qn = 0;
@@ -180,7 +195,7 @@ THEMES.forEach(t => {
 form.innerHTML = html;
 document.getElementById("bookBtn").href = BOOKING_URL;
 
-function computeScores(answers){ // answers: array of 20 ints (1..5)
+function computeScores(answers){
   let i = 0, weighted = 0;
   const themeScores = {};
   THEMES.forEach(t => {
@@ -199,20 +214,19 @@ function insightFor(t, pct){
   return "A strength. Maintain it with light-touch governance and monitoring.";
 }
 function barColor(pct){ return pct>=75 ? "var(--good)" : pct>=50 ? "var(--warn)" : "var(--bad)"; }
-
 function bandSlug(label){ return label.toLowerCase().replace(/[^a-z0-9]+/g,"-"); }
-function buildLeadPayload(answers, themeScores, total, band, contact){
+function buildLeadPayload(answers, themeScores, total, band, role, contact){
   return {
     instrument: INSTRUMENT, instrument_version: INSTRUMENT_VERSION,
-    score_pct: total, band: band.label, band_tag: "md:" + bandSlug(band.label),
-    theme_scores: themeScores, answers: answers,
+    score_pct: total, band: band.label, band_tag: "eas:" + bandSlug(band.label),
+    theme_scores: themeScores, answers: answers, audience_role: role,
     first_name: contact.name, email: contact.email, company: contact.company,
-    role_title: contact.role, revenue_band: contact.revenue || null,
-    consent: true, source_page: "diagnostic.html"
+    role_title: role, revenue_band: contact.revenue || null,
+    consent: true, source_page: "ethical-acquisitions.html"
   };
 }
-let pending = null;   // {answers, themeScores, total, band}
-let routing = null;   // routing_config rows, if reachable
+let pending = null;
+let routing = null;
 async function loadRouting(){
   if(!sb) return;
   try {
@@ -223,6 +237,8 @@ async function loadRouting(){
 loadRouting();
 
 function scoreDiagnostic(){
+  const roleSel = document.querySelector('input[name="q0"]:checked');
+  if(!roleSel){ alert("Please tell us which best describes you today (the first question)."); window.scrollTo({top:0,behavior:"smooth"}); return; }
   const answers = [];
   const allQs = THEMES.flatMap(t=>t.qs);
   for(let i=0;i<allQs.length;i++){
@@ -231,7 +247,7 @@ function scoreDiagnostic(){
     answers.push(parseInt(sel.value,10));
   }
   const {themeScores, total} = computeScores(answers);
-  pending = {answers, themeScores, total, band: bandFor(total)};
+  pending = {answers, themeScores, total, band: bandFor(total), role: roleSel.value};
   const gate = document.getElementById("leadgate");
   gate.style.display = "block"; gate.scrollIntoView({behavior:"smooth"});
 }
@@ -242,12 +258,11 @@ async function submitLead(){
     name: document.getElementById("ld-name").value.trim(),
     email: document.getElementById("ld-email").value.trim(),
     company: document.getElementById("ld-company").value.trim(),
-    role: document.getElementById("ld-role").value,
     revenue: document.getElementById("ld-revenue").value
   };
   const err = document.getElementById("ld-error");
-  if(!contact.name || !contact.email || !contact.company || !contact.role){
-    err.textContent = "Please complete your name, email, company and role."; err.style.display = "block"; return;
+  if(!contact.name || !contact.email || !contact.company){
+    err.textContent = "Please complete your name, email and company."; err.style.display = "block"; return;
   }
   if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact.email)){
     err.textContent = "That email address doesn't look right."; err.style.display = "block"; return;
@@ -257,15 +272,15 @@ async function submitLead(){
   }
   err.style.display = "none";
   if(sb){
-    try { await sb.from("leads").insert(buildLeadPayload(pending.answers, pending.themeScores, pending.total, pending.band, contact)); }
-    catch(e) { /* never block the founder's results on a network failure */ }
+    try { await sb.from("leads").insert(buildLeadPayload(pending.answers, pending.themeScores, pending.total, pending.band, pending.role, contact)); }
+    catch(e) { /* never block results on a network failure */ }
   }
   renderResults();
 }
 function skipLead(){ if(pending) renderResults(); }
 
 function renderResults(){
-  const {answers, themeScores, total, band} = pending;
+  const {answers, themeScores, total, band, role} = pending;
   const allQs = THEMES.flatMap(t=>t.qs);
   document.getElementById("leadgate").style.display = "none";
   document.getElementById("totalScore").textContent = total;
@@ -285,8 +300,7 @@ function renderResults(){
     svcHtml += `<br><span style="font-size:0.8rem;color:var(--slate);">Any investor introductions are made exclusively through ATM's authorised transaction partner.</span>`;
   }
   document.getElementById("svcMatch").innerHTML = svcHtml;
-  document.getElementById("ctaLine").innerHTML = `<b>${cfg ? cfg.cta : band.cta}</b>`;
-  document.getElementById("deepLink").style.display = band.deep ? "block" : "none";
+  document.getElementById("ctaLine").innerHTML = `<b>${roleCta(role, total)}</b>`;
   const res = document.getElementById("results");
   res.style.display = "block"; res.scrollIntoView({behavior:"smooth"});
 }
@@ -297,15 +311,15 @@ function runTests(){
   const t = (name, cond) => results.push({name, pass: !!cond});
   const nQs = THEMES.reduce((s,th)=>s+th.qs.length,0);
   t("20 questions defined", nQs === 20);
-  t("theme sizes 4/4/3/3/3/3", THEMES.map(th=>th.qs.length).join(",") === "4,4,3,3,3,3");
+  t("theme sizes 5/5/5/5", THEMES.map(th=>th.qs.length).join(",") === "5,5,5,5");
   t("weighted max is 125", MAX_WEIGHTED === 125);
-  t("finance/funding/exit weighted 1.5", THEMES.filter(th=>th.weight===1.5).map(th=>th.key).join(",") === "finance,funding,exit");
+  t("ethics/finance weighted 1.5", THEMES.filter(th=>th.weight===1.5).map(th=>th.key).join(",") === "ethics,finance");
   t("all 1s -> 20%", computeScores(new Array(20).fill(1)).total === 20);
   t("all 3s -> 60%", computeScores(new Array(20).fill(3)).total === 60);
   t("all 5s -> 100%", computeScores(new Array(20).fill(5)).total === 100);
-  // weighted asymmetry: finance theme (Q5-8) all 5s, rest 1s => 25 - 6 + 30 = 49 => 39%
-  const finMax = new Array(20).fill(1).map((v,i)=> (i>=4 && i<8) ? 5 : 1);
-  t("finance-only max -> 39%", computeScores(finMax).total === 39);
+  // ethics theme (Q11-15, idx 10-14) all 5s, rest 1s => 25 - 7.5 + 37.5 = 55 => 44%
+  const ethMax = new Array(20).fill(1).map((v,i)=> (i>=10 && i<15) ? 5 : 1);
+  t("ethics-only max -> 44%", computeScores(ethMax).total === 44);
   t("band 100 = Highly Ready", bandFor(100).label==="Highly Ready");
   t("band 91 = Highly Ready", bandFor(91).label==="Highly Ready");
   t("band 90 = Strong Potential", bandFor(90).label==="Strong Potential");
@@ -313,13 +327,14 @@ function runTests(){
   t("band 70 = Emerging", bandFor(70).label==="Emerging");
   t("band 41 = Emerging", bandFor(41).label==="Emerging");
   t("band 40 = At Risk", bandFor(40).label==="At Risk");
-  t("band 20 = At Risk", bandFor(20).label==="At Risk");
+  t("seller low band -> 90-day pathway", roleCta("seller",50).includes("Exit Ready in 90 Days"));
+  t("seller high band -> FACE", roleCta("seller",85).includes("FACE"));
+  t("buyer low band -> 60-day pathway", roleCta("buyer",60).includes("Credible Acquirer in 60 Days"));
+  t("advisor -> co-branded", roleCta("advisor",80).includes("co-branded"));
+  const pl = buildLeadPayload([1],{ethics:40},55,{label:"Emerging"},"buyer",{name:"A",email:"a@b.co",company:"C",revenue:""});
+  t("payload band_tag eas-prefixed", pl.band_tag==="eas:emerging");
+  t("payload audience_role stored", pl.audience_role==="buyer" && pl.instrument==="ethical_acquisitions");
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
-  t("bandSlug slugifies", bandSlug("Strong Potential")==="strong-potential" && bandSlug("At Risk")==="at-risk");
-  const pl = buildLeadPayload([1,2],{growth:50},72,{label:"Strong Potential"},{name:"A",email:"a@b.co",company:"C",role:"Founder / CEO",revenue:""});
-  t("payload band_tag prefixed", pl.band_tag==="md:strong-potential");
-  t("payload instrument + version", pl.instrument==="multiplier_diagnostic" && pl.instrument_version==="1.0");
-  t("payload revenue null when blank", pl.revenue_band===null && pl.consent===true);
   const passed = results.filter(r=>r.pass).length;
   console.table(results);
   console.log(`${passed}/${results.length} tests passed`);
