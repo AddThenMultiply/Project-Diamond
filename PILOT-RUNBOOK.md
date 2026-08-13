@@ -1,13 +1,13 @@
 # Pilot Runbook — proving the platform end to end
 
-Three pilot founders, one advisor, ~4 weeks. Everything below is UK English and assumes the live site at `https://madeleinejoubert-ui.github.io/addthenmultiply/`.
+Three pilot founders, one advisor, ~4 weeks. Everything below is UK English and assumes the live site at `https://addthenmultiply.github.io/Project-Diamond/`.
 
 ## Part 1 — One-time setup (~15 minutes, Supabase dashboard)
 
 Do these in order. Steps 1–3 are required before any founder signs in.
 
 1. **Run migration 002 (fixes login).** SQL Editor → paste `supabase/migrations/002_grant_rls_helpers.sql` → Run. Without this, every workspace query fails with "permission denied for function current_role_atm". (Migration 001 is already applied — verified against the live project.)
-2. **Auth redirect URLs.** Authentication → URL Configuration → Site URL `https://madeleinejoubert-ui.github.io/addthenmultiply/`; add redirect URLs for `exit-ready-workspace.html`, `deal-ready-workspace.html`, `advisor-console.html` (full URLs) and `http://localhost:8107/*` for local testing.
+2. **Auth redirect URLs.** Authentication → URL Configuration → Site URL `https://addthenmultiply.github.io/Project-Diamond/`; add redirect URLs for `exit-ready-workspace.html`, `deal-ready-workspace.html`, `advisor-console.html` (full URLs) and `http://localhost:8107/*` for local testing.
 3. **Email sending — do not skip.** Supabase's built-in email service is rate-limited to a couple of magic-link emails per hour — enough for one person testing, not for a pilot day. Authentication → Emails → set up custom SMTP (any provider; even a Gmail app password works for a pilot) before founders try to sign in.
 4. **Advisor roles.** Sign in once yourself (creates your profile row), then SQL Editor:
    `update public.profiles set role='admin' where id = (select id from auth.users where email='<your email>');`

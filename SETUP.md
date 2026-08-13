@@ -35,11 +35,11 @@ The UI respects it; the database enforces it.
 
 Dashboard → **Authentication → URL Configuration**:
 
-- **Site URL:** `https://<your-github-username>.github.io/addthenmultiply/`
+- **Site URL:** `https://addthenmultiply.github.io/Project-Diamond/`
 - **Redirect URLs:** add
-  - `https://<your-github-username>.github.io/addthenmultiply/exit-ready-workspace.html`
-  - `https://<your-github-username>.github.io/addthenmultiply/deal-ready-workspace.html`
-  - `https://<your-github-username>.github.io/addthenmultiply/advisor-console.html`
+  - `https://addthenmultiply.github.io/Project-Diamond/exit-ready-workspace.html`
+  - `https://addthenmultiply.github.io/Project-Diamond/deal-ready-workspace.html`
+  - `https://addthenmultiply.github.io/Project-Diamond/advisor-console.html`
   - `http://localhost:8000/*` (local testing)
 
 **Authentication → Providers → Email:** magic link is on by default; you can disable
