@@ -186,7 +186,7 @@ THEMES.forEach(t => {
   t.qs.forEach(q => {
     html += `<div class="metric"><h3>${qn+1}. ${q}</h3><div class="scale">`;
     SCALE.forEach((s,j) => {
-      html += `<label><input type="radio" name="q${qn}" value="${j+1}"><b>${j+1}</b>${s}</label>`;
+      html += `<label><input type="radio" name="s${qn}" value="${j+1}"><b>${j+1}</b>${s}</label>`;
     });
     html += `</div></div>`;
     qn++;
@@ -242,8 +242,8 @@ function scoreDiagnostic(){
   const answers = [];
   const allQs = THEMES.flatMap(t=>t.qs);
   for(let i=0;i<allQs.length;i++){
-    const sel = document.querySelector(`input[name="q${i}"]:checked`);
-    if(!sel){ alert(`Please answer question ${i+1}.`); document.getElementsByName("q"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
+    const sel = document.querySelector(`input[name="s${i}"]:checked`);
+    if(!sel){ alert(`Please answer question ${i+1}.`); document.getElementsByName("s"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
     answers.push(parseInt(sel.value,10));
   }
   const {themeScores, total} = computeScores(answers);
