@@ -60,6 +60,6 @@ Order of operations for the pilot: Resend account → domain decision + DNS → 
 
 ## Known limits during pilot
 
-- Booking CTA is a mailto placeholder (`BOOKING_URL`) — swap when the scheduler exists.
+- Booking CTA is the live GoHighLevel scheduler (`BOOKING_URL`) — opens the booking calendar in a new tab.
 - Diagnostic results do not auto-flow into the workspace yet (founder's scores are re-entered at engagement creation) — candidate for the next build once pilot feedback is in.
 - Advisor console shows portfolio state, not revenue — by design at this stage.

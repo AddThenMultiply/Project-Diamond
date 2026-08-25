@@ -19,7 +19,7 @@ Voice: ATM founder-first — warm, direct, UK English ("an exit is a life event"
 - All AI calls go through Supabase Edge Functions (Claude API, server-side). Never call AI from the browser; never commit the service-role key or any API secret. Supabase URL + anon key live in one config constant.
 - Phase advancement requires a `human_signoffs` row (advisor/admin only) — enforce the gate in Postgres, not just the UI. Log every AI call to `ai_runs` (task, model, input hash, output, timestamp).
 - Every diagnostic scoring engine ships with a browser-console `runTests()` harness; run it after any scoring change.
-- The Readiness Call CTA uses a single `BOOKING_URL` constant (mailto placeholder until the scheduler link exists).
+- The Readiness Call CTA uses a single `BOOKING_URL` constant (the GoHighLevel scheduler link — swap in one place if the calendar changes).
 - Deploys: GitHub Pages. If Actions-path deploys fail repeatedly, use the legacy build trigger: `POST /repos/{owner}/{repo}/pages/builds`.
 - **Brand isolation:** ATM assets only. Never copy content, code or links from any other client's repositories or websites.
 - **Regulatory guardrail (FCA):** the platform must never arrange investments, match founders to investors, or publish financial promotions. Investor introductions happen only through ATM's authorised transaction partner, offline. Keep the wording on `investors.html` ("does not arrange investments…") intact in spirit whenever editing.

@@ -76,7 +76,7 @@ Design rule, applied everywhere: **AI drafts, analyses, tracks and assembles; th
 2. Pages deploys: if Actions-path deploys fail, use the legacy build trigger (`POST /repos/…/pages/builds`) — known-good fix.
 3. Single-file HTML, UK English, no sign-up gates on free content.
 4. Access-controlled paywall pattern (payment link → redirect with access code) available if a paid self-serve tier is wanted between the free diagnostic and the full engagement.
-5. The Readiness Call CTA uses a single `BOOKING_URL` constant — mailto placeholder now, scheduler link swapped in with one edit when live.
+5. The Readiness Call CTA uses a single `BOOKING_URL` constant — now the live GoHighLevel scheduler link, swappable with one edit if the calendar changes.
 6. Built-in test harness in the browser console (`runTests()`) for every diagnostic scoring engine.
 
 ## 5. Data model (Supabase schema, first cut)
@@ -123,7 +123,7 @@ RLS: membership predicate on `engagement_id` throughout; `human_signoffs` insert
 4. **Sprint 4 — Deal Ready.** Reuses the spine: diagnostic front door + target pipeline + DD tracker + integration planner.
 5. **Sprint 5 — Advisor console.** Portfolio view across engagements — the scale dashboard.
 
-**Open items:** (1) Supabase account/org to create the project in; (2) the scheduler URL to replace the `BOOKING_URL` mailto placeholder.
+**Open items:** (1) Supabase account/org to create the project in. (The scheduler URL is resolved — `BOOKING_URL` now points at the GoHighLevel calendar.)
 
 ---
 

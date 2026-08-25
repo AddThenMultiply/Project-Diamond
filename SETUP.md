@@ -100,7 +100,7 @@ use the legacy build trigger (repo convention): `POST /repos/{owner}/{repo}/page
    link to the workspace.
 2. **`supabase/` folder lives in the repo** as the source of truth for schema and
    functions; you run the SQL via the dashboard until you adopt the CLI.
-3. **`BOOKING_URL`** stays the mailto placeholder — one-line swap when the scheduler exists.
+3. **`BOOKING_URL`** is the live GoHighLevel scheduler link — one-line swap if the calendar changes.
 4. **Asset names** remain the working titles pending David's sign-off.
 5. Two schema additions beyond BLUEPRINT §5, needed by Sprints 3–4: `dd_items`,
    `integration_actions`; plus `engagement_id` denormalised onto `roadmap_actions` for
