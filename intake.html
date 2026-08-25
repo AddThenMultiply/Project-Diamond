@@ -313,6 +313,16 @@ function docPath(engagementId, key, filename){
 
 /* ===== AUTH ===== */
 async function init(){
+  // Surface magic-link failures (Supabase returns them in the URL fragment)
+  const authParams = new URLSearchParams(location.hash.replace(/^#/, ""));
+  if(authParams.get("error") || authParams.get("error_code")){
+    const code = authParams.get("error_code") || authParams.get("error");
+    const friendly = code === "otp_expired"
+      ? "That sign-in link has expired \u2014 they only last a short while, and each one works once. Enter your email below and we\u2019ll send a fresh one."
+      : "Sign-in didn\u2019t complete (" + (authParams.get("error_description") || code).replace(/\+/g, " ") + "). Enter your email below to request a new link.";
+    history.replaceState(null, "", location.pathname);
+    setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
+  }
   const {data:{session:s}} = await sb.auth.getSession();
   session = s;
   sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });

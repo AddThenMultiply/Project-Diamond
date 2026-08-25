@@ -342,10 +342,11 @@
                 <div class="cta-section">
                     <h3>Discuss your results</h3>
                     <p>Review your investor readiness with David B Horne on a complimentary Readiness Call.</p>
-                    <a href="#" id="booking-cta" class="btn" target="_blank" rel="noopener" style="width: auto;">Book Readiness Call</a>
+                    <a href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" id="booking-cta" class="btn" target="_blank" rel="noopener" style="width: auto;">Book Readiness Call</a>
                 </div>
             </div>
         </div>
+        <p style="font-size: 0.78rem; opacity: 0.75; max-width: 68ch; margin: 2.5rem auto 0; text-align: center;">This diagnostic is educational. It is not financial advice and not a financial promotion. Add Then Multiply does not arrange investments — introductions happen only offline, through our authorised transaction partner.</p>
     </main>
 
     <script>
@@ -606,8 +607,16 @@
             
             const percentage = Math.round((totalScore / maxPossible) * 100);
             
-            // Group gaps by dimension for cleaner output, take top 4
-            const sortedGaps = gaps.sort((a, b) => a.severity === 'high' ? -1 : 1).slice(0, 4);
+            // High-severity gaps first (stable within severity, preserving question
+            // order), one gap per dimension, then take the top 4
+            const rank = { high: 0, medium: 1 };
+            const seenDims = new Set();
+            const sortedGaps = gaps
+                .map((g, i) => ({ g, i }))
+                .sort((a, b) => (rank[a.g.severity] - rank[b.g.severity]) || (a.i - b.i))
+                .map(x => x.g)
+                .filter(g => !seenDims.has(g.dimension) && seenDims.add(g.dimension))
+                .slice(0, 4);
             
             return {
                 percentage,
@@ -703,10 +712,10 @@
             function assert(condition, message) {
                 total++;
                 if (condition) {
-                    console.log(`? PASS: ${message}`);
+                    console.log(`PASS: ${message}`);
                     passed++;
                 } else {
-                    console.error(`? FAIL: ${message}`);
+                    console.error(`FAIL: ${message}`);
                 }
             }
             
@@ -739,7 +748,23 @@
             singleWeak.q9 = 1; // Investor Pipeline
             const singleResult = calculateScore(singleWeak);
             assert(singleResult.gaps.length === 1 && singleResult.gaps[0].dimension === 'Investor Pipeline', "Gap engine identifies the low-scoring dimension");
-            
+
+            // Test 5: gaps are one-per-dimension, foundational dimensions first
+            const allTwos = {};
+            questionBank.forEach(q => allTwos[q.id] = 2);
+            const dupResult = calculateScore(allTwos);
+            const dims = dupResult.gaps.map(g => g.dimension);
+            assert(new Set(dims).size === dims.length, "Gap list never repeats a dimension");
+            assert(dims[0] === 'Clarity of Ask', "Same-severity gaps keep question order (foundations first)");
+
+            // Test 6: high-severity gaps outrank medium regardless of question order
+            const mixedSev = {};
+            questionBank.forEach(q => mixedSev[q.id] = 4);
+            mixedSev.q1 = 3;               // medium, first dimension
+            mixedSev.q13 = 1; mixedSev.q14 = 1; // high, last dimension
+            const sevResult = calculateScore(mixedSev);
+            assert(sevResult.gaps[0].severity === 'high' && sevResult.gaps[1].severity === 'medium', "High-severity gaps listed before medium");
+
             console.log(`\nTest Summary: ${passed}/${total} passed.`);
             return passed === total;
         };

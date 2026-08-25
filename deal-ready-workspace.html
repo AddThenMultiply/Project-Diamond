@@ -71,7 +71,7 @@ a{color:var(--accent);}
     <input id="auth-email" type="email" placeholder="you@company.co.uk" autocomplete="email">
     <div style="margin-top:1rem;"><button id="btn-magic">Send magic link</button></div>
     <div id="auth-msg"></div>
-    <p class="muted" style="margin-top:1.2rem;">Start with the free <a href="deal-ready.html">Deal Ready diagnostic</a>.</p>
+    <p class="muted" style="margin-top:1.2rem;">Start with the free <a href="diagnostic.html">24-metric readiness diagnostic</a>.</p>
   </section>
 
   <section id="view-list" class="hidden">
@@ -193,6 +193,16 @@ function show(view){ ["view-auth","view-list","view-ws"].forEach(v=>$(v).classLi
 
 /* ================= AUTH ================= */
 async function init(){
+  // Surface magic-link failures (Supabase returns them in the URL fragment)
+  const authParams = new URLSearchParams(location.hash.replace(/^#/, ""));
+  if(authParams.get("error") || authParams.get("error_code")){
+    const code = authParams.get("error_code") || authParams.get("error");
+    const friendly = code === "otp_expired"
+      ? "That sign-in link has expired \u2014 they only last a short while, and each one works once. Enter your email below and we\u2019ll send a fresh one."
+      : "Sign-in didn\u2019t complete (" + (authParams.get("error_description") || code).replace(/\+/g, " ") + "). Enter your email below to request a new link.";
+    history.replaceState(null, "", location.pathname);
+    setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
+  }
   const {data:{session:s}} = await sb.auth.getSession();
   session = s;
   sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
@@ -247,7 +257,7 @@ $("btn-back").onclick = ()=>{ eng=null; loadEngagements(); };
 async function renderWorkspace(){
   show("view-ws");
   $("ws-company").textContent = eng.company_name;
-  $("ws-meta").textContent = `Deal Ready engagement · ${esc((eng.target_outcome||{}).strategic_goal||"strategic goal not set")} · status ${eng.status}`;
+  $("ws-meta").textContent = `Deal Ready engagement · ${(eng.target_outcome||{}).strategic_goal||"strategic goal not set"} · status ${eng.status}`;
   $("phase-bar").innerHTML = PHASES.map((p,i)=>{
     const n=i+1, cls = n<eng.phase ? "done" : (n===eng.phase ? "active":"");
     return `<span class="phase-pill ${cls}">${n}. ${p}</span>`;
@@ -342,6 +352,10 @@ window.ddAnswer = async (id)=>{
 
 /* ================= INTEGRATION ================= */
 $("btn-int-seed").onclick = async ()=>{
+  const {count, error: cntErr} = await sb.from("integration_actions")
+    .select("id", {count:"exact", head:true}).eq("engagement_id", eng.id);
+  if(cntErr){ alert(cntErr.message); return; }
+  if(count > 0 && !confirm(`This engagement already has ${count} integration action${count===1?"":"s"}. Seed the standard plan as well?`)) return;
   const rows = STANDARD_100_DAY.map(x=>({...x, engagement_id:eng.id}));
   const {error} = await sb.from("integration_actions").insert(rows);
   if(error) alert(error.message);

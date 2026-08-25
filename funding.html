@@ -31,6 +31,7 @@ label.f{display:block;font-size:0.8rem;font-weight:600;color:var(--navy);margin:
 input[type=text],textarea,select{width:100%;border:1px solid var(--line);border-radius:4px;padding:0.55rem 0.7rem;font-size:0.88rem;font-family:inherit;background:#fff;color:var(--ink);}
 textarea{min-height:70px;resize:vertical;}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.8rem 1.6rem;font-size:0.95rem;font-weight:600;cursor:pointer;margin-top:1.2rem;}
+a.book-cta{display:inline-block;background:var(--navy);color:#fff;border-radius:4px;padding:0.85rem 1.8rem;font-size:0.95rem;font-weight:600;}
 button.cta:hover{background:#8A3E06;}
 button.ghost{background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:4px;padding:0.8rem 1.6rem;font-size:0.95rem;font-weight:600;cursor:pointer;margin:1.2rem 0 0 0.6rem;}
 #draftOut{white-space:pre-wrap;font-size:0.85rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1rem;margin-top:1rem;display:none;}
@@ -79,7 +80,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <tr><td><b>Horizon</b></td><td>5–10 years, high risk accepted</td><td>Fixed fund life (~10 years) — needs a big exit inside it</td><td>Patient, often generational capital</td></tr>
     <tr><td><b>Involvement</b></td><td>Hands-on mentoring and networks</td><td>Board seat, aggressive scaling push</td><td>Varies from hands-on to silent</td></tr>
   </table>
-  <p style="font-size:0.85rem;color:var(--slate);">If your plan is strong, steady growth rather than unicorn-or-bust, angels and family offices are often a better fit than venture capital. Add debt funding and grants to the picture and the map widens further — that conversation is exactly what the Readiness Call is for.</p>
+  <p style="font-size:0.85rem;color:var(--slate);">If your plan is strong, steady growth rather than unicorn-or-bust, angels and family offices are often a better fit than venture capital. Add debt funding and grants to the picture and the map widens further — that conversation is exactly what the <a class="book-link" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener">Readiness Call</a> is for.</p>
   </div>
 
   <h2>3 · The promotion test — check your pitch language</h2>
@@ -108,11 +109,14 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <div id="draftOut"></div>
   </div>
 
+  <p style="text-align:center;margin:2.5rem 0 0.5rem;"><a class="book-cta" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener">Book your complimentary Readiness Call</a></p>
+
   <p class="note">Sources: <em>Funded Female Founders</em>, David B Horne (Rethink Press, 2022) — the $8.7tn calculation applies the Rose Review funding-gap estimate to global GDP; warm-introduction data from British Business Bank research; question-bias research: Kanze et al., Academy of Management Journal / Harvard Business Review. This page is educational and is not financial advice or a financial promotion; introductions to investors are made only through ATM's authorised transaction partner.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses</footer>
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
+document.querySelectorAll("a.book-cta, a.book-link").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
 const ASSETS = [
  "Pitch deck — 12 slides: cover, elevator pitch, team, problem, solution, traction, market (TAM/SAM/SOM), competition, financials, ask & exit, use of funds, contact",
  "Five-year financial projections — income statement, balance sheet and cash flow, month by month, with assumptions stated",
@@ -147,7 +151,8 @@ const PREVENTION = [
 ];
 const PROMOTION = /\b(grow|growth|growing|expand|expansion|scale|scaling|acquire|acquisition|capture|win|winning|pioneer|lead|leading|accelerate|opportunity|vision|ambition)\b/gi;
 function checkLanguage(){
-  const text = document.getElementById("pitchIn").value;
+  // "secure data room" is our own checklist advice, not prevention language
+  const text = document.getElementById("pitchIn").value.replace(/\bsecure\s+data\s+room\b/gi, "data room");
   const out = document.getElementById("langOut");
   if(!text.trim()){ out.innerHTML = '<div class="flag">Paste some text first.</div>'; return; }
   let flags = [];
@@ -186,9 +191,17 @@ function buildDraft(){
 function copyDraft(){
   const out = document.getElementById("draftOut");
   if(out.style.display==="none"||!out.textContent){ buildDraft(); }
-  navigator.clipboard.writeText(document.getElementById("draftOut").textContent).then(()=>alert("Draft copied to clipboard."));
+  navigator.clipboard.writeText(document.getElementById("draftOut").textContent)
+    .then(()=>alert("Draft copied to clipboard."))
+    .catch(()=>alert("Copy failed — select the draft text and copy it manually."));
 }
 function runTests(){
+  // Snapshot live user input so running the tests never destroys work in progress
+  const fields = ["pitchIn","g_name","g_pitch"], snap = {};
+  fields.forEach(id=>{ snap[id] = document.getElementById(id).value; });
+  const outSnap = { lang: document.getElementById("langOut").innerHTML,
+                    draft: document.getElementById("draftOut").textContent,
+                    draftShown: document.getElementById("draftOut").style.display };
   const results = [];
   const t=(n,c)=>results.push({name:n,pass:!!c});
   t("10 checklist assets", ASSETS.length===10);
@@ -204,6 +217,11 @@ function runTests(){
   buildDraft();
   t("draft generated with sections", document.getElementById("draftOut").textContent.includes("## Executive summary") && document.getElementById("draftOut").textContent.includes("TestCo"));
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
+  t("booking CTA wired", document.querySelectorAll("a.book-cta").length>=1 && [...document.querySelectorAll("a.book-cta, a.book-link")].every(a=>a.getAttribute("href")===BOOKING_URL));
+  fields.forEach(id=>{ document.getElementById(id).value = snap[id]; });
+  document.getElementById("langOut").innerHTML = outSnap.lang;
+  document.getElementById("draftOut").textContent = outSnap.draft;
+  document.getElementById("draftOut").style.display = outSnap.draftShown;
   const passed = results.filter(r=>r.pass).length;
   console.table(results); console.log(`${passed}/${results.length} tests passed`);
   return passed===results.length;

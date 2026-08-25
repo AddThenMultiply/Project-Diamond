@@ -75,11 +75,12 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <div class="scorebox">
       <span class="big" id="totalScore">–</span><span style="color:var(--slate)"> / 100</span><span class="band" id="bandLabel"></span>
       <p id="bandDesc" style="font-size:0.9rem;color:#334155;margin-top:0.6rem;"></p>
+      <p style="margin-top:0.5rem;"><a id="bandLink" href="roadmap.html" style="font-size:0.9rem;font-weight:600;"></a></p>
     </div>
     <div class="scorebox" id="pillarBars"></div>
     <div class="scorebox"><h2 style="margin-top:0;font-size:1.05rem;">Your three biggest gaps</h2><ul class="gaps" id="gapList"></ul>
       <p style="font-size:0.88rem;margin-top:1rem;">This is a snapshot, not the full picture. The full gap analysis, your personalised roadmap and the plan to close it start with a conversation.</p>
-      <p style="margin-top:0.8rem;"><a id="bookBtn" href="#" target="_blank" rel="noopener" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM Readiness Call →</a></p>
+      <p style="margin-top:0.8rem;"><a id="bookBtn" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM Readiness Call →</a></p>
     </div>
   </section>
   <p class="note">Your answers are scored entirely in your browser. Nothing is transmitted, stored or shared. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
@@ -239,10 +240,10 @@ const METRICS = [
   "Integration playbook ready; experience of acquiring or being integrated successfully"]},
 ];
 const BANDS = [
-  {min:85, label:"Transaction-Ready", color:"#15803D", desc:"You are in the top tier. The conversation now is about timing, valuation and the right buyer — routed through our transaction partner and investor relationships."},
-  {min:70, label:"Readiness Project Candidate", color:"#4D7C0F", desc:"The fundamentals are strong. A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table."},
-  {min:50, label:"Roadmap Tier", color:"#B45309", desc:"There is real value here, and real gaps. A structured roadmap with targeted remediation is the right next step before any market conversation."},
-  {min:0,  label:"Foundation Tier", color:"#B91C1C", desc:"The honest answer: fundamental strengthening comes first. That is not bad news — it is the map. Every gap identified here is fixable, and fixing it adds value."},
+  {min:85, label:"Transaction-Ready", color:"#15803D", desc:"You are in the top tier. The conversation now is about timing, valuation and the right buyer — routed through our transaction partner and investor relationships.", next:"readiness-project.html", nextText:"See how the Readiness Project takes you to market →"},
+  {min:70, label:"Readiness Project Candidate", color:"#4D7C0F", desc:"The fundamentals are strong. A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table.", next:"readiness-project.html", nextText:"Explore the Readiness Project →"},
+  {min:50, label:"Roadmap Tier", color:"#B45309", desc:"There is real value here, and real gaps. A structured roadmap with targeted remediation is the right next step before any market conversation.", next:"roadmap.html", nextText:"See how the Personalised Roadmap works →"},
+  {min:0,  label:"Foundation Tier", color:"#B91C1C", desc:"The honest answer: fundamental strengthening comes first. That is not bad news — it is the map. Every gap identified here is fixable, and fixing it adds value.", next:"roadmap.html", nextText:"See how the Personalised Roadmap works →"},
 ];
 // Render form
 const form = document.getElementById("diag");
@@ -287,6 +288,8 @@ function scoreDiagnostic(){
   const bl = document.getElementById("bandLabel");
   bl.textContent = band.label; bl.style.background = band.color;
   document.getElementById("bandDesc").textContent = band.desc;
+  const bandLink = document.getElementById("bandLink");
+  bandLink.href = band.next; bandLink.textContent = band.nextText;
   document.getElementById("pillarBars").innerHTML = PILLARS.map(pl=>{
     const s = Math.round(pillarScores[pl.key]);
     return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${pl.name} — ${s}/100</div><div class="bar"><i style="width:${s}%"></i></div>`;
@@ -318,7 +321,11 @@ function runTests(){
   t("deal-only max -> 20 + 0.4*80 = 52", dm.total === 52);
   t("band 100 = Transaction-Ready", bandFor(100).label==="Transaction-Ready");
   t("band 84.9 = Readiness Project Candidate", bandFor(84.9).label==="Readiness Project Candidate");
+  t("band 85 = Transaction-Ready (inclusive)", bandFor(85).label==="Transaction-Ready");
+  t("band 70 = Readiness Project Candidate (inclusive)", bandFor(70).label==="Readiness Project Candidate");
+  t("band 50 = Roadmap Tier (inclusive)", bandFor(50).label==="Roadmap Tier");
   t("band 69.9 = Roadmap Tier", bandFor(69.9).label==="Roadmap Tier");
+  t("every band links a next step", BANDS.every(b=>b.next && b.nextText));
   t("band 20 = Foundation Tier", bandFor(20).label==="Foundation Tier");
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
   const passed = results.filter(r=>r.pass).length;

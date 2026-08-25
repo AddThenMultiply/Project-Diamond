@@ -76,7 +76,7 @@ a{color:var(--accent);}
     <div style="margin-top:1rem;"><button id="btn-magic">Send magic link</button></div>
     <div id="auth-msg"></div>
     <p class="muted" style="margin-top:1.2rem;">Not in an engagement yet? Start with the free
-    <a href="exit-ready.html">Exit Ready diagnostic</a> and book a Readiness Call.</p>
+    <a href="diagnostic.html">free readiness diagnostic</a> and book a Readiness Call.</p>
   </section>
 
   <!-- ============ ENGAGEMENTS LIST ============ -->
@@ -250,6 +250,16 @@ function severityFromScore(score){ return Math.max(1, Math.min(5, 6-Number(score
 
 /* ================= AUTH ================= */
 async function init(){
+  // Surface magic-link failures (Supabase returns them in the URL fragment)
+  const authParams = new URLSearchParams(location.hash.replace(/^#/, ""));
+  if(authParams.get("error") || authParams.get("error_code")){
+    const code = authParams.get("error_code") || authParams.get("error");
+    const friendly = code === "otp_expired"
+      ? "That sign-in link has expired \u2014 they only last a short while, and each one works once. Enter your email below and we\u2019ll send a fresh one."
+      : "Sign-in didn\u2019t complete (" + (authParams.get("error_description") || code).replace(/\+/g, " ") + "). Enter your email below to request a new link.";
+    history.replaceState(null, "", location.pathname);
+    setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
+  }
   const {data:{session:s}} = await sb.auth.getSession();
   session = s;
   sb.auth.onAuthStateChange((_e, s2)=>{ session=s2; route(); });
@@ -423,10 +433,14 @@ async function loadDocs(){
 }
 window.cycleDoc = async (key, cur)=>{
   const next = DOC_FLOW[cur]||"draft";
+  if(next==="approved" && !confirm("Mark this document as approved? Approval is the advisor's sign-off that it is customer-ready.")) return;
+  if(cur==="approved" && !confirm("This document is approved. Reset it to missing?")) return;
   const {error} = await sb.from("documents").upsert(
     {engagement_id:eng.id, checklist_key:key, doc_type:key, status:next},
     {onConflict:"engagement_id,checklist_key"});
-  if(error) alert(error.message);
+  if(error) alert(/only an advisor/i.test(error.message)
+    ? "Approval is reserved for your advisor — they review and sign off each document. Everything up to 'review' is yours to set."
+    : error.message);
   loadDocs();
 };
 

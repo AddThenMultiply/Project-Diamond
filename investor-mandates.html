@@ -51,7 +51,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <section id="view-auth">
   <span class="kicker">Advisors and administrators only</span>
   <h1>Investor mandate register</h1>
-  <p class="lede">The structured layer over the investor relationship base: each mandate records what an investor is actually looking for — cheque size, thresholds, sectors, involvement, dealbreakers — so engagement dossiers can be assessed against real criteria before any conversation happens.</p>
+  <p class="lede">The structured layer over the investor relationship base: each mandate records what an investor is actually looking for — cheque size, thresholds, sectors, involvement, dealbreakers — recorded so the advisor can form their own view with the full picture to hand.</p>
   <div class="card">
     <label class="f">Email address</label>
     <input type="email" id="auth-email" placeholder="you@…">
@@ -68,7 +68,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <section id="view-main" class="hidden">
   <span class="kicker">Advisors and administrators only</span>
   <h1>Investor mandate register</h1>
-  <div class="warnbox"><b>Confidentiality and regulatory position:</b> mandate data never appears on the public site and is never shown to founders. Matching output is advisory input only — introductions are made offline through the authorised transaction partner. The platform does not arrange investments.</div>
+  <div class="warnbox"><b>Confidentiality and regulatory position:</b> mandate data never appears on the public site and is never shown to founders. This register is a private reference for the advisor's own judgement — the platform produces no founder-to-investor matching, and introductions are made offline through the authorised transaction partner. The platform does not arrange investments.</div>
 
   <div class="card">
     <h2 style="margin-top:0;">Add a mandate</h2>
@@ -166,6 +166,16 @@ function buildMandate(f){
 }
 
 async function init(){
+  // Surface magic-link failures (Supabase returns them in the URL fragment)
+  const authParams = new URLSearchParams(location.hash.replace(/^#/, ""));
+  if(authParams.get("error") || authParams.get("error_code")){
+    const code = authParams.get("error_code") || authParams.get("error");
+    const friendly = code === "otp_expired"
+      ? "That sign-in link has expired \u2014 they only last a short while, and each one works once. Enter your email below and we\u2019ll send a fresh one."
+      : "Sign-in didn\u2019t complete (" + (authParams.get("error_description") || code).replace(/\+/g, " ") + "). Enter your email below to request a new link.";
+    history.replaceState(null, "", location.pathname);
+    setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
+  }
   const {data:{session:s}} = await sb.auth.getSession(); session=s;
   sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
   route();
