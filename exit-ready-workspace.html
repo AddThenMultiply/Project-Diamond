@@ -74,6 +74,7 @@ a:hover{text-decoration:underline;}
 .advisor-strip a{color:var(--navy);font-weight:600;font-size:0.8rem;text-decoration:none;}
 .advisor-strip a:hover{color:var(--accent);text-decoration:underline;}
 .advisor-strip a.active{color:var(--accent);}
+.slider-val{display:inline-block;min-width:1.6rem;margin-left:.35rem;padding:.05rem .4rem;border-radius:99px;background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;text-align:center;}
 </style>
 </head>
 <body>
@@ -115,11 +116,10 @@ a:hover{text-decoration:underline;}
       <div id="eng-list"></div>
       <h3 style="margin-top:1.5rem;">Create a new engagement</h3>
       <div class="grid2">
-        <div><label>Company name</label><input id="new-company" placeholder="Company Ltd"></div>
-        <div><label>Target exit value (£)</label><input id="new-target" type="number" min="0" step="100000" placeholder="10000000"></div>
+        <div><label for="new-company">Company name</label><input id="new-company" placeholder="Company Ltd"></div>
+        <div><label for="new-target">Target exit value (£)</label><input id="new-target" type="number" min="0" step="100000" placeholder="10000000"></div>
       </div>
-      <label>“Life the day after the sale” — the founder's statement</label>
-      <textarea id="new-lifeafter" placeholder="What does the day after completion look like, honestly?"></textarea>
+      <label for="new-lifeafter">“Life the day after the sale” — the founder's statement</label><textarea id="new-lifeafter" placeholder="What does the day after completion look like, honestly?"></textarea>
       <div style="margin-top:1rem;"><button id="btn-create-eng" class="gold">Create engagement</button></div>
       <div id="list-msg"></div>
     </div>
@@ -141,8 +141,7 @@ a:hover{text-decoration:underline;}
     <div class="card" id="panel-clarity">
       <h2>Phase 1 · Founder Clarity <span class="tag E">E</span></h2>
       <p class="sub">AI synthesises the questionnaire into a clarity brief; the clarity conversation itself — the number, and life the day after — is held by your advisor in person.</p>
-      <label>Pre-meeting questionnaire (founder answers, one per line)</label>
-      <textarea id="clarity-answers" placeholder="Why now?&#10;What is the number, and why that number?&#10;What happens the day after completion?"></textarea>
+      <label for="clarity-answers">Pre-meeting questionnaire (founder answers, one per line)</label><textarea id="clarity-answers" placeholder="Why now?&#10;What is the number, and why that number?&#10;What happens the day after completion?"></textarea>
       <div style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap;">
         <button id="btn-clarity-brief">AI: draft clarity brief</button>
         <span class="muted" style="align-self:center;">Runs server-side; logged to the audit trail; requires advisor sign-off.</span>
@@ -156,10 +155,10 @@ a:hover{text-decoration:underline;}
       <p class="sub">Reverse-engineer the target: your number → implied EBITDA at market multiples → the gap and the growth required. (Appendix 3, <em>Add Then Multiply</em>.)</p>
       <div class="grid2">
         <div>
-          <label>Target exit value (£)</label><input id="ge-target" type="number" value="10000000">
-          <label>Current EBITDA (£)</label><input id="ge-ebitda" type="number" value="500000">
-          <label>Years to exit</label><input id="ge-years" type="number" value="3" min="1" max="10">
-          <label>Multiple scenarios (comma-separated)</label><input id="ge-multiples" value="4, 6, 8">
+          <label for="ge-target">Target exit value (£)</label><input id="ge-target" type="number" value="10000000">
+          <label for="ge-ebitda">Current EBITDA (£)</label><input id="ge-ebitda" type="number" value="500000">
+          <label for="ge-years">Years to exit</label><input id="ge-years" type="number" value="3" min="1" max="10">
+          <label for="ge-multiples">Multiple scenarios (comma-separated)</label><input id="ge-multiples" value="4, 6, 8">
           <div style="margin-top:1rem;"><button id="btn-gap-calc" class="gold">Calculate</button>
           <button id="btn-gap-save" class="ghost">Save assessment</button></div>
         </div>
@@ -167,10 +166,10 @@ a:hover{text-decoration:underline;}
       </div>
       <h3>Readiness dimensions (score 1 = weak, 5 = buyer-credible)</h3>
       <div class="grid2">
-        <div><label>Leadership without the founder</label><input id="dim-leadership" type="range" min="1" max="5" value="3"></div>
-        <div><label>Commercial capability</label><input id="dim-commercial" type="range" min="1" max="5" value="3"></div>
-        <div><label>Finance function &amp; numbers</label><input id="dim-finance" type="range" min="1" max="5" value="3"></div>
-        <div><label>Plan credibility</label><input id="dim-plan" type="range" min="1" max="5" value="3"></div>
+        <div><label for="dim-leadership">Leadership without the founder <output class="slider-val" id="dim-leadership-val" for="dim-leadership">3</output></label><input id="dim-leadership" type="range" min="1" max="5" value="3" aria-valuetext="3 of 5"></div>
+        <div><label for="dim-commercial">Commercial capability <output class="slider-val" id="dim-commercial-val" for="dim-commercial">3</output></label><input id="dim-commercial" type="range" min="1" max="5" value="3" aria-valuetext="3 of 5"></div>
+        <div><label for="dim-finance">Finance function &amp; numbers <output class="slider-val" id="dim-finance-val" for="dim-finance">3</output></label><input id="dim-finance" type="range" min="1" max="5" value="3" aria-valuetext="3 of 5"></div>
+        <div><label for="dim-plan">Plan credibility <output class="slider-val" id="dim-plan-val" for="dim-plan">3</output></label><input id="dim-plan" type="range" min="1" max="5" value="3" aria-valuetext="3 of 5"></div>
       </div>
       <div style="margin-top:.8rem;"><button id="btn-gaps-generate">Generate gap items from scores</button></div>
       <div id="gap-msg"></div>
@@ -183,11 +182,10 @@ a:hover{text-decoration:underline;}
       <h2>Phase 3 · Business Readiness <span class="tag E">E</span></h2>
       <h3>Engagement roadmap</h3>
       <div class="grid2">
-        <div><label>Action</label><input id="ra-action" placeholder="e.g. Hire a commercial director"></div>
-        <div><label>Due date</label><input id="ra-due" type="date"></div>
+        <div><label for="ra-action">Action</label><input id="ra-action" placeholder="e.g. Hire a commercial director"></div>
+        <div><label for="ra-due">Due date</label><input id="ra-due" type="date"></div>
       </div>
-      <label>Attach to gap item (optional)</label>
-      <select id="ra-gap"></select>
+      <label for="ra-gap">Attach to gap item (optional)</label><select id="ra-gap"></select>
       <div style="margin-top:.8rem;"><button id="btn-ra-add">Add action</button></div>
       <div id="ra-table"></div>
       <h3 style="margin-top:1.5rem;">AI: business plan first draft</h3>
@@ -200,6 +198,7 @@ a:hover{text-decoration:underline;}
     <div class="card" id="panel-docs">
       <h2>Document checklist &amp; data room <span class="tag F">F</span></h2>
       <p class="sub">The fundraising-asset discipline from <em>Funded Female Founders</em> Ch. 8 — click a status to advance it. “AI-drafted” is set by the platform only.</p>
+      <div id="docs-msg"></div>
       <div id="docs-table"></div>
     </div>
 
@@ -208,8 +207,8 @@ a:hover{text-decoration:underline;}
       <h2>Phase 4 · Transaction Execution <span class="tag E">E</span></h2>
       <p class="sub">Buyer pipeline (reuses the target pipeline), data-room completeness, and the process run with your transaction partner. All buyer contact and negotiation is human.</p>
       <div class="grid2">
-        <div><label>Buyer / party name</label><input id="tg-name" placeholder="Acquirer Ltd"></div>
-        <div><label>Stage</label><select id="tg-stage">
+        <div><label for="tg-name">Buyer / party name</label><input id="tg-name" placeholder="Acquirer Ltd"></div>
+        <div><label for="tg-stage">Stage</label><select id="tg-stage">
           <option>longlist</option><option>shortlist</option><option>approached</option><option>meeting</option>
           <option>hot</option><option>dd</option><option>spa</option><option>completed</option><option>dropped</option>
         </select></div>
@@ -288,10 +287,19 @@ async function init(){
     history.replaceState(null, "", location.pathname);
     setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
   }
-  const {data:{session:s}} = await sb.auth.getSession();
-  session = s;
-  sb.auth.onAuthStateChange((_e, s2)=>{ session=s2; route(); });
-  route();
+  // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
+  // as soon as it subscribes, so calling getSession() and route() here too
+  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
+}
+
+
+/* An RLS or network failure is not an empty list. Render the difference,
+   so "nothing here yet" always means exactly that. */
+function loadFailed(elId, error, what){
+  msg(elId, "Couldn\u2019t load " + what + " \u2014 " + (error.message || "the request failed") +
+    ". This is a loading problem, not an empty list. Refresh the page, and tell your advisor if it keeps happening.", "err");
+  return true;
 }
 
 /* Advisor tier navigation: shown only to advisor/admin roles. */
@@ -381,20 +389,21 @@ function renderGate(){
     <strong>Phase gate — advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
     <p class="muted">Advancing requires a named human sign-off (advisor/admin). The gate is enforced in the database, not just here.</p>
     ${isAdvisor ? `
-      <label>Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
+      <label for="gate-note">Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
       <div style="margin-top:.6rem;display:flex;gap:.6rem;">
         <button class="gold" onclick="signGate('approved')">Approve &amp; advance</button>
         <button class="ghost" onclick="signGate('needs_work')">Record: needs work</button>
-      </div>` : `<p class="muted">Your advisor approves this gate after the phase review.</p>`}`;
+      </div>
+      <div id="gate-msg"></div>` : `<p class="muted">Your advisor approves this gate after the phase review.</p>`}`;
 }
 window.signGate = async (decision)=>{
   const next = eng.phase+1;
   const note = ($("gate-note")||{}).value||"";
   const {error} = await sb.from("human_signoffs").insert({engagement_id:eng.id, gate:"advance_to_"+next, signed_by:session.user.id, decision, note});
-  if(error){ alert("Sign-off failed: "+error.message); return; }
+  if(error){ msg("gate-msg", "Sign-off failed: "+error.message, "err"); return; }
   if(decision==="approved"){
     const {error:e2} = await sb.from("engagements").update({phase:next}).eq("id", eng.id);
-    if(e2){ alert("Phase advance blocked: "+e2.message); return; }
+    if(e2){ msg("gate-msg", "Phase advance blocked: "+e2.message, "err"); return; }
     eng.phase = next;
   }
   renderWorkspace();
@@ -434,7 +443,8 @@ $("btn-gaps-generate").onclick = async ()=>{
   loadGaps();
 };
 async function loadGaps(){
-  const {data} = await sb.from("gap_items").select("*").eq("engagement_id",eng.id).order("severity",{ascending:false});
+  const {data, error} = await sb.from("gap_items").select("*").eq("engagement_id",eng.id).order("severity",{ascending:false});
+  if(error) return loadFailed("gap-table", error, "the gap analysis");
   gapsCache = data||[];
   $("gap-table").innerHTML = gapsCache.length ? `<table><tr><th>Dimension</th><th>Gap</th><th>Severity</th><th>Status</th><th></th></tr>
     ${gapsCache.map(g=>`<tr><td>${esc(g.dimension)}</td><td>${esc(g.description)}</td>
@@ -455,7 +465,8 @@ $("btn-ra-add").onclick = async ()=>{
   loadActions();
 };
 async function loadActions(){
-  const {data} = await sb.from("roadmap_actions").select("*").eq("engagement_id",eng.id).order("due",{ascending:true,nullsFirst:false});
+  const {data, error} = await sb.from("roadmap_actions").select("*").eq("engagement_id",eng.id).order("due",{ascending:true,nullsFirst:false});
+  if(error) return loadFailed("ra-table", error, "your roadmap actions");
   $("ra-table").innerHTML = (data&&data.length) ? `<table><tr><th>Action</th><th>Due</th><th>Status</th><th></th></tr>
     ${data.map(a=>`<tr><td>${esc(a.action)}</td><td>${a.due||"—"}</td><td>${esc(a.status)}</td>
       <td class="right"><button class="small ghost" onclick="cycleAction('${a.id}','${a.status}')">${a.status==="todo"?"Start":a.status==="doing"?"Done":"Reopen"}</button></td></tr>`).join("")}</table>`
@@ -469,7 +480,8 @@ window.cycleAction = async (id, cur)=>{
 
 /* ================= DOCUMENTS ================= */
 async function loadDocs(){
-  const {data} = await sb.from("documents").select("*").eq("engagement_id",eng.id);
+  const {data, error} = await sb.from("documents").select("*").eq("engagement_id",eng.id);
+  if(error) return loadFailed("docs-table", error, "your documents");
   const byKey = Object.fromEntries((data||[]).map(d=>[d.checklist_key,d]));
   $("docs-table").innerHTML = `<table><tr><th>Document</th><th>Status</th></tr>
     ${DOC_CHECKLIST.map(c=>{
@@ -485,9 +497,10 @@ window.cycleDoc = async (key, cur)=>{
   const {error} = await sb.from("documents").upsert(
     {engagement_id:eng.id, checklist_key:key, doc_type:key, status:next},
     {onConflict:"engagement_id,checklist_key"});
-  if(error) alert(/only an advisor/i.test(error.message)
+  if(error) msg("docs-msg", /only an advisor/i.test(error.message)
     ? "Approval is reserved for your advisor — they review and sign off each document. Everything up to 'review' is yours to set."
-    : error.message);
+    : error.message, "err");
+  else msg("docs-msg", "", "");
   loadDocs();
 };
 
@@ -500,7 +513,8 @@ $("btn-tg-add").onclick = async ()=>{
   loadTargets();
 };
 async function loadTargets(){
-  const {data} = await sb.from("targets").select("*").eq("engagement_id",eng.id).order("created_at");
+  const {data, error} = await sb.from("targets").select("*").eq("engagement_id",eng.id).order("created_at");
+  if(error) return loadFailed("tg-table", error, "your buyer pipeline");
   $("tg-table").innerHTML = (data&&data.length) ? `<table><tr><th>Party</th><th>Stage</th></tr>
     ${data.map(t=>`<tr><td>${esc(t.name)}</td><td>${esc(t.stage)}</td></tr>`).join("")}</table>`
     : `<p class="muted">Pipeline is empty.</p>`;
@@ -558,6 +572,15 @@ window.runTests = function(){
   console.log(`${passed}/${results.length} tests passed`);
   return {passed, total:results.length, ok:passed===results.length};
 };
+
+/* A bare range input announces "3" with no scale and shows nothing on screen. */
+["dim-leadership","dim-commercial","dim-finance","dim-plan"].forEach(function(id){
+  const el = $(id), out = $(id+"-val");
+  if(!el || !out) return;
+  const sync = ()=>{ out.textContent = el.value; el.setAttribute("aria-valuetext", el.value + " of 5"); };
+  el.addEventListener("input", sync);
+  sync();
+});
 
 init();
 </script>

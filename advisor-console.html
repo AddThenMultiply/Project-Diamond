@@ -165,10 +165,10 @@ async function init(){
     history.replaceState(null, "", location.pathname);
     setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
   }
-  const {data:{session:s}} = await sb.auth.getSession();
-  session = s;
-  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
-  route();
+  // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
+  // as soon as it subscribes, so calling getSession() and route() here too
+  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
 }
 
 /* Advisor tier navigation: shown only to advisor/admin roles. */

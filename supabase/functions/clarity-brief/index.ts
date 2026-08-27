@@ -90,6 +90,15 @@ Deno.serve(async (req) => {
       output: { brief: briefText },
     });
 
+    // Track the document at ai_drafted status, exactly as business-plan does.
+    // Without this the brief existed only in ai_runs.output, which no UI
+    // re-reads, so a refresh lost it. The documents row is what the workspace
+    // renders from; the advisor moves it on to review/approved.
+    await admin.from("documents").upsert(
+      { engagement_id, doc_type: "clarity_statement", checklist_key: "clarity_statement", status: "ai_drafted" },
+      { onConflict: "engagement_id,checklist_key", ignoreDuplicates: false },
+    );
+
     return Response.json({ brief: briefText, status: "draft_awaiting_advisor_signoff" }, { headers: CORS });
   } catch (e) {
     return Response.json({ error: String(e) }, { status: 500, headers: CORS });

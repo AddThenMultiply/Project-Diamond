@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The free Multiplier Diagnostic: 20 questions, three minutes, an honest score across the six dimensions of growth, funding and exit readiness — with no sign-up.">
 <title>The Multiplier Diagnostic — Add Then Multiply</title>
 <style>
 :root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
@@ -21,7 +22,8 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .themehead{margin-top:2.4rem;padding:1rem 1.3rem;background:var(--navy);color:#fff;border-radius:6px;}
 .themehead h2{color:#fff;margin:0;font-size:1.15rem;}
 .themehead p{color:#CBD5E1;font-size:0.83rem;margin-top:0.2rem;}
-.metric{background:#fff;border:1px solid var(--line);border-radius:6px;margin:1rem 0;padding:1.2rem 1.3rem;}
+.metric{background:#fff;border:1px solid var(--line);border-radius:6px;margin:1rem 0;padding:1.2rem 1.3rem;min-width:0;}
+.metric legend{padding:0;display:block;width:100%;}
 .metric h3{font-size:0.98rem;color:var(--navy);margin-bottom:0.7rem;font-weight:600;}
 .scale{display:flex;gap:0.4rem;flex-wrap:wrap;}
 .scale label{flex:1 1 110px;border:1px solid var(--line);border-radius:4px;padding:0.5rem 0.6rem;font-size:0.8rem;color:#334155;cursor:pointer;text-align:center;}
@@ -30,6 +32,7 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .scale b{display:block;color:var(--navy);}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
 button.cta:hover{background:#8A3E06;}
+.inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
 .big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
@@ -64,6 +67,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <h1>Is your business ready to multiply?</h1>
   <p class="lede">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions — and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
   <form id="diag"></form>
+  <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>
   <section id="leadgate" style="display:none;margin-top:2.4rem;">
     <div class="scorebox">
@@ -84,7 +88,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       </div>
     </div>
   </section>
-  <section id="results">
+  <section id="results" aria-live="polite">
     <span class="kicker">Your results</span>
     <div class="scorebox">
       <span class="big" id="totalScore">–</span><span style="color:var(--slate)">%</span><span class="band" id="bandLabel"></span>
@@ -170,11 +174,13 @@ let html = ""; let qn = 0;
 THEMES.forEach(t => {
   html += `<div class="themehead"><h2>${t.name}</h2><p>${t.qs.length} questions${t.weight>1 ? " · weighted ×"+t.weight : ""}</p></div>`;
   t.qs.forEach(q => {
-    html += `<div class="metric"><h3>${qn+1}. ${q}</h3><div class="scale">`;
+    // fieldset/legend so a screen reader announces the question with its
+    // options rather than reading five bare ratings.
+    html += `<fieldset class="metric" id="metric-q${qn}"><legend><h3>${qn+1}. ${q}</h3></legend><div class="scale">`;
     SCALE.forEach((s,j) => {
       html += `<label><input type="radio" name="q${qn}" value="${j+1}"><b>${j+1}</b>${s}</label>`;
     });
-    html += `</div></div>`;
+    html += `</div></fieldset>`;
     qn++;
   });
 });
@@ -228,9 +234,17 @@ function scoreDiagnostic(){
   const allQs = THEMES.flatMap(t=>t.qs);
   for(let i=0;i<allQs.length;i++){
     const sel = document.querySelector(`input[name="q${i}"]:checked`);
-    if(!sel){ alert(`Please answer question ${i+1}.`); document.getElementsByName("q"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
+    if(!sel){
+      const box = document.getElementById("diag-err");
+      box.textContent = `Please answer question ${i+1} before calculating your score.`;
+      box.style.display = "block";
+      const metric = document.getElementById("metric-q"+i);
+      if(metric) metric.scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
     answers.push(parseInt(sel.value,10));
   }
+  document.getElementById("diag-err").style.display = "none";
   const {themeScores, total} = computeScores(answers);
   pending = {answers, themeScores, total, band: bandFor(total)};
   const gate = document.getElementById("leadgate");

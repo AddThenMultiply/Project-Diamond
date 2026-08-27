@@ -43,6 +43,9 @@ button.cta:hover{background:#8A3E06;}
 .note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:600px){h1{font-size:1.5rem}.big{font-size:2rem}}
+.metric legend{padding:0;display:block;width:100%;}
+.metric{min-width:0;}
+.inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
 </style>
 </head>
 <body>
@@ -70,8 +73,9 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <span class="pill"><b>Operational Readiness · 25%</b>Leadership depth, systems, resilience</span>
   </div>
   <form id="diag"></form>
+  <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Readiness Index</button>
-  <section id="results">
+  <section id="results" aria-live="polite">
     <span class="kicker">Your results</span>
     <div class="scorebox">
       <span class="big" id="totalScore">–</span><span style="color:var(--slate)"> / 100</span><span class="band" id="bandLabel"></span>
@@ -254,11 +258,11 @@ PILLARS.forEach(pl => {
   html += `<div class="pilhead"><h2>${pl.name}</h2><p>${ms.length} metrics · ${Math.round(pl.weight*100)}% of your Readiness Index</p></div>`;
   ms.forEach(m => {
     const gi = METRICS.indexOf(m);
-    html += `<div class="metric"><h3>${gi+1}. ${m.t}</h3><p class="prompt">${m.q}</p>`;
+    html += `<fieldset class="metric" id="metric-m${gi}"><legend><h3>${gi+1}. ${m.t}</h3></legend><p class="prompt">${m.q}</p>`;
     m.o.forEach((opt,j) => {
       html += `<label><input type="radio" name="m${gi}" value="${j+1}"><span><span class="pts">${j+1} —</span> ${opt}</span></label>`;
     });
-    html += `</div>`;
+    html += `</fieldset>`;
   });
 });
 form.innerHTML = html;
@@ -280,9 +284,17 @@ function scoreDiagnostic(){
   const answers = [];
   for(let i=0;i<METRICS.length;i++){
     const sel = document.querySelector(`input[name="m${i}"]:checked`);
-    if(!sel){ alert(`Please answer question ${i+1} (${METRICS[i].t}).`); document.getElementsByName("m"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
+    if(!sel){
+      const err = document.getElementById("diag-err");
+      err.textContent = `Please answer question ${i+1} (${METRICS[i].t}) before calculating your score.`;
+      err.style.display = "block";
+      const metric = document.getElementById("metric-m"+i);
+      if(metric) metric.scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
     answers.push(parseInt(sel.value,10));
   }
+  document.getElementById("diag-err").style.display = "none";
   const {pillarScores, total} = computeScores(answers);
   const band = bandFor(total);
   document.getElementById("totalScore").textContent = total;

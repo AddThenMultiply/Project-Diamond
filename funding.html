@@ -65,7 +65,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <h2>1 · Your fundraising assets checklist</h2>
   <div class="card check" id="checklist">
     <p style="font-size:0.88rem;color:var(--slate);margin-bottom:0.6rem;">Before approaching any investor or grant body, these assets should be ready in a secure data room. Tick what you have today.</p>
-    <div class="progress"><i id="pbar" style="width:0%"></i></div>
+    <div class="progress" id="pwrap" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-valuetext="0 of 10 fundraising assets ready (0%)" aria-label="Fundraising assets ready"><i id="pbar" style="width:0%"></i></div>
     <p id="ptext" style="font-size:0.8rem;color:var(--slate);margin-bottom:0.8rem;">0 of 10 ready</p>
   </div>
 
@@ -107,6 +107,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       <button class="cta" onclick="buildDraft()">Generate application draft</button>
       <button class="ghost" onclick="copyDraft()">Copy draft</button>
     </form>
+    <p id="copyMsg" style="display:none;"></p>
     <div id="draftOut"></div>
   </div>
 
@@ -139,7 +140,14 @@ ASSETS.forEach((a,i)=>{
 function updateProgress(){
   const boxes = cl.querySelectorAll("input[type=checkbox]");
   const done = [...boxes].filter(b=>b.checked).length;
-  document.getElementById("pbar").style.width = (done/ASSETS.length*100)+"%";
+  const pct = Math.round(done/ASSETS.length*100);
+  const bar = document.getElementById("pbar");
+  bar.style.width = pct+"%";
+  const track = document.getElementById("pwrap") || bar.parentElement;
+  if(track){
+    track.setAttribute("aria-valuenow", String(done));
+    track.setAttribute("aria-valuetext", `${done} of ${ASSETS.length} fundraising assets ready (${pct}%)`);
+  }
   document.getElementById("ptext").textContent = `${done} of ${ASSETS.length} ready`;
 }
 // Promotion / prevention language check (from regulatory-focus research)
@@ -192,9 +200,11 @@ function buildDraft(){
 function copyDraft(){
   const out = document.getElementById("draftOut");
   if(out.style.display==="none"||!out.textContent){ buildDraft(); }
+  const say = (text, cls)=>{ const n = document.getElementById("copyMsg");
+    if(n){ n.textContent = text; n.className = cls; n.style.display = "block"; } };
   navigator.clipboard.writeText(document.getElementById("draftOut").textContent)
-    .then(()=>alert("Draft copied to clipboard."))
-    .catch(()=>alert("Copy failed — select the draft text and copy it manually."));
+    .then(()=>say("Draft copied to your clipboard.", "okflag"))
+    .catch(()=>say("Copy failed \u2014 select the draft text above and copy it manually.", "flag"));
 }
 function runTests(){
   // Snapshot live user input so running the tests never destroys work in progress

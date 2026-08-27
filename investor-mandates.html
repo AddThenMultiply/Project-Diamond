@@ -70,7 +70,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <h1>Investor mandate register</h1>
   <p class="lede">The structured layer over the investor relationship base: each mandate records what an investor is actually looking for — cheque size, thresholds, sectors, involvement, dealbreakers — recorded so the advisor can form their own view with the full picture to hand.</p>
   <div class="card">
-    <label class="f">Email address</label>
+    <label class="f" for="auth-email">Email address</label>
     <input type="email" id="auth-email" placeholder="you@…">
     <button class="cta" id="btn-magic">Email me a sign-in link</button>
     <div id="auth-msg"></div>
@@ -90,8 +90,8 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <div class="card">
     <h2 style="margin-top:0;">Add a mandate</h2>
     <div class="row">
-      <span><label class="f">Organisation</label><input type="text" id="m-org"></span>
-      <span><label class="f">Type</label><select id="m-type">
+      <span><label class="f" for="m-org">Organisation</label><input type="text" id="m-org"></span>
+      <span><label class="f" for="m-type">Type</label><select id="m-type">
         <option value="pe_buyout">Private equity / buyout</option>
         <option value="growth_equity">Growth equity</option>
         <option value="family_office">Family office</option>
@@ -101,41 +101,43 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       </select></span>
     </div>
     <div class="row">
-      <span><label class="f">Cheque size min (£)</label><input type="number" id="m-cmin" min="0" step="100000"></span>
-      <span><label class="f">Cheque size max (£)</label><input type="number" id="m-cmax" min="0" step="100000"></span>
+      <span><label class="f" for="m-cmin">Cheque size min (£)</label><input type="number" id="m-cmin" min="0" step="100000"></span>
+      <span><label class="f" for="m-cmax">Cheque size max (£)</label><input type="number" id="m-cmax" min="0" step="100000"></span>
     </div>
     <div class="row">
-      <span><label class="f">Minimum revenue (£)</label><input type="number" id="m-rmin" min="0" step="100000"></span>
-      <span><label class="f">Minimum EBITDA (£)</label><input type="number" id="m-emin" min="0" step="50000"></span>
+      <span><label class="f" for="m-rmin">Minimum revenue (£)</label><input type="number" id="m-rmin" min="0" step="100000"></span>
+      <span><label class="f" for="m-emin">Minimum EBITDA (£)</label><input type="number" id="m-emin" min="0" step="50000"></span>
     </div>
     <div class="row3">
-      <span><label class="f">Sectors (comma-separated)</label><input type="text" id="m-sectors" placeholder="SaaS, healthcare, services"></span>
-      <span><label class="f">Geographies (comma-separated)</label><input type="text" id="m-geos" placeholder="UK, Europe"></span>
-      <span><label class="f">Horizon (years)</label><input type="number" id="m-horizon" min="1" max="30"></span>
+      <span><label class="f" for="m-sectors">Sectors (comma-separated)</label><input type="text" id="m-sectors" placeholder="SaaS, healthcare, services"></span>
+      <span><label class="f" for="m-geos">Geographies (comma-separated)</label><input type="text" id="m-geos" placeholder="UK, Europe"></span>
+      <span><label class="f" for="m-horizon">Horizon (years)</label><input type="number" id="m-horizon" min="1" max="30"></span>
     </div>
     <div class="row3">
-      <span><label class="f">Control preference</label><select id="m-control"><option value="">—</option><option value="majority">Majority / buyout</option><option value="minority">Minority only</option><option value="either">Either</option></select></span>
-      <span><label class="f">Max single-customer concentration (%)</label><input type="number" id="m-conc" min="0" max="100" placeholder="e.g. 15"></span>
-      <span><label class="f">Founder transition required</label><select id="m-transition"><option value="">—</option><option value="exit_at_close">Exit at close</option><option value="transition_1_3yr">1–3 year transition</option><option value="stay_and_roll">Stay on and roll equity</option><option value="flexible">Flexible</option></select></span>
+      <span><label class="f" for="m-control">Control preference</label><select id="m-control"><option value="">—</option><option value="majority">Majority / buyout</option><option value="minority">Minority only</option><option value="either">Either</option></select></span>
+      <span><label class="f" for="m-conc">Max single-customer concentration (%)</label><input type="number" id="m-conc" min="0" max="100" placeholder="e.g. 15"></span>
+      <span><label class="f" for="m-transition">Founder transition required</label><select id="m-transition"><option value="">—</option><option value="exit_at_close">Exit at close</option><option value="transition_1_3yr">1–3 year transition</option><option value="stay_and_roll">Stay on and roll equity</option><option value="flexible">Flexible</option></select></span>
     </div>
     <div class="row">
-      <span><label class="f">Involvement style</label><select id="m-involve"><option value="">—</option><option>Board seat</option><option>Hands-on operational</option><option>Strategic oversight</option><option>Silent / patient capital</option></select></span>
-      <span><label class="f">Leverage appetite</label><select id="m-leverage"><option value="">—</option><option>None / all-equity</option><option>Low (0–3x EBITDA)</option><option>Standard buyout leverage</option></select></span>
+      <span><label class="f" for="m-involve">Involvement style</label><select id="m-involve"><option value="">—</option><option>Board seat</option><option>Hands-on operational</option><option>Strategic oversight</option><option>Silent / patient capital</option></select></span>
+      <span><label class="f" for="m-leverage">Leverage appetite</label><select id="m-leverage"><option value="">—</option><option>None / all-equity</option><option>Low (0–3x EBITDA)</option><option>Standard buyout leverage</option></select></span>
     </div>
-    <label class="f">Structures offered (the asymmetry-bridging levers)</label>
+    <fieldset style="border:none;padding:0;margin:0;min-width:0;">
+    <legend class="f" style="padding:0;">Structures offered (the asymmetry-bridging levers)</legend>
     <div style="display:flex;gap:1.2rem;flex-wrap:wrap;font-size:0.85rem;color:#334155;padding:0.3rem 0;" id="m-structs">
       <label><input type="checkbox" data-ms="earnout"> Earnout</label>
       <label><input type="checkbox" data-ms="seller_note"> Seller note</label>
       <label><input type="checkbox" data-ms="rollover"> Equity rollover</label>
       <label><input type="checkbox" data-ms="deferred"> Deferred consideration</label>
     </div>
+    </fieldset>
     <div class="row">
-      <span><label class="f">Relationship owner</label><input type="text" id="m-owner" placeholder="Who holds this relationship"></span>
+      <span><label class="f" for="m-owner">Relationship owner</label><input type="text" id="m-owner" placeholder="Who holds this relationship"></span>
       <span></span>
     </div>
-    <label class="f">Must-haves</label><textarea id="m-must"></textarea>
-    <label class="f">Dealbreakers</label><textarea id="m-breakers"></textarea>
-    <label class="f">Notes</label><textarea id="m-notes"></textarea>
+    <label class="f" for="m-must">Must-haves</label><textarea id="m-must"></textarea>
+    <label class="f" for="m-breakers">Dealbreakers</label><textarea id="m-breakers"></textarea>
+    <label class="f" for="m-notes">Notes</label><textarea id="m-notes"></textarea>
     <button class="cta" id="btn-add">Add mandate</button>
     <div id="add-msg"></div>
   </div>
@@ -193,9 +195,10 @@ async function init(){
     history.replaceState(null, "", location.pathname);
     setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
   }
-  const {data:{session:s}} = await sb.auth.getSession(); session=s;
-  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
-  route();
+  // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
+  // as soon as it subscribes, so calling getSession() and route() here too
+  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
 }
 
 /* Advisor tier navigation: shown only to advisor/admin roles. */

@@ -108,8 +108,8 @@ a:hover{text-decoration:underline;}
       <div id="eng-list"></div>
       <h3 style="margin-top:1.5rem;">Create a new engagement</h3>
       <div class="grid2">
-        <div><label>Company name (the acquirer)</label><input id="new-company" placeholder="Company Ltd"></div>
-        <div><label>Strategic goal</label><input id="new-goal" placeholder="e.g. Acquire capability in X / consolidate the Y market"></div>
+        <div><label for="new-company">Company name (the acquirer)</label><input id="new-company" placeholder="Company Ltd"></div>
+        <div><label for="new-goal">Strategic goal</label><input id="new-goal" placeholder="e.g. Acquire capability in X / consolidate the Y market"></div>
       </div>
       <div style="margin-top:1rem;"><button id="btn-create-eng" class="gold">Create engagement</button></div>
       <div id="list-msg"></div>
@@ -132,12 +132,12 @@ a:hover{text-decoration:underline;}
       <h2>Target pipeline <span class="tag A">A</span></h2>
       <p class="sub">Longlist → shortlist of 30–50 → warm-intro pathfinding (the FFF research method, repurposed). Advisors protect the relationships; the platform tracks the funnel.</p>
       <div class="grid3">
-        <div><label>Target name</label><input id="tg-name" placeholder="Target Ltd"></div>
-        <div><label>Stage</label><select id="tg-stage">
+        <div><label for="tg-name">Target name</label><input id="tg-name" placeholder="Target Ltd"></div>
+        <div><label for="tg-stage">Stage</label><select id="tg-stage">
           <option>longlist</option><option>shortlist</option><option>approached</option><option>meeting</option>
           <option>hot</option><option>dd</option><option>spa</option><option>completed</option>
           <option>integration</option><option>dropped</option></select></div>
-        <div><label>Relationship notes</label><input id="tg-notes" placeholder="Who knows whom; warmth of the route in"></div>
+        <div><label for="tg-notes">Relationship notes</label><input id="tg-notes" placeholder="Who knows whom; warmth of the route in"></div>
       </div>
       <div style="margin-top:.8rem;"><button id="btn-tg-add">Add target</button></div>
       <div id="pipeline-board" style="margin-top:1.2rem;"></div>
@@ -148,11 +148,11 @@ a:hover{text-decoration:underline;}
       <h2>Due diligence tracker <span class="tag A">A</span></h2>
       <p class="sub">The DD question log with red-flag surfacing — and the legal-cost discipline the process insists on. Red flags are decisions for people.</p>
       <div class="grid3">
-        <div><label>Target</label><select id="dd-target"></select></div>
-        <div><label>Area</label><select id="dd-area">
+        <div><label for="dd-target">Target</label><select id="dd-target"></select></div>
+        <div><label for="dd-area">Area</label><select id="dd-area">
           <option>Financial</option><option>Legal</option><option>Commercial</option>
           <option>People</option><option>Tax</option><option>Technology</option><option>Other</option></select></div>
-        <div><label>Question / item</label><input id="dd-question" placeholder="e.g. Customer concentration in top 3 accounts"></div>
+        <div><label for="dd-question">Question / item</label><input id="dd-question" placeholder="e.g. Customer concentration in top 3 accounts"></div>
       </div>
       <div style="margin-top:.8rem;"><button id="btn-dd-add">Add DD item</button></div>
       <div id="dd-table" style="margin-top:1rem;"></div>
@@ -166,13 +166,14 @@ a:hover{text-decoration:underline;}
         <button id="btn-int-seed" class="gold">Seed standard 100-day plan</button>
       </div>
       <div class="grid3">
-        <div><label>Day (0–100)</label><input id="int-day" type="number" min="0" max="100" value="0"></div>
-        <div><label>Action</label><input id="int-action" placeholder="e.g. Joint all-hands; name the integration lead"></div>
-        <div><label>Owner</label><input id="int-owner" placeholder="Who"></div>
+        <div><label for="int-day">Day (0–100)</label><input id="int-day" type="number" min="0" max="100" value="0"></div>
+        <div><label for="int-action">Action</label><input id="int-action" placeholder="e.g. Joint all-hands; name the integration lead"></div>
+        <div><label for="int-owner">Owner</label><input id="int-owner" placeholder="Who"></div>
       </div>
       <label style="display:flex;align-items:center;gap:.5rem;margin-top:.5rem;">
         <input type="checkbox" id="int-culture" style="width:auto;"> Culture-change risk item</label>
       <div style="margin-top:.8rem;"><button id="btn-int-add">Add action</button></div>
+      <div id="int-msg"></div>
       <div id="int-table" style="margin-top:1rem;"></div>
     </div>
 
@@ -231,10 +232,19 @@ async function init(){
     history.replaceState(null, "", location.pathname);
     setTimeout(()=>msg("auth-msg", friendly, "err"), 0);
   }
-  const {data:{session:s}} = await sb.auth.getSession();
-  session = s;
-  sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
-  route();
+  // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
+  // as soon as it subscribes, so calling getSession() and route() here too
+  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
+}
+
+
+/* An RLS or network failure is not an empty list. Render the difference,
+   so "nothing here yet" always means exactly that. */
+function loadFailed(elId, error, what){
+  msg(elId, "Couldn\u2019t load " + what + " \u2014 " + (error.message || "the request failed") +
+    ". This is a loading problem, not an empty list. Refresh the page, and tell your advisor if it keeps happening.", "err");
+  return true;
 }
 
 /* Advisor tier navigation: shown only to advisor/admin roles. */
@@ -319,19 +329,20 @@ function renderGate(){
     <strong>Phase gate — advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
     <p class="muted">A named human sign-off is required; the gate is enforced in the database.</p>
     ${isAdvisor ? `
-      <label>Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
+      <label for="gate-note">Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
       <div style="margin-top:.6rem;display:flex;gap:.6rem;">
         <button class="gold" onclick="signGate('approved')">Approve &amp; advance</button>
         <button class="ghost" onclick="signGate('needs_work')">Record: needs work</button>
-      </div>` : `<p class="muted">Your advisor approves this gate after the phase review.</p>`}`;
+      </div>
+      <div id="gate-msg"></div>` : `<p class="muted">Your advisor approves this gate after the phase review.</p>`}`;
 }
 window.signGate = async (decision)=>{
   const next = eng.phase+1, note = ($("gate-note")||{}).value||"";
   const {error} = await sb.from("human_signoffs").insert({engagement_id:eng.id, gate:"advance_to_"+next, signed_by:session.user.id, decision, note});
-  if(error){ alert("Sign-off failed: "+error.message); return; }
+  if(error){ msg("gate-msg", "Sign-off failed: "+error.message, "err"); return; }
   if(decision==="approved"){
     const {error:e2} = await sb.from("engagements").update({phase:next}).eq("id", eng.id);
-    if(e2){ alert("Phase advance blocked: "+e2.message); return; }
+    if(e2){ msg("gate-msg", "Phase advance blocked: "+e2.message, "err"); return; }
     eng.phase = next;
   }
   renderWorkspace();
@@ -346,7 +357,8 @@ $("btn-tg-add").onclick = async ()=>{
   loadTargets();
 };
 async function loadTargets(){
-  const {data} = await sb.from("targets").select("*").eq("engagement_id",eng.id).order("created_at");
+  const {data, error} = await sb.from("targets").select("*").eq("engagement_id",eng.id).order("created_at");
+  if(error) return loadFailed("pipeline-board", error, "your target pipeline");
   targetsCache = data||[];
   const active = STAGES.filter(s=>s!=="dropped");
   $("pipeline-board").innerHTML = `<div class="grid3">`+active.map(stage=>{
@@ -373,7 +385,8 @@ $("btn-dd-add").onclick = async ()=>{
   loadDD();
 };
 async function loadDD(){
-  const {data} = await sb.from("dd_items").select("*").eq("engagement_id",eng.id).order("created_at");
+  const {data, error} = await sb.from("dd_items").select("*").eq("engagement_id",eng.id).order("created_at");
+  if(error) return loadFailed("dd-table", error, "the due-diligence register");
   const tName = (id)=>{const t=targetsCache.find(x=>x.id===id); return t?t.name:"—";};
   const red = (data||[]).filter(d=>d.red_flag).length;
   $("dd-table").innerHTML = (data&&data.length)?
@@ -386,14 +399,39 @@ async function loadDD(){
       <td class="right">
         <button class="small ghost" onclick="ddFlag('${d.id}',${!d.red_flag})">${d.red_flag?"Unflag":"Flag"}</button>
         <button class="small ghost" onclick="ddAnswer('${d.id}')">Answer</button>
+      </td></tr>
+      <tr id="dd-ans-${d.id}" class="hidden"><td colspan="6">
+        <label for="dd-ans-in-${d.id}">Response / evidence reference</label>
+        <textarea id="dd-ans-in-${d.id}" placeholder="What the answer is, and where the evidence sits.">${esc(d.response||"")}</textarea>
+        <div id="dd-ans-msg-${d.id}"></div>
+        <div style="margin-top:.5rem;">
+          <button class="small gold" onclick="ddAnswerSave('${d.id}')">Save response</button>
+          <button class="small ghost" onclick="ddAnswerCancel('${d.id}')">Cancel</button>
+        </div>
       </td></tr>`).join("")}</table>`
     : `<p class="muted">No DD items yet.</p>`;
 }
 window.ddFlag = async (id, flag)=>{ await sb.from("dd_items").update({red_flag:flag, status:flag?"red":"open"}).eq("id",id); loadDD(); };
-window.ddAnswer = async (id)=>{
-  const response = prompt("Response / evidence reference:");
-  if(response===null) return;
-  await sb.from("dd_items").update({response, status:"answered"}).eq("id",id);
+/* Due-diligence answers are captured inline. An OS prompt() dialog is
+   un-branded, unstyleable and loses whatever was already recorded. */
+window.ddAnswer = (id)=>{
+  const row = $("dd-ans-"+id);
+  if(!row) return;
+  row.classList.remove("hidden");
+  const field = $("dd-ans-in-"+id);
+  if(field) field.focus();
+};
+window.ddAnswerCancel = (id)=>{
+  const row = $("dd-ans-"+id);
+  if(row) row.classList.add("hidden");
+  msg("dd-ans-msg-"+id, "", "");
+};
+window.ddAnswerSave = async (id)=>{
+  const field = $("dd-ans-in-"+id);
+  const response = field ? field.value.trim() : "";
+  if(!response){ msg("dd-ans-msg-"+id, "Record the response or the evidence reference before saving.", "err"); return; }
+  const {error} = await sb.from("dd_items").update({response, status:"answered"}).eq("id",id);
+  if(error){ msg("dd-ans-msg-"+id, error.message, "err"); return; }
   loadDD();
 };
 
@@ -401,11 +439,11 @@ window.ddAnswer = async (id)=>{
 $("btn-int-seed").onclick = async ()=>{
   const {count, error: cntErr} = await sb.from("integration_actions")
     .select("id", {count:"exact", head:true}).eq("engagement_id", eng.id);
-  if(cntErr){ alert(cntErr.message); return; }
+  if(cntErr){ msg("int-msg", cntErr.message, "err"); return; }
   if(count > 0 && !confirm(`This engagement already has ${count} integration action${count===1?"":"s"}. Seed the standard plan as well?`)) return;
   const rows = STANDARD_100_DAY.map(x=>({...x, engagement_id:eng.id}));
   const {error} = await sb.from("integration_actions").insert(rows);
-  if(error) alert(error.message);
+  if(error){ msg("int-msg", error.message, "err"); return; }
   loadIntegration();
 };
 $("btn-int-add").onclick = async ()=>{
@@ -417,7 +455,8 @@ $("btn-int-add").onclick = async ()=>{
   loadIntegration();
 };
 async function loadIntegration(){
-  const {data} = await sb.from("integration_actions").select("*").eq("engagement_id",eng.id).order("day_offset");
+  const {data, error} = await sb.from("integration_actions").select("*").eq("engagement_id",eng.id).order("day_offset");
+  if(error) return loadFailed("int-table", error, "the integration plan");
   $("int-table").innerHTML = (data&&data.length)?
     `<table><tr><th>Day</th><th>Action</th><th>Owner</th><th>Culture risk</th><th>Status</th><th></th></tr>
     ${data.map(a=>`<tr><td>${a.day_offset}</td><td>${esc(a.action)}</td><td>${esc(a.owner||"—")}</td>

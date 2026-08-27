@@ -46,6 +46,9 @@ button.cta:hover{background:#8A3E06;}
 .note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:600px){h1{font-size:1.5rem}.big{font-size:2rem}}
+.metric legend{padding:0;display:block;width:100%;}
+.metric{min-width:0;}
+.inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
 </style>
 </head>
 <body>
@@ -76,6 +79,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </div>
 
   <form id="diag"></form>
+  <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Readiness Score</button>
 
   <section id="leadgate" style="display:none;margin-top:2.4rem;">
@@ -98,7 +102,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     </div>
   </section>
 
-  <section id="results">
+  <section id="results" aria-live="polite">
     <span class="kicker">Your results</span>
     <div class="scorebox">
       <span class="big" id="totalScore">–</span><span style="color:var(--slate)">%</span><span class="band" id="bandLabel"></span>
@@ -185,11 +189,11 @@ let html = ""; let qn = 0;
 THEMES.forEach(t => {
   html += `<div class="themehead"><h2>${t.name}</h2><p>${t.qs.length} questions${t.weight>1 ? " · weighted ×"+t.weight : ""}</p></div>`;
   t.qs.forEach(q => {
-    html += `<div class="metric"><h3>${qn+1}. ${q}</h3><div class="scale">`;
+    html += `<fieldset class="metric" id="metric-s${qn}"><legend><h3>${qn+1}. ${q}</h3></legend><div class="scale">`;
     SCALE.forEach((s,j) => {
       html += `<label><input type="radio" name="s${qn}" value="${j+1}"><b>${j+1}</b>${s}</label>`;
     });
-    html += `</div></div>`;
+    html += `</div></fieldset>`;
     qn++;
   });
 });
@@ -239,14 +243,18 @@ loadRouting();
 
 function scoreDiagnostic(){
   const roleSel = document.querySelector('input[name="q0"]:checked');
-  if(!roleSel){ alert("Please tell us which best describes you today (the first question)."); window.scrollTo({top:0,behavior:"smooth"}); return; }
+  const err = document.getElementById("diag-err");
+  const fail = (text, el)=>{ err.textContent = text; err.style.display = "block";
+    if(el) el.scrollIntoView({behavior:"smooth", block:"center"}); };
+  if(!roleSel){ fail("Please tell us which best describes you today — it is the first question.", null); window.scrollTo({top:0,behavior:"smooth"}); return; }
   const answers = [];
   const allQs = THEMES.flatMap(t=>t.qs);
   for(let i=0;i<allQs.length;i++){
     const sel = document.querySelector(`input[name="s${i}"]:checked`);
-    if(!sel){ alert(`Please answer question ${i+1}.`); document.getElementsByName("s"+i)[0].closest(".metric").scrollIntoView({behavior:"smooth"}); return; }
+    if(!sel){ fail(`Please answer question ${i+1} before calculating your score.`, document.getElementById("metric-s"+i)); return; }
     answers.push(parseInt(sel.value,10));
   }
+  err.style.display = "none";
   const {themeScores, total} = computeScores(answers);
   pending = {answers, themeScores, total, band: bandFor(total), role: roleSel.value};
   const gate = document.getElementById("leadgate");

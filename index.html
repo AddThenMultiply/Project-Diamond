@@ -24,7 +24,9 @@ main{max-width:960px;margin:0 auto;padding:3rem 1.25rem 4rem;}
 h2{font-family:Georgia,serif;font-size:1.5rem;color:var(--navy);margin:0.3rem 0 1rem;}
 .tiers{display:grid;gap:0.9rem;margin:1.4rem 0 0.6rem;}
 .tier{background:#fff;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:6px;padding:1.2rem 1.4rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:baseline;}
-.tier .num{font-family:Georgia,serif;font-size:1.5rem;color:var(--line);font-weight:700;}
+/* was var(--line) on white, ~1.2:1 — these are the step numbers the copy
+   refers to ("start at step 01"), so they are content, not decoration. */
+.tier .num{font-family:Georgia,serif;font-size:1.5rem;color:var(--slate);font-weight:700;}
 .tier h3{font-size:1rem;color:var(--navy);}
 .tier p{font-size:0.86rem;color:var(--slate);margin-top:0.2rem;}
 .tier .tag{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.25rem 0.6rem;border-radius:99px;white-space:nowrap;}
