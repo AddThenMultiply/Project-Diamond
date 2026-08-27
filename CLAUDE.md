@@ -10,7 +10,11 @@ Public site pages (all single-file HTML): `index.html` (overview + value stream 
 
 Value stream: **Diagnostics (free) → Personalised Roadmap → Insource Sourcing → Readiness Project (full engagement)**, which maps onto the ATM Exit Advisory phases (Founder Clarity → Gap Analysis → Business Readiness → Transaction Execution) and the 7-phase M&A Advisory Process. Content taxonomy is the **FACE methodology** (Fund, Acquire, Consolidate, Exit). Full design: `BLUEPRINT.md`.
 
-Voice: ATM founder-first — warm, direct, UK English ("an exit is a life event"). Visual system: charcoal `#111827`, slate `#475569`, off-white `#F8FAFC`, borders `#E2E8F0`, navy `#0F172A`, Georgia serif headings. Rigour in substance, warmth in tone — never institutional jargon.
+Voice: ATM founder-first — warm, direct, UK English ("an exit is a life event"). Rigour in substance, warmth in tone — never institutional jargon.
+
+**Visual system (the live palette — every page declares it in one `:root` block):** ink `#111827` · slate `#475569` · off-white background `#F8FAFC` · borders `#E2E8F0` · charcoal `#2B2A29` (`--navy`: header bars, headings, booking-CTA anchors) · amber accent `#B45309` (`--accent`: form/submit buttons, links) with hover `#8A3E06` · brand-mark orange `#F38E00` (the "MULTIPLY" wordmark only) · Georgia serif headings, system sans body. Status tokens: good `#15803D`, warn `#B45309`, bad `#B91C1C`.
+
+CTA rule: **booking/navigation anchors (`a.cta`, `a.book-cta`) are charcoal `--navy`; form and submit buttons (`button.cta`, `.btn`, `button.gold`) are amber `--accent`.** No other primary-action colours — there is no accent blue on the site, and `#0A192F`/`#D4AF37` (a former gold-on-dark identity) must never reappear.
 
 ## Hard rules
 

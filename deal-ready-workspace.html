@@ -5,62 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Deal Ready Workspace | Add Then Multiply</title>
 <style>
-:root{--primary:#0A192F;--secondary:#172A45;--accent:#D4AF37;--text-main:#333;--text-light:#666;
---bg-light:#F8F9FA;--white:#FFF;--border:#E0E0E0;--error:#D32F2F;--success:#2E7D32;--warn:#B26A00;}
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-body{background:var(--bg-light);color:var(--text-main);line-height:1.6;}
-header{background:var(--primary);color:var(--white);padding:1.2rem 0;border-bottom:4px solid var(--accent);}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;
+--good:#15803D;--warn:#B45309;--bad:#B91C1C;
+/* legacy names kept as aliases so existing rules and inline styles keep resolving */
+--primary:#2B2A29;--secondary:#111827;--text-main:#111827;--text-light:#475569;
+--bg-light:#F8FAFC;--white:#fff;--border:#E2E8F0;--error:#B91C1C;--success:#15803D;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+header{background:var(--navy);color:#fff;padding:0.9rem 0;}
 .container{max-width:1050px;margin:0 auto;padding:0 1.5rem;width:100%;}
-.header-content{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
-.logo{font-size:1.4rem;font-weight:700;}.logo span{color:var(--accent);}
+.header-content{display:flex;justify-content:space-between;align-items:center;gap:0.6rem 1.4rem;flex-wrap:wrap;}
+.logo{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;}
+.logo span{color:#F38E00;}
 main{padding:2.5rem 0 4rem;}
-.card{background:var(--white);border-radius:8px;padding:2rem;box-shadow:0 4px 6px rgba(0,0,0,.05);margin-bottom:1.5rem;}
-h1{color:var(--primary);font-size:1.9rem;margin-bottom:.5rem;}
-h2{color:var(--primary);font-size:1.3rem;margin-bottom:1rem;}
-h3{color:var(--secondary);font-size:1.05rem;margin:1rem 0 .5rem;}
-p.sub{color:var(--text-light);margin-bottom:1.2rem;}
-label{display:block;font-weight:600;font-size:.9rem;margin:.8rem 0 .25rem;color:var(--secondary);}
-input,select,textarea{width:100%;padding:.6rem .7rem;border:1px solid var(--border);border-radius:6px;font-size:.95rem;}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.3rem 1.4rem;margin-bottom:1.5rem;}
+h1{font-family:Georgia,serif;color:var(--navy);font-size:1.9rem;margin-bottom:.5rem;}
+h2{font-family:Georgia,serif;color:var(--navy);font-size:1.2rem;margin-bottom:1rem;}
+h3{font-family:Georgia,serif;color:var(--navy);font-size:1.05rem;margin:1rem 0 .5rem;}
+h4{font-family:Georgia,serif;color:var(--navy);}
+p.sub{color:var(--slate);font-size:0.98rem;max-width:66ch;margin-bottom:1.2rem;}
+label{display:block;font-weight:600;font-size:.8rem;margin:.9rem 0 .2rem;color:var(--navy);}
+input,select,textarea{width:100%;padding:.55rem .7rem;border:1px solid var(--line);border-radius:4px;font-size:.88rem;font-family:inherit;background:#fff;color:var(--ink);}
 textarea{min-height:70px;resize:vertical;}
-button{background:var(--primary);color:#fff;border:none;border-radius:6px;padding:.65rem 1.2rem;font-size:.95rem;font-weight:600;cursor:pointer;}
-button:hover{background:var(--secondary);}
-button.gold{background:var(--accent);color:var(--primary);}
-button.ghost{background:transparent;color:var(--primary);border:1px solid var(--primary);}
-button.small{padding:.3rem .7rem;font-size:.8rem;}
+/* base button = neutral charcoal action; .gold = the primary accent action */
+button{background:var(--navy);color:#fff;border:none;border-radius:4px;padding:.65rem 1.2rem;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit;}
+button:hover{background:#111827;}
+button.gold{background:var(--accent);color:#fff;}
+button.gold:hover{background:#8A3E06;}
+button.ghost{background:transparent;color:var(--navy);border:1px solid var(--line);}
+button.ghost:hover{background:#fff;border-color:var(--navy);}
+button.small{padding:.3rem .7rem;font-size:.78rem;}
+button:disabled{opacity:.45;cursor:not-allowed;}
 .hidden{display:none!important;}
-.notice{padding:.8rem 1rem;border-radius:6px;margin:.8rem 0;font-size:.92rem;}
-.notice.ok{background:#E8F5E9;color:var(--success);}
-.notice.err{background:#FDECEA;color:var(--error);}
-.notice.info{background:#E3F2FD;color:#0D47A1;}
-.phase-bar{display:flex;gap:.35rem;flex-wrap:wrap;margin:1rem 0 1.5rem;}
-.phase-pill{padding:.4rem .75rem;border-radius:20px;font-size:.78rem;font-weight:600;background:#E9ECEF;color:var(--text-light);border:2px solid transparent;}
-.phase-pill.active{background:var(--primary);color:#fff;}
-.phase-pill.done{border-color:var(--success);color:var(--success);}
+.notice{padding:.6rem .9rem;border-radius:4px;margin:.8rem 0;font-size:.85rem;}
+.notice.ok{background:#DCFCE7;color:#14532D;}
+.notice.err{background:#FEE2E2;color:#7F1D1D;}
+.notice.info{background:#DBEAFE;color:#1E3A8A;}
+.phase-bar{display:flex;gap:.4rem;flex-wrap:wrap;margin:1rem 0 1.5rem;}
+.phase-pill{padding:.4rem .85rem;border-radius:99px;font-size:.8rem;font-weight:600;background:#fff;color:var(--slate);border:1px solid var(--line);}
+.phase-pill.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.phase-pill.done{border-color:var(--good);color:var(--good);}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
-@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
-table{width:100%;border-collapse:collapse;font-size:.9rem;}
-th{text-align:left;background:var(--bg-light);color:var(--secondary);padding:.5rem .6rem;border-bottom:2px solid var(--border);}
-td{padding:.5rem .6rem;border-bottom:1px solid var(--border);vertical-align:top;}
-.tag{display:inline-block;padding:.1rem .5rem;border-radius:4px;font-size:.75rem;font-weight:700;}
-.tag.F{background:#E3F2FD;color:#0D47A1;}.tag.A{background:#F3E5F5;color:#6A1B9A;}
-.tag.C{background:#FFF3E0;color:#B26A00;}
-.redflag{color:var(--error);font-weight:700;}
-.gate-box{border:2px dashed var(--accent);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;background:#FFFDF5;}
-.muted{color:var(--text-light);font-size:.85rem;}
+table{width:100%;border-collapse:collapse;font-size:.88rem;}
+th{text-align:left;background:var(--bg);color:var(--navy);padding:.5rem .6rem;border-bottom:2px solid var(--line);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;}
+td{padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top;}
+.tag{display:inline-block;padding:.15rem .55rem;border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.05em;}
+.tag.F{background:#DBEAFE;color:#1E3A8A;}.tag.A{background:#EDE9FE;color:#4C1D95;}
+.tag.C{background:#FEF3C7;color:#78350F;}
+.gate-box{border:1px dashed var(--accent);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0;background:#FFFBEB;}
+.muted{color:var(--slate);font-size:.85rem;}
 .right{text-align:right;}
-.stage-col{background:var(--bg-light);border-radius:8px;padding:.8rem;min-height:90px;}
-.stage-col h4{font-size:.8rem;color:var(--secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;}
-.target-chip{background:#fff;border:1px solid var(--border);border-radius:6px;padding:.45rem .6rem;margin-bottom:.45rem;font-size:.85rem;}
-footer{background:var(--primary);color:#B0BEC5;padding:1.5rem 0;font-size:.85rem;text-align:center;}
-a{color:var(--accent);}
+footer{border-top:1px solid var(--line);color:var(--slate);font-size:.78rem;text-align:center;padding:1.4rem 0;margin-top:1rem;}
+a{color:var(--accent);font-weight:600;text-decoration:none;}
+a:hover{text-decoration:underline;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+.redflag{color:var(--bad);font-weight:700;}
+.stage-col{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.8rem;min-height:90px;}
+.stage-col h4{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:.72rem;color:var(--slate);text-transform:uppercase;letter-spacing:.18em;margin-bottom:.5rem;}
+.target-chip{background:#fff;border:1px solid var(--line);border-radius:6px;padding:.45rem .6rem;margin-bottom:.45rem;font-size:.85rem;}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr;}}
+@media(max-width:640px){.container{padding:0 1rem;}}
 </style>
 </head>
 <body>
 <header><div class="container header-content">
   <div class="logo">ADD THEN <span>MULTIPLY</span> — Deal Ready Workspace</div>
-  <div><span id="whoami" class="muted" style="color:#B0BEC5;"></span>
-  <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#fff;margin-left:.8rem;">Sign out</button></div>
+  <div><span id="whoami" class="muted" style="color:#CBD5E1;"></span>
+  <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#94A3B8;margin-left:.8rem;">Sign out</button></div>
 </div></header>
 <main><div class="container">
 
