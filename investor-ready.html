@@ -137,6 +137,35 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
         // Configuration
         const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
 
+        /* Booking hand-off. Appends the assessment context to the single
+           BOOKING_URL so GoHighLevel can record source, assessment and band.
+           The campaign source is read from this page's own URL and passed
+           straight on — nothing is written to cookies, localStorage or
+           sessionStorage, so it travels only within a single journey. If
+           anything here throws, the plain BOOKING_URL is used so booking
+           always works. */
+        const FR_SOURCES = ["Investor Network","LinkedIn Organic","LinkedIn Paid","Website Organic","Referral","Partner","Event","Outbound","Existing Client","Founder Readiness Direct","Direct","Other"];
+        function frNorm(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g," ").trim(); }
+        function frSource(search){
+          try{
+            const q = new URLSearchParams(search === undefined ? location.search : search);
+            const raw = q.get("utm_source") || q.get("src") || q.get("source");
+            if(!raw || !raw.trim()) return "Founder Readiness Direct";
+            return FR_SOURCES.find(v => frNorm(v) === frNorm(raw)) || "Other";
+          }catch(e){ return "Founder Readiness Direct"; }
+        }
+        function bookingUrl(ctx, search){
+          try{
+            const c = ctx || {}, p = [];
+            if(c.assessment) p.push("fr_assessment=" + encodeURIComponent(c.assessment));
+            if(typeof c.score === "number" && isFinite(c.score)) p.push("fr_score=" + encodeURIComponent(String(Math.round(c.score))));
+            if(c.band) p.push("fr_band=" + encodeURIComponent(c.band));
+            p.push("fr_source=" + encodeURIComponent(frSource(search)));
+            return BOOKING_URL + (BOOKING_URL.indexOf("?") < 0 ? "?" : "&") + p.join("&");
+          }catch(e){ return BOOKING_URL; }
+        }
+        function setBooking(el, ctx){ try{ if(el) el.href = bookingUrl(ctx); }catch(e){ if(el) el.href = BOOKING_URL; } }
+
         // Investor Ready bands. Thresholds are unchanged (>=80 / >=60 / else);
         // the agreed names make the tier explicit on the report and travel with
         // the booking hand-off as fr_band.
@@ -465,6 +494,10 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 
             document.getElementById('score-context').textContent = band.context;
 
+            // Carry the result context into the booking hand-off.
+            setBooking(document.getElementById('booking-cta'),
+                       { assessment: "IR", score: results.percentage, band: band.name });
+
             const gapsContainer = document.getElementById('gap-items-container');
             gapsContainer.innerHTML = '';
             
@@ -486,8 +519,8 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
             }
         }
 
-        // Set CTA link
-        document.getElementById('booking-cta').href = BOOKING_URL;
+        // Set CTA link (source only until results carry the assessment context)
+        setBooking(document.getElementById('booking-cta'), null);
 
         // Test Harness (as requested in Blueprint)
         window.runTests = function() {
@@ -559,6 +592,31 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
             assert(bandFor(59).name === "Getting Ready", "band 59 = Getting Ready");
             assert(bandFor(0).name === "Getting Ready", "band 0 = Getting Ready");
             assert(BANDS.every(b => b.name && b.color && b.context), "every band has a name, colour and context sentence");
+
+            // Test 8: booking hand-off to GoHighLevel
+            const irLink = bookingUrl({ assessment: "IR", score: 72, band: "Almost Ready" }, "?utm_source=LinkedIn%20Paid");
+            assert(irLink.indexOf(BOOKING_URL) === 0, "booking link preserves the base BOOKING_URL");
+            assert(irLink.indexOf(BOOKING_URL + "?") === 0, "booking link starts the query with ?");
+            assert(irLink.indexOf("fr_assessment=IR") > -1, "IR link carries fr_assessment=IR");
+            assert(irLink.indexOf("fr_score=72") > -1, "IR link carries the integer score");
+            assert(irLink.indexOf("fr_band=Almost%20Ready") > -1, "IR link carries the encoded band name");
+            assert(irLink.indexOf("fr_source=LinkedIn%20Paid") > -1, "IR link carries the encoded campaign source");
+
+            // Score is omitted when there is none; band names never leak raw spaces
+            const noScore = bookingUrl({ assessment: "FFF" }, "");
+            assert(noScore.indexOf("fr_score=") === -1 && noScore.indexOf("fr_band=") === -1, "link without a score omits fr_score and fr_band");
+            assert(noScore.indexOf("fr_assessment=FFF") > -1, "FFF link carries the assessment only");
+            assert(/^[^ ]+$/.test(irLink), "no unencoded spaces survive into the booking link");
+            assert(bookingUrl({ assessment: "IR", score: 0, band: "Getting Ready" }, "").indexOf("fr_score=0") > -1, "a zero score is still sent");
+
+            // Source mapping
+            assert(frSource("") === "Founder Readiness Direct", "missing source defaults to Founder Readiness Direct");
+            assert(frSource("?utm_source=wombat") === "Other", "an unrecognised source maps to Other");
+            assert(frSource("?utm_source=investor%20network") === "Investor Network", "source matching is case-insensitive");
+            assert(frSource("?utm_source=linkedin_paid") === "LinkedIn Paid", "separators in a utm_source still match the controlled value");
+            assert(frSource("?src=Referral") === "Referral" && frSource("?source=Partner") === "Partner", "src and source are read as well as utm_source");
+            assert(frSource("?utm_source=Direct") === "Direct", "Direct and Founder Readiness Direct stay distinct");
+            assert(bookingUrl(null, "?utm_source=Event") === BOOKING_URL + "?fr_source=Event", "a page with no assessment context sends fr_source only");
 
             console.log(`\nTest Summary: ${passed}/${total} passed.`);
             return passed === total;

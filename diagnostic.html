@@ -108,7 +108,36 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <script src="assets/supabase.js"></script>
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
-const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
+
+/* Booking hand-off. Appends the assessment context to the single BOOKING_URL
+   so GoHighLevel can record source, assessment and band. The campaign source
+   is read from this page's own URL and passed straight on — nothing is written
+   to cookies, localStorage or sessionStorage, so it travels only within a
+   single journey. If anything here throws, the plain BOOKING_URL is used so
+   booking always works. */
+const FR_SOURCES = ["Investor Network","LinkedIn Organic","LinkedIn Paid","Website Organic","Referral","Partner","Event","Outbound","Existing Client","Founder Readiness Direct","Direct","Other"];
+function frNorm(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g," ").trim(); }
+function frSource(search){
+  try{
+    const q = new URLSearchParams(search === undefined ? location.search : search);
+    const raw = q.get("utm_source") || q.get("src") || q.get("source");
+    if(!raw || !raw.trim()) return "Founder Readiness Direct";
+    return FR_SOURCES.find(v => frNorm(v) === frNorm(raw)) || "Other";
+  }catch(e){ return "Founder Readiness Direct"; }
+}
+function bookingUrl(ctx, search){
+  try{
+    const c = ctx || {}, p = [];
+    if(c.assessment) p.push("fr_assessment=" + encodeURIComponent(c.assessment));
+    if(typeof c.score === "number" && isFinite(c.score)) p.push("fr_score=" + encodeURIComponent(String(Math.round(c.score))));
+    if(c.band) p.push("fr_band=" + encodeURIComponent(c.band));
+    p.push("fr_source=" + encodeURIComponent(frSource(search)));
+    return BOOKING_URL + (BOOKING_URL.indexOf("?") < 0 ? "?" : "&") + p.join("&");
+  }catch(e){ return BOOKING_URL; }
+}
+function setBooking(el, ctx){ try{ if(el) el.href = bookingUrl(ctx); }catch(e){ if(el) el.href = BOOKING_URL; } }
+
+const SUPABASE_URL ="https://wfejarowrlalwgbqvloi.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
 const INSTRUMENT = "multiplier_diagnostic";
 const INSTRUMENT_VERSION = "1.0";
@@ -185,7 +214,8 @@ THEMES.forEach(t => {
   });
 });
 form.innerHTML = html;
-document.getElementById("bookBtn").href = BOOKING_URL;
+// Source only until results carry the assessment context.
+setBooking(document.getElementById("bookBtn"), null);
 
 function computeScores(answers){ // answers: array of 20 ints (1..5)
   let i = 0, weighted = 0;
@@ -302,6 +332,8 @@ function renderResults(){
   document.getElementById("svcMatch").innerHTML = svcHtml;
   document.getElementById("ctaLine").innerHTML = `<b>${cfg ? cfg.cta : band.cta}</b>`;
   document.getElementById("deepLink").style.display = band.deep ? "block" : "none";
+  // Carry the result context into the booking hand-off.
+  setBooking(document.getElementById("bookBtn"), { assessment: "RD", score: total, band: band.label });
   const res = document.getElementById("results");
   res.style.display = "block"; res.scrollIntoView({behavior:"smooth"});
 }
@@ -335,6 +367,22 @@ function runTests(){
   t("payload band_tag prefixed", pl.band_tag==="md:strong-potential");
   t("payload instrument + version", pl.instrument==="multiplier_diagnostic" && pl.instrument_version==="1.0");
   t("payload revenue null when blank", pl.revenue_band===null && pl.consent===true);
+  // Booking hand-off to GoHighLevel
+  const rd = bookingUrl({assessment:"RD", score:72, band:"Strong Potential"}, "?utm_source=LinkedIn%20Paid");
+  t("booking link preserves the base BOOKING_URL", rd.indexOf(BOOKING_URL)===0 && rd.indexOf(BOOKING_URL+"?")===0);
+  t("RD link carries assessment, score and band", rd.indexOf("fr_assessment=RD")>-1 && rd.indexOf("fr_score=72")>-1 && rd.indexOf("fr_band=Strong%20Potential")>-1);
+  t("RD link carries the encoded campaign source", rd.indexOf("fr_source=LinkedIn%20Paid")>-1);
+  t("no unencoded spaces survive into the booking link", /^[^ ]+$/.test(rd));
+  t("a zero score is still sent", bookingUrl({assessment:"RD", score:0, band:"At Risk"}, "").indexOf("fr_score=0")>-1);
+  const bare = bookingUrl({assessment:"FFF"}, "");
+  t("a link with no score omits fr_score and fr_band", bare.indexOf("fr_score=")===-1 && bare.indexOf("fr_band=")===-1 && bare.indexOf("fr_assessment=FFF")>-1);
+  t("missing source defaults to Founder Readiness Direct", frSource("")==="Founder Readiness Direct");
+  t("an unrecognised source maps to Other", frSource("?utm_source=wombat")==="Other");
+  t("source matching is case-insensitive", frSource("?utm_source=investor%20network")==="Investor Network");
+  t("separators in a utm_source still match", frSource("?utm_source=linkedin_paid")==="LinkedIn Paid");
+  t("src and source are read as well as utm_source", frSource("?src=Referral")==="Referral" && frSource("?source=Partner")==="Partner");
+  t("a page with no assessment context sends fr_source only", bookingUrl(null, "?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
+  t("every live band label survives the round trip", BANDS.every(b=>bookingUrl({assessment:"RD",score:b.min,band:b.label},"").indexOf("fr_band="+encodeURIComponent(b.label))>-1));
   const passed = results.filter(r=>r.pass).length;
   console.table(results);
   console.log(`${passed}/${results.length} tests passed`);

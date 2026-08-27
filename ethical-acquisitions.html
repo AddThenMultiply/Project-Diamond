@@ -121,6 +121,33 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <script src="assets/supabase.js"></script>
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
+/* Booking hand-off. Appends the campaign source to the single BOOKING_URL so
+   GoHighLevel can record where the founder came from. This page carries no
+   assessment, so it sends fr_source only. The source is read from this page's
+   own URL and passed straight on — nothing is written to cookies, localStorage
+   or sessionStorage, so it travels only within a single journey. If anything
+   here throws, the plain BOOKING_URL is used so booking always works. */
+const FR_SOURCES = ["Investor Network","LinkedIn Organic","LinkedIn Paid","Website Organic","Referral","Partner","Event","Outbound","Existing Client","Founder Readiness Direct","Direct","Other"];
+function frNorm(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g," ").trim(); }
+function frSource(search){
+  try{
+    const q = new URLSearchParams(search === undefined ? location.search : search);
+    const raw = q.get("utm_source") || q.get("src") || q.get("source");
+    if(!raw || !raw.trim()) return "Founder Readiness Direct";
+    return FR_SOURCES.find(v => frNorm(v) === frNorm(raw)) || "Other";
+  }catch(e){ return "Founder Readiness Direct"; }
+}
+function bookingUrl(ctx, search){
+  try{
+    const c = ctx || {}, p = [];
+    if(c.assessment) p.push("fr_assessment=" + encodeURIComponent(c.assessment));
+    if(typeof c.score === "number" && isFinite(c.score)) p.push("fr_score=" + encodeURIComponent(String(Math.round(c.score))));
+    if(c.band) p.push("fr_band=" + encodeURIComponent(c.band));
+    p.push("fr_source=" + encodeURIComponent(frSource(search)));
+    return BOOKING_URL + (BOOKING_URL.indexOf("?") < 0 ? "?" : "&") + p.join("&");
+  }catch(e){ return BOOKING_URL; }
+}
+function setBooking(el, ctx){ try{ if(el) el.href = bookingUrl(ctx); }catch(e){ if(el) el.href = BOOKING_URL; } }
 const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
 const INSTRUMENT = "ethical_acquisitions";
@@ -198,7 +225,7 @@ THEMES.forEach(t => {
   });
 });
 form.innerHTML = html;
-document.getElementById("bookBtn").href = BOOKING_URL;
+setBooking(document.getElementById("bookBtn"), null);
 
 function computeScores(answers){
   let i = 0, weighted = 0;
@@ -344,6 +371,17 @@ function runTests(){
   t("payload band_tag eas-prefixed", pl.band_tag==="eas:emerging");
   t("payload audience_role stored", pl.audience_role==="buyer" && pl.instrument==="ethical_acquisitions");
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
+  // Booking hand-off to GoHighLevel — this page carries no assessment context
+  t("booking link preserves the base BOOKING_URL", bookingUrl(null,"?utm_source=Event").indexOf(BOOKING_URL+"?")===0);
+  t("a page with no assessment context sends fr_source only", bookingUrl(null,"?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
+  t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);
+  t("no assessment, score or band leaks from this page", ["fr_assessment=","fr_score=","fr_band="].every(k=>bookingUrl(null,"").indexOf(k)===-1));
+  t("missing source defaults to Founder Readiness Direct", frSource("")==="Founder Readiness Direct");
+  t("an unrecognised source maps to Other", frSource("?utm_source=wombat")==="Other");
+  t("source matching is case-insensitive", frSource("?utm_source=investor%20network")==="Investor Network");
+  t("separators in a utm_source still match", frSource("?utm_source=linkedin_paid")==="LinkedIn Paid");
+  t("src and source are read as well as utm_source", frSource("?src=Referral")==="Referral" && frSource("?source=Partner")==="Partner");
+  t("no unencoded spaces survive into the booking link", /^[^ ]+$/.test(bookingUrl(null,"?utm_source=LinkedIn%20Paid")));
   const passed = results.filter(r=>r.pass).length;
   console.table(results);
   console.log(`${passed}/${results.length} tests passed`);
