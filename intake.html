@@ -48,6 +48,12 @@ button.cta:hover{background:#8A3E06;}
 .note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:640px){.row,.row3,.objective{grid-template-columns:1fr}}
+.advisor-strip{background:#fff;border-bottom:1px solid var(--line);}
+.advisor-strip .as-inner{max-width:820px;margin:0 auto;padding:0.55rem 1.25rem;display:flex;flex-wrap:wrap;gap:0.35rem 1.1rem;align-items:center;}
+.advisor-strip .as-label{letter-spacing:0.18em;font-size:0.66rem;color:var(--slate);text-transform:uppercase;font-weight:700;}
+.advisor-strip a{color:var(--navy);font-weight:600;font-size:0.8rem;text-decoration:none;}
+.advisor-strip a:hover{color:var(--accent);text-decoration:underline;}
+.advisor-strip a.active{color:var(--accent);}
 </style>
 </head>
 <body>
@@ -56,11 +62,22 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <nav>
     <a href="index.html">Overview</a>
     <a href="intake.html" class="active">Founder Intake</a>
-    <a href="exit-ready-workspace.html">Workspace</a>
+    <a href="exit-ready-workspace.html" id="nav-workspace">Workspace</a>
   </nav>
   <span id="whoami" style="font-size:0.78rem;color:#94A3B8;"></span>
   <button id="btn-signout" class="hidden">Sign out</button>
 </header>
+<!-- Advisor tier: revealed only for advisor/admin roles (see revealAdvisorStrip) -->
+<div id="advisor-strip" class="advisor-strip hidden">
+  <div class="as-inner">
+    <span class="as-label">Advisor tools</span>
+    <a href="intake.html" class="active">Founder Intake</a>
+    <a href="exit-ready-workspace.html">Exit Ready Workspace</a>
+    <a href="deal-ready-workspace.html">Deal Ready Workspace</a>
+    <a href="advisor-console.html">Advisor Console</a>
+    <a href="investor-mandates.html">Investor Mandates</a>
+  </div>
+</div>
 <main>
 
 <!-- AUTH -->
@@ -254,13 +271,20 @@ const OBJ_COPY = {
 
 /* ===== STATE ===== */
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-let session=null, eng=null, chosenObj=null;
+let session=null, eng=null, chosenObj=null, profile=null;
 
 const $ = (id)=>document.getElementById(id);
 const esc = (s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
 function show(view){ ["view-auth","view-list","view-intake"].forEach(v=>$(v).classList.toggle("hidden", v!==view)); }
 const numOrNull = (v)=>{ const n = parseFloat(v); return isFinite(n) ? n : null; };
+
+/* Which workspace an engagement belongs in, deep-linked to that engagement.
+   Pure — covered by runTests(). */
+function workspaceHref(asset, id){
+  const page = asset === "deal_ready" ? "deal-ready-workspace.html" : "exit-ready-workspace.html";
+  return id ? page + "?eng=" + encodeURIComponent(id) : page;
+}
 
 /* ===== PURE: intake payload builder (tested) ===== */
 function buildIntakePayload(engagementId, objective, f){
@@ -328,10 +352,23 @@ async function init(){
   sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
   route();
 }
+
+/* Advisor tier navigation: shown only to advisor/admin roles. */
+function revealAdvisorStrip(role){
+  const el = document.getElementById("advisor-strip");
+  if(!el) return false;
+  const allowed = ["advisor","admin"].includes(role);
+  el.classList.toggle("hidden", !allowed);
+  return allowed;
+}
+
 async function route(){
-  if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; return; }
+  if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; revealAdvisorStrip(null); return; }
   $("btn-signout").classList.remove("hidden");
   $("whoami").textContent = session.user.email;
+  const {data:p} = await sb.from("profiles").select("role").eq("id", session.user.id).maybeSingle();
+  profile = p || {id:session.user.id, role:"founder"};
+  revealAdvisorStrip(profile.role);
   await loadEngagements();
 }
 $("btn-magic").onclick = async ()=>{
@@ -349,8 +386,13 @@ async function loadEngagements(){
   const {data, error} = await sb.from("engagements").select("*").order("created_at",{ascending:false});
   if(error){ msg("list-msg", error.message, "err"); return; }
   $("eng-list").innerHTML = (data && data.length)
-    ? data.map(e=>`<div class="doc"><b>${esc(e.company_name)}</b><span style="font-size:0.78rem;color:var(--slate)">${e.asset==="deal_ready"?"Deal Ready":"Exit Ready"} · phase ${e.phase}</span><button class="up" onclick="openIntake('${e.id}')">Open intake →</button></div>`).join("")
+    ? data.map(e=>`<div class="doc"><b>${esc(e.company_name)}</b><span style="font-size:0.78rem;color:var(--slate)">${e.asset==="deal_ready"?"Deal Ready":"Exit Ready"} · phase ${e.phase}</span><button class="up" onclick="openIntake('${e.id}')">Open intake →</button><a class="up" href="${workspaceHref(e.asset, e.id)}">Open workspace →</a></div>`).join("")
     : `<p style="font-size:0.88rem;color:var(--slate)">No engagements yet — create one below.</p>`;
+  // The header "Workspace" link must not always point at Exit Ready: a
+  // deal_ready founder following it would land in the wrong workspace and
+  // could create a duplicate engagement. One engagement routes straight
+  // there; several send the founder back to this list, which is the chooser.
+  setWorkspaceLink(data || []);
 }
 document.querySelectorAll("#obj-pick label").forEach(l=>{
   l.onclick = ()=>{ chosenObj = l.dataset.obj;
@@ -406,10 +448,21 @@ async function openIntake(id){
     $("i-prioracq").value = fi.prior_acquisitions ?? ""; $("i-leverage").value = fi.existing_leverage ?? "";
     $("i-pg").checked = !!fi.pg_willing;
   }
+  setWorkspaceLink([], eng);
   await renderDocs();
   show("view-intake");
 }
 window.openIntake = openIntake;
+
+/* Point the header "Workspace" link at the right workspace for this founder. */
+function setWorkspaceLink(engagements, current){
+  const el = $("nav-workspace");
+  if(!el) return;
+  if(current){ el.href = workspaceHref(current.asset, current.id); el.title = "Open the workspace for " + current.company_name; return; }
+  if(engagements.length === 1){ el.href = workspaceHref(engagements[0].asset, engagements[0].id); el.title = ""; return; }
+  if(engagements.length > 1){ el.href = "intake.html"; el.title = "Choose which engagement's workspace to open"; return; }
+  el.href = workspaceHref(null, null); el.title = "";
+}
 
 $("btn-save").onclick = async ()=>{
   const assets = {};
@@ -484,6 +537,8 @@ function runTests(){
   t("doc path sanitised", !/[() ]/.test(path));
   t("obj copy has both personas", !!OBJ_COPY.acquire_growth && !!OBJ_COPY.exit);
   t("checklist 7 docs", DOC_CHECKLIST.length===7);
+  t("workspace link routes by asset", workspaceHref("deal_ready","e9")==="deal-ready-workspace.html?eng=e9" && workspaceHref("exit_ready","e9")==="exit-ready-workspace.html?eng=e9");
+  t("workspace link defaults to exit ready with no id", workspaceHref(null,null)==="exit-ready-workspace.html");
   t("asset keys 6", ASSET_KEYS.length===6);
   const passed=results.filter(r=>r.pass).length;
   console.table(results); console.log(`${passed}/${results.length} tests passed`);

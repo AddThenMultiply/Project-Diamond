@@ -52,6 +52,12 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:.78rem;text
 a{color:var(--accent);font-weight:600;text-decoration:none;}
 a:hover{text-decoration:underline;}
 @media(max-width:640px){.container{padding:0 1rem;}}
+.advisor-strip{background:#fff;border-bottom:1px solid var(--line);}
+.advisor-strip .as-inner{max-width:1100px;margin:0 auto;padding:0.55rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.35rem 1.1rem;align-items:center;}
+.advisor-strip .as-label{letter-spacing:0.18em;font-size:0.66rem;color:var(--slate);text-transform:uppercase;font-weight:700;}
+.advisor-strip a{color:var(--navy);font-weight:600;font-size:0.8rem;text-decoration:none;}
+.advisor-strip a:hover{color:var(--accent);text-decoration:underline;}
+.advisor-strip a.active{color:var(--accent);}
 </style>
 </head>
 <body>
@@ -60,6 +66,17 @@ a:hover{text-decoration:underline;}
   <div><span id="whoami" class="muted" style="color:#CBD5E1;"></span>
   <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#94A3B8;margin-left:.8rem;">Sign out</button></div>
 </div></header>
+<!-- Advisor tier: revealed only for advisor/admin roles (see revealAdvisorStrip) -->
+<div id="advisor-strip" class="advisor-strip hidden">
+  <div class="as-inner">
+    <span class="as-label">Advisor tools</span>
+    <a href="intake.html">Founder Intake</a>
+    <a href="exit-ready-workspace.html">Exit Ready Workspace</a>
+    <a href="deal-ready-workspace.html">Deal Ready Workspace</a>
+    <a href="advisor-console.html" class="active">Advisor Console</a>
+    <a href="investor-mandates.html">Investor Mandates</a>
+  </div>
+</div>
 <main><div class="container">
 
   <section id="view-auth" class="card" style="max-width:520px;margin:2rem auto;">
@@ -112,6 +129,13 @@ function show(view){ ["view-auth","view-denied","view-console"].forEach(v=>$(v).
 function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
 
 /* Pure helper — portfolio aggregation (tested by runTests) */
+/* Which workspace an engagement belongs in, deep-linked to that engagement.
+   Pure — covered by runTests(). */
+function workspaceHref(asset, id){
+  const page = asset === "deal_ready" ? "deal-ready-workspace.html" : "exit-ready-workspace.html";
+  return id ? page + "?eng=" + encodeURIComponent(id) : page;
+}
+
 function summarise(engagements, gaps, dd, docs, signoffs){
   const byEng = (rows, key)=>rows.reduce((m,r)=>{ (m[r.engagement_id] = m[r.engagement_id]||[]).push(r); return m; },{});
   const gapsBy = byEng(gaps), ddBy = byEng(dd), docsBy = byEng(docs), signsBy = byEng(signoffs);
@@ -146,12 +170,23 @@ async function init(){
   sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
   route();
 }
+
+/* Advisor tier navigation: shown only to advisor/admin roles. */
+function revealAdvisorStrip(role){
+  const el = document.getElementById("advisor-strip");
+  if(!el) return false;
+  const allowed = ["advisor","admin"].includes(role);
+  el.classList.toggle("hidden", !allowed);
+  return allowed;
+}
+
 async function route(){
   if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; return; }
   $("btn-signout").classList.remove("hidden");
   $("whoami").textContent = session.user.email;
   const {data:p} = await sb.from("profiles").select("*").eq("id", session.user.id).single();
   profile = p;
+  revealAdvisorStrip(profile && profile.role);
   if(!profile || !["advisor","admin"].includes(profile.role)){ show("view-denied"); return; }
   show("view-console");
   await loadPortfolio();
@@ -195,7 +230,7 @@ async function loadPortfolio(){
       <td>${r.redFlags?`<span class="redflag">${r.redFlags} ⚑</span>`:"—"}</td>
       <td>${r.docsTotal?`${r.docsApproved}/${r.docsTotal}`:"—"}</td>
       <td class="muted">${r.lastSignoff?new Date(r.lastSignoff).toLocaleDateString("en-GB"):"none"}</td>
-      <td class="right"><a href="${r.asset==="exit_ready"?"exit-ready-workspace.html":"deal-ready-workspace.html"}">Open →</a></td>
+      <td class="right"><a href="${workspaceHref(r.asset, r.id)}">Open →</a></td>
     </tr>`).join("")}</table>` : `<p class="muted">No engagements in your portfolio yet.</p>`;
 
   const attention = rows.filter(r=>r.redFlags>0 || r.openGaps>=3 || !r.lastSignoff);
@@ -224,6 +259,11 @@ window.runTests = function(){
   t("docs approved 1/2", s[0].docsApproved===1 && s[0].docsTotal===2);
   t("last sign-off picks the latest", s[0].lastSignoff==="2026-07-20T10:00:00Z");
   t("deal-ready phase name resolves from 7-phase list", s[1].phaseName==="HoT & DD");
+  t("workspace link routes by asset and carries the engagement id",
+    workspaceHref("exit_ready","e1")==="exit-ready-workspace.html?eng=e1" &&
+    workspaceHref("deal_ready","e2")==="deal-ready-workspace.html?eng=e2");
+  t("workspace link omits the query when there is no engagement id",
+    workspaceHref("deal_ready",null)==="deal-ready-workspace.html");
   t("exit-ready phase count is 4, deal 7", s[0].phaseCount===4 && s[1].phaseCount===7);
   const passed = results.filter(r=>r.pass).length;
   console.log(`${passed}/${results.length} tests passed`);

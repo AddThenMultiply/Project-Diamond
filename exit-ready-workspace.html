@@ -68,6 +68,12 @@ a:hover{text-decoration:underline;}
 .pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1rem;font-size:.88rem;max-height:420px;overflow:auto;}
 @media(max-width:720px){.grid2{grid-template-columns:1fr;}}
 @media(max-width:640px){.container{padding:0 1rem;}}
+.advisor-strip{background:#fff;border-bottom:1px solid var(--line);}
+.advisor-strip .as-inner{max-width:1000px;margin:0 auto;padding:0.55rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.35rem 1.1rem;align-items:center;}
+.advisor-strip .as-label{letter-spacing:0.18em;font-size:0.66rem;color:var(--slate);text-transform:uppercase;font-weight:700;}
+.advisor-strip a{color:var(--navy);font-weight:600;font-size:0.8rem;text-decoration:none;}
+.advisor-strip a:hover{color:var(--accent);text-decoration:underline;}
+.advisor-strip a.active{color:var(--accent);}
 </style>
 </head>
 <body>
@@ -76,6 +82,17 @@ a:hover{text-decoration:underline;}
   <div><span id="whoami" class="muted" style="color:#CBD5E1;"></span>
   <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#94A3B8;margin-left:.8rem;">Sign out</button></div>
 </div></header>
+<!-- Advisor tier: revealed only for advisor/admin roles (see revealAdvisorStrip) -->
+<div id="advisor-strip" class="advisor-strip hidden">
+  <div class="as-inner">
+    <span class="as-label">Advisor tools</span>
+    <a href="intake.html">Founder Intake</a>
+    <a href="exit-ready-workspace.html" class="active">Exit Ready Workspace</a>
+    <a href="deal-ready-workspace.html">Deal Ready Workspace</a>
+    <a href="advisor-console.html">Advisor Console</a>
+    <a href="investor-mandates.html">Investor Mandates</a>
+  </div>
+</div>
 <main><div class="container">
 
   <!-- ============ AUTH VIEW ============ -->
@@ -276,13 +293,27 @@ async function init(){
   sb.auth.onAuthStateChange((_e, s2)=>{ session=s2; route(); });
   route();
 }
+
+/* Advisor tier navigation: shown only to advisor/admin roles. */
+function revealAdvisorStrip(role){
+  const el = document.getElementById("advisor-strip");
+  if(!el) return false;
+  const allowed = ["advisor","admin"].includes(role);
+  el.classList.toggle("hidden", !allowed);
+  return allowed;
+}
+
 async function route(){
   if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); $("whoami").textContent=""; return; }
   $("btn-signout").classList.remove("hidden");
   $("whoami").textContent = session.user.email;
   const {data:p} = await sb.from("profiles").select("*").eq("id", session.user.id).single();
   profile = p || {id:session.user.id, role:"founder"};
+  revealAdvisorStrip(profile.role);
   await loadEngagements();
+  // Deep link from the advisor console: ?eng=<id> opens that engagement directly.
+  const wanted = new URLSearchParams(location.search).get("eng");
+  if(wanted){ await window.openEng(wanted); }
 }
 $("btn-magic").onclick = async ()=>{
   const email = $("auth-email").value.trim();
@@ -320,6 +351,11 @@ $("btn-create-eng").onclick = async ()=>{
 window.openEng = async (id)=>{
   const {data, error} = await sb.from("engagements").select("*").eq("id", id).single();
   if(error){ msg("list-msg", error.message, "err"); return; }
+  // A hand-edited ?eng= could name a Deal Ready engagement; say so rather
+  // than rendering it through the wrong workspace.
+  if(data && data.asset !== "exit_ready"){
+    msg("list-msg","That engagement is a Deal Ready engagement — open it in the Deal Ready workspace.","err"); return;
+  }
   eng = data; renderWorkspace();
 };
 $("btn-back").onclick = ()=>{ eng=null; loadEngagements(); };

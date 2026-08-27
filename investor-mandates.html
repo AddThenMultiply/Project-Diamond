@@ -37,6 +37,12 @@ th{color:var(--slate);font-size:0.72rem;text-transform:uppercase;letter-spacing:
 .warnbox{background:#FEF3C7;border-left:3px solid #B45309;padding:0.7rem 1rem;font-size:0.82rem;border-radius:0 4px 4px 0;margin:1rem 0;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:700px){.row,.row3{grid-template-columns:1fr}}
+.advisor-strip{background:#fff;border-bottom:1px solid var(--line);}
+.advisor-strip .as-inner{max-width:1000px;margin:0 auto;padding:0.55rem 1.25rem;display:flex;flex-wrap:wrap;gap:0.35rem 1.1rem;align-items:center;}
+.advisor-strip .as-label{letter-spacing:0.18em;font-size:0.66rem;color:var(--slate);text-transform:uppercase;font-weight:700;}
+.advisor-strip a{color:var(--navy);font-weight:600;font-size:0.8rem;text-decoration:none;}
+.advisor-strip a:hover{color:var(--accent);text-decoration:underline;}
+.advisor-strip a.active{color:var(--accent);}
 </style>
 </head>
 <body>
@@ -46,6 +52,17 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <span id="whoami" style="font-size:0.78rem;color:#94A3B8;"></span>
   <button id="btn-signout" class="hidden">Sign out</button>
 </header>
+<!-- Advisor tier: revealed only for advisor/admin roles (see revealAdvisorStrip) -->
+<div id="advisor-strip" class="advisor-strip hidden">
+  <div class="as-inner">
+    <span class="as-label">Advisor tools</span>
+    <a href="intake.html">Founder Intake</a>
+    <a href="exit-ready-workspace.html">Exit Ready Workspace</a>
+    <a href="deal-ready-workspace.html">Deal Ready Workspace</a>
+    <a href="advisor-console.html">Advisor Console</a>
+    <a href="investor-mandates.html" class="active">Investor Mandates</a>
+  </div>
+</div>
 <main>
 
 <section id="view-auth">
@@ -180,12 +197,23 @@ async function init(){
   sb.auth.onAuthStateChange((_e,s2)=>{ session=s2; route(); });
   route();
 }
+
+/* Advisor tier navigation: shown only to advisor/admin roles. */
+function revealAdvisorStrip(role){
+  const el = document.getElementById("advisor-strip");
+  if(!el) return false;
+  const allowed = ["advisor","admin"].includes(role);
+  el.classList.toggle("hidden", !allowed);
+  return allowed;
+}
+
 async function route(){
   if(!session){ show("view-auth"); $("btn-signout").classList.add("hidden"); return; }
   $("btn-signout").classList.remove("hidden");
   $("whoami").textContent = session.user.email;
   const {data:p} = await sb.from("profiles").select("*").eq("id", session.user.id).single();
   profile = p;
+  revealAdvisorStrip(p && p.role);
   if(!p || !["advisor","admin"].includes(p.role)){ show("view-denied"); return; }
   show("view-main"); await loadMandates();
 }
