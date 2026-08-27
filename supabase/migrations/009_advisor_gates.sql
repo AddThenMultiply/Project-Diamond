@@ -41,13 +41,14 @@ create trigger trg_assign_advisor
   for each row execute function public.assign_default_advisor();
 
 -- Backfill engagements created before this trigger existed
+-- (same preference as the trigger: earliest advisor, else earliest admin)
 update public.engagements
-set advisor_id = (
-  select id from public.profiles where role = 'advisor'
-  order by created_at limit 1
+set advisor_id = coalesce(
+  (select id from public.profiles where role = 'advisor' order by created_at limit 1),
+  (select id from public.profiles where role = 'admin'   order by created_at limit 1)
 )
 where advisor_id is null
-  and exists (select 1 from public.profiles where role = 'advisor');
+  and exists (select 1 from public.profiles where role in ('advisor','admin'));
 
 -- ---------- 2. Document approval is an advisor/admin decision ----------
 -- 'approved' (entering or leaving it) and 'ai_drafted' may only be set by an
@@ -95,3 +96,7 @@ create policy founder_intake_select on public.founder_intake for select
 drop policy if exists founder_intake_update on public.founder_intake;
 create policy founder_intake_update on public.founder_intake for update
   using (public.is_engagement_member(engagement_id) or public.current_role_atm() = 'admin');
+
+drop policy if exists founder_intake_insert on public.founder_intake;
+create policy founder_intake_insert on public.founder_intake for insert
+  with check (public.is_engagement_member(engagement_id) or public.current_role_atm() = 'admin');
