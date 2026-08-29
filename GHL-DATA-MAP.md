@@ -13,10 +13,9 @@ out exactly what arrives.
 
 ## 1. Band names
 
-### Readiness Diagnostic — your action 3
+### Readiness Diagnostic (RD) — your action 3
 
-The four band names you asked for are live, on **`transaction-readiness.html`**
-(the 24-metric Transaction Readiness Assessment):
+Confirmed and wired. The four `RD` band values are exactly as you specified:
 
 | Score | Band name |
 |---|---|
@@ -25,9 +24,17 @@ The four band names you asked for are live, on **`transaction-readiness.html`**
 | 50–69 | Roadmap Tier |
 | below 50 | Foundation Tier |
 
-**One thing to flag.** Your note attached these four names to
-`diagnostic.html`. That is a different instrument — the 20-question Multiplier
-Diagnostic — and it has its own four bands at its own thresholds:
+**One correction to the filename, so your notes match the repo.** You wrote
+that RD is `diagnostic.html`. It is not — it is **`transaction-readiness.html`**.
+Everything else in your description was right, and identified that file
+precisely: it is the 24-metric instrument (`t("24 metrics defined",
+METRICS.length === 24)`), titled "Transaction Readiness Assessment", and it
+already carried those four band names at exactly those four thresholds. We
+have tagged that page `RD`.
+
+`diagnostic.html` is a genuinely separate, live assessment — the
+**Multiplier Diagnostic**: 20 questions, six themes, instrument id
+`multiplier_diagnostic`, with its own four bands at its own thresholds:
 
 | Score | Band name |
 |---|---|
@@ -36,21 +43,17 @@ Diagnostic — and it has its own four bands at its own thresholds:
 | 41–70 | Emerging |
 | below 41 | At Risk |
 
-We have not renamed either set. We have tagged `diagnostic.html` as `RD`, as
-specified, so `fr_band` from that page sends *Highly Ready / Strong Potential /
-Emerging / At Risk*. `transaction-readiness.html` currently sends no assessment
-tag at all, because your spec listed only three assessment codes.
+The two pages cross-link each other: the Multiplier Diagnostic offers "go a
+level deeper with the Transaction Readiness Assessment", and the Transaction
+Readiness Assessment calls itself "the deal-grade instrument behind our
+Multiplier Diagnostic".
 
-**Please tell us which you meant.** Either is a small change:
-
-- if `RD` means the Multiplier Diagnostic, you need the four names in the
-  second table above as your band values, and nothing changes on our side; or
-- if `RD` means the Transaction Readiness Assessment, we will move the `RD`
-  tag onto that page and you need the first table; or
-- if you want both, give us a fourth assessment code and we will wire it.
-
-Right now the two instruments have different band vocabularies, so please do
-not create a single band field expecting only the first table's four values.
+We renamed nothing. Because its band vocabulary is not RD's, `diagnostic.html`
+currently sends **`fr_source` only** — no assessment, no score, no band — so
+it cannot contaminate your RD band picklist. **If you want its results in GHL
+too, give us a fourth assessment code** (`MD` would be the obvious one) and
+the four band values above, and we will wire it in one edit. Until then those
+bookings arrive attributed but untagged.
 
 ### Investor Ready — now implemented
 
@@ -85,6 +88,16 @@ Parameters are appended to it, all values URL-encoded:
 | `fr_band` | the exact band name string | scored assessments only |
 | `fr_source` | one controlled source value (below) | every booking link |
 
+Which page sends what:
+
+| Page | `fr_assessment` | Score | Band |
+|---|---|---|---|
+| `transaction-readiness.html` | `RD` | yes | the four RD bands |
+| `investor-ready.html` | `IR` | yes | the three IR bands |
+| `funding.html` | `FFF` | no | no |
+| `diagnostic.html` | *(none — pending a code)* | no | no |
+| all other pages with a booking CTA | *(none)* | no | no |
+
 `fr_source` is always present. `fr_assessment` appears only on the three
 assessment modules. `fr_score` and `fr_band` are **omitted entirely** where
 there is no score — they are never sent empty.
@@ -92,6 +105,7 @@ there is no score — they are never sent empty.
 Worked examples:
 
 ```
+…/Av6i7gL0YzbszYFfnKqQ?fr_assessment=RD&fr_score=76&fr_band=Readiness%20Project%20Candidate&fr_source=Investor%20Network
 …/Av6i7gL0YzbszYFfnKqQ?fr_assessment=IR&fr_score=72&fr_band=Almost%20Ready&fr_source=LinkedIn%20Paid
 …/Av6i7gL0YzbszYFfnKqQ?fr_assessment=FFF&fr_source=Referral
 …/Av6i7gL0YzbszYFfnKqQ?fr_source=Founder%20Readiness%20Direct
@@ -119,14 +133,21 @@ could ship. Tell us the field names GHL actually expects for your custom
 fields and we will change them — it is a small edit and we will turn it round
 on request. The same goes for the controlled values if your picklists differ.
 
-**We collect no identity.** The booking link carries no name, email, company
-or phone number, and no identifier that could be joined back to a person. The
-founder's identity and their marketing consent are collected by the GHL
-booking form, at the point of booking — never by the platform, and never in
-the link. (Separately, the Multiplier Diagnostic offers a founder the option
-to enter their details to receive a follow-up, behind an explicit consent
-tick; that is stored in ATM's own database and forms no part of this
-hand-off.)
+**We collect no identity in the link.** The booking link carries no name,
+email, company or phone number, and no identifier that could be joined back to
+a person. The founder's identity and their marketing consent for the booking
+are collected by the GHL booking form, at the point of booking — never in the
+link.
+
+One qualification, so this is not overstated. `diagnostic.html` (the
+Multiplier Diagnostic) has a pre-existing lead-capture step of its own: after
+scoring, it offers a form — first name, work email, company, role, revenue
+band — behind an explicit consent tick, and on submit writes those answers to
+ATM's own Supabase `leads` table. It is skippable (a "Skip — just show my
+score" link shows results with nothing entered and nothing stored), it stores
+nothing in cookies or browser storage, and it is entirely separate from this
+GHL hand-off. It predates this work and we have not touched it. Full detail
+has gone to Madeleine and David separately, as you asked.
 
 **Campaign source survives one journey only.** The free pages carry no
 cookies, no localStorage and no analytics — that is a deliberate design rule,

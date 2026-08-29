@@ -109,9 +109,13 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
 
-/* Booking hand-off. Appends the assessment context to the single BOOKING_URL
-   so GoHighLevel can record source, assessment and band. The campaign source
-   is read from this page's own URL and passed straight on — nothing is written
+/* Booking hand-off. Appends the campaign source to the single BOOKING_URL so
+   GoHighLevel can record where the founder came from. This is the Multiplier
+   Diagnostic, not the Readiness Diagnostic (RD) — its bands are Highly Ready /
+   Strong Potential / Emerging / At Risk, a different vocabulary from RD's four
+   — so it sends fr_source only until ATM confirm an assessment code for it.
+   The campaign source is read from this page's own URL and passed straight on
+   — nothing is written
    to cookies, localStorage or sessionStorage, so it travels only within a
    single journey. If anything here throws, the plain BOOKING_URL is used so
    booking always works. */
@@ -332,8 +336,6 @@ function renderResults(){
   document.getElementById("svcMatch").innerHTML = svcHtml;
   document.getElementById("ctaLine").innerHTML = `<b>${cfg ? cfg.cta : band.cta}</b>`;
   document.getElementById("deepLink").style.display = band.deep ? "block" : "none";
-  // Carry the result context into the booking hand-off.
-  setBooking(document.getElementById("bookBtn"), { assessment: "RD", score: total, band: band.label });
   const res = document.getElementById("results");
   res.style.display = "block"; res.scrollIntoView({behavior:"smooth"});
 }
@@ -367,13 +369,14 @@ function runTests(){
   t("payload band_tag prefixed", pl.band_tag==="md:strong-potential");
   t("payload instrument + version", pl.instrument==="multiplier_diagnostic" && pl.instrument_version==="1.0");
   t("payload revenue null when blank", pl.revenue_band===null && pl.consent===true);
-  // Booking hand-off to GoHighLevel
-  const rd = bookingUrl({assessment:"RD", score:72, band:"Strong Potential"}, "?utm_source=LinkedIn%20Paid");
-  t("booking link preserves the base BOOKING_URL", rd.indexOf(BOOKING_URL)===0 && rd.indexOf(BOOKING_URL+"?")===0);
-  t("RD link carries assessment, score and band", rd.indexOf("fr_assessment=RD")>-1 && rd.indexOf("fr_score=72")>-1 && rd.indexOf("fr_band=Strong%20Potential")>-1);
-  t("RD link carries the encoded campaign source", rd.indexOf("fr_source=LinkedIn%20Paid")>-1);
-  t("no unencoded spaces survive into the booking link", /^[^ ]+$/.test(rd));
-  t("a zero score is still sent", bookingUrl({assessment:"RD", score:0, band:"At Risk"}, "").indexOf("fr_score=0")>-1);
+  // Booking hand-off to GoHighLevel — this page carries no assessment context
+  const link = bookingUrl(null, "?utm_source=LinkedIn%20Paid");
+  t("booking link preserves the base BOOKING_URL", link.indexOf(BOOKING_URL)===0 && link.indexOf(BOOKING_URL+"?")===0);
+  t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);
+  t("no assessment, score or band leaks from this page", ["fr_assessment=","fr_score=","fr_band="].every(k=>link.indexOf(k)===-1));
+  t("the Multiplier bands stay distinct from the RD band names", BANDS.map(b=>b.label).join("|")==="Highly Ready|Strong Potential|Emerging|At Risk");
+  t("booking link carries the encoded campaign source", link.indexOf("fr_source=LinkedIn%20Paid")>-1);
+  t("no unencoded spaces survive into the booking link", /^[^ ]+$/.test(link));
   const bare = bookingUrl({assessment:"FFF"}, "");
   t("a link with no score omits fr_score and fr_band", bare.indexOf("fr_score=")===-1 && bare.indexOf("fr_band=")===-1 && bare.indexOf("fr_assessment=FFF")>-1);
   t("missing source defaults to Founder Readiness Direct", frSource("")==="Founder Readiness Direct");
@@ -382,7 +385,7 @@ function runTests(){
   t("separators in a utm_source still match", frSource("?utm_source=linkedin_paid")==="LinkedIn Paid");
   t("src and source are read as well as utm_source", frSource("?src=Referral")==="Referral" && frSource("?source=Partner")==="Partner");
   t("a page with no assessment context sends fr_source only", bookingUrl(null, "?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
-  t("every live band label survives the round trip", BANDS.every(b=>bookingUrl({assessment:"RD",score:b.min,band:b.label},"").indexOf("fr_band="+encodeURIComponent(b.label))>-1));
+  t("a band label would survive the round trip if one were ever sent", BANDS.every(b=>bookingUrl({band:b.label},"").indexOf("fr_band="+encodeURIComponent(b.label))>-1));
   const passed = results.filter(r=>r.pass).length;
   console.table(results);
   console.log(`${passed}/${results.length} tests passed`);

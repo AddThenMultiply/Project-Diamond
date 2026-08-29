@@ -93,9 +93,11 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses</footer>
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
-/* Booking hand-off. Appends the campaign source to the single BOOKING_URL so
-   GoHighLevel can record where the founder came from. This page carries no
-   assessment, so it sends fr_source only. The source is read from this page's
+/* Booking hand-off. Appends the assessment context to the single BOOKING_URL
+   so GoHighLevel can record source, assessment and band. This is the Readiness
+   Diagnostic (RD): the 24-metric instrument whose four bands are
+   Transaction-Ready / Readiness Project Candidate / Roadmap Tier /
+   Foundation Tier. The source is read from this page's
    own URL and passed straight on — nothing is written to cookies, localStorage
    or sessionStorage, so it travels only within a single journey. If anything
    here throws, the plain BOOKING_URL is used so booking always works. */
@@ -330,6 +332,8 @@ function scoreDiagnostic(){
   document.getElementById("bandDesc").textContent = band.desc;
   const bandLink = document.getElementById("bandLink");
   bandLink.href = band.next; bandLink.textContent = band.nextText;
+  // Carry the result context into the booking hand-off.
+  setBooking(document.getElementById("bookBtn"), { assessment: "RD", score: total, band: band.label });
   document.getElementById("pillarBars").innerHTML = PILLARS.map(pl=>{
     const s = Math.round(pillarScores[pl.key]);
     return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${pl.name} — ${s}/100</div><div class="bar"><i style="width:${s}%"></i></div>`;
@@ -368,11 +372,15 @@ function runTests(){
   t("every band links a next step", BANDS.every(b=>b.next && b.nextText));
   t("band 20 = Foundation Tier", bandFor(20).label==="Foundation Tier");
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
-  // Booking hand-off to GoHighLevel — this page carries no assessment context
-  t("booking link preserves the base BOOKING_URL", bookingUrl(null,"?utm_source=Event").indexOf(BOOKING_URL+"?")===0);
-  t("a page with no assessment context sends fr_source only", bookingUrl(null,"?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
-  t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);
-  t("no assessment, score or band leaks from this page", ["fr_assessment=","fr_score=","fr_band="].every(k=>bookingUrl(null,"").indexOf(k)===-1));
+  // Booking hand-off to GoHighLevel — this page is the Readiness Diagnostic (RD)
+  const rd = bookingUrl({assessment:"RD", score:72, band:"Readiness Project Candidate"}, "?utm_source=LinkedIn%20Paid");
+  t("booking link preserves the base BOOKING_URL", rd.indexOf(BOOKING_URL+"?")===0);
+  t("RD link carries assessment, score and band", rd.indexOf("fr_assessment=RD")>-1 && rd.indexOf("fr_score=72")>-1 && rd.indexOf("fr_band=Readiness%20Project%20Candidate")>-1);
+  t("RD link carries the encoded campaign source", rd.indexOf("fr_source=LinkedIn%20Paid")>-1);
+  t("a zero score is still sent", bookingUrl({assessment:"RD",score:0,band:"Foundation Tier"},"").indexOf("fr_score=0")>-1);
+  t("all four RD band names survive the round trip", BANDS.every(b=>bookingUrl({assessment:"RD",score:b.min,band:b.label},"").indexOf("fr_band="+encodeURIComponent(b.label))>-1));
+  t("the four RD band names are the agreed strings", BANDS.map(b=>b.label).join("|")==="Transaction-Ready|Readiness Project Candidate|Roadmap Tier|Foundation Tier");
+  t("a link with no assessment context sends fr_source only", bookingUrl(null,"?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
   t("missing source defaults to Founder Readiness Direct", frSource("")==="Founder Readiness Direct");
   t("an unrecognised source maps to Other", frSource("?utm_source=wombat")==="Other");
   t("source matching is case-insensitive", frSource("?utm_source=investor%20network")==="Investor Network");
