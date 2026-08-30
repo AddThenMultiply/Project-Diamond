@@ -1,0 +1,14 @@
+User-agent: *
+
+# Public pages — the free diagnostics, the service pages and the network pages
+# — are all crawlable by default.
+
+# Everything behind the paid workspace / advisor boundary is not. These pages
+# are auth-gated at runtime (Supabase magic link, with row-level security on the
+# data), but the page shells are served by GitHub Pages like any other file, so
+# keep them out of the index. Each also carries its own noindex meta tag.
+Disallow: /intake.html
+Disallow: /exit-ready-workspace.html
+Disallow: /deal-ready-workspace.html
+Disallow: /investor-mandates.html
+Disallow: /advisor-console.html

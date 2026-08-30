@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Funding readiness for female founders: the assets investors expect, the routes beyond venture capital, a promotion-language check and a grant application builder.">
 <title>Funding Readiness — Add Then Multiply</title>
 <style>
 :root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;}
@@ -87,6 +88,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <h2>3 · The promotion test — check your pitch language</h2>
   <div class="card">
     <p style="font-size:0.88rem;color:var(--slate);">Research by Dr Dana Kanze (London Business School) shows investors ask female founders <em>prevention</em> questions (safety, protection, stability) and male founders <em>promotion</em> questions (growth, vision, acquisition) — and founders who answer every question in promotion language raise up to fourteen times more. Paste a paragraph of your pitch or grant narrative; this checks it in your browser.</p>
+    <label class="f" for="pitchIn">Your pitch or grant narrative</label>
     <textarea id="pitchIn" placeholder="Paste your pitch or application paragraph here…"></textarea>
     <button class="cta" onclick="checkLanguage()">Run the promotion test</button>
     <div id="langOut" style="margin-top:1rem;"></div>
@@ -96,14 +98,14 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <div class="card">
     <p style="font-size:0.88rem;color:var(--slate);">Answer once, and generate a structured first draft you can adapt for grant applications and investor materials. Everything stays in your browser — nothing is uploaded. (Full AI-assisted drafting, matched to specific grant programmes and investor mandates, arrives with the founder workspace.)</p>
     <form id="grantForm" onsubmit="return false;">
-      <label class="f">Company name</label><input type="text" id="g_name">
-      <label class="f">What you do, in one sentence (your elevator pitch)</label><input type="text" id="g_pitch">
-      <label class="f">The problem you solve, and for whom</label><textarea id="g_problem"></textarea>
-      <label class="f">Your solution, and why it wins</label><textarea id="g_solution"></textarea>
-      <label class="f">Traction so far (revenue, customers, partnerships, milestones)</label><textarea id="g_traction"></textarea>
-      <label class="f">The team (who, and why you're the ones to back)</label><textarea id="g_team"></textarea>
-      <label class="f">Amount sought and what it will be used for</label><textarea id="g_ask"></textarea>
-      <label class="f">Impact and growth in the next 3–5 years</label><textarea id="g_impact"></textarea>
+      <label class="f" for="g_name">Company name</label><input type="text" id="g_name">
+      <label class="f" for="g_pitch">What you do, in one sentence (your elevator pitch)</label><input type="text" id="g_pitch">
+      <label class="f" for="g_problem">The problem you solve, and for whom</label><textarea id="g_problem"></textarea>
+      <label class="f" for="g_solution">Your solution, and why it wins</label><textarea id="g_solution"></textarea>
+      <label class="f" for="g_traction">Traction so far (revenue, customers, partnerships, milestones)</label><textarea id="g_traction"></textarea>
+      <label class="f" for="g_team">The team (who, and why you're the ones to back)</label><textarea id="g_team"></textarea>
+      <label class="f" for="g_ask">Amount sought and what it will be used for</label><textarea id="g_ask"></textarea>
+      <label class="f" for="g_impact">Impact and growth in the next 3–5 years</label><textarea id="g_impact"></textarea>
       <button class="cta" onclick="buildDraft()">Generate application draft</button>
       <button class="ghost" onclick="copyDraft()">Copy draft</button>
     </form>
