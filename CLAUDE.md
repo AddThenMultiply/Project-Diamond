@@ -23,7 +23,9 @@ CTA rule: **booking/navigation anchors (`a.cta`, `a.book-cta`) are charcoal `--n
 ## Hard rules
 
 - Self-contained single-file HTML pages: inline CSS/JS, no build step, no frameworks, avoid external CDNs. Mobile-responsive. **UK English everywhere.**
-- Free pages have no sign-up, no gate, no tracking. Auth (Supabase magic-link) begins only at the paid workspace boundary.
+- **Scored assessments are gated; everything else is open.** The four scored instruments (`diagnostic.html`, `transaction-readiness.html`, `investor-ready.html`, `ethical-acquisitions.html`) show the headline score and band for free, then require name, work email, company, role and an explicit consent tick before the full report renders. There is no skip bypass. On submit the answers, score, band and those details are written to `leads`. Every other page — including `funding.html`'s promotion checker and grant builder — stays open with no sign-up.
+- **No tracking, still.** No analytics, no ad pixels, no cookies, and nothing in localStorage or sessionStorage anywhere on the site. Campaign source is read from the URL and passed straight to the booking link; it is never persisted. Because nothing is stored on the visitor's device, no PECR cookie banner is required — keep it that way, and if that ever changes the banner has to land in the same change.
+- Auth (Supabase magic-link) still begins only at the paid workspace boundary. The assessment gate is lead capture, not an account.
 - All AI calls go through Supabase Edge Functions (Claude API, server-side). Never call AI from the browser; never commit the service-role key or any API secret. Supabase URL + anon key live in one config constant.
 - Phase advancement requires a `human_signoffs` row (advisor/admin only) — enforce the gate in Postgres, not just the UI. Log every AI call to `ai_runs` (task, model, input hash, output, timestamp).
 - Every diagnostic scoring engine ships with a browser-console `runTests()` harness; run it after any scoring change.

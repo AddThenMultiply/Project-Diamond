@@ -69,40 +69,41 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <form id="diag"></form>
   <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>
-  <section id="leadgate" style="display:none;margin-top:2.4rem;">
-    <div class="scorebox">
-      <h2 style="margin-top:0;font-size:1.15rem;">Your score is ready</h2>
-      <p style="font-size:0.9rem;color:#334155;max-width:60ch;">Tell us where to send your follow-up and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem;">
-        <label style="font-size:0.8rem;color:var(--slate);">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
-        <label style="font-size:0.8rem;color:var(--slate);">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
-        <label style="font-size:0.8rem;color:var(--slate);">Company<input id="ld-company" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
-        <label style="font-size:0.8rem;color:var(--slate);">Your role<select id="ld-role" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Founder / CEO</option><option>Co-founder</option><option>Finance lead</option><option>Advisor</option><option>Other</option></select></label>
-        <label style="font-size:0.8rem;color:var(--slate);">Annual revenue<select id="ld-revenue" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Under £250k</option><option>£250k–£1M</option><option>£1M–£5M</option><option>£5M–£10M</option><option>Over £10M</option></select></label>
-      </div>
-      <label style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:var(--slate);margin-top:1rem;"><input id="ld-consent" type="checkbox" style="margin-top:0.2rem;accent-color:var(--accent);">I agree to Add Then Multiply storing my answers and contacting me about my results.</label>
-      <p id="ld-error" style="display:none;color:var(--bad);font-size:0.82rem;margin-top:0.6rem;"></p>
-      <div style="display:flex;gap:1rem;align-items:center;margin-top:1.2rem;flex-wrap:wrap;">
-        <button class="cta" style="margin-top:0;" onclick="submitLead()">See my results</button>
-        <a href="#" onclick="skipLead();return false;" style="font-size:0.82rem;color:var(--slate);">Skip — just show my score</a>
-      </div>
-    </div>
-  </section>
   <section id="results" aria-live="polite">
     <span class="kicker">Your results</span>
     <div class="scorebox">
       <span class="big" id="totalScore">–</span><span style="color:var(--slate)">%</span><span class="band" id="bandLabel"></span>
       <p id="bandDesc" style="font-size:0.9rem;color:#334155;margin-top:0.6rem;"></p>
     </div>
-    <div class="scorebox" id="themeBars"></div>
-    <div class="scorebox"><h2 style="margin-top:0;font-size:1.05rem;">Your immediate priorities</h2><ul class="gaps" id="gapList"></ul>
-      <div class="svcmatch" id="svcMatch"></div>
-      <p style="margin-top:1.2rem;" id="ctaLine"></p>
-      <p style="margin-top:0.8rem;"><a id="bookBtn" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM call →</a></p>
-      <p id="deepLink" style="display:none;font-size:0.88rem;margin-top:1rem;">Scoring this well? Go a level deeper with the <a href="transaction-readiness.html">Transaction Readiness Assessment</a> — the 24-metric instrument a buyer's advisers would use.</p>
+    <section id="leadgate" style="display:none;">
+      <div class="scorebox">
+        <h2 style="margin-top:0;font-size:1.15rem;">Unlock your full report</h2>
+        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline score. Your full report — the six theme scores, your immediate priorities and the service match — is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem;">
+          <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
+          <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
+          <label style="font-size:0.8rem;color:var(--slate);" for="ld-company">Company<input id="ld-company" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
+          <label style="font-size:0.8rem;color:var(--slate);" for="ld-role">Your role<select id="ld-role" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Founder / CEO</option><option>Co-founder</option><option>Finance lead</option><option>Advisor</option><option>Other</option></select></label>
+          <label style="font-size:0.8rem;color:var(--slate);" for="ld-revenue">Annual revenue<select id="ld-revenue" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Under £250k</option><option>£250k–£1M</option><option>£1M–£5M</option><option>£5M–£10M</option><option>Over £10M</option></select></label>
+        </div>
+        <label style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:var(--slate);margin-top:1rem;" for="ld-consent"><input id="ld-consent" type="checkbox" style="margin-top:0.2rem;accent-color:var(--accent);">I agree to Add Then Multiply storing my answers and contacting me about my results.</label>
+        <p id="ld-error" style="display:none;color:var(--bad);font-size:0.82rem;margin-top:0.6rem;" role="alert"></p>
+        <div style="display:flex;gap:1rem;align-items:center;margin-top:1.2rem;flex-wrap:wrap;">
+          <button class="cta" style="margin-top:0;" onclick="submitLead()">Show my full report</button>
+        </div>
+      </div>
+    </section>
+    <div id="fullReport" style="display:none;">
+      <div class="scorebox" id="themeBars"></div>
+      <div class="scorebox"><h2 style="margin-top:0;font-size:1.05rem;">Your immediate priorities</h2><ul class="gaps" id="gapList"></ul>
+        <div class="svcmatch" id="svcMatch"></div>
+        <p style="margin-top:1.2rem;" id="ctaLine"></p>
+        <p style="margin-top:0.8rem;"><a id="bookBtn" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM call →</a></p>
+        <p id="deepLink" style="display:none;font-size:0.88rem;margin-top:1rem;">Scoring this well? Go a level deeper with the <a href="transaction-readiness.html">Transaction Readiness Assessment</a> — the 24-metric instrument a buyer's advisers would use.</p>
+      </div>
     </div>
   </section>
-  <p class="note">Your answers are scored in your browser. They are stored securely by Add Then Multiply only if you choose to share your details for a follow-up, and are never shared with third parties. This diagnostic indicates business readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic indicates business readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses</footer>
 <script src="assets/supabase.js"></script>
@@ -281,8 +282,21 @@ function scoreDiagnostic(){
   document.getElementById("diag-err").style.display = "none";
   const {themeScores, total} = computeScores(answers);
   pending = {answers, themeScores, total, band: bandFor(total)};
-  const gate = document.getElementById("leadgate");
-  gate.style.display = "block"; gate.scrollIntoView({behavior:"smooth"});
+  // Headline score is free; the full report is behind the gate.
+  renderTeaser();
+  const res = document.getElementById("results");
+  res.style.display = "block";
+  document.getElementById("leadgate").style.display = "block";
+  document.getElementById("fullReport").style.display = "none";
+  res.scrollIntoView({behavior:"smooth"});
+}
+
+function renderTeaser(){
+  const {total, band} = pending;
+  document.getElementById("totalScore").textContent = total;
+  const bl = document.getElementById("bandLabel");
+  bl.textContent = band.label; bl.style.background = band.color;
+  document.getElementById("bandDesc").textContent = band.desc;
 }
 
 async function submitLead(){
@@ -311,16 +325,12 @@ async function submitLead(){
   }
   renderResults();
 }
-function skipLead(){ if(pending) renderResults(); }
 
 function renderResults(){
   const {answers, themeScores, total, band} = pending;
   const allQs = THEMES.flatMap(t=>t.qs);
   document.getElementById("leadgate").style.display = "none";
-  document.getElementById("totalScore").textContent = total;
-  const bl = document.getElementById("bandLabel");
-  bl.textContent = band.label; bl.style.background = band.color;
-  document.getElementById("bandDesc").textContent = band.desc;
+  renderTeaser();
   document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
     const s = themeScores[t.key];
     return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name} — ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
@@ -336,8 +346,10 @@ function renderResults(){
   document.getElementById("svcMatch").innerHTML = svcHtml;
   document.getElementById("ctaLine").innerHTML = `<b>${cfg ? cfg.cta : band.cta}</b>`;
   document.getElementById("deepLink").style.display = band.deep ? "block" : "none";
-  const res = document.getElementById("results");
-  res.style.display = "block"; res.scrollIntoView({behavior:"smooth"});
+  const full = document.getElementById("fullReport");
+  full.style.display = "block";
+  document.getElementById("results").style.display = "block";
+  full.scrollIntoView({behavior:"smooth"});
 }
 
 // Browser-console test harness
@@ -369,6 +381,16 @@ function runTests(){
   t("payload band_tag prefixed", pl.band_tag==="md:strong-potential");
   t("payload instrument + version", pl.instrument==="multiplier_diagnostic" && pl.instrument_version==="1.0");
   t("payload revenue null when blank", pl.revenue_band===null && pl.consent===true);
+  // Gate: headline score is free, the full report is not
+  t("no skip bypass exists", typeof window.skipLead === "undefined");
+  t("full report starts hidden", document.getElementById("fullReport").style.display === "none");
+  t("gate sits between the teaser and the full report",
+    document.getElementById("leadgate").compareDocumentPosition(document.getElementById("fullReport")) & Node.DOCUMENT_POSITION_FOLLOWING);
+  t("gate collects identity + consent",
+    ["ld-name","ld-email","ld-company","ld-role","ld-consent"].every(id=>document.getElementById(id)));
+  t("every gate field is labelled",
+    ["ld-name","ld-email","ld-company","ld-role","ld-revenue","ld-consent"]
+      .every(id=>[...document.querySelectorAll("label[for]")].some(l=>l.getAttribute("for")===id)));
   // Booking hand-off to GoHighLevel — this page carries no assessment context
   const link = bookingUrl(null, "?utm_source=LinkedIn%20Paid");
   t("booking link preserves the base BOOKING_URL", link.indexOf(BOOKING_URL)===0 && link.indexOf(BOOKING_URL+"?")===0);

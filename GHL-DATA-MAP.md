@@ -133,21 +133,37 @@ could ship. Tell us the field names GHL actually expects for your custom
 fields and we will change them — it is a small edit and we will turn it round
 on request. The same goes for the controlled values if your picklists differ.
 
-**We collect no identity in the link.** The booking link carries no name,
-email, company or phone number, and no identifier that could be joined back to
-a person. The founder's identity and their marketing consent for the booking
-are collected by the GHL booking form, at the point of booking — never in the
-link.
+**The booking link still carries no identity.** No name, email, company or
+phone number, and no identifier that could be joined back to a person. The
+founder's identity and their marketing consent *for the booking* are collected
+by the GHL booking form, at the point of booking — never in the link. That has
+not changed.
 
-One qualification, so this is not overstated. `diagnostic.html` (the
-Multiplier Diagnostic) has a pre-existing lead-capture step of its own: after
-scoring, it offers a form — first name, work email, company, role, revenue
-band — behind an explicit consent tick, and on submit writes those answers to
-ATM's own Supabase `leads` table. It is skippable (a "Skip — just show my
-score" link shows results with nothing entered and nothing stored), it stores
-nothing in cookies or browser storage, and it is entirely separate from this
-GHL hand-off. It predates this work and we have not touched it. Full detail
-has gone to Madeleine and David separately, as you asked.
+**But the platform now does collect identity, at the assessment.** On ATM's
+instruction, all four scored assessments are gated: the founder sees their
+headline score and band for free, then must give first name, work email,
+company, role and revenue band, and tick an explicit consent box, before the
+full report renders. There is no skip. On submit, the answers, score, band and
+those details are written to ATM's own Supabase `leads` table — not to GHL.
+
+Two consequences worth planning for on your side:
+
+- **You will have the same person in two places.** A founder who completes an
+  assessment and then books appears once in `leads` (with their answers) and
+  once in GHL (from the booking form). The join key is the email address they
+  typed in each, which may differ. If you want them reconciled, the cleanest
+  route is a scheduled export from `leads` into GHL keyed on email — tell us
+  and we will scope it.
+- **Consent is recorded per assessment, not globally.** The `leads.consent`
+  column records that the founder agreed to ATM storing their answers and
+  contacting them about their results, at that timestamp. It is not consent
+  for a wider marketing programme, and it is separate from whatever consent
+  the GHL booking form captures. Do not treat one as covering the other.
+
+Still true, and worth stating plainly: nothing is written to cookies,
+localStorage or sessionStorage anywhere on the site. There is no analytics and
+there are no ad pixels. Campaign source is read from the URL and passed
+straight on, which is why it survives only a single journey (below).
 
 **Campaign source survives one journey only.** The free pages carry no
 cookies, no localStorage and no analytics — that is a deliberate design rule,

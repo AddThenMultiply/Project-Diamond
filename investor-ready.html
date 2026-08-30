@@ -117,26 +117,50 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
                     <p style="margin-top: 1rem; color: var(--text-light);" id="score-context"></p>
                 </div>
 
-                <div class="gap-summary">
-                    <h3>Priority Gap Analysis</h3>
-                    <div id="gap-items-container"></div>
-                </div>
+                <section id="leadgate" style="display:none;">
+                    <h3 style="font-family:Georgia,serif;font-size:1.3rem;color:var(--navy);margin-bottom:0.6rem;">Unlock your full report</h3>
+                    <p style="font-size:0.9rem;color:var(--slate);margin-bottom:1rem;">That is your headline score and band. Your Priority Gap Analysis — the specific gaps to close before you approach a single investor — is one step away. Tell us where to send it. Your answers stay confidential to Add Then Multiply.</p>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;">
+                        <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
+                        <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
+                        <label style="font-size:0.8rem;color:var(--slate);" for="ld-company">Company<input id="ld-company" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
+                        <label style="font-size:0.8rem;color:var(--slate);" for="ld-role">Your role<select id="ld-role" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Founder / CEO</option><option>Co-founder</option><option>Finance lead</option><option>Advisor</option><option>Other</option></select></label>
+                        <label style="font-size:0.8rem;color:var(--slate);" for="ld-revenue">Annual revenue<select id="ld-revenue" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;background:#fff;"><option value="">Select…</option><option>Pre-revenue</option><option>Under £250k</option><option>£250k–£1M</option><option>£1M–£5M</option><option>Over £5M</option></select></label>
+                    </div>
+                    <label style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:var(--slate);margin-top:1rem;" for="ld-consent"><input id="ld-consent" type="checkbox" style="margin-top:0.2rem;accent-color:var(--accent);">I agree to Add Then Multiply storing my answers and contacting me about my results.</label>
+                    <p id="ld-error" style="display:none;color:var(--bad);font-size:0.82rem;margin-top:0.6rem;" role="alert"></p>
+                    <button class="btn" style="width:auto;margin-top:1.2rem;" onclick="submitLead()">Show my full report</button>
+                </section>
 
-                <div class="cta-section">
-                    <h3>Discuss your results</h3>
-                    <p>Review your investor readiness with David B Horne on a complimentary Readiness Call.</p>
-                    <a href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" id="booking-cta" class="btn" target="_blank" rel="noopener" style="width: auto;">Book Readiness Call</a>
+                <div id="fullReport" style="display:none;">
+                    <div class="gap-summary">
+                        <h3>Priority Gap Analysis</h3>
+                        <div id="gap-items-container"></div>
+                    </div>
+
+                    <div class="cta-section">
+                        <h3>Discuss your results</h3>
+                        <p>Review your investor readiness with David B Horne on a complimentary Readiness Call.</p>
+                        <a href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" id="booking-cta" class="btn" target="_blank" rel="noopener" style="width: auto;">Book Readiness Call</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <p style="font-size: 0.78rem; opacity: 0.75; max-width: 68ch; margin: 2.5rem auto 0; text-align: center;">Your answers are scored entirely in your browser, and nothing is sent anywhere while you complete the diagnostic. If you choose to book a Readiness Call, your overall score and readiness band travel with the booking link so the conversation starts with context — your individual answers do not, and neither does anything identifying you. This diagnostic is educational. It is not financial advice and not a financial promotion. Add Then Multiply does not arrange investments — introductions happen only offline, through our authorised transaction partner.</p>
+        <p style="font-size: 0.78rem; opacity: 0.75; max-width: 68ch; margin: 2.5rem auto 0; text-align: center;">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic is educational. It is not financial advice and not a financial promotion. Add Then Multiply does not arrange investments — introductions happen only offline, through our authorised transaction partner.</p>
     </main>
 
     <footer>&copy; Add Then Multiply &middot; Fractional finance and M&amp;A advisory for ambitious founder-led businesses &middot; <a href="funding.html">Funding resources</a></footer>
 
+    <script src="assets/supabase.js"></script>
     <script>
         // Configuration
         const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
+        const SUPABASE_URL = "https://wfejarowrlalwgbqvloi.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_m2UUeC-YZWe7UVyYX553SA_6jHP2M5x";
+        const INSTRUMENT = "investor_ready";
+        const INSTRUMENT_VERSION = "1.0";
+        let sb = null;
+        try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY); } catch(e) { /* offline-safe */ }
 
         /* Booking hand-off. Appends the assessment context to the single
            BOOKING_URL so GoHighLevel can record source, assessment and band.
@@ -449,7 +473,8 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
                 percentage,
                 totalScore,
                 maxPossible,
-                gaps: sortedGaps
+                gaps: sortedGaps,
+                answers
             };
         }
 
@@ -481,8 +506,16 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
             document.getElementById('assessment-section').style.display = 'none';
             document.getElementById('results-section').style.display = 'block';
             window.scrollTo(0, 0);
-            
-            const band = bandFor(results.percentage);
+
+            pending = { results, band: bandFor(results.percentage) };
+            // Headline score and band are free; the gap analysis is behind the gate.
+            renderTeaser();
+            document.getElementById('leadgate').style.display = 'block';
+            document.getElementById('fullReport').style.display = 'none';
+        }
+
+        function renderTeaser() {
+            const { results, band } = pending;
 
             const scoreCircle = document.getElementById('overall-score');
             scoreCircle.textContent = `${results.percentage}%`;
@@ -494,6 +527,53 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
             bandLabel.style.background = band.color;
 
             document.getElementById('score-context').textContent = band.context;
+        }
+
+        function bandSlug(label){ return label.toLowerCase().replace(/[^a-z0-9]+/g,"-"); }
+        function buildLeadPayload(results, band, contact){
+            return {
+                instrument: INSTRUMENT, instrument_version: INSTRUMENT_VERSION,
+                score_pct: results.percentage, band: band.name, band_tag: "ird:" + bandSlug(band.name),
+                theme_scores: {}, answers: results.answers || null,
+                first_name: contact.name, email: contact.email, company: contact.company,
+                role_title: contact.role, revenue_band: contact.revenue || null,
+                consent: true, source_page: "investor-ready.html"
+            };
+        }
+
+        let pending = null;
+
+        async function submitLead(){
+            if(!pending) return;
+            const contact = {
+                name: document.getElementById('ld-name').value.trim(),
+                email: document.getElementById('ld-email').value.trim(),
+                company: document.getElementById('ld-company').value.trim(),
+                role: document.getElementById('ld-role').value,
+                revenue: document.getElementById('ld-revenue').value
+            };
+            const err = document.getElementById('ld-error');
+            if(!contact.name || !contact.email || !contact.company || !contact.role){
+                err.textContent = "Please complete your name, email, company and role."; err.style.display = "block"; return;
+            }
+            if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact.email)){
+                err.textContent = "That email address doesn't look right."; err.style.display = "block"; return;
+            }
+            if(!document.getElementById('ld-consent').checked){
+                err.textContent = "Please tick the consent box so we can store your results."; err.style.display = "block"; return;
+            }
+            err.style.display = "none";
+            if(sb){
+                try { await sb.from("leads").insert(buildLeadPayload(pending.results, pending.band, contact)); }
+                catch(e) { /* never block the founder's results on a network failure */ }
+            }
+            renderResults();
+        }
+
+        function renderResults() {
+            const { results, band } = pending;
+            document.getElementById('leadgate').style.display = 'none';
+            renderTeaser();
 
             // Carry the result context into the booking hand-off.
             setBooking(document.getElementById('booking-cta'),
@@ -518,6 +598,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
                     gapsContainer.appendChild(item);
                 });
             }
+            document.getElementById('fullReport').style.display = 'block';
         }
 
         // Set CTA link (source only until results carry the assessment context)
@@ -618,6 +699,28 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
             assert(frSource("?src=Referral") === "Referral" && frSource("?source=Partner") === "Partner", "src and source are read as well as utm_source");
             assert(frSource("?utm_source=Direct") === "Direct", "Direct and Founder Readiness Direct stay distinct");
             assert(bookingUrl(null, "?utm_source=Event") === BOOKING_URL + "?fr_source=Event", "a page with no assessment context sends fr_source only");
+
+            // Test 9: the gate — headline score is free, the gap analysis is not
+            assert(typeof window.skipLead === "undefined", "no skip bypass exists");
+            assert(document.getElementById('fullReport').style.display === "none", "full report starts hidden");
+            assert(document.getElementById('leadgate').compareDocumentPosition(document.getElementById('fullReport')) & Node.DOCUMENT_POSITION_FOLLOWING,
+                "gate sits between the teaser and the full report");
+            assert(["ld-name","ld-email","ld-company","ld-role","ld-consent"].every(id=>document.getElementById(id)),
+                "gate collects identity + consent");
+            assert(["ld-name","ld-email","ld-company","ld-role","ld-revenue","ld-consent"]
+                .every(id=>[...document.querySelectorAll("label[for]")].some(l=>l.getAttribute("for")===id)),
+                "every gate field is labelled");
+
+            // Lead payload uses the investor_ready instrument and ird: band tags
+            const irPl = buildLeadPayload({percentage:72, answers:{q1:4}}, {name:"Almost Ready"},
+                {name:"A",email:"a@b.co",company:"C",role:"Founder / CEO",revenue:""});
+            assert(irPl.instrument === "investor_ready" && irPl.instrument_version === "1.0", "payload instrument is investor_ready");
+            assert(irPl.band_tag === "ird:almost-ready", "payload band_tag prefixed ird:");
+            assert(irPl.score_pct === 72 && irPl.consent === true, "payload carries the score and consent");
+            assert(irPl.revenue_band === null, "payload revenue null when blank");
+            assert(irPl.source_page === "investor-ready.html", "payload names its source page");
+            assert(BANDS.every(b => /^[a-z0-9-]+$/.test(bandSlug(b.name))), "every band slugs cleanly");
+            assert(calculateScore({q1:4}).answers !== undefined, "calculateScore returns the answers for storage");
 
             console.log(`\nTest Summary: ${passed}/${total} passed.`);
             return passed === total;
