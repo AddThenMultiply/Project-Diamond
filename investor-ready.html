@@ -59,6 +59,18 @@ main{padding:2.5rem 0 4rem;}
 .cta-section h3{font-family:Georgia,serif;font-size:1.3rem;margin-bottom:0.8rem;color:var(--navy);}
 .cta-section p{margin-bottom:1.3rem;color:var(--slate);font-size:0.95rem;}
 .error-message{color:var(--bad);background:#FEE2E2;border-radius:4px;padding:0.6rem 0.9rem;text-align:center;margin-bottom:1rem;font-size:0.85rem;font-weight:600;display:none;}
+/* Written report: line to target and engagement plan (inside the gated full report) */
+.ir-line{font-family:Georgia,serif;font-size:1.05rem;color:var(--navy);margin-bottom:0.5rem;}
+.ir-note{font-size:0.88rem;color:var(--slate);margin-bottom:0.8rem;}
+.lever{border:1px solid var(--line);border-left:4px solid var(--navy);background:var(--bg);padding:0.8rem 1rem;margin:0.6rem 0;font-size:0.9rem;color:var(--slate);border-radius:0 4px 4px 0;}
+.lever b{color:var(--navy);display:block;font-family:Georgia,serif;}
+ol.stream-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;margin:1rem 0 0;padding:0;}
+ol.stream-steps li{border:1px solid var(--line);border-radius:6px;background:#fff;padding:0.7rem 0.9rem;font-size:0.82rem;font-weight:600;color:var(--navy);}
+ol.stream-steps li a{color:var(--navy);display:block;text-decoration:none;}
+ol.stream-steps li em{display:block;font-weight:400;font-style:normal;font-size:0.75rem;color:var(--slate);margin-top:0.15rem;}
+ol.stream-steps li.here{background:var(--navy);border-color:var(--navy);color:#fff;}
+ol.stream-steps li.here em{color:#CBD5E1;}
+@media(max-width:700px){ol.stream-steps{grid-template-columns:1fr 1fr;}}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:600px){.card{padding:1.2rem;}.container{padding:0 1rem;}}
 </style>
@@ -135,6 +147,20 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
                     <div class="gap-summary">
                         <h3>Priority Gap Analysis</h3>
                         <div id="gap-items-container"></div>
+                    </div>
+
+                    <div class="gap-summary" id="ir-target">
+                        <h3>The line to your target</h3>
+                        <p class="ir-line" id="ir-targetLine"></p>
+                        <p class="ir-note" id="ir-targetNote"></p>
+                        <div id="ir-levers"></div>
+                    </div>
+
+                    <div class="gap-summary" id="ir-plan">
+                        <h3>Suggested engagement plan</h3>
+                        <p class="ir-note" id="ir-planText"></p>
+                        <ol class="stream-steps" id="ir-planSteps"></ol>
+                        <p class="ir-note" style="margin-top:0.8rem;">Scope and fee are agreed on the Readiness Call. Any investor introductions happen only through ATM's authorised transaction partner.</p>
                     </div>
 
                     <div class="cta-section">
@@ -597,7 +623,38 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
                     gapsContainer.appendChild(item);
                 });
             }
+            renderIrReport(results, band);
             document.getElementById('fullReport').style.display = 'block';
+        }
+
+        /* Written report additions. The scoring engine, bands and gate above
+           are untouched; these read the band and the ranked gaps they produce. */
+        const IR_STEPS = [["diagnostic.html","01 · Diagnostic","Investor Ready · done"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
+        const IR_PLAN = {
+            "Raise Ready":   { entry: 4, text: "You are Raise Ready. The suggested plan goes straight to a Readiness Project: the 90-day arc that builds the data room, strengthens the bench and takes the raise to market, with investor engagement handled through ATM's authorised transaction partner. Your entry point is step 04." },
+            "Almost Ready":  { entry: 2, text: "You are Almost Ready. The suggested plan is a Personalised Roadmap that turns the gaps above into a sequenced plan, then the Pitch and Publish programme where the story and the fundraising assets are the gap, and Finance Advisory where the numbers are. Your entry point is step 02." },
+            "Getting Ready": { entry: 2, text: "You are Getting Ready. The suggested plan starts with the free tools on the Funding page and a Personalised Roadmap that sequences the priority gaps; where the numbers are the gap, Finance Advisory's Financial Deep Dive comes first. Your entry point is step 02." }
+        };
+        function irTarget(pct){
+            const idx = BANDS.findIndex(b => pct >= b.min);
+            const target = idx > 0 ? BANDS[idx - 1] : BANDS[0];
+            return { band: target, points: Math.max(0, target.min - pct), already: idx === 0 };
+        }
+        function irLevers(results){ return results.gaps.slice(0, 3); }
+        function irPlan(band){ return IR_PLAN[band.name]; }
+        function renderIrReport(results, band){
+            const target = irTarget(results.percentage), levers = irLevers(results), plan = irPlan(band);
+            document.getElementById('ir-targetLine').textContent = target.already
+                ? `You are already ${target.band.name}. The line from here is about holding it through the raise.`
+                : `Your target is ${target.band.name}. You need ${target.points} more point${target.points === 1 ? "" : "s"} to get there.`;
+            document.getElementById('ir-targetNote').textContent = levers.length
+                ? "Each step up on one question is worth about 2 points on the whole score. The gaps below, in priority order, are the levers that get you there — each with the thing we would do first."
+                : "No priority gaps were identified, so there is no single lever to pull. Keep the assets current and test the deck on real audiences before the raise.";
+            document.getElementById('ir-levers').innerHTML = levers.map((g, n) => `<div class="lever"><b>Lever ${n + 1} · ${g.dimension}</b>${g.advice}</div>`).join("");
+            document.getElementById('ir-planText').textContent = plan.text;
+            document.getElementById('ir-planSteps').innerHTML = IR_STEPS.map((st, i) => i + 1 === plan.entry
+                ? `<li class="here">${st[1]}<em>Your entry point</em></li>`
+                : `<li><a href="${st[0]}">${st[1]}<em>${st[2]}</em></a></li>`).join("");
         }
 
         // Set CTA link (source only until results carry the assessment context)
@@ -720,6 +777,26 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
             assert(irPl.source_page === "investor-ready.html", "payload names its source page");
             assert(BANDS.every(b => /^[a-z0-9-]+$/.test(bandSlug(b.name))), "every band slugs cleanly");
             assert(calculateScore({q1:4}).answers !== undefined, "calculateScore returns the answers for storage");
+
+            // Test 10: written report — line to target and engagement plan
+            assert(irTarget(100).already && irTarget(100).points === 0 && irTarget(100).band.name === "Raise Ready", "target at 100 = already Raise Ready");
+            assert(irTarget(80).already && irTarget(80).points === 0, "target at 80 = already Raise Ready, 0 points");
+            assert(irTarget(79).band.name === "Raise Ready" && irTarget(79).points === 1, "target at 79 = Raise Ready, 1 point");
+            assert(irTarget(60).band.name === "Raise Ready" && irTarget(60).points === 20, "target at 60 = Raise Ready, 20 points");
+            assert(irTarget(59).band.name === "Almost Ready" && irTarget(59).points === 1, "target at 59 = Almost Ready, 1 point");
+            assert(irTarget(25).band.name === "Almost Ready" && irTarget(25).points === 35, "target at 25 = Almost Ready, 35 points");
+            const lvAnswers = {}; questionBank.forEach(q => lvAnswers[q.id] = 4);
+            lvAnswers.q13 = 1; lvAnswers.q1 = 2; lvAnswers.q5 = 3; lvAnswers.q9 = 1;
+            const lv = irLevers(calculateScore(lvAnswers));
+            assert(lv.length === 3 && lv.every(g => g.dimension && g.advice), "levers are the top three ranked gaps, each with a concrete action");
+            assert(lv[0].dimension === "Clarity of Ask" && lv[1].dimension === "Investor Pipeline" && lv[2].severity === "high", "levers keep the gap ranking: high severity first, ties in question order");
+            assert(irLevers(calculateScore(maxAnswers)).length === 0, "no gaps means no levers");
+            assert(BANDS.every(b => irPlan(b) && irPlan(b).entry >= 1 && irPlan(b).entry <= 4 && irPlan(b).text.length > 80), "every band has an engagement plan with an entry step");
+            assert(irPlan(bandFor(90)).entry === 4 && /Readiness Project/.test(irPlan(bandFor(90)).text), "Raise Ready plan enters at the Readiness Project");
+            assert(irPlan(bandFor(70)).entry === 2 && /Personalised Roadmap/.test(irPlan(bandFor(70)).text), "Almost Ready plan enters at the Personalised Roadmap");
+            assert(irPlan(bandFor(30)).entry === 2 && /Financial Deep Dive/.test(irPlan(bandFor(30)).text), "Getting Ready plan enters at the roadmap with Finance Advisory first where the numbers are the gap");
+            assert(Object.values(IR_PLAN).every(p => !/\d\s?%|£|\$|\d+x\b/.test(p.text)), "plan text carries no figures that could read as a promotion");
+            assert(document.getElementById('fullReport').contains(document.getElementById('ir-target')) && document.getElementById('fullReport').contains(document.getElementById('ir-plan')), "target and plan sit inside the gated full report");
 
             console.log(`\nTest Summary: ${passed}/${total} passed.`);
             return passed === total;
