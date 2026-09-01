@@ -44,6 +44,30 @@ ol.stream-steps li em{display:block;font-weight:400;font-style:normal;font-size:
 @media(max-width:700px){ol.stream-steps{grid-template-columns:1fr 1fr;}}
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;}
 .tablewrap table{min-width:34rem;margin:0;}
+.metric{background:#fff;border:1px solid var(--line);border-radius:6px;margin:1rem 0;padding:1.2rem 1.3rem;min-width:0;}
+.metric legend{padding:0;display:block;width:100%;}
+.metric h3{font-size:0.98rem;color:var(--navy);margin-bottom:0.7rem;font-weight:600;}
+.scale{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.scale label{flex:1 1 110px;border:1px solid var(--line);border-radius:4px;padding:0.5rem 0.6rem;font-size:0.8rem;color:#334155;cursor:pointer;text-align:center;}
+.scale label:hover{background:var(--bg);}
+.scale input{display:block;margin:0 auto 0.3rem;accent-color:var(--accent);}
+.scale b{display:block;color:var(--navy);}
+.scale-ends{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--slate);margin:0.4rem 0 0.2rem;}
+button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.2rem;}
+button.cta:hover{background:#8A3E06;}
+.inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
+#results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
+.scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
+.big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
+.band{display:inline-block;padding:0.25rem 0.8rem;border-radius:99px;font-size:0.8rem;font-weight:700;color:#fff;margin-left:0.8rem;vertical-align:middle;}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:0.35rem 0 0.4rem;}
+.bar i{display:block;height:100%;border-radius:99px;transition:width 0.6s;}
+.barlabel{display:flex;justify-content:space-between;font-size:0.85rem;color:#334155;margin-top:0.8rem;}
+.route{border-left:4px solid var(--accent);padding-left:1rem;margin-top:0.4rem;font-size:0.9rem;color:#334155;}
+.route h3{font-family:Georgia,serif;font-size:1.05rem;color:var(--navy);margin-bottom:0.3rem;}
+.route .links{margin-top:0.6rem;font-size:0.85rem;}
+.tag-free{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.25rem 0.6rem;border-radius:99px;background:#DCFCE7;color:#15803D;vertical-align:middle;margin-left:0.6rem;}
+@media(max-width:600px){.big{font-size:2rem}}
 </style>
 </head>
 <body>
@@ -62,6 +86,7 @@ ol.stream-steps li em{display:block;font-weight:400;font-style:normal;font-size:
 <span class="kicker">Product · Key Person of Influence · feeds Consolidate, leading to Exit</span>
 <h1>A business that runs on assets, not on you</h1>
 <p class="lede">The hardest thing about a founder-led business is the founder. Your judgement, your relationships and your hours are what made it work — and they are exactly what a buyer cannot buy and an investor cannot bank on. The Product stream turns what only you can do into things the business owns, sells and repeats.</p>
+<p style="font-size:0.9rem;margin-top:0.6rem;"><a href="#assess"><b>Take the free ten-minute self-assessment ↓</b></a> — it tells you where you actually need help, and who should take the call.</p>
 
 <h2>Who this is for</h2>
 <div class="grid3">
@@ -108,6 +133,25 @@ ol.stream-steps li em{display:block;font-weight:400;font-style:normal;font-size:
 <p class="body">The thinking behind this stream is the C in FACE — Consolidate — from David B Horne's <em>Add Then Multiply</em>: integration and coherence planned from the beginning, not bolted on at the end. The fundraising-asset discipline that makes the recurring model credible to an investor is set out in <em>Funded Female Founders</em>.</p>
 <p class="quote">"How small businesses can think like big businesses and achieve exponential growth." — <em>Add Then Multiply</em>, David B Horne</p>
 
+<h2 id="assess">Product self-assessment<span class="tag-free">FREE</span></h2>
+<p class="body">Eight statements, about ten minutes, scored in your browser. Nothing is stored and there is no sign-up. Rate how true each statement is of your business today, from "not at all" to "completely". Six statements measure your productised business; the last two measure the business case and the revenue behind it, because those decide where the work should start.</p>
+<form id="sa"></form>
+<p id="sa-err" class="inline-err" role="alert" style="display:none;"></p>
+<button class="cta" type="button" onclick="scoreAssessment()">Score my business</button>
+<section id="results" aria-live="polite">
+  <span class="kicker">Your result</span>
+  <div class="scorebox">
+    <span class="big" id="totalScore">–</span><span style="color:var(--slate)">%</span><span class="band" id="bandLabel"></span>
+    <p id="bandDesc" style="font-size:0.9rem;color:#334155;margin-top:0.6rem;"></p>
+    <div id="bars"></div>
+  </div>
+  <div class="scorebox">
+    <div class="route" id="route"></div>
+    <p style="margin-top:1.2rem;"><a id="bookBtn" class="cta" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener" style="margin-top:0;">Book a Readiness Call →</a></p>
+  </div>
+  <p style="font-size:0.78rem;color:var(--slate);">Your answers were scored in your browser and are not stored anywhere. If you book a Readiness Call from this page, your score and band travel with the booking link so the right advisor takes the call. This self-assessment indicates readiness only and is not financial or investment advice.</p>
+</section>
+
 <h2>Book a Readiness Call</h2>
 <p class="body">The scope and the fee are agreed on the Readiness Call, once we have seen your diagnostic and understood how much of the business currently lives in your diary.</p>
 <a class="cta" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener">Book a Readiness Call →</a>
@@ -143,6 +187,161 @@ function bookingUrl(ctx, search){
   }catch(e){ return BOOKING_URL; }
 }
 function setBooking(el, ctx){ try{ if(el) el.href = bookingUrl(ctx); }catch(e){ if(el) el.href = BOOKING_URL; } }
-document.querySelectorAll("a.cta").forEach(function(a){ setBooking(a, null); a.target="_blank"; a.rel="noopener"; });</script>
+document.querySelectorAll("a.cta").forEach(function(a){ setBooking(a, null); a.target="_blank"; a.rel="noopener"; });
+
+/* ---- Product self-assessment ----------------------------------------
+   Eight statements, 1–5 each. Six measure the stream; two (business case,
+   revenue) are common to all four stream pages and drive the routing.
+   Scored in the browser. Nothing is stored, nothing is gated. Assessment
+   code PR is a proposal awaiting confirmation — see GHL-DATA-MAP.md. */
+const ASSESSMENT = "PR";
+const STREAM_NAME = "Product";
+const SCALE = ["Not at all", "Slightly", "Somewhat", "Mostly", "Completely"];
+const STATEMENTS = [{"kind": "stream", "text": "Most of our revenue is earned without the founder personally delivering the work."}, {"kind": "stream", "text": "A meaningful share of our revenue is recurring or contracted, not won again from scratch each year."}, {"kind": "stream", "text": "Our offers are named, scoped and priced, with a documented way of delivering each one."}, {"kind": "stream", "text": "The know-how that makes our work distinctive is written down and owned by the business, not held in someone's head."}, {"kind": "stream", "text": "Our pricing reflects the authority we hold, not the hours we put in."}, {"kind": "stream", "text": "The business could run for twelve months without the founder and come out in similar shape."}, {"kind": "case", "text": "We have a clear, written business case that a stranger could follow."}, {"kind": "revenue", "text": "Our revenue is predictable enough to forecast the next twelve months with confidence."}];
+const BANDS = [
+  { min: 80, name: "Strong",   color: "var(--good)", desc: "You are in good shape on this stream. The question now is whether the rest of the business is ready to make use of it." },
+  { min: 60, name: "Building", color: "var(--warn)", desc: "The foundations are there, but the gaps below will cost you in a funding round or a sale if you leave them." },
+  { min: 40, name: "Emerging", color: "var(--warn)", desc: "This stream is early. The good news is that it is buildable in a focused sprint, and the roadmap will show you the order." },
+  { min: 0,  name: "At risk",  color: "var(--bad)",  desc: "Right now this would be a discount in a valuation, or a reason for an investor to pass. Start here, and start soon." }
+];
+function bandFor(pct){ return BANDS.find(b => pct >= b.min); }
+function computeScores(answers){
+  let sum = 0, streamSum = 0, streamN = 0, caseScore = 0, revenueScore = 0;
+  STATEMENTS.forEach((s, i) => {
+    const v = Number(answers[i]);
+    sum += v;
+    if(s.kind === "stream"){ streamSum += v; streamN++; }
+    else if(s.kind === "case") caseScore = v;
+    else if(s.kind === "revenue") revenueScore = v;
+  });
+  const max = STATEMENTS.length * 5;
+  return {
+    total: Math.round(sum / max * 100),
+    stream: Math.round(streamSum / (streamN * 5) * 100),
+    caseScore: caseScore, revenueScore: revenueScore
+  };
+}
+/* Routing. Weak business case or weak revenue (either scored 1 or 2) goes to
+   Finance Advisory whatever the page. Otherwise a strong stream score (80+)
+   goes to the Readiness Call, with Investor Ready or Exit Ready as the likely
+   next step; anything less goes to this stream's programme. */
+function routeFor(s){
+  if(s.caseScore <= 2 || s.revenueScore <= 2) return "finance";
+  if(s.stream >= 80) return "call";
+  return "programme";
+}
+const ROUTES = {
+  programme: { title: "Where this points: the Pitch and Publish programme",
+    text: "Your business case and revenue hold up. What is missing is the productised business: offers, a recurring model and documented IP that a buyer can value without you attached. That is what the Pitch and Publish programme builds on the Product stream, in a ninety-day sprint alongside your roadmap.",
+    links: [["pitch.html", "Pitch stream"], ["publish.html", "Publish stream"]] },
+  finance: { title: "Where this points: Finance Advisory first",
+    text: "Before the productised business work will pay off, the business case or the revenue behind it needs shoring up. We start there: a Financial Deep Dive, then an insourced finance function and sales pipeline support. Read about Finance Advisory, then book a Readiness Call.",
+    links: [["sourcing.html", "Finance Advisory"]] },
+  call: { title: "Where this points: a Readiness Call, and probably a diagnostic",
+    text: "You are strong on the business case, on revenue and on your productised business. The next step is likely Investor Ready or Exit Ready, depending on what you want. Take either free diagnostic first, or go straight to the Readiness Call.",
+    links: [["investor-ready.html","Investor Ready diagnostic"],["diagnostic.html","Exit Ready diagnostic"]] }
+};
+function renderAssessment(){
+  const f = document.getElementById("sa"); if(!f) return;
+  let html = "";
+  STATEMENTS.forEach((s, i) => {
+    html += `<fieldset class="metric" id="metric-q${i}"><legend><h3>${i+1}. ${s.text}</h3></legend><div class="scale">`;
+    SCALE.forEach((lab, j) => { html += `<label><input type="radio" name="q${i}" value="${j+1}"><b>${j+1}</b>${lab}</label>`; });
+    html += `</div><div class="scale-ends"><span>1 = not true of us at all</span><span>5 = completely true of us</span></div></fieldset>`;
+  });
+  f.innerHTML = html;
+}
+function readAnswers(){
+  const out = [], missing = [];
+  STATEMENTS.forEach((s, i) => {
+    const el = document.querySelector(`input[name="q${i}"]:checked`);
+    if(el) out.push(Number(el.value)); else { out.push(null); missing.push(i+1); }
+  });
+  return { answers: out, missing: missing };
+}
+function scoreAssessment(){
+  const err = document.getElementById("sa-err");
+  const r = readAnswers();
+  if(r.missing.length){
+    err.textContent = "Please answer every statement — " + (r.missing.length === 1 ? "statement " + r.missing[0] + " is" : "statements " + r.missing.join(", ") + " are") + " still blank.";
+    err.style.display = "block";
+    const first = document.getElementById("metric-q" + (r.missing[0]-1)); if(first) first.scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+  err.style.display = "none";
+  showResult(computeScores(r.answers));
+}
+function showResult(s){
+  const band = bandFor(s.total);
+  document.getElementById("totalScore").textContent = s.total;
+  const bl = document.getElementById("bandLabel"); bl.textContent = band.name; bl.style.background = band.color;
+  document.getElementById("bandDesc").textContent = band.desc;
+  const rows = [[STREAM_NAME, s.stream], ["Business case", s.caseScore * 20], ["Revenue predictability", s.revenueScore * 20]];
+  document.getElementById("bars").innerHTML = rows.map(r => `<div class="barlabel"><span>${r[0]}</span><b>${r[1]}%</b></div><div class="bar"><i style="width:${r[1]}%;background:${bandFor(r[1]).color}"></i></div>`).join("");
+  const key = routeFor(s), route = ROUTES[key];
+  document.getElementById("route").innerHTML = `<h3>${route.title}</h3><p>${route.text}</p><p class="links">${route.links.map(l => `<a href="${l[0]}">${l[1]} →</a>`).join(" &nbsp;·&nbsp; ")}</p>`;
+  document.querySelectorAll("a.cta").forEach(a => setBooking(a, { assessment: ASSESSMENT, score: s.total, band: band.name }));
+  const res = document.getElementById("results"); res.style.display = "block"; res.scrollIntoView({behavior:"smooth", block:"start"});
+}
+renderAssessment();
+
+/* Browser-console test harness: runTests() */
+function runTests(){
+  const results = [];
+  function t(name, pass){ results.push({test:name, pass:!!pass}); }
+  const streamIdx = STATEMENTS.map((s,i) => s.kind === "stream" ? i : -1).filter(i => i >= 0);
+  const caseIdx = STATEMENTS.findIndex(s => s.kind === "case"), revIdx = STATEMENTS.findIndex(s => s.kind === "revenue");
+  function build(streamV, caseV, revV){ const a = new Array(STATEMENTS.length).fill(streamV); a[caseIdx] = caseV; a[revIdx] = revV; return a; }
+  t("8 statements", STATEMENTS.length === 8);
+  t("6 stream + 1 business case + 1 revenue", streamIdx.length === 6 && caseIdx >= 0 && revIdx >= 0 && caseIdx !== revIdx);
+  t("five-point scale with plain-English ends", SCALE.length === 5 && SCALE[0] === "Not at all" && SCALE[4] === "Completely");
+  t("all 1s -> 20% (minimum)", computeScores(new Array(8).fill(1)).total === 20);
+  t("all 3s -> 60%", computeScores(new Array(8).fill(3)).total === 60);
+  t("all 5s -> 100% (maximum)", computeScores(new Array(8).fill(5)).total === 100);
+  t("stream score is the six stream statements only", computeScores(build(5,1,1)).stream === 100 && computeScores(build(1,5,5)).stream === 20);
+  t("band 100 = Strong", bandFor(100).name === "Strong");
+  t("band 80 = Strong (inclusive)", bandFor(80).name === "Strong");
+  t("band 79 = Building", bandFor(79).name === "Building");
+  t("band 60 = Building (inclusive)", bandFor(60).name === "Building");
+  t("band 59 = Emerging", bandFor(59).name === "Emerging");
+  t("band 40 = Emerging (inclusive)", bandFor(40).name === "Emerging");
+  t("band 39 = At risk", bandFor(39).name === "At risk");
+  t("band 20 = At risk (floor)", bandFor(20).name === "At risk");
+  t("every band has a name, colour and description", BANDS.every(b => b.name && b.color && b.desc));
+  t("strong on everything -> Readiness Call", routeFor(computeScores(build(5,5,5))) === "call");
+  t("stream exactly 80% with case held -> Readiness Call", routeFor(computeScores(build(4,4,4))) === "call");
+  t("business case holds at 3 and stream strong -> Readiness Call", routeFor(computeScores(build(5,3,3))) === "call");
+  t("strong case and revenue, weak stream -> programme", routeFor(computeScores(build(2,5,5))) === "programme");
+  t("stream just under 80% -> programme", (() => { const a = build(4,5,5); a[streamIdx[0]] = 3; return routeFor(computeScores(a)) === "programme"; })());
+  t("weak business case -> Finance Advisory whatever the stream", routeFor(computeScores(build(5,1,5))) === "finance" && routeFor(computeScores(build(5,2,5))) === "finance");
+  t("weak revenue -> Finance Advisory whatever the stream", routeFor(computeScores(build(5,5,1))) === "finance" && routeFor(computeScores(build(5,5,2))) === "finance");
+  t("weak everything -> Finance Advisory", routeFor(computeScores(new Array(8).fill(1))) === "finance");
+  t("every route has a title, text and at least one link", ["programme","finance","call"].every(k => ROUTES[k].title && ROUTES[k].text && ROUTES[k].links.length > 0));
+  t("finance route links to Finance Advisory (or, on that page, to the roadmap)", ASSESSMENT === "FA" ? ROUTES.finance.links.some(l => l[0] === "roadmap.html") : ROUTES.finance.links.some(l => l[0] === "sourcing.html"));
+  t("call route links to both free diagnostics", ROUTES.call.links.some(l => l[0] === "investor-ready.html") && ROUTES.call.links.some(l => l[0] === "diagnostic.html"));
+  t("no route names an individual", ["programme","finance","call"].every(k => !/David|Jacob|Marcus|\bT\b/.test(ROUTES[k].title + ROUTES[k].text)));
+  t("BOOKING_URL set", typeof BOOKING_URL === "string" && BOOKING_URL.length > 0);
+  t("assessment code is " + ASSESSMENT, ASSESSMENT === "PR");
+  const link = bookingUrl({ assessment: ASSESSMENT, score: 72, band: "Building" }, "?utm_source=LinkedIn%20Paid");
+  t("booking link preserves the base BOOKING_URL", link.indexOf(BOOKING_URL + "?") === 0);
+  t("booking link carries fr_assessment=" + ASSESSMENT, link.indexOf("fr_assessment=" + ASSESSMENT) > -1);
+  t("booking link carries the integer score", link.indexOf("fr_score=72") > -1);
+  t("booking link carries the band", link.indexOf("fr_band=Building") > -1);
+  t("booking link carries the encoded campaign source", link.indexOf("fr_source=LinkedIn%20Paid") > -1);
+  t("At risk band encodes its space", bookingUrl({ assessment: ASSESSMENT, score: 20, band: "At risk" }, "").indexOf("fr_band=At%20risk") > -1);
+  t("no unencoded spaces survive into the booking link", /^[^ ]+$/.test(link));
+  t("a link with no score omits fr_score and fr_band", (() => { const b = bookingUrl(null, ""); return b.indexOf("fr_score=") === -1 && b.indexOf("fr_band=") === -1 && b.indexOf("fr_assessment=") === -1; })());
+  t("missing source defaults to Founder Readiness Direct", frSource("") === "Founder Readiness Direct");
+  t("an unrecognised source maps to Other", frSource("?utm_source=wombat") === "Other");
+  t("results start hidden", document.getElementById("results").style.display !== "block");
+  t("form renders 8 fieldsets with 5 radios each", document.querySelectorAll("#sa fieldset").length === 8 && document.querySelectorAll("#sa input[type=radio]").length === 40);
+  t("no lead gate and no sign-up on this page", !document.getElementById("ld-consent") && !document.getElementById("ld-email") && typeof window.skipLead === "undefined");
+  t("nothing written to browser storage", (() => { try { return localStorage.length === 0 && sessionStorage.length === 0; } catch(e) { return true; } })());
+  const passed = results.filter(r => r.pass).length;
+  console.table(results);
+  console.log(`${passed}/${results.length} tests passed`);
+  return passed === results.length;
+}
+window.runTests = runTests;</script>
 </body>
 </html>

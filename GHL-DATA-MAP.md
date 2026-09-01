@@ -69,6 +69,54 @@ existing scoring; only the names are new:
 Per your instruction, the Funded Female Founders module has **no** band model
 and creates no band tags.
 
+### Proposed: four stream self-assessments — awaiting your confirmation
+
+The six-door front door adds a free, ungated eight-statement self-assessment
+to each of the four stream pages that do not already carry a diagnostic. Each
+scores 1–5 per statement, reports a percentage of the maximum, and shares one
+band model. These codes and band names are **our proposal**; nothing is
+final until you confirm them.
+
+| Page | Proposed `fr_assessment` | Stream |
+|---|---|---|
+| `pitch.html` | `PI` | Pitch |
+| `product.html` | `PR` | Product |
+| `publish.html` | `PU` | Publish |
+| `sourcing.html` | `FA` | Insourcing — Finance Advisory |
+
+Shared bands (identical on all four):
+
+| Score | Band name |
+|---|---|
+| 80+ | Strong |
+| 60–79 | Building |
+| 40–59 | Emerging |
+| below 40 | At risk |
+
+Each page's eight statements are six that measure the stream itself plus two
+that are the same on every page: the business case ("We have a clear, written
+business case that a stranger could follow") and revenue predictability
+("Our revenue is predictable enough to forecast the next twelve months with
+confidence"). Those two drive the routing shown on the result; the routing
+itself is **not** sent in the link — you can derive it from the assessment,
+score and band, or tell us to add an `fr_route` parameter.
+
+**Routing rules, as set by Madeleine**, and the internal owner of each
+outcome. Owners are named here only; the public page names the service,
+never the person.
+
+| Outcome | Rule (as coded) | Service shown on the page | Internal owner |
+|---|---|---|---|
+| Founder needs an M&A deal or a raise | Investor Ready diagnostic (`IR`) | Investor Ready | David |
+| Founder is ready to sell | Exit Ready — Multiplier Diagnostic, then `RD` | Exit Ready | David |
+| Clear business case and revenue, weak stream | business case ≥ 3 **and** revenue ≥ 3, stream score below 80 | the Pitch and Publish programme (on `pitch`, `product`, `publish`); Finance Advisory (on `sourcing`) | Jacob and T (Pitch and Publish); Marcus and the insourced finance function (`sourcing`) |
+| No accounting function, no sales pipeline | business case ≤ 2 **or** revenue ≤ 2, whatever the page and whatever the stream score | Finance Advisory and sales pipeline support (`sourcing.html`) | Marcus and the insourced finance function |
+| Strong on everything | business case ≥ 3 **and** revenue ≥ 3, stream score 80+ | Readiness Call, with Investor Ready or Exit Ready as the likely next step | David |
+
+The four pages remain free and ungated: no name, no email, no consent box,
+nothing written to Supabase or to browser storage. The only thing that leaves
+the page is the booking link below, and only if the founder clicks it.
+
 ---
 
 ## 2. What the booking link carries
@@ -83,7 +131,7 @@ Parameters are appended to it, all values URL-encoded:
 
 | Parameter | Value | Sent from |
 |---|---|---|
-| `fr_assessment` | `RD`, `IR` or `FFF` | the assessment pages |
+| `fr_assessment` | `RD`, `IR` or `FFF` — plus the proposed `PI`, `PR`, `PU`, `FA` | the assessment pages |
 | `fr_score` | integer percentage, `0`–`100` | scored assessments only |
 | `fr_band` | the exact band name string | scored assessments only |
 | `fr_source` | one controlled source value (below) | every booking link |
@@ -96,17 +144,25 @@ Which page sends what:
 | `investor-ready.html` | `IR` | yes | the three IR bands |
 | `funding.html` | `FFF` | no | no |
 | `diagnostic.html` | *(none — pending a code)* | no | no |
+| `pitch.html` | `PI` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `product.html` | `PR` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `publish.html` | `PU` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `sourcing.html` | `FA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | all other pages with a booking CTA | *(none)* | no | no |
 
-`fr_source` is always present. `fr_assessment` appears only on the three
-assessment modules. `fr_score` and `fr_band` are **omitted entirely** where
-there is no score — they are never sent empty.
+`fr_source` is always present. `fr_assessment` appears only on the assessment
+modules. `fr_score` and `fr_band` are **omitted entirely** where there is no
+score — they are never sent empty. On the four stream pages the booking link
+sends `fr_source` only until the founder scores the self-assessment; after
+that the assessment, score and band are added.
 
 Worked examples:
 
 ```
 …/Av6i7gL0YzbszYFfnKqQ?fr_assessment=RD&fr_score=76&fr_band=Readiness%20Project%20Candidate&fr_source=Investor%20Network
 …/Av6i7gL0YzbszYFfnKqQ?fr_assessment=IR&fr_score=72&fr_band=Almost%20Ready&fr_source=LinkedIn%20Paid
+…/Av6i7gL0YzbszYFfnKqQ?fr_assessment=PI&fr_score=65&fr_band=Building&fr_source=Website%20Organic
+…/Av6i7gL0YzbszYFfnKqQ?fr_assessment=FA&fr_score=35&fr_band=At%20risk&fr_source=Referral
 …/Av6i7gL0YzbszYFfnKqQ?fr_assessment=FFF&fr_source=Referral
 …/Av6i7gL0YzbszYFfnKqQ?fr_source=Founder%20Readiness%20Direct
 ```
