@@ -68,6 +68,37 @@ button.cta:hover{background:#8A3E06;}
 .route .links{margin-top:0.6rem;font-size:0.85rem;}
 .tag-free{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;padding:0.25rem 0.6rem;border-radius:99px;background:#DCFCE7;color:#15803D;vertical-align:middle;margin-left:0.6rem;}
 @media(max-width:600px){.big{font-size:2rem}}
+ol.stream-steps li.here{background:var(--navy);border-color:var(--navy);color:#fff;}
+ol.stream-steps li.here em{color:#CBD5E1;}
+.rep h3{font-family:Georgia,serif;font-size:1.05rem;color:var(--navy);margin:1.2rem 0 0.4rem;}
+.rep .kicker{display:block;margin-bottom:0.3rem;}
+.rows{display:grid;gap:0.45rem;margin-top:0.6rem;}
+.row{display:grid;grid-template-columns:1.7rem 1fr 4.5rem;gap:0.6rem;align-items:center;font-size:0.84rem;color:#334155;}
+.row .n{color:var(--slate);font-weight:700;text-align:center;border-radius:99px;}
+.row.weak{color:var(--navy);font-weight:600;}
+.row.weak .n{background:var(--accent);color:#fff;}
+.row .bar{margin:0.3rem 0 0;}
+.row .v{text-align:right;font-size:0.8rem;color:var(--slate);}
+.row .v b{color:var(--navy);}
+.target{font-family:Georgia,serif;font-size:1.05rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
+.lever{border-left:4px solid var(--navy);background:#fff;padding:0.7rem 1rem;margin:0.6rem 0;font-size:0.88rem;color:#334155;border-radius:0 6px 6px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+.lever b{color:var(--navy);display:block;}
+.tools{display:flex;gap:0.6rem;flex-wrap:wrap;align-items:center;margin-top:1rem;}
+button.ghost{background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:4px;padding:0.6rem 1.1rem;font-size:0.88rem;font-weight:600;cursor:pointer;}
+button.ghost:hover{border-color:var(--navy);}
+#copyMsg{font-size:0.82rem;color:#15803D;font-weight:600;}
+.rep-print-head{display:none;}
+@media print{
+  @page{size:A4;margin:15mm;}
+  body{background:#fff;color:#000;}
+  header,footer,nav,#sa,#sa-err,button,.tools,.no-print,a.cta{display:none!important;}
+  main>*:not(#results){display:none!important;}
+  main{max-width:none;padding:0;}
+  #results{display:block!important;border-top:none;margin-top:0;padding-top:0;}
+  .rep-print-head{display:block!important;font-size:0.8rem;color:#475569;border-bottom:1px solid #999;padding-bottom:0.4rem;margin-bottom:1rem;}
+  .scorebox{break-inside:avoid;page-break-inside:avoid;border-color:#999;}
+  .bar i,.band,.row.weak .n{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
 </style>
 </head>
 <body>
@@ -141,17 +172,36 @@ button.cta:hover{background:#8A3E06;}
 <p id="sa-err" class="inline-err" role="alert" style="display:none;"></p>
 <button class="cta" type="button" onclick="scoreAssessment()">Score my pitch</button>
 <section id="results" aria-live="polite">
-  <span class="kicker">Your result</span>
-  <div class="scorebox">
+  <p class="rep-print-head">Add Then Multiply · Pitch self-assessment report · addthenmultiply.com</p>
+  <span class="kicker">Your report</span>
+  <div class="scorebox rep" id="rep-score">
+    <span class="kicker">1 · Your score</span>
     <span class="big" id="totalScore">–</span><span style="color:var(--slate)">%</span><span class="band" id="bandLabel"></span>
     <p id="bandDesc" style="font-size:0.9rem;color:#334155;margin-top:0.6rem;"></p>
     <div id="bars"></div>
+    <h3>Statement by statement</h3>
+    <p style="font-size:0.82rem;color:var(--slate);">Your three lowest-scoring statements are marked. Where statements tie, the earlier one is taken first.</p>
+    <div class="rows" id="rows"></div>
   </div>
-  <div class="scorebox">
+  <div class="scorebox rep" id="rep-target">
+    <span class="kicker">2 · The line to your target</span>
+    <p class="target" id="targetLine"></p>
+    <p style="font-size:0.85rem;color:#334155;" id="targetNote"></p>
+    <div id="levers"></div>
+  </div>
+  <div class="scorebox rep" id="rep-plan">
+    <span class="kicker">3 · Suggested engagement plan</span>
     <div class="route" id="route"></div>
+    <ol class="stream-steps" id="planSteps" style="margin-top:1rem;"></ol>
+    <p id="planNote" style="font-size:0.85rem;color:#334155;margin-top:0.8rem;"></p>
     <p style="margin-top:1.2rem;"><a id="bookBtn" class="cta" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener" style="margin-top:0;">Book a Readiness Call →</a></p>
+    <div class="tools no-print">
+      <button type="button" class="ghost" onclick="printReport()">Print or save this report</button>
+      <button type="button" class="ghost" onclick="copySummary()">Copy summary</button>
+      <span id="copyMsg" role="status" aria-live="polite"></span>
+    </div>
   </div>
-  <p style="font-size:0.78rem;color:var(--slate);">Your answers were scored in your browser and are not stored anywhere. If you book a Readiness Call from this page, your score and band travel with the booking link so the right advisor takes the call. This self-assessment indicates readiness only and is not financial or investment advice.</p>
+  <p style="font-size:0.78rem;color:var(--slate);">This report was generated in your browser from your answers and is not stored anywhere. If you book a Readiness Call from this page, your score and band travel with the booking link so the right advisor takes the call. It indicates readiness only: it is not financial or investment advice and not a financial promotion, and any investor introductions happen exclusively through ATM's authorised transaction partner.</p>
 </section>
 
 <h2>Book a Readiness Call</h2>
@@ -271,18 +321,75 @@ function scoreAssessment(){
     return;
   }
   err.style.display = "none";
-  showResult(computeScores(r.answers));
+  showResult(computeScores(r.answers), r.answers);
 }
-function showResult(s){
-  const band = bandFor(s.total);
+/* ---- Written report: per-statement breakdown, line to target, plan ------ */
+const ACTIONS = ["Write the one-line version — the sentence an investor repeats to a partner when you are not there — and have three people say it back to you after hearing it once.", "Build the ninety-second version, then have a colleague deliver it, then someone who joined last month. Fix whatever they could not say.", "Put the origin story into the investor and buyer narratives: why you are the right people for this, told so it supports the position you take in the market.", "Reconcile the investor narrative line by line to the financial model, so the growth story and the use of funds say what the numbers say.", "Rehearse the ninety-second version against your own diagnostic numbers until the first conversation earns the second, and count how many do.", "Stress-test the buyer narrative against a mock buyer's questions and your data room, then change it in response, before a real buyer asks.", "Write the business case down in the form a stranger could follow — what you do, for whom, why it wins, what happens next. It becomes the deck outline.", "Get a rolling twelve-month forecast in place before you pitch it. The Finance Advisory stream starts with a Financial Deep Dive that builds one."];
+const PLAN = {"programme": [2, "the Pitch and Publish programme", "The Pitch and Publish programme is a 90-day sprint that runs alongside your Personalised Roadmap: the roadmap sequences the levers above, the sprint builds them, and the result lands in the Readiness Project when the business goes to market. Scope and fee are agreed on the Readiness Call."], "finance": [3, "Finance Advisory", "Finance Advisory starts with a Financial Deep Dive, then an insourced CFO or finance function and sales pipeline support, embedded on a 90-day sprint. Your entry point is Insourcing; the roadmap and the Pitch work follow once the numbers hold up. Scope and fee are agreed on the Readiness Call."], "call": [1, "Investor Ready or Exit Ready", "Your next step is one of the two free diagnostics — Investor Ready if you are raising, Exit Ready if you are selling — followed by the Personalised Roadmap. Book the Readiness Call and we will tell you which. Scope and fee for anything beyond the diagnostic are agreed on the call."]};
+const STEPS = [["diagnostic.html","01 · Diagnostic","Free · Investor Ready or Exit Ready"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
+let lastReport = null;
+function weakest(answers){
+  return answers.map((a, i) => ({a: Number(a), i: i})).sort((x, y) => (x.a - y.a) || (x.i - y.i)).slice(0, 3).map(x => x.i);
+}
+function targetFor(total){
+  const idx = BANDS.findIndex(b => total >= b.min);
+  const target = idx > 0 ? BANDS[idx - 1] : BANDS[0];
+  const points = Math.max(0, target.min - total);
+  return { band: target, points: points, already: idx === 0 };
+}
+function planFor(key){ const p = PLAN[key]; return { entry: p[0], name: p[1], note: p[2] }; }
+function buildSummary(r){
+  const lines = [];
+  lines.push("Add Then Multiply — " + STREAM_NAME + " self-assessment");
+  lines.push("Score: " + r.scores.total + "% — " + r.band.name);
+  lines.push(r.target.already ? "Target: " + r.target.band.name + " — you are there; the job is to hold it." : "Target: " + r.target.band.name + " — " + r.target.points + " points to go.");
+  lines.push("Your three levers:");
+  r.levers.forEach((i, n) => lines.push((n + 1) + ". " + STATEMENTS[i].text + " (you scored " + r.answers[i] + "/5) — " + ACTIONS[i]));
+  lines.push("Next step: " + r.plan.name + ". Scope and fee are agreed on the Readiness Call.");
+  return lines.join("\n");
+}
+function printReport(){ try { window.print(); } catch(e) {} }
+function copySummary(){
+  const msg = document.getElementById("copyMsg");
+  if(!lastReport){ msg.textContent = "Score the assessment first."; return; }
+  const text = buildSummary(lastReport);
+  const done = () => { msg.textContent = "Summary copied to your clipboard."; setTimeout(() => { msg.textContent = ""; }, 4000); };
+  const fail = () => { msg.textContent = "Copy did not work in this browser — select the report and copy it instead."; };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, fail); return; }
+    const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); const ok = document.execCommand("copy"); document.body.removeChild(ta); ok ? done() : fail();
+  }catch(e){ fail(); }
+}
+function renderReport(s, answers){
+  const band = bandFor(s.total), levers = weakest(answers), target = targetFor(s.total), key = routeFor(s), plan = planFor(key), route = ROUTES[key];
+  lastReport = { scores: s, answers: answers, band: band, levers: levers, target: target, plan: plan, routeKey: key };
   document.getElementById("totalScore").textContent = s.total;
   const bl = document.getElementById("bandLabel"); bl.textContent = band.name; bl.style.background = band.color;
   document.getElementById("bandDesc").textContent = band.desc;
   const rows = [[STREAM_NAME, s.stream], ["Business case", s.caseScore * 20], ["Revenue predictability", s.revenueScore * 20]];
   document.getElementById("bars").innerHTML = rows.map(r => `<div class="barlabel"><span>${r[0]}</span><b>${r[1]}%</b></div><div class="bar"><i style="width:${r[1]}%;background:${bandFor(r[1]).color}"></i></div>`).join("");
-  const key = routeFor(s), route = ROUTES[key];
+  document.getElementById("rows").innerHTML = STATEMENTS.map((st, i) => {
+    const v = Number(answers[i]), weak = levers.indexOf(i) > -1;
+    return `<div class="row${weak ? " weak" : ""}"><span class="n">${i + 1}</span><span>${st.text}<div class="bar"><i style="width:${v * 20}%;background:${bandFor(v * 20).color}"></i></div></span><span class="v"><b>${v}</b>/5 · ${SCALE[v - 1]}</span></div>`;
+  }).join("");
+  document.getElementById("targetLine").textContent = target.already
+    ? `You are already ${target.band.name}. The line from here is about holding it.`
+    : `Your target is ${target.band.name}. You need ${target.points} more point${target.points === 1 ? "" : "s"} to get there.`;
+  document.getElementById("targetNote").textContent = target.already
+    ? "Even at Strong, the three statements below are the ones most likely to slip. Each comes with the thing we would do first to keep it."
+    : `Each step up the scale on one statement is worth 2.5 points on the whole score, so the three weakest statements below are the levers that close the gap. Each comes with the thing we would do first.`;
+  document.getElementById("levers").innerHTML = levers.map((i, n) => `<div class="lever"><b>Lever ${n + 1} · statement ${i + 1} · you scored ${answers[i]}/5</b>${STATEMENTS[i].text}<br><span style="color:var(--navy);font-weight:600;">What we would do:</span> ${ACTIONS[i]}</div>`).join("");
   document.getElementById("route").innerHTML = `<h3>${route.title}</h3><p>${route.text}</p><p class="links">${route.links.map(l => `<a href="${l[0]}">${l[1]} →</a>`).join(" &nbsp;·&nbsp; ")}</p>`;
+  document.getElementById("planSteps").innerHTML = STEPS.map((st, i) => i + 1 === plan.entry
+    ? `<li class="here">${st[1]}<em>Your entry point</em></li>`
+    : `<li><a href="${st[0]}">${st[1]}<em>${st[2]}</em></a></li>`).join("");
+  document.getElementById("planNote").textContent = plan.note;
+  document.getElementById("copyMsg").textContent = "";
   document.querySelectorAll("a.cta").forEach(a => setBooking(a, { assessment: ASSESSMENT, score: s.total, band: band.name }));
+}
+function showResult(s, answers){
+  renderReport(s, answers);
   const res = document.getElementById("results"); res.style.display = "block"; res.scrollIntoView({behavior:"smooth", block:"start"});
 }
 renderAssessment();
@@ -339,6 +446,39 @@ function runTests(){
   t("form renders 8 fieldsets with 5 radios each", document.querySelectorAll("#sa fieldset").length === 8 && document.querySelectorAll("#sa input[type=radio]").length === 40);
   t("no lead gate and no sign-up on this page", !document.getElementById("ld-consent") && !document.getElementById("ld-email") && typeof window.skipLead === "undefined");
   t("nothing written to browser storage", (() => { try { return localStorage.length === 0 && sessionStorage.length === 0; } catch(e) { return true; } })());
+  // ---- Written report
+  t("one concrete action per statement", ACTIONS.length === 8 && ACTIONS.every(a => typeof a === "string" && a.length > 60));
+  t("actions carry no percentages, currency or return figures", ACTIONS.concat(Object.values(PLAN).map(p => p[2]), Object.values(ROUTES).map(r => r.text)).every(x => !/\d\s?%|£|\$|\breturn(s)? of\b|\bvaluation of\b|\d+x\b/i.test(x)));
+  t("weakest three: lowest scores selected", JSON.stringify(weakest([5,5,1,5,2,5,3,5])) === "[2,4,6]");
+  t("weakest three: ties resolved by statement order", JSON.stringify(weakest([2,2,2,2,5,5,5,5])) === "[0,1,2]");
+  t("weakest three: all-equal answers keep the first three", JSON.stringify(weakest(new Array(8).fill(4))) === "[0,1,2]");
+  t("weakest three: a later low score outranks an earlier high one", JSON.stringify(weakest([5,4,5,5,5,5,5,1])) === "[7,1,0]");
+  t("target at 20 = Emerging, 20 points", targetFor(20).band.name === "Emerging" && targetFor(20).points === 20 && !targetFor(20).already);
+  t("target at 39 = Emerging, 1 point", targetFor(39).band.name === "Emerging" && targetFor(39).points === 1);
+  t("target at 40 = Building, 20 points", targetFor(40).band.name === "Building" && targetFor(40).points === 20);
+  t("target at 59 = Building, 1 point", targetFor(59).band.name === "Building" && targetFor(59).points === 1);
+  t("target at 60 = Strong, 20 points", targetFor(60).band.name === "Strong" && targetFor(60).points === 20);
+  t("target at 79 = Strong, 1 point", targetFor(79).band.name === "Strong" && targetFor(79).points === 1);
+  t("target at 80 = already Strong, 0 points", targetFor(80).band.name === "Strong" && targetFor(80).points === 0 && targetFor(80).already);
+  t("target at 100 = already Strong, 0 points", targetFor(100).points === 0 && targetFor(100).already);
+  t("plan for the programme route names " + PLAN.programme[1], planFor("programme").name === ROUTES.programme.title.replace(/^Where this points: /, "") && planFor("programme").entry === 2);
+  t("plan for the finance route names Finance Advisory at step 03", planFor("finance").name === "Finance Advisory" && planFor("finance").entry === 3);
+  t("plan for the call route names the two diagnostics at step 01", /Investor Ready/.test(planFor("call").name) && /Exit Ready/.test(planFor("call").name) && planFor("call").entry === 1);
+  t("every plan note mentions the Readiness Call and states no price", Object.values(PLAN).every(p => /Readiness Call/.test(p[2]) && !/£|\d\s?%/.test(p[2])));
+  t("programme and finance plans use the 90-day sprint framing", /90-day/.test(PLAN.programme[2]) && /90-day/.test(PLAN.finance[2]));
+  t("summary carries score, band, target, three levers and next step", (() => {
+    const a = build(2,5,5), s = computeScores(a), lv = weakest(a);
+    const txt = buildSummary({ scores: s, answers: a, band: bandFor(s.total), levers: lv, target: targetFor(s.total), plan: planFor(routeFor(s)) });
+    return txt.indexOf("Score: " + s.total + "%") > -1 && txt.indexOf(bandFor(s.total).name) > -1 && txt.indexOf("Target: ") > -1 && /\n1\. /.test(txt) && /\n2\. /.test(txt) && /\n3\. /.test(txt) && txt.indexOf("Next step: " + planFor(routeFor(s)).name) > -1;
+  })());
+  t("report sections, print and copy controls exist", ["rep-score","rep-target","rep-plan","rows","levers","planSteps","planNote","copyMsg"].every(id => document.getElementById(id)) && document.querySelector('button[onclick="printReport()"]') && document.querySelector('button[onclick="copySummary()"]'));
+  t("a print stylesheet hides the questionnaire and nav", (() => { try { return [...document.styleSheets].some(ss => [...ss.cssRules].some(r => r.media && /print/.test(r.media.mediaText) && /#sa|header/.test(r.cssText))); } catch(e) { return false; } })());
+  t("rendered report marks exactly three weak rows, highlights the entry step and fills the levers", (() => {
+    const res = document.getElementById("results"), was = res.style.display;
+    const a = build(2,5,5); renderReport(computeScores(a), a);
+    const ok = document.querySelectorAll("#rows .row").length === 8 && document.querySelectorAll("#rows .row.weak").length === 3 && document.querySelectorAll("#levers .lever").length === 3 && document.querySelectorAll("#planSteps li.here").length === 1 && document.getElementById("bookBtn").href.indexOf("fr_assessment=" + ASSESSMENT) > -1;
+    res.style.display = was; lastReport = null; return ok;
+  })());
   const passed = results.filter(r => r.pass).length;
   console.table(results);
   console.log(`${passed}/${results.length} tests passed`);
