@@ -45,10 +45,21 @@ h2{font-family:Georgia,serif;font-size:1.5rem;color:var(--navy);margin:0.3rem 0 
 section{margin-top:3rem;}
 .quote{font-family:Georgia,serif;font-size:1.15rem;color:var(--navy);border-left:4px solid var(--navy);padding-left:1.2rem;margin:1.5rem 0;max-width:60ch;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
-.fork{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.fork a{transition:transform 0.15s;}
-.fork a:hover{transform:translateY(-2px);}
-@media(max-width:700px){.duo,.face,.fork{grid-template-columns:1fr}.hero h1{font-size:1.7rem}.tier{grid-template-columns:auto 1fr}.tier .tag{grid-column:2}}
+.hero .lead-in{color:#fff;font-family:Georgia,serif;font-size:1.15rem;margin:0 auto;max-width:44ch;}
+.hero .lead-in a{color:#fff;border-bottom:1px solid #94A3B8;}
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;margin:1.4rem 0 0.6rem;}
+.door{display:flex;flex-direction:column;gap:0.45rem;background:#fff;border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:6px;padding:1.2rem 1.3rem 1.3rem;color:var(--ink);transition:transform 0.15s,border-color 0.15s;}
+.door:hover{transform:translateY(-2px);border-color:var(--navy);}
+.door .top{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;}
+.door .lens{font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate);}
+.door h3{font-family:Georgia,serif;font-size:1.15rem;color:var(--navy);font-weight:700;line-height:1.3;}
+.door p{font-size:0.86rem;color:var(--slate);}
+.door .go{margin-top:auto;font-size:0.82rem;font-weight:600;color:var(--accent);}
+.pairing{font-size:0.9rem;color:#334155;max-width:70ch;margin-top:1.2rem;}
+.face a{display:block;background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.1rem;text-align:center;color:var(--ink);transition:transform 0.15s,border-color 0.15s;}
+.face a:hover{transform:translateY(-2px);border-color:var(--navy);}
+.face a em{display:block;font-style:normal;font-size:0.74rem;font-weight:600;color:var(--accent);margin-top:0.5rem;}
+@media(max-width:700px){.duo,.face,.doors{grid-template-columns:1fr}.hero h1{font-size:1.7rem}.tier{grid-template-columns:auto 1fr}.tier .tag{grid-column:2}}
 </style>
 </head>
 <body>
@@ -56,38 +67,73 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   <span class="brand">ADD THEN <span style="color:#F38E00">MULTIPLY</span></span>
   <nav>
     <a href="index.html" class="active">Overview</a>
-    <a href="deal-ready.html">Grow by Acquiring</a>
-    <a href="diagnostic.html">Diagnostic</a>
-    <a href="roadmap.html">Roadmap</a>
-    <a href="sourcing.html">Sourcing</a>
-    <a href="readiness-project.html">Readiness Projects</a>
-    <a href="funding.html">Funding</a>
+    <a href="investor-ready.html">Investor Ready</a>
+    <a href="diagnostic.html">Exit Ready</a>
+    <a href="pitch.html">Pitch</a>
+    <a href="product.html">Product</a>
+    <a href="publish.html">Publish</a>
+    <a href="sourcing.html">Finance Advisory</a>
     <a href="investors.html">Investors</a>
-    <a href="founders.html">Founders</a>
   </nav>
 </header>
 <div class="hero">
   <span class="kicker">Founder readiness · built on the FACE methodology</span>
   <h1>Arrive at the table prepared. Leave it with the outcome you wanted.</h1>
   <p>Every good engagement starts with one question — the same one we'll ask you: <b style="color:#fff;">what do you want?</b> Founders who can answer it, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared.</p>
-  <div class="fork" style="max-width:720px;margin:0 auto;text-align:left;">
-    <a href="deal-ready.html" style="display:block;background:#fff;border-radius:6px;padding:1.3rem 1.4rem;color:var(--ink);">
-      <b style="color:var(--navy);font-family:Georgia,serif;font-size:1.05rem;">I want to grow by acquiring →</b>
-      <span style="display:block;font-size:0.85rem;color:var(--slate);margin-top:0.3rem;">Buy the right company, funded the right way, integrated from day one.</span></a>
-    <a href="diagnostic.html" style="display:block;background:#fff;border-radius:6px;padding:1.3rem 1.4rem;color:var(--ink);">
-      <b style="color:var(--navy);font-family:Georgia,serif;font-size:1.05rem;">I'm preparing my exit →</b>
-      <span style="display:block;font-size:0.85rem;color:var(--slate);margin-top:0.3rem;">Exit on your terms, with the right investors at the table. Starts with the free diagnostic — ten minutes, scored in your browser.</span></a>
-  </div>
+  <p class="lead-in">Whatever your answer, there is a door for it below — <a href="#doors">six ways in, one process</a>.</p>
   <p style="margin-top:1.6rem;font-size:0.85rem;"><a class="ghost" style="margin-left:0;" href="readiness-project.html">How we work</a></p>
 </div>
 <main>
+  <section id="doors" style="margin-top:0;">
+    <span class="kicker">Six ways in. One process.</span>
+    <h2>Start where the pressure is</h2>
+    <div class="doors">
+      <a class="door" href="investor-ready.html">
+        <span class="top"><span class="lens">Fund</span><span class="tag free">FREE</span></span>
+        <h3>Investor Ready</h3>
+        <p>Find out, in minutes, whether an investor would back you today — and what to fix before you ask.</p>
+        <span class="go">Take the free diagnostic →</span>
+      </a>
+      <a class="door" href="diagnostic.html">
+        <span class="top"><span class="lens">Exit</span><span class="tag free">FREE</span></span>
+        <h3>Exit Ready</h3>
+        <p>An exit is a life event. Score how ready the business is to deliver the one you actually want.</p>
+        <span class="go">Take the free diagnostic →</span>
+      </a>
+      <a class="door" href="pitch.html">
+        <span class="top"><span class="lens">Pitch</span></span>
+        <h3>Pitch</h3>
+        <p>A story that agrees with the numbers — and that your whole team can tell without you in the room.</p>
+        <span class="go">About the Pitch stream →</span>
+      </a>
+      <a class="door" href="product.html">
+        <span class="top"><span class="lens">Product</span></span>
+        <h3>Product</h3>
+        <p>Turn what only you can do into something the business does without you — and gets paid for again.</p>
+        <span class="go">About the Product stream →</span>
+      </a>
+      <a class="door" href="publish.html">
+        <span class="top"><span class="lens">Publish</span></span>
+        <h3>Publish</h3>
+        <p>Make your expertise visible to the people deciding whether to back you or buy you, before they ask.</p>
+        <span class="go">About the Publish stream →</span>
+      </a>
+      <a class="door" href="sourcing.html">
+        <span class="top"><span class="lens">Consolidate</span></span>
+        <h3>Insourcing — Finance Advisory</h3>
+        <p>A Financial Deep Dive first, then the CFO and finance function embedded in your business — and yours to keep.</p>
+        <span class="go">About Finance Advisory →</span>
+      </a>
+    </div>
+    <p class="pairing">FACE is how a founder-led business is funded, grows by acquisition, consolidates and exits. The Key Person of Influence method, from Daniel Priestley, supplies the influence assets that make a founder fundable and a business sellable: the pitch, the published authority and the productised business. We run the two together, so every door opens on to the same process. <a href="deal-ready.html">Growing by acquiring?</a> That is the A in FACE, and it has a door of its own.</p>
+  </section>
   <section>
     <span class="kicker">The value stream</span>
     <h2>Four steps from where you are to where you want to be</h2>
     <div class="tiers">
       <a class="tier" href="diagnostic.html"><span class="num">01</span><span><h3>Diagnostics</h3><p>The Multiplier Diagnostic — 20 questions across six dimensions of growth, funding and exit readiness — with a deeper 24-metric transaction assessment behind it. Instant and honest.</p></span><span class="tag free">FREE</span></a>
       <a class="tier" href="roadmap.html"><span class="num">02</span><span><h3>Personalised Roadmap</h3><p>Your diagnostic becomes a plan: every gap mapped to milestones, value levers and the outcome you named.</p></span><span class="tag costed">ENGAGEMENT</span></a>
-      <a class="tier" href="sourcing.html"><span class="num">03</span><span><h3>Insource Sourcing</h3><p>The capability to close the gaps — fractional executives, systems and specialist advisors, embedded in your business.</p></span><span class="tag costed">ENGAGEMENT</span></a>
+      <a class="tier" href="sourcing.html"><span class="num">03</span><span><h3>Insourcing — Finance Advisory</h3><p>The capability to close the gaps — a Financial Deep Dive, an insourced CFO or finance function, and the fractional and specialist bench behind them, embedded in your business.</p></span><span class="tag costed">ENGAGEMENT</span></a>
       <a class="tier" href="readiness-project.html"><span class="num">04</span><span><h3>Readiness Project</h3><p>End-to-end advisory taking the business to market — with our transaction partner and investor relationships behind it.</p></span><span class="tag full">FULL ENGAGEMENT</span></a>
     </div>
     <p style="margin-top:1.6rem;"><a href="diagnostic.html" style="display:inline-block;background:var(--navy);color:#fff;padding:0.85rem 1.8rem;border-radius:4px;font-weight:600;">Start at step 01 — the free diagnostic</a></p>
@@ -96,10 +142,10 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <span class="kicker">The methodology</span>
     <h2>FACE: Fund, Acquire, Consolidate, Exit</h2>
     <div class="face">
-      <div><b>F</b><span>Fund — the right capital, from the right people, on the right terms</span></div>
-      <div><b>A</b><span>Acquire — buy-and-build growth done with rigour and chemistry</span></div>
-      <div><b>C</b><span>Consolidate — integration planned from day one, not bolted on</span></div>
-      <div><b>E</b><span>Exit — the outcome, and the life after it, you actually want</span></div>
+      <a href="investor-ready.html"><b>F</b><span>Fund — the right capital, from the right people, on the right terms</span><em>Investor Ready →</em></a>
+      <a href="deal-ready.html"><b>A</b><span>Acquire — buy-and-build growth done with rigour and chemistry</span><em>Grow by Acquiring →</em></a>
+      <a href="sourcing.html"><b>C</b><span>Consolidate — integration planned from day one, not bolted on</span><em>Finance Advisory →</em></a>
+      <a href="diagnostic.html"><b>E</b><span>Exit — the outcome, and the life after it, you actually want</span><em>Exit Ready →</em></a>
     </div>
     <p class="quote">"How small businesses can think like big businesses and achieve exponential growth." — <em>Add Then Multiply</em>, David B Horne</p>
   </section>
@@ -117,6 +163,6 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <p style="max-width:66ch;color:#334155;">The platform scores, tracks, drafts and assembles — so nothing is missed and nothing is slow. But the decisions that matter are made by people: the conversation about what you actually want, the honest advice when a deal is the wrong move, the chemistry between founders, the negotiation. Nothing reaches you without a named advisor's approval.</p>
   </section>
 </main>
-<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="funding.html">Funding resources</a></footer>
+<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
 </body>
 </html>
