@@ -2,7 +2,7 @@
 
 This repo is the **ATM Founder Platform** for addthenmultiply.com: David B Horne's advisory practice (author of *Add Then Multiply* and *Funded Female Founders*). Built by Madeleine Joubert for David. It productises ATM's two advisory service lines so one advisor runs many concurrent founder engagements.
 
-**Core rule of the product:** AI drafts, analyses, tracks and assembles; the human advisor (David) decides, relates and signs off. Nothing customer-facing ships without a named human approval. Encode this in the UX and the database.
+**Core rule of the product:** AI drafts, analyses, tracks and assembles; the human advisor (David) decides, relates and signs off. Nothing customer-facing ships without a named human approval. Encode this in the UX and the database. This is a product quality gate, not a regulatory role: public copy must not describe it as an advisor approving deal flow (see the regulatory position under Hard rules).
 
 ## The platform (four-tier value stream)
 

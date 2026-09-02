@@ -230,7 +230,7 @@ a:hover{text-decoration:underline;}
 
 </div></main>
 <footer><div class="container">Add Then Multiply · Exit Ready Workspace · Private and confidential ·
-Built on the ATM Exit Advisory Process. AI drafts; your advisor decides and signs off.</div></footer>
+Built on the ATM Exit Advisory Process. AI drafts; the ATM lead, acting as an officer of your company, decides and signs off.</div></footer>
 
 <script src="assets/supabase.js"></script>
 <script>
@@ -395,7 +395,7 @@ function renderGate(){
         <button class="gold" onclick="signGate('approved')">Approve &amp; advance</button>
         <button class="ghost" onclick="signGate('needs_work')">Record: needs work</button>
       </div>
-      <div id="gate-msg"></div>` : `<p class="muted">Your advisor approves this gate after the phase review.</p>`}`;
+      <div id="gate-msg"></div>` : `<p class="muted">This gate is signed off after the phase review by the ATM lead, acting as an officer of your company.</p>`}`;
 }
 window.signGate = async (decision)=>{
   const next = eng.phase+1;
