@@ -49,6 +49,15 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 .metric legend{padding:0;display:block;width:100%;}
 .metric{min-width:0;}
 .inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -64,9 +73,9 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </nav>
 </header>
 <main>
-  <span class="kicker">Deep assessment · 24 evidence-based metrics · instant results</span>
-  <h1>The Transaction Readiness Assessment</h1>
-  <p class="lede">This is the deal-grade instrument behind our <a href="diagnostic.html">Multiplier Diagnostic</a>: 24 metrics at the depth a buyer, investor or their advisers would test. Founders who know what they want from an exit, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared. Answer honestly: pick the statement closest to your reality today.</p>
+  <span class="kicker rise">Deep assessment · 24 evidence-based metrics · instant results</span>
+  <h1 class="rise d1">The Transaction Readiness Assessment</h1>
+  <p class="lede rise d2">This is the deal-grade instrument behind our <a href="diagnostic.html">Multiplier Diagnostic</a>: 24 metrics at the depth a buyer, investor or their advisers would test. Founders who know what they want from an exit, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared. Answer honestly: pick the statement closest to your reality today.</p>
   <div class="pillbar">
     <span class="pill"><b>Exit Readiness · 35%</b>Structural cleanliness, legal hygiene, risk</span>
     <span class="pill"><b>Deal Readiness · 40%</b>Financial quality, growth, unit economics</span>

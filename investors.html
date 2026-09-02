@@ -32,6 +32,15 @@ a.cta{display:inline-block;background:var(--navy);color:#fff;padding:0.8rem 1.6r
 .note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:700px){.grid3{grid-template-columns:1fr}h1{font-size:1.5rem}}
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -45,9 +54,9 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 </nav></header>
 <main>
 
-<span class="kicker">The ecosystem · buy-side and growth capital</span>
-<h1>An extensive network of institutional investor relationships</h1>
-<p class="lede">Preparation only pays when it reaches the right people. Behind the platform sits an extensive, curated network of institutional relationships (private equity, growth capital and strategic acquirers) maintained so that ready businesses reach the right conversations quickly.</p>
+<span class="kicker rise">The ecosystem · buy-side and growth capital</span>
+<h1 class="rise d1">An extensive network of institutional investor relationships</h1>
+<p class="lede rise d2">Preparation only pays when it reaches the right people. Behind the platform sits an extensive, curated network of institutional relationships (private equity, growth capital and strategic acquirers) maintained so that ready businesses reach the right conversations quickly.</p>
 <h2>How the relationships break down</h2>
 <div class="grid3">
 <div class="card"><h3>Private equity &amp; buyout</h3><p>Majority and buyout investors focused on established, profitable founder-led businesses.</p></div>

@@ -43,6 +43,15 @@ ol.stream-steps li.here em{color:#CBD5E1;}
 @media(max-width:700px){ol.stream-steps{grid-template-columns:1fr 1fr;}}
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;}
 .tablewrap table{min-width:34rem;margin:0;}
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -56,9 +65,9 @@ ol.stream-steps li.here em{color:#CBD5E1;}
 </nav></header>
 <main>
 
-<span class="kicker">Step 02 · From diagnostic to plan</span>
-<h1>Your gaps, reverse-engineered into a roadmap</h1>
-<p class="lede">Once we understand your personal and financial goals, we assess the business as it stands and reverse-engineer what needs to be true for your target to be achievable. The result is a clear picture of the gap between current reality and a ready state, and a plan that closes it.</p>
+<span class="kicker rise">Step 02 · From diagnostic to plan</span>
+<h1 class="rise d1">Your gaps, reverse-engineered into a roadmap</h1>
+<p class="lede rise d2">Once we understand your personal and financial goals, we assess the business as it stands and reverse-engineer what needs to be true for your target to be achievable. The result is a clear picture of the gap between current reality and a ready state, and a plan that closes it.</p>
 <h2>What the engagement produces</h2>
 <div class="grid3">
 <div class="card"><h3>Readiness Audit Report</h3><p>A quantified baseline: your valuation drivers, the discount factors a buyer or investor would apply today, and why.</p></div>

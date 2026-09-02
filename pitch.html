@@ -101,6 +101,15 @@ button.ghost:hover{border-color:var(--navy);}
   .scorebox{break-inside:avoid;page-break-inside:avoid;border-color:#999;}
   .bar i,.band,.row.weak .n{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -114,10 +123,10 @@ button.ghost:hover{border-color:var(--navy);}
 </nav></header>
 <main>
 
-<span class="kicker">Pitching · framed for FACE · feeds Fund and Exit</span>
-<h1>A story that agrees with the numbers</h1>
-<p class="lede">At some point you will have to explain the business to someone who can say no: an investor, a lender, a buyer, an acquirer's board. Pitching builds the version of your story that survives that room: anchored in your own diagnostic numbers, framed in the language investors and buyers actually use, and deliverable by your team, not just by you.</p>
-<p style="font-size:0.9rem;margin-top:0.6rem;"><a href="#assess"><b>Take the free ten-minute self-assessment ↓</b></a>. It tells you where you actually need help, and who should take the call.</p>
+<span class="kicker rise">Pitching · framed for FACE · feeds Fund and Exit</span>
+<h1 class="rise d1">A story that agrees with the numbers</h1>
+<p class="lede rise d2">At some point you will have to explain the business to someone who can say no: an investor, a lender, a buyer, an acquirer's board. Pitching builds the version of your story that survives that room: anchored in your own diagnostic numbers, framed in the language investors and buyers actually use, and deliverable by your team, not just by you.</p>
+<p class="rise d3" style="margin-top:1rem;"><a class="jump" href="#assess">Score my pitch</a><span class="jumpnote">Ten minutes. Free. Nothing stored. It tells you where you actually need help, and who should take the call.</span></p>
 
 <h2>Who this is for</h2>
 <div class="grid3">

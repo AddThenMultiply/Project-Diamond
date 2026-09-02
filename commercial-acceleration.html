@@ -101,6 +101,15 @@ button.ghost:hover{border-color:var(--navy);}
   .scorebox{break-inside:avoid;page-break-inside:avoid;border-color:#999;}
   .bar i,.band,.row.weak .n{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -114,10 +123,10 @@ button.ghost:hover{border-color:var(--navy);}
 </nav></header>
 <main>
 
-<span class="kicker">Commercial Acceleration · framed for FACE · feeds Acquire, Consolidate and Exit</span>
-<h1>Growth you can show, not just describe</h1>
-<p class="lede">Every conversation with an investor, a lender or a buyer comes back to the same question: where does the next pound of revenue come from, and how sure are you? Commercial Acceleration builds the answer. A proposition that is clear, pricing that holds, a pipeline you can forecast, and a sales process that runs without the founder in every deal.</p>
-<p style="font-size:0.9rem;margin-top:0.6rem;"><a href="#assess"><b>Take the free ten-minute self-assessment ↓</b></a>. It tells you where you actually need help, and who should take the call.</p>
+<span class="kicker rise">Commercial Acceleration · framed for FACE · feeds Acquire, Consolidate and Exit</span>
+<h1 class="rise d1">Growth you can show, not just describe</h1>
+<p class="lede rise d2">Every conversation with an investor, a lender or a buyer comes back to the same question: where does the next pound of revenue come from, and how sure are you? Commercial Acceleration builds the answer. A proposition that is clear, pricing that holds, a pipeline you can forecast, and a sales process that runs without the founder in every deal.</p>
+<p class="rise d3" style="margin-top:1rem;"><a class="jump" href="#assess">Score my commercial engine</a><span class="jumpnote">Ten minutes. Free. Nothing stored. It tells you where you actually need help, and who should take the call.</span></p>
 
 <h2>Who this is for</h2>
 <div class="grid3">

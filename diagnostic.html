@@ -58,6 +58,15 @@ ol.stream-steps li.here em{color:#CBD5E1;}
 .note{font-size:0.78rem;color:var(--slate);margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem;}
 footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;text-align:center;padding:1.4rem;}
 @media(max-width:600px){h1{font-size:1.5rem}.big{font-size:2rem}}
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -73,9 +82,9 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </nav>
 </header>
 <main>
-  <span class="kicker">The Multiplier Diagnostic · 20 questions · 3 minutes · instant results</span>
-  <h1>Is your business ready to multiply?</h1>
-  <p class="lede">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions, and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
+  <span class="kicker rise">The Multiplier Diagnostic · 20 questions · 3 minutes · instant results</span>
+  <h1 class="rise d1">Is your business ready to multiply?</h1>
+  <p class="lede rise d2">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions, and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
   <form id="diag"></form>
   <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>

@@ -52,6 +52,15 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 .metric legend{padding:0;display:block;width:100%;}
 .metric{min-width:0;}
 .inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
+/* Hero treatment: red rule under the headline, staggered reveal */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}
+main h1::after,.intro h1::after{content:"";display:block;width:64px;height:4px;background:var(--brand);margin:0.9rem 0 0;border-radius:2px;}
+a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 1.6rem;border-radius:4px;font-weight:700;margin-top:0.2rem;}
+a.jump:hover{background:#A61D17;color:#fff;}
+.jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
+@media(prefers-reduced-motion:reduce){.rise{animation:none}}
 </style>
 </head>
 <body>
@@ -67,9 +76,9 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </nav>
 </header>
 <main>
-  <span class="kicker">Ethical Acquisitions Scorecard · 20 questions · 3 minutes · instant results</span>
-  <h1>Buy or sell a business the right way</h1>
-  <p class="lede">Whether you are preparing to sell the business you built, or acquiring to grow, the difference between a fair deal and a painful one is readiness, financial, structural and ethical. This scorecard measures all three, and shows you where you stand before you sit down at the table.</p>
+  <span class="kicker rise">Ethical Acquisitions Scorecard · 20 questions · 3 minutes · instant results</span>
+  <h1 class="rise d1">Buy or sell a business the right way</h1>
+  <p class="lede rise d2">Whether you are preparing to sell the business you built, or acquiring to grow, the difference between a fair deal and a painful one is readiness, financial, structural and ethical. This scorecard measures all three, and shows you where you stand before you sit down at the table.</p>
 
   <div class="themehead"><h2>First, which best describes you today?</h2><p>This personalises your results. It is not scored.</p></div>
   <div class="rolegrid">

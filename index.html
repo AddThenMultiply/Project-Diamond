@@ -69,6 +69,37 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 .face a:hover{transform:translateY(-2px);border-color:var(--navy);}
 .face a em{display:block;font-style:normal;font-size:0.74rem;font-weight:600;color:var(--accent);margin-top:0.5rem;}
 @media(max-width:700px){.duo,.face,.doors,.svcs{grid-template-columns:1fr}.hero h1{font-size:1.7rem}.tier{grid-template-columns:auto 1fr}.tier .tag{grid-column:2}}
+/* Direction A: the question is the first screen */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes turn{from{transform:rotate(0deg)}to{transform:rotate(90deg)}}
+@keyframes breathe{0%,100%{opacity:0.55}50%{opacity:1}}
+.rise{animation:rise 0.7s cubic-bezier(0.2,0.7,0.2,1) both;}
+.d1{animation-delay:0.15s}.d2{animation-delay:0.3s}.d3{animation-delay:0.45s}.d4{animation-delay:0.6s}
+.hero{padding:0;text-align:left;position:relative;overflow:hidden;}
+.hero-in{max-width:1100px;margin:0 auto;padding:3.5rem 1.5rem 3.75rem;display:grid;grid-template-columns:1.15fr 0.85fr;gap:3rem;align-items:center;min-height:min(78vh,720px);position:relative;}
+.hero-copy{display:flex;flex-direction:column;gap:1.1rem;max-width:36rem;}
+.hero h1{margin:0;font-size:4.2rem;max-width:9ch;line-height:1.05;}
+.hero h1::after{content:"";display:block;width:72px;height:4px;background:var(--brand);margin-top:1rem;border-radius:2px;}
+.hero p{margin:0;max-width:34ch;font-size:1.15rem;}
+.wants{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.4rem;}
+.want{display:flex;flex-direction:column;gap:0.1rem;text-align:left;background:transparent;border:1px solid #475569;color:#fff;padding:0.9rem 1.3rem;border-radius:6px;min-width:150px;min-height:60px;cursor:pointer;font-family:inherit;transition:background 0.2s,border-color 0.2s;}
+.want b{font-family:Georgia,serif;font-size:1.35rem;font-weight:700;}
+.want span{font-size:0.82rem;opacity:0.8;}
+.want:hover,.want[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);}
+.hero .unsure{color:#CBD5E1;font-size:0.95rem;white-space:nowrap;}
+.hero .unsure:hover{color:#fff;}
+.mark{justify-self:center;width:min(100%,420px);height:auto;}
+.mark-x{transform-origin:50% 50%;animation:turn 14s linear infinite;}
+.mark-plus{animation:breathe 6s ease-in-out infinite;}
+.door{position:relative;}
+.door .start{display:none;font-size:0.66rem;font-weight:700;letter-spacing:0.1em;padding:0.25rem 0.6rem;border-radius:99px;background:var(--brand);color:#fff;}
+.doors.picked .door{opacity:0.45;}
+.doors.picked .door.on{opacity:1;border-color:var(--brand);transform:translateY(-2px);}
+.doors.picked .door.on .start{display:inline-block;}
+.doors.picked .door.on .tag.free{display:none;}
+section{margin-top:4.5rem;}
+@media(prefers-reduced-motion:reduce){.rise,.mark-x,.mark-plus{animation:none}}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr;min-height:calc(100vh - 64px);padding:2.75rem 1.5rem 2.75rem;align-content:space-between;}.hero h1{font-size:2.9rem}.mark{position:absolute;right:-110px;top:-24px;width:300px;opacity:0.5;pointer-events:none;}.hero .unsure{white-space:normal}.hero-copy{position:relative}.wants{flex-direction:column;position:relative}.want{min-height:60px;flex-direction:row;justify-content:space-between;align-items:baseline}section{margin-top:3.5rem}}
 </style>
 </head>
 <body>
@@ -84,65 +115,76 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </nav>
 </header>
 <div class="hero">
-  <span class="kicker">Founder readiness · built on the FACE methodology</span>
-  <h1>Arrive at the table prepared. Leave it with the outcome you wanted.</h1>
-  <p>Every good engagement starts with one question, the same one we'll ask you: <b style="color:#fff;">what do you want?</b> Founders who can answer it, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared.</p>
-  <p class="lead-in">Whatever your answer, there is a door for it below: <a href="#doors">six ways in, one process</a>.</p>
-  <p style="margin-top:1.6rem;font-size:0.85rem;"><a class="ghost" style="margin-left:0;" href="readiness-project.html">How we work</a></p>
+  <div class="hero-in">
+    <div class="hero-copy">
+      <span class="kicker rise">Founder readiness · built on the FACE methodology</span>
+      <h1 class="rise d1">What do you want?</h1>
+      <p class="rise d2">Every good engagement starts with that question. Tap the answer closest to yours and we will show you the door.</p>
+      <div class="wants rise d3" role="group" aria-label="What do you want">
+        <button type="button" class="want" data-want="raise" aria-pressed="false"><b>To raise</b><span>investment or debt</span></button>
+        <button type="button" class="want" data-want="buy" aria-pressed="false"><b>To buy</b><span>grow by acquiring</span></button>
+        <button type="button" class="want" data-want="sell" aria-pressed="false"><b>To sell</b><span>exit on my terms</span></button>
+      </div>
+      <p class="rise d4"><a class="unsure" href="diagnostic.html">Not sure yet? Take the free three-minute diagnostic →</a></p>
+    </div>
+    <svg class="mark" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+      <g class="mark-plus"><rect x="132" y="40" width="36" height="220" rx="6" fill="#E4342D"></rect><rect x="40" y="132" width="220" height="36" rx="6" fill="#E4342D"></rect></g>
+      <g class="mark-x"><rect x="132" y="40" width="36" height="220" rx="6" fill="#F38E00" transform="rotate(45 150 150)"></rect><rect x="40" y="132" width="220" height="36" rx="6" fill="#F38E00" transform="rotate(45 150 150)"></rect></g>
+    </svg>
+  </div>
 </div>
 <main>
   <section id="doors" style="margin-top:0;">
     <span class="kicker">Six ways in. One process.</span>
-    <h2>Start where the pressure is</h2>
+    <h2 id="doorsHead">Start where the pressure is</h2>
+    <p id="doorsIntro" class="pairing" style="margin:0 0 0.4rem;">Arrive at the table prepared. Pick where you think you need help; a ten-minute assessment on each page tells you where you actually do, with a written report: your score, the line to your target, a suggested plan. All six are free.</p>
     <div class="doors">
-      <a class="door" href="investor-ready.html">
-        <span class="top"><span class="lens">Fund</span><span class="tag free">FREE</span></span>
+      <a class="door" href="investor-ready.html" data-fits="raise">
+        <span class="top"><span class="lens">Fund</span><span class="tag free">FREE</span><span class="start">START HERE</span></span>
         <h3>Investor Ready</h3>
         <p>Find out, in minutes, whether an investor would back you today, and what to fix before you ask.</p>
         <span class="go">Take the free diagnostic →</span>
       </a>
-      <a class="door" href="deal-ready.html">
-        <span class="top"><span class="lens">Acquire</span><span class="tag free">FREE</span></span>
+      <a class="door" href="deal-ready.html" data-fits="buy">
+        <span class="top"><span class="lens">Acquire</span><span class="tag free">FREE</span><span class="start">START HERE</span></span>
         <h3>Grow by Acquiring</h3>
         <p>Buy the right company, funded the right way, integrated from day one. Score a target on the free Ethical Acquisitions Scorecard.</p>
         <span class="go">Start with the scorecard →</span>
       </a>
-      <a class="door" href="commercial-acceleration.html">
-        <span class="top"><span class="lens">Consolidate</span><span class="tag free">FREE</span></span>
+      <a class="door" href="commercial-acceleration.html" data-fits="raise buy sell">
+        <span class="top"><span class="lens">Consolidate</span><span class="tag free">FREE</span><span class="start">START HERE</span></span>
         <h3>Commercial Acceleration</h3>
         <p>Proposition, pricing, pipeline and a sales process that wins revenue without you in every deal.</p>
         <span class="go">Take the free self-assessment →</span>
       </a>
-      <a class="door" href="sourcing.html">
-        <span class="top"><span class="lens">Consolidate</span><span class="tag free">FREE</span></span>
+      <a class="door" href="sourcing.html" data-fits="raise buy sell">
+        <span class="top"><span class="lens">Consolidate</span><span class="tag free">FREE</span><span class="start">START HERE</span></span>
         <h3>Insourcing: Finance Advisory</h3>
         <p>A Financial Deep Dive first, then the CFO and finance function embedded in your business, and yours to keep.</p>
         <span class="go">Take the free self-assessment →</span>
       </a>
-      <a class="door" href="pitch.html">
-        <span class="top"><span class="lens">Fund and Exit</span><span class="tag free">FREE</span></span>
+      <a class="door" href="pitch.html" data-fits="raise sell">
+        <span class="top"><span class="lens">Fund and Exit</span><span class="tag free">FREE</span><span class="start">START HERE</span></span>
         <h3>Pitching</h3>
         <p>A story that agrees with the numbers, and that your whole team can tell without you in the room.</p>
         <span class="go">Take the free self-assessment →</span>
       </a>
-      <a class="door" href="diagnostic.html">
-        <span class="top"><span class="lens">Exit</span><span class="tag free">FREE</span></span>
+      <a class="door" href="diagnostic.html" data-fits="sell">
+        <span class="top"><span class="lens">Exit</span><span class="tag free">FREE</span><span class="start">START HERE</span></span>
         <h3>Exit Ready</h3>
         <p>An exit is a life event. Score how ready the business is to deliver the one you actually want.</p>
         <span class="go">Take the free diagnostic →</span>
       </a>
     </div>
-    <p class="pairing" style="margin-top:1rem;"><b style="color:var(--navy);">Pick where you think you need help.</b> A ten-minute assessment on each page tells you where you actually do, and who you should talk to. Whichever door you take, you get a written report on the page: your score, the line to your target, and a suggested plan. All six are free and scored in your browser.</p>
-    <p class="pairing">The six doors are the FACE methodology, opened from the founder's side. Fund is the capital, from the right people on the right terms. Acquire is growth you do not have to wait for. Consolidate is the finance function, the commercial engine and the integration that make growth stick. Exit is the outcome, and the life after it, you actually want. Pitching runs through all four, because every phase ends with you explaining the business to someone who can say no.</p>
   </section>
   <section>
     <span class="kicker">The value stream</span>
     <h2>Four steps from where you are to where you want to be</h2>
     <div class="tiers">
-      <a class="tier" href="diagnostic.html"><span class="num">01</span><span><h3>Diagnostics</h3><p>The Multiplier Diagnostic (20 questions across six dimensions of growth, funding and exit readiness) with a deeper 24-metric transaction assessment behind it. Instant and honest.</p></span><span class="tag free">FREE</span></a>
-      <a class="tier" href="roadmap.html"><span class="num">02</span><span><h3>Personalised Roadmap</h3><p>Your diagnostic becomes a plan: every gap mapped to milestones, value levers and the outcome you named.</p></span><span class="tag costed">ENGAGEMENT</span></a>
-      <a class="tier" href="sourcing.html"><span class="num">03</span><span><h3>Insourcing: Finance Advisory</h3><p>The capability to close the gaps: a Financial Deep Dive, an insourced CFO or finance function, and the fractional and specialist bench behind them, embedded in your business.</p></span><span class="tag costed">ENGAGEMENT</span></a>
-      <a class="tier" href="readiness-project.html"><span class="num">04</span><span><h3>Readiness Project</h3><p>End-to-end advisory taking the business to market, with our transaction partner and investor relationships behind it.</p></span><span class="tag full">FULL ENGAGEMENT</span></a>
+      <a class="tier" href="diagnostic.html"><span class="num">01</span><span><h3>Diagnostics</h3><p>Twenty questions, three minutes, an honest score. A 24-metric transaction assessment sits behind it.</p></span><span class="tag free">FREE</span></a>
+      <a class="tier" href="roadmap.html"><span class="num">02</span><span><h3>Personalised Roadmap</h3><p>Your diagnostic becomes a plan: gaps mapped to milestones and value levers.</p></span><span class="tag costed">ENGAGEMENT</span></a>
+      <a class="tier" href="sourcing.html"><span class="num">03</span><span><h3>Insourcing: Finance Advisory</h3><p>Finance Advisory and Commercial Acceleration, embedded in your business and yours to keep.</p></span><span class="tag costed">ENGAGEMENT</span></a>
+      <a class="tier" href="readiness-project.html"><span class="num">04</span><span><h3>Readiness Project</h3><p>The full engagement that takes the business to market.</p></span><span class="tag full">FULL ENGAGEMENT</span></a>
     </div>
     <p style="margin-top:1.6rem;"><a href="diagnostic.html" style="display:inline-block;background:var(--navy);color:#fff;padding:0.85rem 1.8rem;border-radius:4px;font-weight:600;">Start at step 01: the free diagnostic</a></p>
   </section>
@@ -168,6 +210,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       <a href="sourcing.html"><b>C</b><span>Consolidate: integration planned from day one, not bolted on</span><em>Finance Advisory →</em></a>
       <a href="diagnostic.html"><b>E</b><span>Exit: the outcome, and the life after it, you actually want</span><em>Exit Ready →</em></a>
     </div>
+    <p class="pairing">The six doors are FACE opened from the founder's side. Pitching runs through all four phases, because every phase ends with you explaining the business to someone who can say no.</p>
     <p class="quote">"How small businesses can think like big businesses and achieve exponential growth." <em>Add Then Multiply</em>, David B Horne</p>
   </section>
   <section>
@@ -186,5 +229,27 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
   </section>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
+<script>
+/* Direction A: the three answers re-rank the six doors. Nothing is stored;
+   the choice lives only in the page until it is reloaded. */
+(function(){
+  var doors = document.querySelector(".doors"), head = document.getElementById("doorsHead"), intro = document.getElementById("doorsIntro");
+  var heads = { raise: "Raising? Start with these.", buy: "Buying? Start with these.", sell: "Selling? Start with these." };
+  var intros = { raise: "The marked doors fit a raise. The rest stay open.", buy: "The marked doors fit an acquisition. The rest stay open.", sell: "The marked doors fit a sale. The rest stay open." };
+  var defaultHead = head.textContent, defaultIntro = intro.textContent, current = null;
+  document.querySelectorAll(".want").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var w = btn.getAttribute("data-want");
+      current = current === w ? null : w;
+      document.querySelectorAll(".want").forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-want") === current)); });
+      doors.classList.toggle("picked", !!current);
+      document.querySelectorAll(".door").forEach(function(d){ d.classList.toggle("on", !!current && (d.getAttribute("data-fits") || "").split(" ").indexOf(current) > -1); });
+      head.textContent = current ? heads[current] : defaultHead;
+      intro.textContent = current ? intros[current] : defaultIntro;
+      if(current){ document.getElementById("doors").scrollIntoView({ behavior: "smooth", block: "start" }); }
+    });
+  });
+})();
+</script>
 </body>
 </html>
