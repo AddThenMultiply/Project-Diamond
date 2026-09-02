@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="The free Investor Ready diagnostic: fourteen questions on your ask, your assets and your pipeline, with an honest band and the gaps to close before you raise.">
-    <title>Investor Ready Diagnostic | Add Then Multiply</title>
+<meta name="description" content="The free Funding Scorecard: fourteen questions on your ask, your assets and your pipeline, with an honest band and the gaps to close before you raise.">
+    <title>The Funding Scorecard · Add Then Multiply</title>
     <style>
 :root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;
 --good:#15803D;--warn:#B45309;--bad:#B91C1C;
@@ -93,7 +93,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
             <div class="logo">ADD THEN <span>MULTIPLY</span></div>
             <nav>
               <a href="index.html">Overview</a>
-              <a href="investor-ready.html" class="active">Investor Ready</a>
+              <a href="investor-ready.html" class="active">Funding Scorecard</a>
               <a href="diagnostic.html">Exit Ready</a>
               <a href="index.html#services">Services</a>
               <a href="investors.html">Network</a>
@@ -105,8 +105,8 @@ a.jump:hover{background:#A61D17;color:#fff;}
     <main class="container">
         <div id="assessment-section">
             <div class="intro">
-                <span class="kicker rise">Investor Ready Diagnostic · free, no sign-up</span>
-                <h1 class="rise d1">Are you Investor Ready?</h1>
+                <span class="kicker rise">The Funding Scorecard · free, no sign-up</span>
+                <h1 class="rise d1">Are you ready to raise?</h1>
                 <p>You are raising investment to buy the resources, technology and people your growth needs. Evaluate your readiness across the seven things investors test: your ask, your numbers, your assets, your data room, your pipeline, your story and your terms, before you approach a single investor.</p>
             </div>
 
@@ -118,14 +118,14 @@ a.jump:hover{background:#A61D17;color:#fff;}
                         Please answer all questions before submitting.
                     </div>
                     
-                    <button type="submit" class="btn" id="submit-btn">Calculate Investor Readiness Score</button>
+                    <button type="submit" class="btn" id="submit-btn">Calculate my Funding Score</button>
                 </form>
             </div>
         </div>
 
         <div id="results-section" aria-live="polite">
             <div class="intro">
-                <h1>Your Investor Readiness Report</h1>
+                <h1>Your Funding Scorecard report</h1>
                 <p>Based on the FACE methodology (Fund, Acquire, Consolidate, Exit) and the fundraising-asset discipline of <em>Funded Female Founders</em>.</p>
             </div>
 
@@ -225,7 +225,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
         }
         function setBooking(el, ctx){ try{ if(el) el.href = bookingUrl(ctx); }catch(e){ if(el) el.href = BOOKING_URL; } }
 
-        // Investor Ready bands. Thresholds are unchanged (>=80 / >=60 / else);
+        // Funding Scorecard bands. Thresholds are unchanged (>=80 / >=60 / else);
         // the agreed names make the tier explicit on the report and travel with
         // the booking hand-off as fr_band.
         const BANDS = [
@@ -638,7 +638,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
 
         /* Written report additions. The scoring engine, bands and gate above
            are untouched; these read the band and the ranked gaps they produce. */
-        const IR_STEPS = [["diagnostic.html","01 · Diagnostic","Investor Ready · done"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
+        const IR_STEPS = [["diagnostic.html","01 · Diagnostic","Funding Scorecard · done"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
         const IR_PLAN = {
             "Raise Ready":   { entry: 4, text: "You are Raise Ready. The suggested plan goes straight to a Readiness Project: the 90-day arc that builds the data room, strengthens the bench and takes the raise to market, with investor engagement handled through ATM's authorised transaction partner. Your entry point is step 04." },
             "Almost Ready":  { entry: 2, text: "You are Almost Ready. The suggested plan is a Personalised Roadmap that turns the gaps above into a sequenced plan, then Pitching where the story and the fundraising assets are the gap, Commercial Acceleration where the growth engine is, and Finance Advisory where the numbers are. Your entry point is step 02." },
@@ -671,7 +671,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
 
         // Test Harness (as requested in Blueprint)
         window.runTests = function() {
-            console.log("Running ATM Investor Ready diagnostic tests...");
+            console.log("Running ATM Funding Scorecard tests...");
             let passed = 0;
             let total = 0;
             

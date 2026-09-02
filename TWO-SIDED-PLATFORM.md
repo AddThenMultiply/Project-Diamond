@@ -6,7 +6,7 @@ How the platform brings the founder community and the investor community togethe
 
 Every founder journey starts with the intent question (homepage fork, engagement creation):
 
-1. **Grow by acquiring**: funding to buy resources from, or merge with, another company → `deal-ready.html` → Investor Ready diagnostic → intake (objective: `acquire_growth`) → Deal Ready workspace.
+1. **Grow by acquiring**: funding to buy resources from, or merge with, another company → `deal-ready.html` → Funding Scorecard → intake (objective: `acquire_growth`) → Deal Ready workspace.
 2. **Prepare my exit**: exit funded by the business's assets and equity, seeking the right investors/buyers → 24-metric diagnostic → intake (objective: `exit`) → Exit Ready workspace.
 
 The intake asks each persona its own version of the two human questions (the number; life after / the combined business), then captures needs, wants, fears, business facts, capital parameters and which fundraising assets they hold.

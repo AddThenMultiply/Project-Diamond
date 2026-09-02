@@ -55,7 +55,7 @@ too, give us a fourth assessment code** (`MD` would be the obvious one) and
 the four band values above, and we will wire it in one edit. Until then those
 bookings arrive attributed but untagged.
 
-### Investor Ready: now implemented
+### Funding Scorecard: now implemented
 
 Three bands, on `investor-ready.html`. Thresholds are unchanged from the
 existing scoring; only the names are new:
@@ -106,11 +106,11 @@ never the person.
 
 | Outcome | Rule (as coded) | Service shown on the page | Internal owner |
 |---|---|---|---|
-| Founder needs an M&A deal or a raise | Investor Ready diagnostic (`IR`) | Investor Ready | David |
+| Founder needs an M&A deal or a raise | Funding Scorecard (`IR`) | Funding Scorecard | David |
 | Founder is ready to sell | Exit Ready, Multiplier Diagnostic, then `RD` | Exit Ready | David |
 | Clear business case and revenue, weak stream | business case ≥ 3 **and** revenue ≥ 3, stream score below 80 | the Pitching programme (on `pitch`); Commercial Acceleration (on `commercial-acceleration`); Finance Advisory (on `sourcing`) | Jacob (Pitching; the meeting notes also name "T", which is unverified transcription and needs Madeleine's confirmation); Marcus (Commercial Acceleration); Marcus and the insourced finance function (`sourcing`) |
 | No accounting function, no sales pipeline | business case ≤ 2 **or** revenue ≤ 2, whatever the page and whatever the stream score | Finance Advisory and sales pipeline support (`sourcing.html`) | Marcus and the insourced finance function |
-| Strong on everything | business case ≥ 3 **and** revenue ≥ 3, stream score 80+ | Readiness Call, with Investor Ready or Exit Ready as the likely next step | David |
+| Strong on everything | business case ≥ 3 **and** revenue ≥ 3, stream score 80+ | Readiness Call, with the Funding Scorecard or Exit Ready as the likely next step | David |
 
 The four pages remain free and ungated: no name, no email, no consent box,
 nothing written to Supabase or to browser storage. The only thing that leaves

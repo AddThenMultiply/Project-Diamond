@@ -111,7 +111,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
 <body>
 <header><span class="brand">ADD THEN <span style="color:#F38E00">MULTIPLY</span></span><nav>
   <a href="index.html">Overview</a>
-  <a href="investor-ready.html">Investor Ready</a>
+  <a href="investor-ready.html">Funding Scorecard</a>
   <a href="diagnostic.html">Exit Ready</a>
   <a href="index.html#services" class="active">Services</a>
   <a href="investors.html">Network</a>
@@ -258,7 +258,7 @@ function computeScores(answers){
 }
 /* Routing. Weak business case or weak revenue (either scored 1 or 2) goes to
    Finance Advisory whatever the page. Otherwise a strong stream score (80+)
-   goes to the Readiness Call, with Investor Ready or Exit Ready as the likely
+   goes to the Readiness Call, with the Funding Scorecard or Exit Ready as the likely
    next step; anything less goes to this stream's programme. */
 function routeFor(s){
   if(s.caseScore <= 2 || s.revenueScore <= 2) return "finance";
@@ -273,8 +273,8 @@ const ROUTES = {
     text: "Start with Finance Advisory. Your answers say the business does not yet have the business case, the finance function or the sales pipeline a buyer or investor would expect. That is what this engagement builds, in order: a Financial Deep Dive, then the insourced CFO or finance function, then sales pipeline support.",
     links: [["roadmap.html", "Personalised Roadmap"]] },
   call: { title: "Where this points: a Readiness Call, and probably a diagnostic",
-    text: "You are strong on the business case, on revenue and on your finance function and sales pipeline. The next step is likely Investor Ready or Exit Ready, depending on what you want. Take either free diagnostic first, or go straight to the Readiness Call.",
-    links: [["investor-ready.html","Investor Ready diagnostic"],["diagnostic.html","Exit Ready diagnostic"]] }
+    text: "You are strong on the business case, on revenue and on your finance function and sales pipeline. The next step is likely the Funding Scorecard or Exit Ready, depending on what you want. Take either free diagnostic first, or go straight to the Readiness Call.",
+    links: [["investor-ready.html","Funding Scorecard"],["diagnostic.html","Exit Ready diagnostic"]] }
 };
 function renderAssessment(){
   const f = document.getElementById("sa"); if(!f) return;
@@ -308,8 +308,8 @@ function scoreAssessment(){
 }
 /* ---- Written report: per-statement breakdown, line to target, plan ------ */
 const ACTIONS = ["Move to monthly management accounts within ten working days of month end. The Financial Deep Dive sets the close calendar and the reporting pack.", "Replace the annual budget with a rolling forecast updated every month, built in the Financial Deep Dive and run by the insourced finance function.", "Insource a CFO or finance leader who has been through a funding round or a sale, on a 90-day sprint with the deliverables the roadmap set.", "Set up a sales pipeline with defined stages and a value against every opportunity, as the first piece of sales pipeline support.", "Track conversion from each pipeline stage to the next every month, so you know where deals stall and what to fix first.", "Tie the pipeline to the rolling forecast so revenue is predicted by quarter, and plan hiring against it rather than against hope.", "Write the business case down so a stranger could follow it. The Financial Deep Dive tests it against the numbers.", "Get the rolling forecast in place first. Predictable revenue is what makes every other stream fundable."];
-const PLAN = {"programme": [3, "Finance Advisory", "Finance Advisory is a 90-day sprint, in order: a Financial Deep Dive first, then the insourced CFO or finance function, then sales pipeline support, with the wider bench sourced only where the Deep Dive shows a gap. Your entry point is Insourcing. Scope and fee are agreed on the Readiness Call."], "finance": [3, "Finance Advisory", "Finance Advisory starts with a Financial Deep Dive to establish the true position, then builds the finance function and the sales pipeline on a 90-day sprint. Your entry point is Insourcing; the roadmap follows once the numbers hold up. Scope and fee are agreed on the Readiness Call."], "call": [1, "Investor Ready or Exit Ready", "Your finance function and pipeline are in good shape. Your next step is one of the two free diagnostics (Investor Ready if you are raising, Exit Ready if you are selling) followed by the Personalised Roadmap. Book the Readiness Call and we will tell you which."]};
-const STEPS = [["diagnostic.html","01 · Diagnostic","Free · Investor Ready or Exit Ready"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
+const PLAN = {"programme": [3, "Finance Advisory", "Finance Advisory is a 90-day sprint, in order: a Financial Deep Dive first, then the insourced CFO or finance function, then sales pipeline support, with the wider bench sourced only where the Deep Dive shows a gap. Your entry point is Insourcing. Scope and fee are agreed on the Readiness Call."], "finance": [3, "Finance Advisory", "Finance Advisory starts with a Financial Deep Dive to establish the true position, then builds the finance function and the sales pipeline on a 90-day sprint. Your entry point is Insourcing; the roadmap follows once the numbers hold up. Scope and fee are agreed on the Readiness Call."], "call": [1, "the Funding Scorecard or Exit Ready", "Your finance function and pipeline are in good shape. Your next step is one of the two free diagnostics (the Funding Scorecard if you are raising, Exit Ready if you are selling) followed by the Personalised Roadmap. Book the Readiness Call and we will tell you which."]};
+const STEPS = [["diagnostic.html","01 · Diagnostic","Free · the Funding Scorecard or Exit Ready"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
 let lastReport = null;
 function weakest(answers){
   return answers.map((a, i) => ({a: Number(a), i: i})).sort((x, y) => (x.a - y.a) || (x.i - y.i)).slice(0, 3).map(x => x.i);
@@ -446,7 +446,7 @@ function runTests(){
   t("target at 100 = already Strong, 0 points", targetFor(100).points === 0 && targetFor(100).already);
   t("plan for the programme route names " + PLAN.programme[1], planFor("programme").name === ROUTES.programme.title.replace(/^Where this points: /, "") && planFor("programme").entry === 3);
   t("plan for the finance route names Finance Advisory at step 03", planFor("finance").name === "Finance Advisory" && planFor("finance").entry === 3);
-  t("plan for the call route names the two diagnostics at step 01", /Investor Ready/.test(planFor("call").name) && /Exit Ready/.test(planFor("call").name) && planFor("call").entry === 1);
+  t("plan for the call route names the two diagnostics at step 01", /Funding Scorecard/.test(planFor("call").name) && /Exit Ready/.test(planFor("call").name) && planFor("call").entry === 1);
   t("every plan note mentions the Readiness Call and states no price", Object.values(PLAN).every(p => /Readiness Call/.test(p[2]) && !/£|\d\s?%/.test(p[2])));
   t("programme and finance plans use the 90-day sprint framing", /90-day/.test(PLAN.programme[2]) && /90-day/.test(PLAN.finance[2]));
   t("summary carries score, band, target, three levers and next step", (() => {
