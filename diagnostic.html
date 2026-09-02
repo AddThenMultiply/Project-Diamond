@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="The free Multiplier Diagnostic: 20 questions, three minutes, an honest score across the six dimensions of growth, funding and exit readiness — with no sign-up.">
-<title>The Multiplier Diagnostic — Add Then Multiply</title>
+<meta name="description" content="The free Multiplier Diagnostic: 20 questions, three minutes, an honest score across the six dimensions of growth, funding and exit readiness, with no sign-up.">
+<title>The Multiplier Diagnostic · Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
 a{color:var(--accent);text-decoration:none;}
-header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;border-bottom:4px solid var(--brand);display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
 header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
 header nav a{color:#CBD5E1;font-size:0.85rem;}
 header nav a.active,header nav a:hover{color:#fff;}
+header nav a.nav-cta{background:var(--accent);color:#fff;padding:0.35rem 0.85rem;border-radius:4px;font-weight:700;}
+header nav a.nav-cta:hover{background:#A61D17;color:#fff;}
 main{max-width:880px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
 .kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
 h1{font-family:Georgia,serif;font-size:2rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
@@ -31,7 +33,7 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .scale input{display:block;margin:0 auto 0.3rem;accent-color:var(--accent);}
 .scale b{display:block;color:var(--navy);}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
-button.cta:hover{background:#8A3E06;}
+button.cta:hover{background:#A61D17;}
 .inline-err{background:#FEE2E2;color:#7F1D1D;border-radius:4px;padding:0.6rem 0.9rem;font-size:0.85rem;font-weight:600;margin-top:1.4rem;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
@@ -65,17 +67,15 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <a href="index.html">Overview</a>
     <a href="investor-ready.html">Investor Ready</a>
     <a href="diagnostic.html" class="active">Exit Ready</a>
-    <a href="pitch.html">Pitch</a>
-    <a href="product.html">Product</a>
-    <a href="publish.html">Publish</a>
-    <a href="sourcing.html">Finance Advisory</a>
-    <a href="investors.html">Investors</a>
+    <a href="index.html#services">Services</a>
+    <a href="investors.html">Network</a>
+    <a href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
   </nav>
 </header>
 <main>
   <span class="kicker">The Multiplier Diagnostic · 20 questions · 3 minutes · instant results</span>
   <h1>Is your business ready to multiply?</h1>
-  <p class="lede">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions — and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
+  <p class="lede">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions, and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
   <form id="diag"></form>
   <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>
@@ -88,7 +88,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <section id="leadgate" style="display:none;">
       <div class="scorebox">
         <h2 style="margin-top:0;font-size:1.15rem;">Unlock your full report</h2>
-        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline score. Your full report — the six theme scores, your immediate priorities and the service match — is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
+        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline score. Your full report (the six theme scores, your immediate priorities and the service match) is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem;">
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
@@ -119,11 +119,11 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
         <div class="svcmatch" id="svcMatch"></div>
         <p style="margin-top:1.2rem;" id="ctaLine"></p>
         <p style="margin-top:0.8rem;"><a id="bookBtn" href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" target="_blank" rel="noopener" style="display:inline-block;background:var(--navy);color:#fff;padding:0.75rem 1.5rem;border-radius:4px;font-weight:600;">Book your free 30-minute ATM call →</a></p>
-        <p id="deepLink" style="display:none;font-size:0.88rem;margin-top:1rem;">Scoring this well? Go a level deeper with the <a href="transaction-readiness.html">Transaction Readiness Assessment</a> — the 24-metric instrument a buyer's advisers would use.</p>
+        <p id="deepLink" style="display:none;font-size:0.88rem;margin-top:1rem;">Scoring this well? Go a level deeper with the <a href="transaction-readiness.html">Transaction Readiness Assessment</a>: the 24-metric instrument a buyer's advisers would use.</p>
       </div>
     </div>
   </section>
-  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic indicates business readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic indicates business readiness only, it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE (Fund, Acquire, Consolidate, Exit) from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
 <script src="assets/supabase.js"></script>
@@ -132,11 +132,11 @@ const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0Yzbs
 
 /* Booking hand-off. Appends the campaign source to the single BOOKING_URL so
    GoHighLevel can record where the founder came from. This is the Multiplier
-   Diagnostic, not the Readiness Diagnostic (RD) — its bands are Highly Ready /
+   Diagnostic, not the Readiness Diagnostic (RD), its bands are Highly Ready /
    Strong Potential / Emerging / At Risk, a different vocabulary from RD's four
-   — so it sends fr_source only until ATM confirm an assessment code for it.
+  , so it sends fr_source only until ATM confirm an assessment code for it.
    The campaign source is read from this page's own URL and passed straight on
-   — nothing is written
+  , nothing is written
    to cookies, localStorage or sessionStorage, so it travels only within a
    single journey. If anything here throws, the plain BOOKING_URL is used so
    booking always works. */
@@ -201,13 +201,13 @@ const THEMES = [
   low:["Secure an advisor who has scaled and exited before","Access specialist M&A, funding and finance skills without full-time hires"],
   qs:["Do you have a trusted advisor or partner who understands rapid growth and has done it before?",
       "Are you willing to make bold, strategic changes to accelerate growth?",
-      "Do you have access to the specialist skills needed for M&A, funding, and scaling — without hiring full-time?"]},
+      "Do you have access to the specialist skills needed for M&A, funding, and scaling, without hiring full-time?"]},
 ];
 const MAX_WEIGHTED = THEMES.reduce((s,t)=>s + t.qs.length*5*t.weight, 0); // 125
 const BANDS = [
   {min:91, label:"Highly Ready", color:"var(--good)",
    desc:"You have clear goals, strong financial foundations and genuine readiness for exponential growth. You are well placed to fund, acquire and build towards a high-value exit.",
-   svc:"<b>Your ATM service match:</b> the full <a href='roadmap.html'>FACE Pathway</a> — Fund, Acquire, Consolidate, Exit — with hands-on strategic guidance end to end.",
+   svc:"<b>Your ATM service match:</b> the full <a href='roadmap.html'>FACE Pathway</a> (Fund, Acquire, Consolidate, Exit) with hands-on strategic guidance end to end.",
    cta:"You're ATM Ready. With funding, acquisitions and exit in view, let's accelerate together.", deep:true},
   {min:71, label:"Strong Potential", color:"#4D7C0F",
    desc:"Solid foundations and clear ambition, with targeted gaps that structured expert input would close quickly.",
@@ -218,7 +218,7 @@ const BANDS = [
    svc:"<b>Your ATM service match:</b> <b>Financial Modelling</b> to give you a decision-grade model, with <b>Insourced CFO</b> support and a <b>Funding Fitness Index</b> review.",
    cta:"You're growth-ready. Let's sharpen your financials and strategy to unlock the next level.", deep:false},
   {min:0, label:"At Risk", color:"var(--bad)",
-   desc:"The foundations need strengthening before rapid growth is safe. That is not bad news — it is the map, and every gap identified here is fixable.",
+   desc:"The foundations need strengthening before rapid growth is safe. That is not bad news, it is the map, and every gap identified here is fixable.",
    svc:"<b>Your ATM service match:</b> start with a <b>Financial Deep Dive</b> to establish the true picture, then an <b>Insourced Finance Function</b> to build the rhythm that growth needs.",
    cta:"Let's build your foundation. Book a call to take control of your finances and prepare for growth.", deep:false},
 ];
@@ -353,11 +353,11 @@ function renderResults(){
   renderTeaser();
   document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
     const s = themeScores[t.key];
-    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name} — ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
+    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name}: ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
   }).join("");
   const ranked = answers.map((a,i)=>({a,i})).sort((x,y)=>x.a-y.a).slice(0,3);
   document.getElementById("gapList").innerHTML = ranked.map(r=>
-    `<li><b>Q${r.i+1}:</b> ${allQs[r.i]} <span style="color:var(--slate)">(you answered ${r.a}/5 — ${SCALE[r.a-1]})</span></li>`).join("");
+    `<li><b>Q${r.i+1}:</b> ${allQs[r.i]} <span style="color:var(--slate)">(you answered ${r.a}/5, ${SCALE[r.a-1]})</span></li>`).join("");
   const cfg = routing ? routing.find(r=>r.band_slug === bandSlug(band.label)) : null;
   let svcHtml = cfg ? `<b>Your ATM service match:</b> ${cfg.service}` : band.svc;
   if(cfg && cfg.partner_only){
@@ -378,8 +378,8 @@ function renderResults(){
 const MD_STEPS = [["diagnostic.html","01 · Diagnostic","Multiplier Diagnostic · done"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["sourcing.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
 const MD_PLAN = {
   "Highly Ready":     {entry:4, text:"You are Highly Ready. The suggested plan runs the full FACE pathway with a Readiness Project: the 90-day arc from discovery and audit through value enhancement to transaction launch, with buyer and investor engagement through ATM's authorised transaction partner. Go a level deeper first with the Transaction Readiness Assessment. Your entry point is step 04."},
-  "Strong Potential": {entry:2, text:"You have Strong Potential. The suggested plan starts with a Personalised Roadmap that turns the gaps above into a sequenced plan, then the sprints that close them: the Pitch and Publish programme where the story is the gap, and Finance Advisory where the numbers are. Your entry point is step 02."},
-  "Emerging":         {entry:3, text:"You are Emerging. The suggested plan starts with Finance Advisory — a Financial Deep Dive to establish the true picture, then an insourced CFO and a decision-grade model — before the roadmap and the readiness work make sense. Your entry point is step 03."},
+  "Strong Potential": {entry:2, text:"You have Strong Potential. The suggested plan starts with a Personalised Roadmap that turns the gaps above into a sequenced plan, then the sprints that close them: Pitching where the story is the gap, Commercial Acceleration where the growth engine is, and Finance Advisory where the numbers are. Your entry point is step 02."},
+  "Emerging":         {entry:3, text:"You are Emerging. The suggested plan starts with Finance Advisory, a Financial Deep Dive to establish the true picture, then an insourced CFO and a decision-grade model, before the roadmap and the readiness work make sense. Your entry point is step 03."},
   "At Risk":          {entry:3, text:"You are At Risk, which is the map, not the verdict. The suggested plan starts with Finance Advisory: a Financial Deep Dive first, then an insourced finance function to build the rhythm growth needs. The roadmap follows once the numbers hold. Your entry point is step 03."}
 };
 function mdTarget(total){
@@ -405,7 +405,7 @@ function renderMdReport(answers, total, band){
   document.getElementById("md-targetLine").textContent = target.already
     ? `You are already ${target.band.label}. The line from here is about holding it.`
     : `Your target is ${target.band.label}. You need ${target.points} more point${target.points === 1 ? "" : "s"} to get there.`;
-  document.getElementById("md-targetNote").textContent = "Finance, funding and exit questions carry extra weight, so a step up on one of those moves the score most. Your three lowest answers below are the levers — each with the thing we would do first.";
+  document.getElementById("md-targetNote").textContent = "Finance, funding and exit questions carry extra weight, so a step up on one of those moves the score most. Your three lowest answers below are the levers, each with the thing we would do first.";
   document.getElementById("md-levers").innerHTML = levers.map((l, n) =>
     `<div class="lever"><b>Lever ${n+1} · Q${l.i+1} · ${l.theme} · you answered ${l.a}/5</b>${allQs[l.i]}<br><span style="color:var(--navy);font-weight:600;">What we would do:</span> ${l.action}.</div>`).join("");
   document.getElementById("md-planText").textContent = plan.text;
@@ -420,7 +420,7 @@ function runTests(){
   const t = (name, cond) => results.push({name, pass: !!cond});
   const nQs = THEMES.reduce((s,th)=>s+th.qs.length,0);
   t("20 questions defined", nQs === 20);
-  // Written report — line to target, levers and engagement plan
+  // Written report: line to target, levers and engagement plan
   t("target at 100 = already Highly Ready", mdTarget(100).already && mdTarget(100).points === 0);
   t("target at 91 = already Highly Ready, 0 points", mdTarget(91).already && mdTarget(91).band.label === "Highly Ready" && mdTarget(91).points === 0);
   t("target at 90 = Highly Ready, 1 point", mdTarget(90).band.label === "Highly Ready" && mdTarget(90).points === 1);
@@ -474,7 +474,7 @@ function runTests(){
   t("every gate field is labelled",
     ["ld-name","ld-email","ld-company","ld-role","ld-revenue","ld-consent"]
       .every(id=>[...document.querySelectorAll("label[for]")].some(l=>l.getAttribute("for")===id)));
-  // Booking hand-off to GoHighLevel — this page carries no assessment context
+  // Booking hand-off to GoHighLevel: this page carries no assessment context
   const link = bookingUrl(null, "?utm_source=LinkedIn%20Paid");
   t("booking link preserves the base BOOKING_URL", link.indexOf(BOOKING_URL)===0 && link.indexOf(BOOKING_URL+"?")===0);
   t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);

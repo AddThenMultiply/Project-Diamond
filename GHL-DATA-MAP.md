@@ -13,7 +13,7 @@ out exactly what arrives.
 
 ## 1. Band names
 
-### Readiness Diagnostic (RD) — your action 3
+### Readiness Diagnostic (RD): your action 3
 
 Confirmed and wired. The four `RD` band values are exactly as you specified:
 
@@ -25,14 +25,14 @@ Confirmed and wired. The four `RD` band values are exactly as you specified:
 | below 50 | Foundation Tier |
 
 **One correction to the filename, so your notes match the repo.** You wrote
-that RD is `diagnostic.html`. It is not — it is **`transaction-readiness.html`**.
+that RD is `diagnostic.html`. It is not, it is **`transaction-readiness.html`**.
 Everything else in your description was right, and identified that file
 precisely: it is the 24-metric instrument (`t("24 metrics defined",
 METRICS.length === 24)`), titled "Transaction Readiness Assessment", and it
 already carried those four band names at exactly those four thresholds. We
 have tagged that page `RD`.
 
-`diagnostic.html` is a genuinely separate, live assessment — the
+`diagnostic.html` is a genuinely separate, live assessment, the
 **Multiplier Diagnostic**: 20 questions, six themes, instrument id
 `multiplier_diagnostic`, with its own four bands at its own thresholds:
 
@@ -49,13 +49,13 @@ Readiness Assessment calls itself "the deal-grade instrument behind our
 Multiplier Diagnostic".
 
 We renamed nothing. Because its band vocabulary is not RD's, `diagnostic.html`
-currently sends **`fr_source` only** — no assessment, no score, no band — so
+currently sends **`fr_source` only** (no assessment, no score, no band) so
 it cannot contaminate your RD band picklist. **If you want its results in GHL
 too, give us a fourth assessment code** (`MD` would be the obvious one) and
 the four band values above, and we will wire it in one edit. Until then those
 bookings arrive attributed but untagged.
 
-### Investor Ready — now implemented
+### Investor Ready: now implemented
 
 Three bands, on `investor-ready.html`. Thresholds are unchanged from the
 existing scoring; only the names are new:
@@ -69,7 +69,7 @@ existing scoring; only the names are new:
 Per your instruction, the Funded Female Founders module has **no** band model
 and creates no band tags.
 
-### Proposed: four stream self-assessments — awaiting your confirmation
+### Proposed: four stream self-assessments, awaiting your confirmation
 
 The six-door front door adds a free, ungated eight-statement self-assessment
 to each of the four stream pages that do not already carry a diagnostic. Each
@@ -79,10 +79,9 @@ final until you confirm them.
 
 | Page | Proposed `fr_assessment` | Stream |
 |---|---|---|
-| `pitch.html` | `PI` | Pitch |
-| `product.html` | `PR` | Product |
-| `publish.html` | `PU` | Publish |
-| `sourcing.html` | `FA` | Insourcing — Finance Advisory |
+| `pitch.html` | `PI` | Pitching |
+| `commercial-acceleration.html` | `CA` | Commercial Acceleration |
+| `sourcing.html` | `FA` | Insourcing: Finance Advisory |
 
 Shared bands (identical on all four):
 
@@ -98,7 +97,7 @@ that are the same on every page: the business case ("We have a clear, written
 business case that a stranger could follow") and revenue predictability
 ("Our revenue is predictable enough to forecast the next twelve months with
 confidence"). Those two drive the routing shown on the result; the routing
-itself is **not** sent in the link — you can derive it from the assessment,
+itself is **not** sent in the link, you can derive it from the assessment,
 score and band, or tell us to add an `fr_route` parameter.
 
 **Routing rules, as set by Madeleine**, and the internal owner of each
@@ -108,8 +107,8 @@ never the person.
 | Outcome | Rule (as coded) | Service shown on the page | Internal owner |
 |---|---|---|---|
 | Founder needs an M&A deal or a raise | Investor Ready diagnostic (`IR`) | Investor Ready | David |
-| Founder is ready to sell | Exit Ready — Multiplier Diagnostic, then `RD` | Exit Ready | David |
-| Clear business case and revenue, weak stream | business case ≥ 3 **and** revenue ≥ 3, stream score below 80 | the Pitch and Publish programme (on `pitch`, `product`, `publish`); Finance Advisory (on `sourcing`) | Jacob and T (Pitch and Publish); Marcus and the insourced finance function (`sourcing`) |
+| Founder is ready to sell | Exit Ready, Multiplier Diagnostic, then `RD` | Exit Ready | David |
+| Clear business case and revenue, weak stream | business case ≥ 3 **and** revenue ≥ 3, stream score below 80 | the Pitching programme (on `pitch`); Commercial Acceleration (on `commercial-acceleration`); Finance Advisory (on `sourcing`) | Jacob (Pitching; the meeting notes also name "T", which is unverified transcription and needs Madeleine's confirmation); Marcus (Commercial Acceleration); Marcus and the insourced finance function (`sourcing`) |
 | No accounting function, no sales pipeline | business case ≤ 2 **or** revenue ≤ 2, whatever the page and whatever the stream score | Finance Advisory and sales pipeline support (`sourcing.html`) | Marcus and the insourced finance function |
 | Strong on everything | business case ≥ 3 **and** revenue ≥ 3, stream score 80+ | Readiness Call, with Investor Ready or Exit Ready as the likely next step | David |
 
@@ -131,7 +130,7 @@ Parameters are appended to it, all values URL-encoded:
 
 | Parameter | Value | Sent from |
 |---|---|---|
-| `fr_assessment` | `RD`, `IR` or `FFF` — plus the proposed `PI`, `PR`, `PU`, `FA` | the assessment pages |
+| `fr_assessment` | `RD`, `IR` or `FFF`, plus the proposed `PI`, `CA`, `FA` | the assessment pages |
 | `fr_score` | integer percentage, `0`–`100` | scored assessments only |
 | `fr_band` | the exact band name string | scored assessments only |
 | `fr_source` | one controlled source value (below) | every booking link |
@@ -143,16 +142,15 @@ Which page sends what:
 | `transaction-readiness.html` | `RD` | yes | the four RD bands |
 | `investor-ready.html` | `IR` | yes | the three IR bands |
 | `funding.html` | `FFF` | no | no |
-| `diagnostic.html` | *(none — pending a code)* | no | no |
+| `diagnostic.html` | *(none: pending a code)* | no | no |
 | `pitch.html` | `PI` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `product.html` | `PR` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `publish.html` | `PU` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `commercial-acceleration.html` | `CA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | `sourcing.html` | `FA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | all other pages with a booking CTA | *(none)* | no | no |
 
 `fr_source` is always present. `fr_assessment` appears only on the assessment
 modules. `fr_score` and `fr_band` are **omitted entirely** where there is no
-score — they are never sent empty. On the four stream pages the booking link
+score, they are never sent empty. On the four stream pages the booking link
 sends `fr_source` only until the founder scores the self-assessment; after
 that the assessment, score and band are added.
 
@@ -186,13 +184,13 @@ becomes `Other`. Nothing in the URL at all becomes `Founder Readiness Direct`.
 **The parameter names are our proposal, not a decision.** `fr_assessment`,
 `fr_score`, `fr_band` and `fr_source` are placeholders we chose so the work
 could ship. Tell us the field names GHL actually expects for your custom
-fields and we will change them — it is a small edit and we will turn it round
+fields and we will change them, it is a small edit and we will turn it round
 on request. The same goes for the controlled values if your picklists differ.
 
 **The booking link still carries no identity.** No name, email, company or
 phone number, and no identifier that could be joined back to a person. The
 founder's identity and their marketing consent *for the booking* are collected
-by the GHL booking form, at the point of booking — never in the link. That has
+by the GHL booking form, at the point of booking, never in the link. That has
 not changed.
 
 **But the platform now does collect identity, at the assessment.** On ATM's
@@ -200,7 +198,7 @@ instruction, all four scored assessments are gated: the founder sees their
 headline score and band for free, then must give first name, work email,
 company, role and revenue band, and tick an explicit consent box, before the
 full report renders. There is no skip. On submit, the answers, score, band and
-those details are written to ATM's own Supabase `leads` table — not to GHL.
+those details are written to ATM's own Supabase `leads` table, not to GHL.
 
 Two consequences worth planning for on your side:
 
@@ -208,7 +206,7 @@ Two consequences worth planning for on your side:
   assessment and then books appears once in `leads` (with their answers) and
   once in GHL (from the booking form). The join key is the email address they
   typed in each, which may differ. If you want them reconciled, the cleanest
-  route is a scheduled export from `leads` into GHL keyed on email — tell us
+  route is a scheduled export from `leads` into GHL keyed on email, tell us
   and we will scope it.
 - **Consent is recorded per assessment, not globally.** The `leads.consent`
   column records that the founder agreed to ATM storing their answers and
@@ -222,7 +220,7 @@ there are no ad pixels. Campaign source is read from the URL and passed
 straight on, which is why it survives only a single journey (below).
 
 **Campaign source survives one journey only.** The free pages carry no
-cookies, no localStorage and no analytics — that is a deliberate design rule,
+cookies, no localStorage and no analytics, that is a deliberate design rule,
 not an oversight. So the source is read from the URL the founder is on at that
 moment and passed straight to GHL. In practice:
 
