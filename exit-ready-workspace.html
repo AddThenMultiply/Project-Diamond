@@ -6,14 +6,14 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Exit Ready Workspace | Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;
 --good:#15803D;--warn:#B45309;--bad:#B91C1C;
 /* legacy names kept as aliases so existing rules and inline styles keep resolving */
 --primary:#2B2A29;--secondary:#111827;--text-main:#111827;--text-light:#475569;
 --bg-light:#F8FAFC;--white:#fff;--border:#E2E8F0;--error:#B91C1C;--success:#15803D;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
-header{background:var(--navy);color:#fff;padding:0.9rem 0;}
+header{background:var(--navy);color:#fff;padding:0.9rem 0;border-bottom:4px solid var(--brand);}
 .container{max-width:1000px;margin:0 auto;padding:0 1.5rem;width:100%;}
 .header-content{display:flex;justify-content:space-between;align-items:center;gap:0.6rem 1.4rem;flex-wrap:wrap;}
 .logo{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;}
@@ -32,7 +32,7 @@ textarea{min-height:80px;resize:vertical;}
 button{background:var(--navy);color:#fff;border:none;border-radius:4px;padding:.65rem 1.2rem;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit;}
 button:hover{background:#111827;}
 button.gold{background:var(--accent);color:#fff;}
-button.gold:hover{background:#8A3E06;}
+button.gold:hover{background:#A61D17;}
 button.ghost{background:transparent;color:var(--navy);border:1px solid var(--line);}
 button.ghost:hover{background:#fff;border-color:var(--navy);}
 button.small{padding:.3rem .7rem;font-size:.78rem;}
@@ -52,7 +52,7 @@ th{text-align:left;background:var(--bg);color:var(--navy);padding:.5rem .6rem;bo
 td{padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top;}
 .tag{display:inline-block;padding:.15rem .55rem;border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.05em;}
 .tag.F{background:#DBEAFE;color:#1E3A8A;}.tag.A{background:#EDE9FE;color:#4C1D95;}
-.tag.C{background:#FEF3C7;color:#78350F;}
+.tag.C{background:#FDECEB;color:#A61D17;}
 .gate-box{border:1px dashed var(--accent);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0;background:#FFFBEB;}
 .muted{color:var(--slate);font-size:.85rem;}
 .right{text-align:right;}
@@ -80,7 +80,7 @@ a:hover{text-decoration:underline;}
 </head>
 <body>
 <header><div class="container header-content">
-  <div class="logo">ADD THEN <span>MULTIPLY</span> — Exit Ready Workspace</div>
+  <div class="logo">ADD THEN <span>MULTIPLY</span> · Exit Ready Workspace</div>
   <div><span id="whoami" class="muted" style="color:#CBD5E1;"></span>
   <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#94A3B8;margin-left:.8rem;">Sign out</button></div>
 </div></header>
@@ -100,7 +100,7 @@ a:hover{text-decoration:underline;}
   <!-- ============ AUTH VIEW ============ -->
   <section id="view-auth" class="card" style="max-width:520px;margin:2rem auto;">
     <h1>Engagement sign-in</h1>
-    <p class="sub">The workspace is for active advisory engagements. Enter your email and we will send you a secure magic link — no password needed.</p>
+    <p class="sub">The workspace is for active advisory engagements. Enter your email and we will send you a secure magic link, no password needed.</p>
     <label for="auth-email">Email address</label>
     <input id="auth-email" type="email" placeholder="you@company.co.uk" autocomplete="email">
     <div style="margin-top:1rem;"><button id="btn-magic">Send magic link</button></div>
@@ -120,7 +120,7 @@ a:hover{text-decoration:underline;}
         <div><label for="new-company">Company name</label><input id="new-company" placeholder="Company Ltd"></div>
         <div><label for="new-target">Target exit value (£)</label><input id="new-target" type="number" min="0" step="100000" placeholder="10000000"></div>
       </div>
-      <label for="new-lifeafter">“Life the day after the sale” — the founder's statement</label><textarea id="new-lifeafter" placeholder="What does the day after completion look like, honestly?"></textarea>
+      <label for="new-lifeafter">“Life the day after the sale”: the founder's statement</label><textarea id="new-lifeafter" placeholder="What does the day after completion look like, honestly?"></textarea>
       <div style="margin-top:1rem;"><button id="btn-create-eng" class="gold">Create engagement</button></div>
       <div id="list-msg"></div>
     </div>
@@ -141,7 +141,7 @@ a:hover{text-decoration:underline;}
     <!-- Phase 1: Founder Clarity -->
     <div class="card" id="panel-clarity">
       <h2>Phase 1 · Founder Clarity <span class="tag E">E</span></h2>
-      <p class="sub">AI synthesises the questionnaire into a clarity brief; the clarity conversation itself — the number, and life the day after — is held by your advisor in person.</p>
+      <p class="sub">AI synthesises the questionnaire into a clarity brief; the clarity conversation itself (the number, and life the day after) is held by your advisor in person.</p>
       <label for="clarity-answers">Pre-meeting questionnaire (founder answers, one per line)</label><textarea id="clarity-answers" placeholder="Why now?&#10;What is the number, and why that number?&#10;What happens the day after completion?"></textarea>
       <div style="margin-top:.8rem;display:flex;gap:.6rem;flex-wrap:wrap;">
         <button id="btn-clarity-brief">AI: draft clarity brief</button>
@@ -198,7 +198,7 @@ a:hover{text-decoration:underline;}
     <!-- Documents / data room checklist -->
     <div class="card" id="panel-docs">
       <h2>Document checklist &amp; data room <span class="tag F">F</span></h2>
-      <p class="sub">The fundraising-asset discipline from <em>Funded Female Founders</em> Ch. 8 — click a status to advance it. “AI-drafted” is set by the platform only.</p>
+      <p class="sub">The fundraising-asset discipline from <em>Funded Female Founders</em> Ch. 8: click a status to advance it. “AI-drafted” is set by the platform only.</p>
       <div id="docs-msg"></div>
       <div id="docs-table"></div>
     </div>
@@ -229,7 +229,7 @@ a:hover{text-decoration:underline;}
   </section>
 
 </div></main>
-<footer><div class="container">Add Then Multiply — Exit Ready Workspace · Private and confidential ·
+<footer><div class="container">Add Then Multiply · Exit Ready Workspace · Private and confidential ·
 Built on the ATM Exit Advisory Process. AI drafts; your advisor decides and signs off.</div></footer>
 
 <script src="assets/supabase.js"></script>
@@ -244,10 +244,10 @@ const DOC_CHECKLIST = [
   {key:"pitch_deck",      label:"12-slide pitch deck (FFF structure)"},
   {key:"projections_5yr", label:"Five-year monthly three-statement projections"},
   {key:"business_plan",   label:"Business plan (30–50 pages, buyer-credible)"},
-  {key:"dataroom_legal",  label:"Data room — corporate & legal"},
-  {key:"dataroom_fin",    label:"Data room — financial records"},
-  {key:"dataroom_comm",   label:"Data room — commercial contracts"},
-  {key:"dataroom_people", label:"Data room — people & HR"},
+  {key:"dataroom_legal",  label:"Data room, corporate & legal"},
+  {key:"dataroom_fin",    label:"Data room, financial records"},
+  {key:"dataroom_comm",   label:"Data room, commercial contracts"},
+  {key:"dataroom_people", label:"Data room, people & HR"},
   {key:"clarity_statement",label:"Founder Clarity Statement (advisor-approved)"}
 ];
 const DOC_FLOW = {missing:"draft", draft:"review", ai_drafted:"review", review:"approved", approved:"missing"};
@@ -261,9 +261,9 @@ const $ = (id)=>document.getElementById(id);
 const esc = (s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function msg(el,text,cls){ $(el).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
 function show(view){ ["view-auth","view-list","view-ws"].forEach(v=>$(v).classList.toggle("hidden", v!==view)); }
-const fmtGBP = (n)=> isFinite(n) ? "£"+Number(n).toLocaleString("en-GB",{maximumFractionDigits:0}) : "—";
+const fmtGBP = (n)=> isFinite(n) ? "£"+Number(n).toLocaleString("en-GB",{maximumFractionDigits:0}) : "–";
 
-/* ================= GAP ENGINE (pure functions — tested by runTests) ================= */
+/* ================= GAP ENGINE (pure functions: tested by runTests) ================= */
 function gapEngine(target, ebitda, years, multiples){
   if(!(target>0) || !(years>0) || !Array.isArray(multiples) || !multiples.length) return null;
   const scenarios = multiples.filter(m=>m>0).map(m=>{
@@ -290,7 +290,7 @@ async function init(){
   }
   // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
   // as soon as it subscribes, so calling getSession() and route() here too
-  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  // ran the whole view twice on load, duplicate fetches and a visible flicker.
   sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
 }
 
@@ -329,7 +329,7 @@ $("btn-magic").onclick = async ()=>{
   if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
   msg("auth-msg","Sending magic link…","info");
   const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
-  msg("auth-msg", error ? error.message : "Check your inbox — the link signs you straight in.", error?"err":"ok");
+  msg("auth-msg", error ? error.message : "Check your inbox, the link signs you straight in.", error?"err":"ok");
 };
 $("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); eng=null; };
 
@@ -340,12 +340,12 @@ async function loadEngagements(){
   if(error){ msg("list-msg", error.message, "err"); return; }
   const rows = (data||[]).map(e=>`<tr>
     <td><strong>${esc(e.company_name)}</strong></td>
-    <td>Phase ${e.phase} — ${esc(PHASES[e.phase-1]||"")}</td>
+    <td>Phase ${e.phase}: ${esc(PHASES[e.phase-1]||"")}</td>
     <td>${esc(e.status)}</td>
     <td class="right"><button class="small gold" onclick="openEng('${e.id}')">Open workspace</button></td></tr>`).join("");
   $("eng-list").innerHTML = rows
     ? `<table><tr><th>Company</th><th>Phase</th><th>Status</th><th></th></tr>${rows}</table>`
-    : `<p class="muted">No engagements yet — create your first below.</p>`;
+    : `<p class="muted">No engagements yet: create your first below.</p>`;
 }
 $("btn-create-eng").onclick = async ()=>{
   const company = $("new-company").value.trim();
@@ -363,7 +363,7 @@ window.openEng = async (id)=>{
   // A hand-edited ?eng= could name a Deal Ready engagement; say so rather
   // than rendering it through the wrong workspace.
   if(data && data.asset !== "exit_ready"){
-    msg("list-msg","That engagement is a Deal Ready engagement — open it in the Deal Ready workspace.","err"); return;
+    msg("list-msg","That engagement is a Deal Ready engagement, open it in the Deal Ready workspace.","err"); return;
   }
   eng = data; renderWorkspace();
 };
@@ -387,7 +387,7 @@ function renderGate(){
   const next = eng.phase+1, isAdvisor = ["advisor","admin"].includes(profile.role);
   if(eng.phase>=PHASES.length){ $("gate-box").innerHTML = `<strong>All phases complete.</strong>`; return; }
   $("gate-box").innerHTML = `
-    <strong>Phase gate — advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
+    <strong>Phase gate: advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
     <p class="muted">Advancing requires a named human sign-off (advisor/admin). The gate is enforced in the database, not just here.</p>
     ${isAdvisor ? `
       <label for="gate-note">Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
@@ -420,7 +420,7 @@ $("btn-gap-calc").onclick = ()=>{
     <div class="muted">To exit at <span class="big">${fmtGBP(lastGap.target)}</span> in ${lastGap.years} years:</div>
     <table style="margin-top:.6rem;"><tr><th>Multiple</th><th>EBITDA required</th><th>Gap vs today</th><th>Growth needed p.a.</th></tr>
     ${lastGap.scenarios.map(s=>`<tr><td>${s.multiple}×</td><td>${fmtGBP(s.requiredEbitda)}</td>
-      <td>${s.gap>0?fmtGBP(s.gap):"— (already there)"}</td>
+      <td>${s.gap>0?fmtGBP(s.gap):"(already there)"}</td>
       <td>${s.cagr==null?"n/a":(s.cagr*100).toFixed(1)+"%"}</td></tr>`).join("")}</table>`;
 };
 $("btn-gap-save").onclick = async ()=>{
@@ -438,7 +438,7 @@ $("btn-gaps-generate").onclick = async ()=>{
   ];
   const items = dims.map(d=>({score:Number($(d.id).value), d})).filter(x=>x.score<=3)
     .map(x=>({engagement_id:eng.id, dimension:x.d.dimension, description:x.d.desc, severity:severityFromScore(x.score), owner:"advisor", status:"open"}));
-  if(!items.length){ msg("gap-msg","All dimensions scored 4+ — no gap items generated.","info"); return; }
+  if(!items.length){ msg("gap-msg","All dimensions scored 4+: no gap items generated.","info"); return; }
   const {error} = await sb.from("gap_items").insert(items);
   msg("gap-msg", error?error.message:items.length+" gap item(s) created.", error?"err":"ok");
   loadGaps();
@@ -451,8 +451,8 @@ async function loadGaps(){
     ${gapsCache.map(g=>`<tr><td>${esc(g.dimension)}</td><td>${esc(g.description)}</td>
       <td class="sev s${g.severity}">${g.severity}</td><td>${esc(g.status)}</td>
       <td class="right">${g.status!=="closed"?`<button class="small ghost" onclick="closeGap('${g.id}')">Close</button>`:""}</td></tr>`).join("")}</table>`
-    : `<p class="muted">No gap items yet — generate them from the dimension scores.</p>`;
-  $("ra-gap").innerHTML = `<option value="">— none —</option>`+gapsCache.map(g=>`<option value="${g.id}">${esc(g.dimension)}: ${esc(g.description.slice(0,60))}</option>`).join("");
+    : `<p class="muted">No gap items yet: generate them from the dimension scores.</p>`;
+  $("ra-gap").innerHTML = `<option value="">none,</option>`+gapsCache.map(g=>`<option value="${g.id}">${esc(g.dimension)}: ${esc(g.description.slice(0,60))}</option>`).join("");
 }
 window.closeGap = async (id)=>{ await sb.from("gap_items").update({status:"closed"}).eq("id",id); loadGaps(); };
 
@@ -469,7 +469,7 @@ async function loadActions(){
   const {data, error} = await sb.from("roadmap_actions").select("*").eq("engagement_id",eng.id).order("due",{ascending:true,nullsFirst:false});
   if(error) return loadFailed("ra-table", error, "your roadmap actions");
   $("ra-table").innerHTML = (data&&data.length) ? `<table><tr><th>Action</th><th>Due</th><th>Status</th><th></th></tr>
-    ${data.map(a=>`<tr><td>${esc(a.action)}</td><td>${a.due||"—"}</td><td>${esc(a.status)}</td>
+    ${data.map(a=>`<tr><td>${esc(a.action)}</td><td>${a.due||"–"}</td><td>${esc(a.status)}</td>
       <td class="right"><button class="small ghost" onclick="cycleAction('${a.id}','${a.status}')">${a.status==="todo"?"Start":a.status==="doing"?"Done":"Reopen"}</button></td></tr>`).join("")}</table>`
     : `<p class="muted">No roadmap actions yet.</p>`;
 }
@@ -499,7 +499,7 @@ window.cycleDoc = async (key, cur)=>{
     {engagement_id:eng.id, checklist_key:key, doc_type:key, status:next},
     {onConflict:"engagement_id,checklist_key"});
   if(error) msg("docs-msg", /only an advisor/i.test(error.message)
-    ? "Approval is reserved for your advisor — they review and sign off each document. Everything up to 'review' is yours to set."
+    ? "Approval is reserved for your advisor, they review and sign off each document. Everything up to 'review' is yours to set."
     : error.message, "err");
   else msg("docs-msg", "", "");
   loadDocs();
@@ -523,12 +523,12 @@ async function loadTargets(){
 
 /* ================= AI TASKS (Edge Functions) ================= */
 async function callEdge(fn, body, outEl, field){
-  $(outEl).innerHTML = `<div class="notice info">Running ${fn} — AI drafts, your advisor signs off…</div>`;
+  $(outEl).innerHTML = `<div class="notice info">Running ${fn}: AI drafts, your advisor signs off…</div>`;
   try{
     const {data, error} = await sb.functions.invoke(fn, {body});
     if(error) throw error;
     if(data.error) throw new Error(data.error);
-    $(outEl).innerHTML = `<div class="notice ok">Draft created and logged to the audit trail — awaiting advisor sign-off.</div>
+    $(outEl).innerHTML = `<div class="notice ok">Draft created and logged to the audit trail, awaiting advisor sign-off.</div>
       <div class="pre">${esc(data[field]||JSON.stringify(data))}</div>`;
     loadAudit(); loadDocs();
   }catch(e){

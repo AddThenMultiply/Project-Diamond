@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="The Transaction Readiness Assessment: 24 weighted metrics at the depth a buyer, investor or their advisers would test, across exit, deal and operational readiness.">
-<title>Transaction Readiness Assessment — Add Then Multiply</title>
+<title>Transaction Readiness Assessment · Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
 a{color:var(--accent);text-decoration:none;}
-header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;border-bottom:4px solid var(--brand);display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
 header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
 header nav a{color:#CBD5E1;font-size:0.85rem;}
 header nav a.active,header nav a:hover{color:#fff;}
+header nav a.nav-cta{background:var(--accent);color:#fff;padding:0.35rem 0.85rem;border-radius:4px;font-weight:700;}
+header nav a.nav-cta:hover{background:#A61D17;color:#fff;}
 main{max-width:880px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
 .kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
 h1{font-family:Georgia,serif;font-size:2rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
@@ -33,7 +35,7 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .pilhead h2{color:#fff;margin:0;font-size:1.15rem;}
 .pilhead p{color:#CBD5E1;font-size:0.83rem;margin-top:0.2rem;}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
-button.cta:hover{background:#8A3E06;}
+button.cta:hover{background:#A61D17;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
 .big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
@@ -56,17 +58,15 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <a href="index.html">Overview</a>
     <a href="investor-ready.html">Investor Ready</a>
     <a href="diagnostic.html" class="active">Exit Ready</a>
-    <a href="pitch.html">Pitch</a>
-    <a href="product.html">Product</a>
-    <a href="publish.html">Publish</a>
-    <a href="sourcing.html">Finance Advisory</a>
-    <a href="investors.html">Investors</a>
+    <a href="index.html#services">Services</a>
+    <a href="investors.html">Network</a>
+    <a href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
   </nav>
 </header>
 <main>
   <span class="kicker">Deep assessment · 24 evidence-based metrics · instant results</span>
   <h1>The Transaction Readiness Assessment</h1>
-  <p class="lede">This is the deal-grade instrument behind our <a href="diagnostic.html">Multiplier Diagnostic</a> — 24 metrics at the depth a buyer, investor or their advisers would test. Founders who know what they want from an exit, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared. Answer honestly — pick the statement closest to your reality today.</p>
+  <p class="lede">This is the deal-grade instrument behind our <a href="diagnostic.html">Multiplier Diagnostic</a>: 24 metrics at the depth a buyer, investor or their advisers would test. Founders who know what they want from an exit, and have a business ready to deliver it, achieve significantly better outcomes than those who go to market unprepared. Answer honestly: pick the statement closest to your reality today.</p>
   <div class="pillbar">
     <span class="pill"><b>Exit Readiness · 35%</b>Structural cleanliness, legal hygiene, risk</span>
     <span class="pill"><b>Deal Readiness · 40%</b>Financial quality, growth, unit economics</span>
@@ -85,7 +85,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <section id="leadgate" style="display:none;">
       <div class="scorebox">
         <h2 style="margin-top:0;font-size:1.15rem;">Unlock your full report</h2>
-        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline Readiness Index. Your full report — the three pillar scores and your biggest gaps, metric by metric — is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
+        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline Readiness Index. Your full report (the three pillar scores and your biggest gaps, metric by metric) is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem;">
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
@@ -108,7 +108,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       </div>
     </div>
   </section>
-  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. Methodology: FACE (Fund, Acquire, Consolidate, Exit) from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
 <script src="assets/supabase.js"></script>
@@ -125,7 +125,7 @@ try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
    Diagnostic (RD): the 24-metric instrument whose four bands are
    Transaction-Ready / Readiness Project Candidate / Roadmap Tier /
    Foundation Tier. The source is read from this page's
-   own URL and passed straight on — nothing is written to cookies, localStorage
+   own URL and passed straight on, nothing is written to cookies, localStorage
    or sessionStorage, so it travels only within a single journey. If anything
    here throws, the plain BOOKING_URL is used so booking always works. */
 const FR_SOURCES = ["Investor Network","LinkedIn Organic","LinkedIn Paid","Website Organic","Referral","Partner","Event","Outbound","Existing Client","Founder Readiness Direct","Direct","Other"];
@@ -225,7 +225,7 @@ const METRICS = [
   "We retain 80–94%; churn is eroding growth",
   "We retain 95–105%; a stable base with modest upsells",
   "Existing customers grow 6–20% net each year through expansion",
-  "Existing customers grow more than 20% net each year — growth compounds without new sales"]},
+  "Existing customers grow more than 20% net each year, growth compounds without new sales"]},
  {p:"deal", t:"Customer concentration", q:"How dependent are you on your largest customers?", o:[
   "One customer is over 40% of revenue, or the top five are over 75%",
   "Largest customer is 25–40% of revenue",
@@ -242,7 +242,7 @@ const METRICS = [
   "Burning cash with flat or declining revenue",
   "Growth is heavily capital-intensive; every pound of growth costs well over two",
   "Growth efficiency in line with market benchmarks",
-  "Highly efficient — close to a pound of burn per pound of new recurring revenue",
+  "Highly efficient: close to a pound of burn per pound of new recurring revenue",
   "Cash-flow positive (or near it) with accelerating growth"]},
  {p:"deal", t:"Quality of earnings", q:"How well would your numbers withstand a buyer's forensic review?", o:[
   "Personal expenses, one-offs and inconsistent revenue recognition throughout",
@@ -301,10 +301,10 @@ const METRICS = [
   "Integration playbook ready; experience of acquiring or being integrated successfully"]},
 ];
 const BANDS = [
-  {min:85, label:"Transaction-Ready", color:"#15803D", desc:"You are in the top tier. The conversation now is about timing, valuation and the right buyer — routed through our transaction partner and investor relationships.", next:"readiness-project.html", nextText:"See how the Readiness Project takes you to market →"},
+  {min:85, label:"Transaction-Ready", color:"#15803D", desc:"You are in the top tier. The conversation now is about timing, valuation and the right buyer, routed through our transaction partner and investor relationships.", next:"readiness-project.html", nextText:"See how the Readiness Project takes you to market →"},
   {min:70, label:"Readiness Project Candidate", color:"#4D7C0F", desc:"The fundamentals are strong. A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table.", next:"readiness-project.html", nextText:"Explore the Readiness Project →"},
   {min:50, label:"Roadmap Tier", color:"#B45309", desc:"There is real value here, and real gaps. A structured roadmap with targeted remediation is the right next step before any market conversation.", next:"roadmap.html", nextText:"See how the Personalised Roadmap works →"},
-  {min:0,  label:"Foundation Tier", color:"#B91C1C", desc:"The honest answer: fundamental strengthening comes first. That is not bad news — it is the map. Every gap identified here is fixable, and fixing it adds value.", next:"roadmap.html", nextText:"See how the Personalised Roadmap works →"},
+  {min:0,  label:"Foundation Tier", color:"#B91C1C", desc:"The honest answer: fundamental strengthening comes first. That is not bad news, it is the map. Every gap identified here is fixable, and fixing it adds value.", next:"roadmap.html", nextText:"See how the Personalised Roadmap works →"},
 ];
 // Render form
 const form = document.getElementById("diag");
@@ -316,7 +316,7 @@ PILLARS.forEach(pl => {
     const gi = METRICS.indexOf(m);
     html += `<fieldset class="metric" id="metric-m${gi}"><legend><h3>${gi+1}. ${m.t}</h3></legend><p class="prompt">${m.q}</p>`;
     m.o.forEach((opt,j) => {
-      html += `<label><input type="radio" name="m${gi}" value="${j+1}"><span><span class="pts">${j+1} —</span> ${opt}</span></label>`;
+      html += `<label><input type="radio" name="m${gi}" value="${j+1}"><span><span class="pts">${j+1},</span> ${opt}</span></label>`;
     });
     html += `</fieldset>`;
   });
@@ -421,11 +421,11 @@ function renderResults(){
   setBooking(document.getElementById("bookBtn"), { assessment: "RD", score: total, band: band.label });
   document.getElementById("pillarBars").innerHTML = PILLARS.map(pl=>{
     const s = Math.round(pillarScores[pl.key]);
-    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${pl.name} — ${s}/100</div><div class="bar"><i style="width:${s}%"></i></div>`;
+    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${pl.name}: ${s}/100</div><div class="bar"><i style="width:${s}%"></i></div>`;
   }).join("");
   const ranked = answers.map((a,i)=>({a,i})).sort((x,y)=>x.a-y.a).slice(0,3);
   document.getElementById("gapList").innerHTML = ranked.map(r=>
-    `<li><b>${METRICS[r.i].t}</b> (scored ${r.a}/5) — next step: ${METRICS[r.i].o[Math.min(r.a,4)]}</li>`).join("");
+    `<li><b>${METRICS[r.i].t}</b> (scored ${r.a}/5): next step: ${METRICS[r.i].o[Math.min(r.a,4)]}</li>`).join("");
   const full = document.getElementById("fullReport");
   full.style.display = "block";
   document.getElementById("results").style.display = "block";
@@ -459,7 +459,7 @@ function runTests(){
   t("every band links a next step", BANDS.every(b=>b.next && b.nextText));
   t("band 20 = Foundation Tier", bandFor(20).label==="Foundation Tier");
   t("BOOKING_URL set", typeof BOOKING_URL==="string" && BOOKING_URL.length>0);
-  // Booking hand-off to GoHighLevel — this page is the Readiness Diagnostic (RD)
+  // Booking hand-off to GoHighLevel: this page is the Readiness Diagnostic (RD)
   const rd = bookingUrl({assessment:"RD", score:72, band:"Readiness Project Candidate"}, "?utm_source=LinkedIn%20Paid");
   t("booking link preserves the base BOOKING_URL", rd.indexOf(BOOKING_URL+"?")===0);
   t("RD link carries assessment, score and band", rd.indexOf("fr_assessment=RD")>-1 && rd.indexOf("fr_score=72")>-1 && rd.indexOf("fr_band=Readiness%20Project%20Candidate")>-1);

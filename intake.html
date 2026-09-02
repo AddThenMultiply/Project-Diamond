@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Founder Intake — Add Then Multiply</title>
+<title>Founder Intake · Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
 a{color:var(--accent);text-decoration:none;}
-header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;border-bottom:4px solid var(--brand);display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
 header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
 header nav a{color:#CBD5E1;font-size:0.85rem;}
 header nav a.active,header nav a:hover{color:#fff;}
+header nav a.nav-cta{background:var(--accent);color:#fff;padding:0.35rem 0.85rem;border-radius:4px;font-weight:700;}
+header nav a.nav-cta:hover{background:#A61D17;color:#fff;}
 header button{background:none;border:1px solid #475569;color:#CBD5E1;border-radius:4px;padding:0.3rem 0.8rem;font-size:0.8rem;cursor:pointer;}
 main{max-width:820px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
 .kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
@@ -27,7 +29,7 @@ textarea{min-height:64px;resize:vertical;}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 1rem;}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.8rem 1.6rem;font-size:0.95rem;font-weight:600;cursor:pointer;margin-top:1.2rem;}
-button.cta:hover{background:#8A3E06;}
+button.cta:hover{background:#A61D17;}
 .objective{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:0.8rem 0;}
 .objective label{border:2px solid var(--line);border-radius:6px;padding:1rem;cursor:pointer;font-size:0.88rem;background:#fff;}
 .objective label.sel{border-color:var(--accent);background:#EFF6FF;}
@@ -85,7 +87,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <section id="view-auth">
   <span class="kicker">Private workspace · your data, verified and secure</span>
   <h1>Tell us what you're building towards</h1>
-  <p class="lede">This intake takes about fifteen minutes and does two jobs: it gives your advisor the full picture before your first conversation, and it gives the platform's analysis engine verified data to work from — so everything drafted for you starts from facts, not guesses. Sign in to begin; everything you enter is private to you and your advisor.</p>
+  <p class="lede">This intake takes about fifteen minutes and does two jobs: it gives your advisor the full picture before your first conversation, and it gives the platform's analysis engine verified data to work from, so everything drafted for you starts from facts, not guesses. Sign in to begin; everything you enter is private to you and your advisor.</p>
   <div class="card">
     <label class="f" for="auth-email">Email address</label>
     <input type="email" id="auth-email" placeholder="you@company.co.uk">
@@ -105,7 +107,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <input type="text" id="new-company" placeholder="Your company">
     <p class="kicker" style="margin-top:1rem;">Your objective</p>
     <div class="objective" id="obj-pick">
-      <label data-obj="acquire_growth"><b>Grow by acquiring</b>I'm looking for funding to buy resources from — or merge with — another company, to gear for growth.</label>
+      <label data-obj="acquire_growth"><b>Grow by acquiring</b>I'm looking for funding to buy resources from (or merge with) another company, to gear for growth.</label>
       <label data-obj="exit"><b>Prepare my exit</b>I want to exit, funding that exit with the business's assets and equity, and I'm looking for the right investors or buyers.</label>
     </div>
     <button class="cta" id="btn-create">Create engagement</button>
@@ -117,14 +119,14 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 <section id="view-intake" class="hidden">
   <span class="kicker" id="intake-kicker">Founder intake</span>
   <h1 id="intake-title">Your intake</h1>
-  <p class="lede">Answer what you can — everything is editable later, and nothing here is shared with anyone but your advisor. The two questions at the top matter most: they are where every good engagement starts.</p>
+  <p class="lede">Answer what you can: everything is editable later, and nothing here is shared with anyone but your advisor. The two questions at the top matter most: they are where every good engagement starts.</p>
 
   <div class="card">
     <h2 style="margin-top:0;" id="q-human">The two questions</h2>
     <label class="f" id="lbl-target" for="i-target">What do you want to achieve in financial terms? (£)</label>
     <input type="number" id="i-target" min="0" step="10000" placeholder="e.g. 5000000">
     <label class="f" id="lbl-after" for="i-after">And what does life look like the day after?</label>
-    <textarea id="i-after" placeholder="In your own words — this is the question that drives everything else."></textarea>
+    <textarea id="i-after" placeholder="In your own words: this is the question that drives everything else."></textarea>
     <label class="f" for="i-timeline">Your timeline (months)</label>
     <input type="number" id="i-timeline" min="1" max="120" placeholder="e.g. 18">
   </div>
@@ -136,13 +138,13 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       <span><label class="f" for="i-region">Region</label><input type="text" id="i-region" placeholder="e.g. UK"></span>
     </div>
     <div class="row3">
-      <span><label class="f" for="i-revband">Revenue band</label><select id="i-revband"><option value="">—</option><option>£1m–£3m</option><option>£3m–£10m</option><option>£10m–£25m</option><option>£25m+</option></select></span>
-      <span><label class="f" for="i-ebitdaband">EBITDA band</label><select id="i-ebitdaband"><option value="">—</option><option>Below £250k</option><option>£250k–£1m</option><option>£1m–£3m</option><option>£3m+</option></select></span>
+      <span><label class="f" for="i-revband">Revenue band</label><select id="i-revband"><option value="">Select…</option><option>£1m–£3m</option><option>£3m–£10m</option><option>£10m–£25m</option><option>£25m+</option></select></span>
+      <span><label class="f" for="i-ebitdaband">EBITDA band</label><select id="i-ebitdaband"><option value="">Select…</option><option>Below £250k</option><option>£250k–£1m</option><option>£1m–£3m</option><option>£3m+</option></select></span>
       <span><label class="f" for="i-recurring">Recurring revenue %</label><input type="number" id="i-recurring" min="0" max="100" placeholder="0–100"></span>
     </div>
     <div class="row">
       <span><label class="f" for="i-team">Team size</label><input type="number" id="i-team" min="0" placeholder="e.g. 25"></span>
-      <span><label class="f" for="i-dependency">How founder-dependent is the business? (1 = runs without you, 5 = it's all you)</label><select id="i-dependency"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
+      <span><label class="f" for="i-dependency">How founder-dependent is the business? (1 = runs without you, 5 = it's all you)</label><select id="i-dependency"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
     </div>
     <div class="row" id="capital-row">
       <span><label class="f" id="lbl-funding" for="i-funding">Capital sought (£)</label><input type="number" id="i-funding" min="0" step="10000"></span>
@@ -152,7 +154,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 
   <div class="card">
     <h2 style="margin-top:0;">The deal realities</h2>
-    <p style="font-size:0.83rem;color:var(--slate);">These are the questions every serious counterparty asks in week one. Answering them now — honestly — is what separates prepared founders from the half of deals that die on diligence surprises. Uncomfortable answers cost nothing here; discovered ones cost the deal.</p>
+    <p style="font-size:0.83rem;color:var(--slate);">These are the questions every serious counterparty asks in week one. Answering them now (honestly) is what separates prepared founders from the half of deals that die on diligence surprises. Uncomfortable answers cost nothing here; discovered ones cost the deal.</p>
     <div class="row">
       <span><label class="f" for="i-adjebitda">Adjusted EBITDA (£, after owner add-backs)</label><input type="number" id="i-adjebitda" step="10000"></span>
       <span><label class="f" for="i-growth">Revenue growth rate (% year on year)</label><input type="number" id="i-growth" step="1"></span>
@@ -160,24 +162,24 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <label class="f" for="i-adjbasis">Basis of the adjustments (owner salary, one-offs, related-party items)</label>
     <textarea id="i-adjbasis"></textarea>
     <div class="row">
-      <span><label class="f" for="i-top1">Largest customer — % of revenue</label><input type="number" id="i-top1" min="0" max="100"></span>
-      <span><label class="f" for="i-top5">Top five customers — % of revenue</label><input type="number" id="i-top5" min="0" max="100"></span>
+      <span><label class="f" for="i-top1">Largest customer: % of revenue</label><input type="number" id="i-top1" min="0" max="100"></span>
+      <span><label class="f" for="i-top5">Top five customers: % of revenue</label><input type="number" id="i-top5" min="0" max="100"></span>
     </div>
     <div class="row">
-      <span><label class="f" for="i-hygiene">State of your financials</label><select id="i-hygiene"><option value="">—</option><option value="audited">Audited</option><option value="externally_reviewed">Externally reviewed</option><option value="management_monthly">Monthly management accounts</option><option value="annual_only">Annual accounts only</option></select></span>
+      <span><label class="f" for="i-hygiene">State of your financials</label><select id="i-hygiene"><option value="">Select…</option><option value="audited">Audited</option><option value="externally_reviewed">Externally reviewed</option><option value="management_monthly">Monthly management accounts</option><option value="annual_only">Annual accounts only</option></select></span>
       <span><label class="f" for="i-valexp">Your valuation expectation (£, if you have one)</label><input type="number" id="i-valexp" step="100000"></span>
     </div>
     <label class="f" for="i-valbasis">What that expectation is based on (formal valuation? multiple? instinct?)</label>
     <textarea id="i-valbasis"></textarea>
-    <label class="f" for="i-skeletons">Anything a buyer or investor will find that we should know first? (litigation, disputes, related-party arrangements — disclosed early, these are manageable; discovered late, they end deals)</label>
+    <label class="f" for="i-skeletons">Anything a buyer or investor will find that we should know first? (litigation, disputes, related-party arrangements: disclosed early, these are manageable; discovered late, they end deals)</label>
     <textarea id="i-skeletons"></textarea>
   </div>
 
   <div class="card" id="card-exit">
     <h2 style="margin-top:0;">Your exit, specifically</h2>
     <div class="row">
-      <span><label class="f" for="i-exitintent">What kind of exit do you actually want?</label><select id="i-exitintent"><option value="">—</option><option value="full_sale">Full sale — I leave</option><option value="majority_with_rollover">Sell majority, keep a stake</option><option value="minority">Minority investment — I keep control</option><option value="stay_on">Sell but stay on to lead</option></select></span>
-      <span><label class="f" for="i-emotional">How ready do you feel, honestly? (1 = not at all, 5 = completely)</label><select id="i-emotional"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
+      <span><label class="f" for="i-exitintent">What kind of exit do you actually want?</label><select id="i-exitintent"><option value="">Select…</option><option value="full_sale">Full sale: I leave</option><option value="majority_with_rollover">Sell majority, keep a stake</option><option value="minority">Minority investment: I keep control</option><option value="stay_on">Sell but stay on to lead</option></select></span>
+      <span><label class="f" for="i-emotional">How ready do you feel, honestly? (1 = not at all, 5 = completely)</label><select id="i-emotional"><option value="">Select…</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></span>
     </div>
     <p class="kicker" style="margin-top:1rem;">Structures you would consider</p>
     <div class="assets" id="structures-list"></div>
@@ -185,7 +187,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 
   <div class="card" id="card-acq">
     <h2 style="margin-top:0;">Your acquisition, specifically</h2>
-    <label class="f" for="i-acqcriteria">Your acquisition criteria — what does the right target look like, and why?</label>
+    <label class="f" for="i-acqcriteria">Your acquisition criteria: what does the right target look like, and why?</label>
     <textarea id="i-acqcriteria"></textarea>
     <div class="row">
       <span><label class="f" for="i-integration">Who will own the integration?</label><input type="text" id="i-integration" placeholder="Named person or role"></span>
@@ -217,7 +219,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
 
   <div class="card">
     <h2 style="margin-top:0;">Upload your verified documents</h2>
-    <p style="font-size:0.85rem;color:var(--slate);">Files go into your engagement's private data room — visible only to you and your advisor, and used as the verified source for everything the platform drafts. Upload what exists today; the checklist tracks the rest.</p>
+    <p style="font-size:0.85rem;color:var(--slate);">Files go into your engagement's private data room, visible only to you and your advisor, and used as the verified source for everything the platform drafts. Upload what exists today; the checklist tracks the rest.</p>
     <div id="doc-list"></div>
     <div id="doc-msg"></div>
   </div>
@@ -257,13 +259,13 @@ const STRUCTURE_KEYS = [
 ];
 const OBJ_COPY = {
   acquire_growth: {
-    title:"Intake — growing by acquisition",
+    title:"Intake, growing by acquisition",
     target:"What growth do you want the acquisition to deliver, in financial terms? (£ revenue or value)",
     after:"And what does the combined business look like when it works?",
     funding:"Capital sought for the acquisition (£)",
   },
   exit: {
-    title:"Intake — preparing your exit",
+    title:"Intake, preparing your exit",
     target:"What do you want to achieve from the exit, in financial terms? (£)",
     after:"And what does life look like the day after you sell?",
     funding:"Capital sought before exit, if any (£)",
@@ -307,7 +309,7 @@ function friendlyDbError(error){
 }
 
 /* Which workspace an engagement belongs in, deep-linked to that engagement.
-   Pure — covered by runTests(). */
+   Pure: covered by runTests(). */
 function workspaceHref(asset, id){
   const page = asset === "deal_ready" ? "deal-ready-workspace.html" : "exit-ready-workspace.html";
   return id ? page + "?eng=" + encodeURIComponent(id) : page;
@@ -376,7 +378,7 @@ async function init(){
   }
   // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
   // as soon as it subscribes, so calling getSession() and route() here too
-  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  // ran the whole view twice on load, duplicate fetches and a visible flicker.
   sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
 }
 
@@ -412,7 +414,7 @@ $("btn-magic").onclick = async ()=>{
   if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
   msg("auth-msg","Sending your sign-in link…","info");
   const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
-  msg("auth-msg", error ? error.message : "Check your inbox — the link signs you straight in.", error?"err":"ok");
+  msg("auth-msg", error ? error.message : "Check your inbox, the link signs you straight in.", error?"err":"ok");
 };
 $("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); eng=null; };
 
@@ -423,7 +425,7 @@ async function loadEngagements(){
   if(error){ msg("list-msg", error.message, "err"); return; }
   $("eng-list").innerHTML = (data && data.length)
     ? data.map(e=>`<div class="doc"><b>${esc(e.company_name)}</b><span style="font-size:0.78rem;color:var(--slate)">${e.asset==="deal_ready"?"Deal Ready":"Exit Ready"} · phase ${e.phase}</span><button class="up" onclick="openIntake('${e.id}')">Open intake →</button><a class="up" href="${workspaceHref(e.asset, e.id)}">Open workspace →</a></div>`).join("")
-    : `<p style="font-size:0.88rem;color:var(--slate)">No engagements yet — create one below.</p>`;
+    : `<p style="font-size:0.88rem;color:var(--slate)">No engagements yet: create one below.</p>`;
   // The header "Workspace" link must not always point at Exit Ready: a
   // deal_ready founder following it would land in the wrong workspace and
   // could create a duplicate engagement. One engagement routes straight
@@ -454,7 +456,7 @@ async function openIntake(id){
   const obj = (e.target_outcome && e.target_outcome.objective) || (e.asset==="deal_ready"?"acquire_growth":"exit");
   eng._objective = obj;
   const copy = OBJ_COPY[obj];
-  $("intake-title").textContent = copy.title + " — " + e.company_name;
+  $("intake-title").textContent = copy.title + ": " + e.company_name;
   $("lbl-target").textContent = copy.target;
   $("lbl-after").textContent = copy.after;
   $("lbl-funding").textContent = copy.funding;
@@ -540,7 +542,7 @@ async function renderDocs(){
 }
 async function uploadDoc(key, file){
   if(!file) return;
-  if(file.size > 50*1024*1024){ msg("doc-msg","Files over 50MB — share via your advisor for now.","err"); return; }
+  if(file.size > 50*1024*1024){ msg("doc-msg","Files over 50MB: share via your advisor for now.","err"); return; }
   msg("doc-msg",`Uploading ${file.name}…`,"info");
   const path = docPath(eng.id, key, file.name);
   const {error:upErr} = await sb.storage.from("dataroom").upload(path, file);

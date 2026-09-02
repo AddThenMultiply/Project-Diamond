@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="The Ethical Acquisitions Scorecard: score a potential acquisition on the things that decide whether it works — people, promises and the price of getting it wrong.">
-<title>Ethical Acquisitions Scorecard — Add Then Multiply</title>
+<meta name="description" content="The Ethical Acquisitions Scorecard: score a potential acquisition on the things that decide whether it works: people, promises and the price of getting it wrong.">
+<title>Ethical Acquisitions Scorecard · Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
 a{color:var(--accent);text-decoration:none;}
-header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
+header{background:var(--navy);color:#fff;padding:0.9rem 1.5rem;border-bottom:4px solid var(--brand);display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;align-items:center;}
 header .brand{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;margin-right:auto;}
 header nav a{color:#CBD5E1;font-size:0.85rem;}
 header nav a.active,header nav a:hover{color:#fff;}
+header nav a.nav-cta{background:var(--accent);color:#fff;padding:0.35rem 0.85rem;border-radius:4px;font-weight:700;}
+header nav a.nav-cta:hover{background:#A61D17;color:#fff;}
 main{max-width:880px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
 .kicker{letter-spacing:0.18em;font-size:0.72rem;color:var(--slate);text-transform:uppercase;font-weight:600;}
 h1{font-family:Georgia,serif;font-size:2rem;color:var(--navy);margin:0.4rem 0 0.8rem;}
@@ -34,7 +36,7 @@ p.lede{color:var(--slate);font-size:1.02rem;max-width:64ch;}
 .rolegrid input{display:block;margin:0 auto 0.4rem;accent-color:var(--accent);}
 .rolegrid b{color:var(--navy);}
 button.cta{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:0.85rem 1.8rem;font-size:1rem;font-weight:600;cursor:pointer;margin-top:1.6rem;}
-button.cta:hover{background:#8A3E06;}
+button.cta:hover{background:#A61D17;}
 #results{display:none;margin-top:2.4rem;border-top:3px solid var(--navy);padding-top:1.6rem;}
 .scorebox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.4rem;margin:1rem 0;}
 .big{font-family:Georgia,serif;font-size:2.6rem;color:var(--navy);}
@@ -59,19 +61,17 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <a href="index.html">Overview</a>
     <a href="investor-ready.html">Investor Ready</a>
     <a href="diagnostic.html">Exit Ready</a>
-    <a href="pitch.html">Pitch</a>
-    <a href="product.html">Product</a>
-    <a href="publish.html">Publish</a>
-    <a href="sourcing.html">Finance Advisory</a>
-    <a href="investors.html">Investors</a>
+    <a href="index.html#services" class="active">Services</a>
+    <a href="investors.html">Network</a>
+    <a href="https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ" class="nav-cta" target="_blank" rel="noopener">Book a call</a>
   </nav>
 </header>
 <main>
   <span class="kicker">Ethical Acquisitions Scorecard · 20 questions · 3 minutes · instant results</span>
   <h1>Buy or sell a business the right way</h1>
-  <p class="lede">Whether you are preparing to sell the business you built, or acquiring to grow, the difference between a fair deal and a painful one is readiness — financial, structural and ethical. This scorecard measures all three, and shows you where you stand before you sit down at the table.</p>
+  <p class="lede">Whether you are preparing to sell the business you built, or acquiring to grow, the difference between a fair deal and a painful one is readiness, financial, structural and ethical. This scorecard measures all three, and shows you where you stand before you sit down at the table.</p>
 
-  <div class="themehead"><h2>First — which best describes you today?</h2><p>This personalises your results. It is not scored.</p></div>
+  <div class="themehead"><h2>First, which best describes you today?</h2><p>This personalises your results. It is not scored.</p></div>
   <div class="rolegrid">
     <label><input type="radio" name="q0" value="seller"><b>Seller / owner</b>preparing to exit</label>
     <label><input type="radio" name="q0" value="buyer"><b>Buyer / acquirer</b>growing by acquisition</label>
@@ -91,7 +91,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
     <section id="leadgate" style="display:none;">
       <div class="scorebox">
         <h2 style="margin-top:0;font-size:1.15rem;">Unlock your full report</h2>
-        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline score. Your full report — the theme scores, your immediate priorities and the service match — is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
+        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline score. Your full report (the theme scores, your immediate priorities and the service match) is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem;">
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
@@ -115,7 +115,7 @@ footer{border-top:1px solid var(--line);color:var(--slate);font-size:0.78rem;tex
       </div>
     </div>
   </section>
-  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This scorecard indicates readiness only — it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE — Fund, Acquire, Consolidate, Exit — from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This scorecard indicates readiness only, it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE (Fund, Acquire, Consolidate, Exit) from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
 <script src="assets/supabase.js"></script>
@@ -124,7 +124,7 @@ const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0Yzbs
 /* Booking hand-off. Appends the campaign source to the single BOOKING_URL so
    GoHighLevel can record where the founder came from. This page carries no
    assessment, so it sends fr_source only. The source is read from this page's
-   own URL and passed straight on — nothing is written to cookies, localStorage
+   own URL and passed straight on, nothing is written to cookies, localStorage
    or sessionStorage, so it travels only within a single journey. If anything
    here throws, the plain BOOKING_URL is used so booking always works. */
 const FR_SOURCES = ["Investor Network","LinkedIn Organic","LinkedIn Paid","Website Organic","Referral","Partner","Event","Outbound","Existing Client","Founder Readiness Direct","Direct","Other"];
@@ -158,7 +158,7 @@ try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const SCALE = ["Not at all","Slightly","Partly","Mostly","Completely"];
 const THEMES = [
  {key:"seller", name:"Seller Readiness and Priorities", weight:1.0,
-  low:["Define your personal objectives and exit criteria","Compare route options — EOT, MBO, trade sale — with advice"],
+  low:["Define your personal objectives and exit criteria","Compare route options (EOT, MBO, trade sale) with advice"],
   qs:["Do you have clear personal and family objectives from the sale, such as financial security, legacy, or succession?",
       "Are you confident your business could continue to thrive under new ownership?",
       "Have you explored different exit routes such as MBO, EOT, trade sale, or private equity?",
@@ -190,7 +190,7 @@ const MAX_WEIGHTED = THEMES.reduce((s,t)=>s + t.qs.length*5*t.weight, 0); // 125
 const BANDS = [
   {min:91, label:"Highly Ready", color:"var(--good)",
    desc:"Clear goals, ethical alignment, and strong financial and strategic readiness. You are well placed to achieve a successful, fair, and sustainable transaction.",
-   svc:"<b>Your ATM service match:</b> FACE pathway discovery — Fund, Acquire, Consolidate, Exit."},
+   svc:"<b>Your ATM service match:</b> FACE pathway discovery: Fund, Acquire, Consolidate, Exit."},
   {min:71, label:"Strong Potential", color:"#4D7C0F",
    desc:"Well prepared, with good awareness of risks and opportunities. Targeted expert guidance would secure the best outcome and build long-term value.",
    svc:"<b>Your ATM service match:</b> an <b>ATM Commercial Velocity day</b> or an <b>Insourced CFO</b> scoping call."},
@@ -203,10 +203,10 @@ const BANDS = [
 ];
 function roleCta(role, total){
   if(role==="seller") return total<=70
-    ? "Your pathway: Exit Ready in 90 Days — an Exit Readiness call and an options overview (EOT, MBO with vendor support, trade sale)."
+    ? "Your pathway: Exit Ready in 90 Days, an Exit Readiness call and an options overview (EOT, MBO with vendor support, trade sale)."
     : "Your pathway: an Exit Readiness call, then FACE discovery and a Commercial Velocity day.";
   if(role==="buyer") return total<=70
-    ? "Your pathway: Credible Acquirer in 60 Days — an Ethical Acquisition Strategy call, Funding Fitness Index and credibility pack."
+    ? "Your pathway: Credible Acquirer in 60 Days, an Ethical Acquisition Strategy call, Funding Fitness Index and credibility pack."
     : "Your pathway: an Ethical Acquisition Strategy call, then FACE discovery and deal modelling.";
   return "Your pathway: a partner discussion about a co-branded readiness pathway for your clients.";
 }
@@ -273,7 +273,7 @@ function scoreDiagnostic(){
   const err = document.getElementById("diag-err");
   const fail = (text, el)=>{ err.textContent = text; err.style.display = "block";
     if(el) el.scrollIntoView({behavior:"smooth", block:"center"}); };
-  if(!roleSel){ fail("Please tell us which best describes you today — it is the first question.", null); window.scrollTo({top:0,behavior:"smooth"}); return; }
+  if(!roleSel){ fail("Please tell us which best describes you today, it is the first question.", null); window.scrollTo({top:0,behavior:"smooth"}); return; }
   const answers = [];
   const allQs = THEMES.flatMap(t=>t.qs);
   for(let i=0;i<allQs.length;i++){
@@ -334,11 +334,11 @@ function renderResults(){
   renderTeaser();
   document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
     const s = themeScores[t.key];
-    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name} — ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
+    return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name}: ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
   }).join("");
   const ranked = answers.map((a,i)=>({a,i})).sort((x,y)=>x.a-y.a).slice(0,3);
   document.getElementById("gapList").innerHTML = ranked.map(r=>
-    `<li><b>Q${r.i+1}:</b> ${allQs[r.i]} <span style="color:var(--slate)">(you answered ${r.a}/5 — ${SCALE[r.a-1]})</span></li>`).join("");
+    `<li><b>Q${r.i+1}:</b> ${allQs[r.i]} <span style="color:var(--slate)">(you answered ${r.a}/5, ${SCALE[r.a-1]})</span></li>`).join("");
   const cfg = routing ? routing.find(r=>r.band_slug === bandSlug(band.label)) : null;
   let svcHtml = cfg ? `<b>Your ATM service match:</b> ${cfg.service}` : band.svc;
   if(cfg && cfg.partner_only){
@@ -392,7 +392,7 @@ function runTests(){
   t("every gate field is labelled",
     ["ld-name","ld-email","ld-company","ld-revenue","ld-timeframe","ld-consent"]
       .every(id=>[...document.querySelectorAll("label[for]")].some(l=>l.getAttribute("for")===id)));
-  // Booking hand-off to GoHighLevel — this page carries no assessment context
+  // Booking hand-off to GoHighLevel: this page carries no assessment context
   t("booking link preserves the base BOOKING_URL", bookingUrl(null,"?utm_source=Event").indexOf(BOOKING_URL+"?")===0);
   t("a page with no assessment context sends fr_source only", bookingUrl(null,"?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
   t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);

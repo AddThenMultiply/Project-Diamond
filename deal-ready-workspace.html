@@ -6,14 +6,14 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Deal Ready Workspace | Add Then Multiply</title>
 <style>
-:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#B45309;
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;
 --good:#15803D;--warn:#B45309;--bad:#B91C1C;
 /* legacy names kept as aliases so existing rules and inline styles keep resolving */
 --primary:#2B2A29;--secondary:#111827;--text-main:#111827;--text-light:#475569;
 --bg-light:#F8FAFC;--white:#fff;--border:#E2E8F0;--error:#B91C1C;--success:#15803D;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
-header{background:var(--navy);color:#fff;padding:0.9rem 0;}
+header{background:var(--navy);color:#fff;padding:0.9rem 0;border-bottom:4px solid var(--brand);}
 .container{max-width:1050px;margin:0 auto;padding:0 1.5rem;width:100%;}
 .header-content{display:flex;justify-content:space-between;align-items:center;gap:0.6rem 1.4rem;flex-wrap:wrap;}
 .logo{font-family:Georgia,serif;font-size:1.05rem;font-weight:700;}
@@ -32,7 +32,7 @@ textarea{min-height:70px;resize:vertical;}
 button{background:var(--navy);color:#fff;border:none;border-radius:4px;padding:.65rem 1.2rem;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit;}
 button:hover{background:#111827;}
 button.gold{background:var(--accent);color:#fff;}
-button.gold:hover{background:#8A3E06;}
+button.gold:hover{background:#A61D17;}
 button.ghost{background:transparent;color:var(--navy);border:1px solid var(--line);}
 button.ghost:hover{background:#fff;border-color:var(--navy);}
 button.small{padding:.3rem .7rem;font-size:.78rem;}
@@ -52,7 +52,7 @@ th{text-align:left;background:var(--bg);color:var(--navy);padding:.5rem .6rem;bo
 td{padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top;}
 .tag{display:inline-block;padding:.15rem .55rem;border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.05em;}
 .tag.F{background:#DBEAFE;color:#1E3A8A;}.tag.A{background:#EDE9FE;color:#4C1D95;}
-.tag.C{background:#FEF3C7;color:#78350F;}
+.tag.C{background:#FDECEB;color:#A61D17;}
 .gate-box{border:1px dashed var(--accent);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0;background:#FFFBEB;}
 .muted{color:var(--slate);font-size:.85rem;}
 .right{text-align:right;}
@@ -76,7 +76,7 @@ a:hover{text-decoration:underline;}
 </head>
 <body>
 <header><div class="container header-content">
-  <div class="logo">ADD THEN <span>MULTIPLY</span> — Deal Ready Workspace</div>
+  <div class="logo">ADD THEN <span>MULTIPLY</span> · Deal Ready Workspace</div>
   <div><span id="whoami" class="muted" style="color:#CBD5E1;"></span>
   <button id="btn-signout" class="ghost small hidden" style="color:#fff;border-color:#94A3B8;margin-left:.8rem;">Sign out</button></div>
 </div></header>
@@ -125,7 +125,7 @@ a:hover{text-decoration:underline;}
       </div>
       <div class="phase-bar" id="phase-bar"></div>
       <div class="gate-box" id="gate-box"></div>
-      <p class="muted">The honest verdict — including “M&amp;A is the wrong route” — the approach itself, chemistry, negotiation and completion decisions are made by people, never by the platform.</p>
+      <p class="muted">The honest verdict (including “M&amp;A is the wrong route”) the approach itself, chemistry, negotiation and completion decisions are made by people, never by the platform.</p>
     </div>
 
     <!-- Target pipeline -->
@@ -147,7 +147,7 @@ a:hover{text-decoration:underline;}
     <!-- DD tracker -->
     <div class="card">
       <h2>Due diligence tracker <span class="tag A">A</span></h2>
-      <p class="sub">The DD question log with red-flag surfacing — and the legal-cost discipline the process insists on. Red flags are decisions for people.</p>
+      <p class="sub">The DD question log with red-flag surfacing, and the legal-cost discipline the process insists on. Red flags are decisions for people.</p>
       <div class="grid3">
         <div><label for="dd-target">Target</label><select id="dd-target"></select></div>
         <div><label for="dd-area">Area</label><select id="dd-area">
@@ -161,7 +161,7 @@ a:hover{text-decoration:underline;}
 
     <!-- Integration planner -->
     <div class="card">
-      <h2>Integration planner — the 100-day plan <span class="tag C">C</span></h2>
+      <h2>Integration planner: the 100-day plan <span class="tag C">C</span></h2>
       <p class="sub">Consolidate: “planned from the beginning, not bolted on” (<em>Add Then Multiply</em> Ch. 7). Seed the standard plan, then tailor it.</p>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem;">
         <button id="btn-int-seed" class="gold">Seed standard 100-day plan</button>
@@ -189,7 +189,7 @@ a:hover{text-decoration:underline;}
   </section>
 
 </div></main>
-<footer><div class="container">Add Then Multiply — Deal Ready Workspace · Private and confidential ·
+<footer><div class="container">Add Then Multiply · Deal Ready Workspace · Private and confidential ·
 Built on the ATM M&amp;A Advisory Process. AI drafts and tracks; your advisor decides.</div></footer>
 
 <script src="assets/supabase.js"></script>
@@ -235,7 +235,7 @@ async function init(){
   }
   // Route from the auth event only. onAuthStateChange fires INITIAL_SESSION
   // as soon as it subscribes, so calling getSession() and route() here too
-  // ran the whole view twice on load — duplicate fetches and a visible flicker.
+  // ran the whole view twice on load, duplicate fetches and a visible flicker.
   sb.auth.onAuthStateChange((_e, s2)=>{ session = s2; route(); });
 }
 
@@ -274,7 +274,7 @@ $("btn-magic").onclick = async ()=>{
   if(!email){ msg("auth-msg","Enter your email address.","err"); return; }
   msg("auth-msg","Sending magic link…","info");
   const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: window.location.href.split("#")[0]}});
-  msg("auth-msg", error ? error.message : "Check your inbox — the link signs you straight in.", error?"err":"ok");
+  msg("auth-msg", error ? error.message : "Check your inbox, the link signs you straight in.", error?"err":"ok");
 };
 $("btn-signout").onclick = async ()=>{ await sb.auth.signOut(); eng=null; };
 
@@ -284,11 +284,11 @@ async function loadEngagements(){
   const {data, error} = await sb.from("engagements").select("*").eq("asset","deal_ready").order("created_at",{ascending:false});
   if(error){ msg("list-msg", error.message, "err"); return; }
   const rows = (data||[]).map(e=>`<tr><td><strong>${esc(e.company_name)}</strong></td>
-    <td>Phase ${e.phase} — ${esc(PHASES[e.phase-1]||"")}</td><td>${esc(e.status)}</td>
+    <td>Phase ${e.phase}: ${esc(PHASES[e.phase-1]||"")}</td><td>${esc(e.status)}</td>
     <td class="right"><button class="small gold" onclick="openEng('${e.id}')">Open workspace</button></td></tr>`).join("");
   $("eng-list").innerHTML = rows
     ? `<table><tr><th>Company</th><th>Phase</th><th>Status</th><th></th></tr>${rows}</table>`
-    : `<p class="muted">No engagements yet — create your first below.</p>`;
+    : `<p class="muted">No engagements yet: create your first below.</p>`;
 }
 $("btn-create-eng").onclick = async ()=>{
   const company = $("new-company").value.trim();
@@ -305,7 +305,7 @@ window.openEng = async (id)=>{
   // A hand-edited ?eng= could name an Exit Ready engagement; say so rather
   // than rendering it through the wrong workspace.
   if(data && data.asset !== "deal_ready"){
-    msg("list-msg","That engagement is an Exit Ready engagement — open it in the Exit Ready workspace.","err"); return;
+    msg("list-msg","That engagement is an Exit Ready engagement, open it in the Exit Ready workspace.","err"); return;
   }
   eng = data; renderWorkspace();
 };
@@ -327,7 +327,7 @@ function renderGate(){
   const next = eng.phase+1, isAdvisor = ["advisor","admin"].includes(profile.role);
   if(eng.phase>=PHASES.length){ $("gate-box").innerHTML = `<strong>All phases complete.</strong>`; return; }
   $("gate-box").innerHTML = `
-    <strong>Phase gate — advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
+    <strong>Phase gate: advance to Phase ${next} (${esc(PHASES[next-1])})</strong>
     <p class="muted">A named human sign-off is required; the gate is enforced in the database.</p>
     ${isAdvisor ? `
       <label for="gate-note">Sign-off note</label><input id="gate-note" placeholder="Basis for the decision">
@@ -369,11 +369,11 @@ async function loadTargets(){
         ${t.relationship_notes?`<div class="muted">${esc(t.relationship_notes)}</div>`:""}
         <select class="small" style="margin-top:.3rem;font-size:.78rem;padding:.2rem;" onchange="moveTarget('${t.id}',this.value)">
           ${STAGES.map(s=>`<option ${s===t.stage?"selected":""}>${s}</option>`).join("")}
-        </select></div>`).join("")||`<span class="muted">—</span>`}</div>`;
+        </select></div>`).join("")||`<span class="muted">–</span>`}</div>`;
   }).join("")+`</div>`+
   (targetsCache.some(t=>t.stage==="dropped")?`<p class="muted" style="margin-top:.6rem;">Dropped: ${targetsCache.filter(t=>t.stage==="dropped").map(t=>esc(t.name)).join(", ")}</p>`:"");
   const dd = $("dd-target");
-  dd.innerHTML = `<option value="">— general —</option>`+targetsCache.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");
+  dd.innerHTML = `<option value="">general,</option>`+targetsCache.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");
 }
 window.moveTarget = async (id, stage)=>{ await sb.from("targets").update({stage}).eq("id",id); loadTargets(); };
 
@@ -388,10 +388,10 @@ $("btn-dd-add").onclick = async ()=>{
 async function loadDD(){
   const {data, error} = await sb.from("dd_items").select("*").eq("engagement_id",eng.id).order("created_at");
   if(error) return loadFailed("dd-table", error, "the due-diligence register");
-  const tName = (id)=>{const t=targetsCache.find(x=>x.id===id); return t?t.name:"—";};
+  const tName = (id)=>{const t=targetsCache.find(x=>x.id===id); return t?t.name:"–";};
   const red = (data||[]).filter(d=>d.red_flag).length;
   $("dd-table").innerHTML = (data&&data.length)?
-    `${red?`<div class="notice err">${red} red flag${red>1?"s":""} open — advisor attention required.</div>`:""}
+    `${red?`<div class="notice err">${red} red flag${red>1?"s":""} open, advisor attention required.</div>`:""}
     <table><tr><th>Target</th><th>Area</th><th>Question</th><th>Status</th><th>Red flag</th><th></th></tr>
     ${data.map(d=>`<tr><td>${esc(tName(d.target_id))}</td><td>${esc(d.area)}</td><td>${esc(d.question)}
       ${d.response?`<div class="muted">↳ ${esc(d.response)}</div>`:""}</td>
@@ -460,10 +460,10 @@ async function loadIntegration(){
   if(error) return loadFailed("int-table", error, "the integration plan");
   $("int-table").innerHTML = (data&&data.length)?
     `<table><tr><th>Day</th><th>Action</th><th>Owner</th><th>Culture risk</th><th>Status</th><th></th></tr>
-    ${data.map(a=>`<tr><td>${a.day_offset}</td><td>${esc(a.action)}</td><td>${esc(a.owner||"—")}</td>
+    ${data.map(a=>`<tr><td>${a.day_offset}</td><td>${esc(a.action)}</td><td>${esc(a.owner||"–")}</td>
       <td>${a.culture_risk?`<span class="redflag">culture</span>`:""}</td><td>${esc(a.status)}</td>
       <td class="right"><button class="small ghost" onclick="cycleInt('${a.id}','${a.status}')">${a.status==="todo"?"Start":a.status==="doing"?"Done":"Reopen"}</button></td></tr>`).join("")}</table>`
-    : `<p class="muted">No integration actions yet — seed the standard plan or add your own.</p>`;
+    : `<p class="muted">No integration actions yet: seed the standard plan or add your own.</p>`;
 }
 window.cycleInt = async (id, cur)=>{
   const next = cur==="todo"?"doing":cur==="doing"?"done":"todo";
