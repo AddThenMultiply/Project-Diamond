@@ -52,6 +52,8 @@ a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 
 a.jump:hover{background:#A61D17;color:#fff;}
 .jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
 @media(prefers-reduced-motion:reduce){.rise{animation:none}}
+/* 16px minimum on form fields: stops iOS Safari zooming the page when a field is focused. */
+input[type=text],input[type=email],select,textarea{font-size:1rem;}
 </style>
 </head>
 <body>
@@ -125,7 +127,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
 
   <p class="note">Sources: <em>Funded Female Founders</em>, David B Horne (Rethink Press, 2022), the $8.7tn calculation applies the Rose Review funding-gap estimate to global GDP; warm-introduction data from British Business Bank research; question-bias research: Kanze et al., Academy of Management Journal / Harvard Business Review. This page is educational and is not financial advice or a financial promotion; introductions to investors are made only through ATM's authorised transaction partner.</p>
 </main>
-<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
+<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a> · <a href="privacy.html">Privacy</a><br><small class="legal" style="display:block;margin-top:0.6rem;font-size:0.72rem;max-width:70ch;margin-left:auto;margin-right:auto;">Add Then Multiply Limited is registered in England and Wales, company number 04623437. It is not authorised or regulated by the Financial Conduct Authority. This site describes advisory services and is not a financial promotion.</small></footer>
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
 

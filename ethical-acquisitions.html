@@ -61,6 +61,8 @@ a.jump{display:inline-block;background:var(--accent);color:#fff;padding:0.85rem 
 a.jump:hover{background:#A61D17;color:#fff;}
 .jumpnote{display:block;font-size:0.82rem;color:var(--slate);margin-top:0.5rem;}
 @media(prefers-reduced-motion:reduce){.rise{animation:none}}
+/* 16px minimum on form fields: stops iOS Safari zooming the page when a field is focused. */
+input[type=text],input[type=email],select,textarea{font-size:1rem;}
 </style>
 </head>
 <body>
@@ -126,7 +128,7 @@ a.jump:hover{background:#A61D17;color:#fff;}
   </section>
   <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This scorecard indicates readiness only, it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE (Fund, Acquire, Consolidate, Exit) from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
-<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a></footer>
+<footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a> · <a href="privacy.html">Privacy</a><br><small class="legal" style="display:block;margin-top:0.6rem;font-size:0.72rem;max-width:70ch;margin-left:auto;margin-right:auto;">Add Then Multiply Limited is registered in England and Wales, company number 04623437. It is not authorised or regulated by the Financial Conduct Authority. This site describes advisory services and is not a financial promotion.</small></footer>
 <script src="assets/supabase.js"></script>
 <script>
 const BOOKING_URL = "https://api.leadconnectorhq.com/widget/booking/Av6i7gL0YzbszYFfnKqQ";
@@ -329,10 +331,15 @@ async function submitLead(){
     err.textContent = "Please tick the consent box so we can store your results."; err.style.display = "block"; return;
   }
   err.style.display = "none";
+  const gateBtn = document.querySelector("#leadgate button"), gateLabel = gateBtn ? gateBtn.textContent : "";
+  if(gateBtn){ gateBtn.disabled = true; gateBtn.textContent = "Preparing your report…"; }
   if(sb){
-    try { await sb.from("leads").insert(buildLeadPayload(pending.answers, pending.themeScores, pending.total, pending.band, pending.role, contact)); }
-    catch(e) { /* never block results on a network failure */ }
+      /* Save the lead, but never make the founder wait on it: the report renders after
+         six seconds even if the database has not answered, and on any failure. */
+      try { await Promise.race([sb.from("leads").insert(buildLeadPayload(pending.answers, pending.themeScores, pending.total, pending.band, pending.role, contact)), new Promise(function(r){ setTimeout(r, 6000); })]); }
+      catch(e) { /* never block the founder's results on a network failure */ }
   }
+  if(gateBtn){ gateBtn.disabled = false; gateBtn.textContent = gateLabel; }
   renderResults();
 }
 
@@ -350,6 +357,7 @@ function renderResults(){
     `<li><b>Q${r.i+1}:</b> ${allQs[r.i]} <span style="color:var(--slate)">(you answered ${r.a}/5, ${SCALE[r.a-1]})</span></li>`).join("");
   const cfg = routing ? routing.find(r=>r.band_slug === bandSlug(band.label)) : null;
   let svcHtml = cfg ? `<b>Your ATM service match:</b> ${cfg.service}` : band.svc;
+  svcHtml += `<br><span style="font-size:0.8rem;color:var(--slate);">This is an automated suggestion from your answers; an adviser confirms the next step on the Readiness Call.</span>`;
   if(cfg && cfg.partner_only){
     svcHtml += `<br><span style="font-size:0.8rem;color:var(--slate);">Any investor introductions are made exclusively through ATM's authorised transaction partner.</span>`;
   }

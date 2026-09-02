@@ -81,7 +81,7 @@ final until you confirm them.
 |---|---|---|
 | `pitch.html` | `PI` | Pitching |
 | `commercial-acceleration.html` | `CA` | Commercial Acceleration |
-| `sourcing.html` | `FA` | Insourcing: Finance Advisory |
+| `finance-advisory.html` | `FA` | Insourcing: Finance Advisory |
 
 Shared bands (identical on all four):
 
@@ -109,7 +109,7 @@ never the person.
 | Founder needs an M&A deal or a raise | Funding Scorecard (`IR`) | Funding Scorecard | David |
 | Founder is ready to sell | Exit Ready, Multiplier Diagnostic, then `RD` | Exit Ready | David |
 | Clear business case and revenue, weak stream | business case ≥ 3 **and** revenue ≥ 3, stream score below 80 | the Pitching programme (on `pitch`); Commercial Acceleration (on `commercial-acceleration`); Finance Advisory (on `sourcing`) | Jacob (Pitching; the meeting notes also name "T", which is unverified transcription and needs Madeleine's confirmation); Marcus (Commercial Acceleration); Marcus and the insourced finance function (`sourcing`) |
-| No accounting function, no sales pipeline | business case ≤ 2 **or** revenue ≤ 2, whatever the page and whatever the stream score | Finance Advisory and sales pipeline support (`sourcing.html`) | Marcus and the insourced finance function |
+| No accounting function, no sales pipeline | business case ≤ 2 **or** revenue ≤ 2, whatever the page and whatever the stream score | Finance Advisory and sales pipeline support (`finance-advisory.html`) | Marcus and the insourced finance function |
 | Strong on everything | business case ≥ 3 **and** revenue ≥ 3, stream score 80+ | Readiness Call, with the Funding Scorecard or Exit Ready as the likely next step | David |
 
 The four pages remain free and ungated: no name, no email, no consent box,
@@ -145,7 +145,7 @@ Which page sends what:
 | `diagnostic.html` | *(none: pending a code)* | no | no |
 | `pitch.html` | `PI` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | `commercial-acceleration.html` | `CA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `sourcing.html` | `FA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `finance-advisory.html` | `FA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | all other pages with a booking CTA | *(none)* | no | no |
 
 `fr_source` is always present. `fr_assessment` appears only on the assessment

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Front door: journey map, investor wording, evidence and test report · September 2026</title>
+<style>
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+header{background:var(--navy);color:#fff;padding:1.4rem 1.5rem;border-bottom:4px solid var(--brand);}
+header h1{font-family:Georgia,serif;font-size:1.5rem;font-weight:700;} header p{font-size:0.85rem;opacity:0.85;margin-top:0.3rem;}
+main{max-width:1040px;margin:0 auto;padding:1.5rem;}
+section{margin:2.2rem 0;}
+h2{font-family:Georgia,serif;font-size:1.45rem;color:var(--navy);margin-bottom:0.6rem;padding-top:0.5rem;border-top:1px solid var(--line);}
+h3{font-family:Georgia,serif;font-size:1.1rem;color:var(--navy);margin:1.2rem 0 0.4rem;}
+p,li{font-size:0.95rem;color:#334155;max-width:78ch;} ul,ol{padding-left:1.2rem;margin:0.4rem 0 0.8rem;}
+.kicker{display:block;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.3rem;}
+.tablewrap{overflow-x:auto;margin:0.8rem 0 1.2rem;background:#fff;border:1px solid var(--line);border-radius:6px;}
+table{border-collapse:collapse;width:100%;font-size:0.86rem;min-width:640px;}
+th,td{padding:0.55rem 0.7rem;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;}
+th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;}
+.tag{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.1rem 0.45rem;border-radius:3px;white-space:nowrap;}
+.pass{background:#DCFCE7;color:var(--good);} .warn{background:#FEF3C7;color:var(--warn);} .fail{background:#FEE2E2;color:var(--bad);} .info{background:#E2E8F0;color:var(--slate);}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;margin:1rem 0;}
+.map .col{background:#fff;border:1px solid var(--line);border-top:4px solid var(--brand);border-radius:6px;padding:0.8rem;}
+.map .col h4{font-family:Georgia,serif;color:var(--navy);font-size:1rem;margin-bottom:0.3rem;}
+.map .col small{display:block;color:var(--slate);font-size:0.78rem;margin-bottom:0.5rem;}
+.map .col ul{list-style:none;padding:0;} .map .col li{font-size:0.85rem;padding:0.25rem 0;border-top:1px dashed var(--line);}
+.layers{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:1rem 0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;}
+.layers div{padding:0.9rem;border-right:1px solid var(--line);font-size:0.86rem;} .layers div:last-child{border-right:0;}
+.layers b{display:block;font-family:Georgia,serif;color:var(--navy);font-size:1rem;margin-bottom:0.3rem;}
+.layers .line{background:var(--navy);color:#fff;} .layers .line b{color:#fff;} .layers .line small{color:#F8FAFC;opacity:0.9;}
+.quote{background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:6px;padding:0.9rem 1.1rem;margin:0.8rem 0;font-size:0.92rem;max-width:78ch;}
+.quote small{display:block;color:var(--slate);font-size:0.75rem;margin-bottom:0.3rem;letter-spacing:0.08em;text-transform:uppercase;}
+.note{font-size:0.82rem;color:var(--slate);}
+@media(max-width:760px){.map,.layers{grid-template-columns:1fr;} .layers div{border-right:0;border-bottom:1px solid var(--line);}}
+</style>
+</head>
+<body>
+<header>
+<h1>Front door: journey map, investor wording, evidence and test report</h1>
+<p>Response to Marcus's review · branch <code>feature/front-door-six-streams</code> · 2 September 2026 · nothing here is live; the branch is not merged and no pull request is open</p>
+</header>
+<main>
+
+<section>
+<span class="kicker">In one paragraph</span>
+<p>Every point Marcus raised has either been changed on the branch or is set out below with a proposal and an owner. The "would an investor back you today" claim is gone. Every sentence that implied matching, routing or "the right people" has been rewritten to say what the platform actually does: it assesses and prepares, an adviser decides the next step, and any introduction is considered and made offline through the authorised transaction partner. The universal diagnostic and the Exit Ready door now both name the Multiplier Diagnostic, so landing on the same page is expected rather than surprising. Finance Advisory now lives at <code>finance-advisory.html</code>, with the old address redirecting. A privacy notice, a footer legal line and a fix for a hanging database call have been added. The test report is in section 4; the pre-launch list, with the one decision only David can make (tracking), is in section 5.</p>
+</section>
+
+<section id="map">
+<span class="kicker">1 · Journey map</span>
+<h2>Six doors, four FACE stages, four steps: how they fit</h2>
+<p>Three different things were being read as one. <b>FACE</b> is the methodology, the four things a founder can do with a business (Fund, Acquire, Consolidate, Exit). The <b>six doors</b> are the questions founders arrive with, each tagged with the FACE stage it serves. The <b>four steps</b> are the value stream every engagement moves along, from a free diagnostic to a full Readiness Project. A founder picks a door; the door's assessment places them on the value stream; the value stream runs through whichever FACE stages the business needs.</p>
+
+<div class="map">
+<div class="col"><h4>Founder arrives</h4><small>Homepage hero</small>
+<ul><li>"What do you want?" To raise · To buy · To sell</li><li>The answer re-orders the six doors; nothing is stored</li><li>"Not sure yet?" goes to the Multiplier Diagnostic</li></ul></div>
+<div class="col"><h4>Picks a door</h4><small>Six doors, each free</small>
+<ul><li>Funding Scorecard (Fund)</li><li>Grow by Acquiring (Acquire)</li><li>Commercial Acceleration (Consolidate)</li><li>Insourcing: Finance Advisory (Consolidate)</li><li>Pitching (Fund and Exit)</li><li>Exit Ready (Exit)</li></ul></div>
+<div class="col"><h4>Takes an instrument</h4><small>Automated score, band and written report</small>
+<ul><li>Funding Scorecard, 14 questions, gated (IR)</li><li>Ethical Acquisitions Scorecard, gated</li><li>Three eight-statement self-assessments, open (CA, FA, PI)</li><li>Multiplier Diagnostic, 20 questions, gated (Exit Ready door)</li><li>Transaction Readiness Assessment, 24 metrics, gated (RD), one level deeper</li></ul></div>
+<div class="col"><h4>Moves along the value stream</h4><small>The four steps, adviser-led from step 2</small>
+<ul><li>01 Diagnostic (free)</li><li>02 Personalised Roadmap</li><li>03 Insourcing (Finance Advisory, Commercial Acceleration, Pitching)</li><li>04 Readiness Project (the full engagement)</li></ul></div>
+</div>
+
+<div class="tablewrap"><table>
+<tr><th>Door (homepage order)</th><th>FACE stage</th><th>Page</th><th>Instrument on the page</th><th>Gated?</th><th>Code sent to GHL</th><th>Where the result points</th></tr>
+<tr><td>Funding Scorecard</td><td>Fund</td><td>investor-ready.html</td><td>Funding Scorecard, 14 questions; bands Raise Ready 80+, Almost Ready 60, Getting Ready</td><td>Yes</td><td>IR</td><td>Readiness Call; plan by band (Roadmap → Insourcing → Readiness Project)</td></tr>
+<tr><td>Grow by Acquiring</td><td>Acquire</td><td>deal-ready.html → ethical-acquisitions.html</td><td>Ethical Acquisitions Scorecard</td><td>Yes</td><td>none yet (proposed EA)</td><td>Readiness Call; service suggestion by band</td></tr>
+<tr><td>Commercial Acceleration</td><td>Consolidate</td><td>commercial-acceleration.html</td><td>Eight statements; Strong 80 / Building 60 / Emerging 40 / At risk</td><td>No</td><td>CA (proposed)</td><td>Commercial Acceleration, Finance Advisory, or straight to a call</td></tr>
+<tr><td>Insourcing: Finance Advisory</td><td>Consolidate</td><td>finance-advisory.html (was sourcing.html, now a redirect)</td><td>Eight statements, same bands</td><td>No</td><td>FA (proposed)</td><td>Finance Advisory, the Roadmap, or straight to a call</td></tr>
+<tr><td>Pitching</td><td>Fund and Exit</td><td>pitch.html</td><td>Eight statements, same bands</td><td>No</td><td>PI (proposed)</td><td>The Pitching programme, Finance Advisory, or straight to a call</td></tr>
+<tr><td>Exit Ready</td><td>Exit</td><td>diagnostic.html</td><td>Multiplier Diagnostic, 20 questions, six themes; bands Highly Ready 91+, Strong Potential 71, Emerging 41, At Risk</td><td>Yes</td><td>none yet (MD offered)</td><td>Readiness Call; offers the Transaction Readiness Assessment (transaction-readiness.html, RD) one level deeper</td></tr>
+<tr><td>"Not sure yet?" (hero link)</td><td>All four</td><td>diagnostic.html</td><td>The same Multiplier Diagnostic: it reads the whole business, which is why the undecided founder and the Exit Ready door share it. Both links now say so.</td><td>Yes</td><td>as above</td><td>as above</td></tr>
+</table></div>
+
+<h3>Where the line sits: four layers, and software stops after the first</h3>
+<div class="layers">
+<div><b>1 · Automated readiness report</b>Score, band, written report and a suggested service, produced in the browser from the founder's answers. Says "readiness only, not advice" on every page. Never mentions an investor by name.</div>
+<div><b>2 · Adviser recommendation</b>Made by a named person on the Readiness Call. Confirms or overrides the automated suggestion. The founder is told this on the result: "an adviser confirms the next step on the Readiness Call".</div>
+<div><b>3 · Engagement</b>Roadmap, Insourcing or a Readiness Project, led by David as an officer of the client company. This is where preparation happens.</div>
+<div class="line"><b>4 · Introductions</b><small>Considered and made offline, through the authorised transaction partner, only when the adviser judges the business ready. The platform never matches founders to investors, never promotes an opportunity, never shares founder data with an investor.</small></div>
+</div>
+</section>
+
+<section id="wording">
+<span class="kicker">2 · Proposed investor-facing wording</span>
+<h2>For David's sign-off: what the branch now says</h2>
+<p>These are the exact sentences now on the branch. They replace every phrase Marcus flagged. They are proposals: David owns the final wording, and each one changes in a single edit.</p>
+
+<div class="quote"><small>investors.html · lede (replaces "Preparation only pays when it reaches the right people…")</small>Behind the practice sits an extensive network of institutional relationships: private equity, growth capital and strategic acquirers. The platform prepares you for those conversations. It does not arrange them.</div>
+<div class="quote"><small>investors.html · "What the platform does, and what it never does" (replaces "How routing works, and who does it")</small>The platform supports assessment and preparation: it scores, reports and tracks. It does not match founders to investors, promote investment opportunities, or share your information with any investor. What happens next is a judgement an adviser makes, on the Readiness Call and through a Readiness Project, not something the software decides. Where a business is transaction-ready, introductions to investors and buyers are considered and, where appropriate, made offline through ATM's authorised transaction partner. Warm, well-prepared introductions are the point: research shows deals reaching an investor through a warm introduction are thirteen times more likely to reach the investment committee.</div>
+<div class="quote"><small>index.html · Funding Scorecard door (replaces "whether an investor would back you today")</small>Find out, in minutes, how ready the business is to raise, and what to fix before you ask.</div>
+<div class="quote"><small>index.html · FACE strip (replaces "the right capital, from the right people, on the right terms")</small>Fund: the capital, structure and terms that fit the plan</div>
+<div class="quote"><small>index.html · ecosystem card (replaces "accessed exclusively through our authorised transaction partner when your business is ready")</small>Private equity, growth-capital and strategic-buyer relationships. The platform never matches you to them: when a business is ready, an adviser decides the next step, and any introduction is considered and made offline through our authorised transaction partner.</div>
+<div class="quote"><small>deal-ready.html · "When you are ready" (replaces "Reach the right capital: prepared businesses reach our investor relationships…")</small>Any introduction to capital is an adviser's decision, considered and made offline through the authorised transaction partner. The platform prepares you; it does not match you.</div>
+<div class="quote"><small>The three self-assessment reports (pitch, commercial-acceleration, finance-advisory) · note under the report</small>This report was generated in your browser from your answers and is not stored anywhere. If you book a Readiness Call from this page, your score and band travel with the booking link so the call is prepared. This report is automated and indicates readiness only; what to do next is a recommendation an adviser makes on the call. It is not financial or investment advice and not a financial promotion, and any investor introductions are considered separately and happen exclusively offline through ATM's authorised transaction partner.</div>
+<div class="quote"><small>The Multiplier Diagnostic and the Ethical Acquisitions Scorecard · line under the suggested service, every band</small>This is an automated suggestion from your answers; an adviser confirms the next step on the Readiness Call.</div>
+<div class="quote"><small>Footer legal line, every public page (new)</small>Add Then Multiply Limited is registered in England and Wales, company number 04623437. It is not authorised or regulated by the Financial Conduct Authority. This site describes advisory services and is not a financial promotion.</div>
+
+<h3>Still held for David</h3>
+<ul>
+<li><b>"Authorised transaction partner."</b> The phrase remains on eleven public pages. It is only defensible if the partner's authorisation can be evidenced (their FCA firm reference and the agreement between the parties). If it cannot, the fallback wording is "a specialist transaction partner", which drops the regulatory claim while keeping the offline boundary. One edit either way.</li>
+<li><b>The footer legal line and the company details</b> (number 04623437, registered office 8 Ainsdale Road, London W5 1JX, contact dbh@addthenmultiply.com) are taken from the privacy policy on the live addthenmultiply.com, dated November 2019. David confirms they are current.</li>
+<li><b>Two facts in the new privacy notice</b> are bracketed and highlighted until decided: the database hosting region and the retention period (24 months from last contact is the suggested default).</li>
+</ul>
+</section>
+
+<section id="evidence">
+<span class="kicker">3 · Evidence for the claims</span>
+<h2>Every number and network claim on the branch, and what stands behind it</h2>
+<div class="tablewrap"><table>
+<tr><th>Claim</th><th>Where it appears</th><th>Evidence</th><th>Status</th><th>Action</th></tr>
+<tr><td>3,000 founder CEO network</td><td>index.html ecosystem card; founders.html headline and meta description</td><td>David's own figure, recorded in the repo rules as owner-verified. No dated source document is held in the repo.</td><td><span class="tag warn">Owner-verified, not documented</span></td><td>David to put a dated count and its source (membership register or list export) on file before launch. If the true figure is higher, the copy can say "over 3,000"; if lower, it changes.</td></tr>
+<tr><td>"An extensive network of institutional investor relationships"</td><td>investors.html, index.html, readiness-project.html meta</td><td>No count is published (the former "900" was removed). The private, advisor-only investor register exists in the platform and is never founder-visible.</td><td><span class="tag warn">Qualitative</span></td><td>David confirms "extensive" is fair given the register and the partner's coverage; otherwise "a network of".</td></tr>
+<tr><td>"Authorised transaction partner"</td><td>11 public pages</td><td>None held in the repo.</td><td><span class="tag fail">Unevidenced</span></td><td>David: FCA firm reference and agreement, or switch to "specialist transaction partner".</td></tr>
+<tr><td>Warm introductions are thirteen times more likely to reach investment committee</td><td>pitch.html, investors.html, funding.html</td><td>British Business Bank research, cited in <em>Funded Female Founders</em> (Rethink Press, 2022). Citation printed on each page.</td><td><span class="tag pass">Cited</span></td><td>None.</td></tr>
+<tr><td>$8.7 trillion opportunity</td><td>funding.html, founders.html</td><td>Rose Review funding-gap estimate applied to global GDP, per <em>Funded Female Founders</em>. Citation printed.</td><td><span class="tag pass">Cited</span></td><td>None.</td></tr>
+<tr><td>"Significantly better outcomes"</td><td>Nowhere on the branch</td><td>Searched every page and document: the phrase does not appear. It may have been read from an earlier draft or the brief.</td><td><span class="tag pass">Not present</span></td><td>None. If it reappears it needs a source or it comes out.</td></tr>
+<tr><td>KPI references</td><td>Only inside recommendations ("install a 13-week cashflow and KPI dashboard") and the private advisor console</td><td>These are actions suggested to the founder, not performance claims about ATM.</td><td><span class="tag pass">No outcome claims</span></td><td>None.</td></tr>
+<tr><td>"Whether an investor would back you today"</td><td>Was on the Funding Scorecard door</td><td>An investor's decision cannot be predicted by a 14-question scorecard.</td><td><span class="tag pass">Removed</span></td><td>Done.</td></tr>
+<tr><td>"The right people, on the right terms", "reach the right capital", "reach the right conversations quickly"</td><td>Were on index.html, deal-ready.html, investors.html</td><td>Each implied matching or routing by the platform.</td><td><span class="tag pass">Removed</span></td><td>Done; wording in section 2.</td></tr>
+<tr><td>Turnover tiers (Project One £1m to under £20m, Project Two £20m to under £200m, Scaling £200m+)</td><td>index.html, readiness-project.html</td><td>ATM's own routing rule; the copy says the Readiness Call confirms need.</td><td><span class="tag warn">Awaiting sign-off</span></td><td>David's nod.</td></tr>
+<tr><td>"Insourced Finance Function from £1,000 plus VAT per month"</td><td>finance-advisory.html</td><td>Marcus's client-facing line, verbatim.</td><td><span class="tag pass">Owner-supplied</span></td><td>None.</td></tr>
+</table></div>
+</section>
+
+<section id="tests">
+<span class="kicker">4 · Test report</span>
+<h2>What was tested, how, and what it found</h2>
+<p>All runs were made on the branch at the time of writing, in headless Chromium through Playwright, against the pages as files. Real-device, cross-browser and screen-reader testing has not been done and is listed as outstanding in section 5. The Supabase insert could not be exercised against a live database from this environment, so the "recovery" tests below exercise the failure path, which is the one that matters for the founder.</p>
+
+<h3>4.1 Scoring engines</h3>
+<div class="tablewrap"><table>
+<tr><th>Page</th><th>Harness</th><th>Result</th></tr>
+<tr><td>pitch.html (PI)</td><td>runTests()</td><td><span class="tag pass">67 / 67</span></td></tr>
+<tr><td>commercial-acceleration.html (CA)</td><td>runTests()</td><td><span class="tag pass">67 / 67</span></td></tr>
+<tr><td>finance-advisory.html (FA)</td><td>runTests()</td><td><span class="tag pass">67 / 67</span></td></tr>
+<tr><td>investor-ready.html (IR)</td><td>runTests()</td><td><span class="tag pass">61 / 61</span></td></tr>
+<tr><td>diagnostic.html (Multiplier Diagnostic)</td><td>runTests()</td><td><span class="tag pass">59 / 59</span></td></tr>
+<tr><td>transaction-readiness.html (RD)</td><td>runTests()</td><td><span class="tag pass">41 / 41</span></td></tr>
+<tr><td>ethical-acquisitions.html</td><td>runTests()</td><td><span class="tag pass">37 / 37</span></td></tr>
+</table></div>
+<p>Each of the seven pages was also driven end to end: answers entered, score and band checked against the engine, written report rendered, the copy-summary and print stylesheet checked on the three self-assessments, the booking link checked for the right assessment code, score, band and source.</p>
+
+<h3>4.2 Site-wide checks</h3>
+<div class="tablewrap"><table>
+<tr><th>Check</th><th>Scope</th><th>Result</th></tr>
+<tr><td>Internal links resolve (including links built in scripts)</td><td>Every changed page</td><td><span class="tag pass">No broken links</span></td></tr>
+<tr><td>External links</td><td>Every page</td><td><span class="tag pass">Only the booking URL, one constant</span></td></tr>
+<tr><td>UK spelling scan</td><td>Visible text, every changed page</td><td><span class="tag pass">Clean</span></td></tr>
+<tr><td>Em dashes</td><td>Every page and document</td><td><span class="tag pass">None on any page</span> (one archived investor-scan report under reports/ still has them; it is not part of the site)</td></tr>
+<tr><td>Cookies, localStorage, sessionStorage, analytics, pixels</td><td>Every public page, checked in the browser after load</td><td><span class="tag pass">Nothing stored, no cookies, no third-party scripts</span></td></tr>
+<tr><td>Banned wording (Pitch/Publish/Product, Key Person of Influence, Dent Global)</td><td>Every page and document</td><td><span class="tag pass">Absent</span></td></tr>
+<tr><td>Header nav and footer identical on every public page</td><td>15 pages</td><td><span class="tag pass">Generated from one list</span></td></tr>
+<tr><td>Redirects</td><td>sourcing.html → finance-advisory.html; exit-ready.html → diagnostic.html</td><td><span class="tag pass">Both land, both noindex</span></td></tr>
+</table></div>
+
+<h3>4.3 Mobile</h3>
+<div class="tablewrap"><table>
+<tr><th>Check</th><th>Scope</th><th>Result</th></tr>
+<tr><td>No horizontal overflow at 360px and 375px</td><td>15 public pages, touch emulation</td><td><span class="tag pass">0px overflow on every page</span> (the privacy table needed a scroll wrapper; fixed)</td></tr>
+<tr><td>Tap targets at least 24px on the short side</td><td>Buttons, CTAs, hero answers, doors, radio and checkbox labels</td><td><span class="tag pass">All pass</span> (the "Take the free diagnostic →" caption is 21px tall but the whole door card is the link)</td></tr>
+<tr><td>Form fields at least 16px, so iOS Safari does not zoom on focus</td><td>Gate forms on the four scored instruments; the grant builder on funding.html</td><td><span class="tag pass">Fixed</span>: fields were inheriting 12.8px from their labels; a rule now sets 16px</td></tr>
+<tr><td>Viewport meta present</td><td>15 pages</td><td><span class="tag pass">Yes</span></td></tr>
+<tr><td>Homepage: hero and first doors within one screen, words above the fold</td><td>375px</td><td><span class="tag pass">57 words in the hero; doors one screen down</span></td></tr>
+</table></div>
+
+<h3>4.4 Keyboard</h3>
+<div class="tablewrap"><table>
+<tr><th>Check</th><th>Result</th></tr>
+<tr><td>Homepage tab order: nav links, Book a call, the three hero answers, "Not sure yet?", then the six doors</td><td><span class="tag pass">In reading order</span></td></tr>
+<tr><td>Visible focus ring on every focused element</td><td><span class="tag pass">Browser default rings, never suppressed</span></td></tr>
+<tr><td>Enter on a hero answer selects it (aria-pressed true, doors re-ranked); Space on it again deselects</td><td><span class="tag pass">Works</span></td></tr>
+<tr><td>Enter on a door navigates to the page</td><td><span class="tag pass">Works</span></td></tr>
+<tr><td>Funding Scorecard completed by keyboard only: arrow keys on all 14 questions, Tab to submit, Enter</td><td><span class="tag pass">Gate appears</span></td></tr>
+<tr><td>Gate completed by keyboard only: type name, email, company; arrow-select role and turnover; Space on consent; Tab to "Show my full report"; Enter</td><td><span class="tag pass">Full report renders on all four gated pages</span></td></tr>
+</table></div>
+
+<h3>4.5 Validation and error journeys</h3>
+<div class="tablewrap"><table>
+<tr><th>Page</th><th>Submit with nothing answered</th><th>Gate: empty</th><th>Gate: bad email</th><th>Gate: consent unticked</th></tr>
+<tr><td>Funding Scorecard</td><td>"Please answer all questions before submitting." Results stay hidden.</td><td>"Please complete your name, email, company and role."</td><td>"That email address doesn't look right."</td><td>"Please tick the consent box so we can store your results."</td></tr>
+<tr><td>Multiplier Diagnostic</td><td>"Please answer question 1 before calculating your score." Scrolls to it.</td><td>same</td><td>same</td><td>same</td></tr>
+<tr><td>Transaction Readiness</td><td>"Please answer question 1 (Cap table and equity cleanliness) before calculating…" Scrolls to it.</td><td>same</td><td>same</td><td>same</td></tr>
+<tr><td>Ethical Acquisitions</td><td>"Please tell us which best describes you today, it is the first question." Scrolls to it.</td><td>"Please complete your name, email and company." (role is taken from the first question)</td><td>same</td><td>same</td></tr>
+<tr><td>Pitching, Commercial Acceleration, Finance Advisory</td><td>"Please answer every statement: statements 1 to 8 are still blank." With one blank: "statement 8 is still blank." Scrolls to it.</td><td colspan="3">No gate on these three; nothing is collected.</td></tr>
+</table></div>
+<p>Every message sits in a <code>role="alert"</code> element, so a screen reader announces it. The headline score and band are shown before the gate on all four gated pages and the full report stays hidden until consent is given: there is no bypass.</p>
+
+<h3>4.6 Recovery</h3>
+<div class="tablewrap"><table>
+<tr><th>Scenario</th><th>Before</th><th>Now</th></tr>
+<tr><td>Database unreachable or slow when the founder submits the gate</td><td>The report waited on the insert with no feedback; in this environment that was 12.6 seconds of nothing happening after pressing the button.</td><td><span class="tag pass">Fixed</span>: the button shows "Preparing your report…" and is disabled while saving; the insert is capped at six seconds; the report renders on timeout or on any error. Measured: 6.0 seconds worst case, no error shown to the founder.</td></tr>
+<tr><td>Insert fails outright</td><td colspan="2">The founder still gets the report (by design), but the lead is lost silently. <span class="tag warn">Open</span>: proposal is one automatic retry, then a quiet line on the report ("we could not save your details; your report is still here"). Needs Madeleine's go-ahead; small change.</td></tr>
+<tr><td>Booking-link parameter code throws</td><td colspan="2"><span class="tag pass">Falls back to the plain booking URL</span>. Booking never breaks because attribution broke.</td></tr>
+<tr><td>Campaign source lost between pages</td><td colspan="2"><span class="tag info">By design</span>: no storage means the source survives one page only. The nav "Book a call" button does not carry the source on any page (only in-page CTAs do). A one-line change would extend it; flagged for decision under tracking below.</td></tr>
+</table></div>
+
+<h3>4.7 Consent and data handling, per page</h3>
+<div class="tablewrap"><table>
+<tr><th>Page</th><th>Collects identity?</th><th>Consent tick</th><th>Says what is stored</th><th>Regulatory line</th><th>Privacy link</th></tr>
+<tr><td>Four scored instruments (IR, MD, RD, EA)</td><td>Yes, at the gate only</td><td>Yes, explicit, unticked by default</td><td>Yes, under the form and in the privacy notice</td><td>Yes (footer, plus in-page notes)</td><td>Yes</td></tr>
+<tr><td>Three self-assessments (PI, CA, FA)</td><td>No</td><td>Not needed</td><td>Yes: "not stored anywhere"</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>All other public pages, including funding.html's checker and builder</td><td>No</td><td>Not needed</td><td>Privacy notice covers it</td><td>Yes</td><td>Yes</td></tr>
+</table></div>
+<p>Consent wording on the gate: "I agree to Add Then Multiply storing my answers and contacting me about my results." It is per assessment and separate from whatever the GoHighLevel booking form collects, as the data map already states.</p>
+</section>
+
+<section id="prelaunch">
+<span class="kicker">5 · Pre-launch list</span>
+<h2>Marcus's list, item by item</h2>
+<div class="tablewrap"><table>
+<tr><th>Item</th><th>Status</th><th>Owner / next step</th></tr>
+<tr><td>Mobile testing</td><td><span class="tag pass">Emulated, 15 pages</span> · real devices outstanding</td><td>Madeleine and Marcus on real iPhone and Android before launch; the branch preview links in the review pack work on any phone</td></tr>
+<tr><td>Keyboard testing</td><td><span class="tag pass">Done</span> · screen reader outstanding</td><td>One pass with VoiceOver or NVDA on the four gated pages</td></tr>
+<tr><td>Privacy, company and regulatory information</td><td><span class="tag warn">Drafted</span>: privacy.html, footer legal line with company number, Privacy link on every page</td><td>David confirms company details; sets retention and hosting region (two highlighted brackets on privacy.html); signs off the regulatory sentence</td></tr>
+<tr><td>Consent and data handling on every assessment</td><td><span class="tag pass">In place</span></td><td>None</td></tr>
+<tr><td>GHL fields, tags and automations</td><td><span class="tag warn">Proposal only</span>: codes IR, RD, FFF live; PI, CA, FA proposed; MD and EA offered</td><td>Marcus confirms the field names and the codes; then one edit here. The data map has the full parameter spec.</td></tr>
+<tr><td>Tracking of assessment starts, completions, results and booked conversations</td><td><span class="tag fail">Needs a decision</span>: it conflicts with the site's no-tracking rule</td><td>See below</td></tr>
+<tr><td>Error, validation and recovery journeys</td><td><span class="tag pass">Tested</span>, one fix shipped, one proposal open (silent lead loss)</td><td>Madeleine: go-ahead on the retry line</td></tr>
+<tr><td>End-to-end testing</td><td><span class="tag warn">Partial</span>: everything up to the database insert is tested; the live insert and the GHL receipt are not</td><td>Needs Supabase credentials and a GHL test booking: Madeleine, then Marcus</td></tr>
+<tr><td>Naming and routes</td><td><span class="tag pass">Resolved</span>: Finance Advisory is at finance-advisory.html; both diagnostic links name the Multiplier Diagnostic</td><td>None</td></tr>
+</table></div>
+
+<h3>Tracking: the one decision</h3>
+<p>The site stores nothing on the visitor's device and runs no analytics, which is why it needs no cookie banner. Three of Marcus's four measures are already available without changing that:</p>
+<ul>
+<li><b>Completions and results</b>: every gated completion writes the score, band and page to the leads table, so completions and result distributions are a query away. The three open self-assessments write nothing, by design.</li>
+<li><b>Booked conversations</b>: GoHighLevel records the assessment code, score, band and campaign source on every booking made from an assessment page.</li>
+<li><b>Starts</b>: not measured today. Nothing knows a founder has begun answering.</li>
+</ul>
+<p>Three options, in order of preference:</p>
+<ol>
+<li><b>Measure what is already there</b> (completions, results, bookings) and accept that starts are unknown. No change, no banner.</li>
+<li><b>An anonymous start count</b>: when the first answer is selected, the page sends a single event (page name only, no identifier, nothing stored on the device) to a server-side function that increments a counter. This gives a start-to-completion rate without tracking anyone, and no banner is needed. It is still a change to the "no analytics" rule and needs Madeleine's and David's agreement before it is built.</li>
+<li><b>Full analytics</b> with a cookie banner. Not recommended: it changes the visitor's first experience of the site for a number that option 2 provides.</li>
+</ol>
+</section>
+
+<section id="changes">
+<span class="kicker">6 · What changed on the branch in this pass</span>
+<h2>For the record</h2>
+<ul>
+<li>Copy: Funding Scorecard door, FACE strip, ecosystem card and hero link on index.html; investors.html lede, heading and boundary paragraph; deal-ready.html funding card; readiness-project.html lede ("daily" removed); the report note on the three self-assessments; an "automated suggestion" line under the service match on the Multiplier Diagnostic and the Ethical Acquisitions Scorecard.</li>
+<li>Routes: sourcing.html renamed finance-advisory.html; sourcing.html kept as a redirect; every link, document and test updated.</li>
+<li>New: privacy.html; Privacy link and legal line in every footer.</li>
+<li>Fixes: 16px form fields on the gated pages and funding.html; saving state and six-second cap on the lead insert.</li>
+<li>Unchanged: every scoring engine, every band, every gate, the booking URL, the no-storage rule. All seven harnesses pass.</li>
+</ul>
+<p class="note">Preview links for every page, updating within a minute of each push, are in section 0 of REVIEW-2026-09.md in the repository.</p>
+</section>
+
+</main>
+</body>
+</html>
