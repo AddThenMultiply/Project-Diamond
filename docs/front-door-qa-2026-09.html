@@ -42,9 +42,21 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <body>
 <header>
 <h1>Front door: journey map, investor wording, evidence and test report</h1>
-<p>Response to Marcus's review · branch <code>feature/front-door-six-streams</code> · 2 September 2026 · nothing here is live; the branch is not merged and no pull request is open</p>
+<p>Response to Marcus's review · branch <code>feature/front-door-six-streams</code> · 2 September 2026, updated 6 September · nothing here is live; the branch is not merged and no pull request is open</p>
 </header>
 <main>
+
+<section>
+<span class="kicker">Update, 6 September</span>
+<h2>What changed after this report was written</h2>
+<ul>
+<li><b>The gate is gone.</b> Every report renders free; under it sits one opt-in, "Send me my report", which stores the lead with the rendered report and emails a copy through the new send-report function. The "gated" wording in the tables above is superseded.</li>
+<li><b>Two more instruments:</b> Founder Dependence (FD) and Personal Exit Readiness (PX), nine harnesses now pass in all.</li>
+<li><b>Live on the ATM Supabase project:</b> migrations 010 and 011 applied, the function deployed, the insert and the function proven with a test lead that was then deleted. Anonymous callers can no longer execute the database helpers the security advisor flagged.</li>
+<li><b>Marcus's 4 September claims pass and his two definitions</b> are on the pages; "specialist transaction partner" replaces "authorised" until the FCA reference is on file.</li>
+<li><b>Waiting on Marcus:</b> the Resend key and sender address (Strety to-do), and the repository made private (Strety to-do).</li>
+</ul>
+</section>
 
 <section>
 <span class="kicker">In one paragraph</span>
@@ -62,20 +74,20 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <div class="col"><h4>Picks a door</h4><small>Six doors, each free</small>
 <ul><li>Funding Scorecard (Fund)</li><li>Grow by Acquiring (Acquire)</li><li>Commercial Acceleration (Consolidate)</li><li>Insourcing: Finance Advisory (Consolidate)</li><li>Pitching (Fund and Exit)</li><li>Exit Ready (Exit)</li></ul></div>
 <div class="col"><h4>Takes an instrument</h4><small>Automated score, band and written report</small>
-<ul><li>Funding Scorecard, 14 questions, gated (IR)</li><li>Ethical Acquisitions Scorecard, gated</li><li>Three eight-statement self-assessments, open (CA, FA, PI)</li><li>Multiplier Diagnostic, 20 questions, gated (Exit Ready door)</li><li>Transaction Readiness Assessment, 24 metrics, gated (RD), one level deeper</li></ul></div>
+<ul><li>Funding Scorecard, 14 questions, free report, opt-in (IR)</li><li>Ethical Acquisitions Scorecard, free report, opt-in</li><li>Five eight-statement self-assessments, open (CA, FA, PI, FD, PX)</li><li>Multiplier Diagnostic, 20 questions, free report, opt-in (Exit Ready door)</li><li>Transaction Readiness Assessment, 24 metrics, free report, opt-in (RD), one level deeper</li></ul></div>
 <div class="col"><h4>Moves along the value stream</h4><small>The four steps, adviser-led from step 2</small>
 <ul><li>01 Diagnostic (free)</li><li>02 Personalised Roadmap</li><li>03 Insourcing (Finance Advisory, Commercial Acceleration, Pitching)</li><li>04 Readiness Project (the full engagement)</li></ul></div>
 </div>
 
 <div class="tablewrap"><table>
-<tr><th>Door (homepage order)</th><th>FACE stage</th><th>Page</th><th>Instrument on the page</th><th>Gated?</th><th>Code sent to GHL</th><th>Where the result points</th></tr>
-<tr><td>Funding Scorecard</td><td>Fund</td><td>investor-ready.html</td><td>Funding Scorecard, 14 questions; bands Raise Ready 80+, Almost Ready 60, Getting Ready</td><td>Yes</td><td>IR</td><td>Readiness Call; plan by band (Roadmap → Insourcing → Readiness Project)</td></tr>
-<tr><td>Grow by Acquiring</td><td>Acquire</td><td>deal-ready.html → ethical-acquisitions.html</td><td>Ethical Acquisitions Scorecard</td><td>Yes</td><td>none yet (proposed EA)</td><td>Readiness Call; service suggestion by band</td></tr>
-<tr><td>Commercial Acceleration</td><td>Consolidate</td><td>commercial-acceleration.html</td><td>Eight statements; Strong 80 / Building 60 / Emerging 40 / At risk</td><td>No</td><td>CA (proposed)</td><td>Commercial Acceleration, Finance Advisory, or straight to a call</td></tr>
-<tr><td>Insourcing: Finance Advisory</td><td>Consolidate</td><td>finance-advisory.html (was sourcing.html, now a redirect)</td><td>Eight statements, same bands</td><td>No</td><td>FA (proposed)</td><td>Finance Advisory, the Roadmap, or straight to a call</td></tr>
-<tr><td>Pitching</td><td>Fund and Exit</td><td>pitch.html</td><td>Eight statements, same bands</td><td>No</td><td>PI (proposed)</td><td>The Pitching programme, Finance Advisory, or straight to a call</td></tr>
-<tr><td>Exit Ready</td><td>Exit</td><td>diagnostic.html</td><td>Multiplier Diagnostic, 20 questions, six themes; bands Highly Ready 91+, Strong Potential 71, Emerging 41, At Risk</td><td>Yes</td><td>none yet (MD offered)</td><td>Readiness Call; offers the Transaction Readiness Assessment (transaction-readiness.html, RD) one level deeper</td></tr>
-<tr><td>"Not sure yet?" (hero link)</td><td>All four</td><td>diagnostic.html</td><td>The same Multiplier Diagnostic: it reads the whole business, which is why the undecided founder and the Exit Ready door share it. Both links now say so.</td><td>Yes</td><td>as above</td><td>as above</td></tr>
+<tr><th>Door (homepage order)</th><th>FACE stage</th><th>Page</th><th>Instrument on the page</th><th>Report</th><th>Code sent to GHL</th><th>Where the result points</th></tr>
+<tr><td>Funding Scorecard</td><td>Fund</td><td>investor-ready.html</td><td>Funding Scorecard, 14 questions; bands Raise Ready 80+, Almost Ready 60, Getting Ready</td><td>Free; opt-in to email a copy</td><td>IR</td><td>Readiness Call; plan by band (Roadmap → Insourcing → Readiness Project)</td></tr>
+<tr><td>Grow by Acquiring</td><td>Acquire</td><td>deal-ready.html → ethical-acquisitions.html</td><td>Ethical Acquisitions Scorecard</td><td>Free; opt-in to email a copy</td><td>none yet (proposed EA)</td><td>Readiness Call; service suggestion by band</td></tr>
+<tr><td>Commercial Acceleration</td><td>Consolidate</td><td>commercial-acceleration.html</td><td>Eight statements; Strong 80 / Building 60 / Emerging 40 / At risk</td><td>Free, nothing collected</td><td>CA (proposed)</td><td>Commercial Acceleration, Finance Advisory, or straight to a call</td></tr>
+<tr><td>Insourcing: Finance Advisory</td><td>Consolidate</td><td>finance-advisory.html (was sourcing.html, now a redirect)</td><td>Eight statements, same bands</td><td>Free, nothing collected</td><td>FA (proposed)</td><td>Finance Advisory, the Roadmap, or straight to a call</td></tr>
+<tr><td>Pitching</td><td>Fund and Exit</td><td>pitch.html</td><td>Eight statements, same bands</td><td>Free, nothing collected</td><td>PI (proposed)</td><td>The Pitching programme, Finance Advisory, or straight to a call</td></tr>
+<tr><td>Exit Ready</td><td>Exit</td><td>diagnostic.html</td><td>Multiplier Diagnostic, 20 questions, six themes; bands Highly Ready 91+, Strong Potential 71, Emerging 41, At Risk</td><td>Free; opt-in to email a copy</td><td>none yet (MD offered)</td><td>Readiness Call; offers the Transaction Readiness Assessment (transaction-readiness.html, RD) one level deeper</td></tr>
+<tr><td>"Not sure yet?" (hero link)</td><td>All four</td><td>diagnostic.html</td><td>The same Multiplier Diagnostic: it reads the whole business, which is why the undecided founder and the Exit Ready door share it. Both links now say so.</td><td>Free; opt-in to email a copy</td><td>as above</td><td>as above</td></tr>
 </table></div>
 
 <h3>Where the line sits: four layers, and software stops after the first</h3>
