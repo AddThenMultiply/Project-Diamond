@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Project Diamond: end-to-end review</title>
+<style>
+:root{--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+header{background:var(--navy);color:#fff;padding:1.4rem 1.5rem;border-bottom:4px solid var(--brand);}
+header h1{font-family:Georgia,serif;font-size:1.5rem;} header p{font-size:0.85rem;opacity:0.85;margin-top:0.3rem;max-width:80ch;}
+main{max-width:1000px;margin:0 auto;padding:1.5rem;}
+section{margin:2rem 0;}
+h2{font-family:Georgia,serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.5rem;padding-top:0.5rem;border-top:1px solid var(--line);}
+h3{font-family:Georgia,serif;font-size:1.1rem;color:var(--navy);margin:1.1rem 0 0.4rem;}
+p,li{font-size:0.95rem;color:#334155;max-width:78ch;} ul,ol{padding-left:1.3rem;margin:0.4rem 0 0.8rem;}
+.kicker{display:block;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.3rem;}
+.tablewrap{overflow-x:auto;margin:0.8rem 0 1.2rem;background:#fff;border:1px solid var(--line);border-radius:6px;}
+table{border-collapse:collapse;width:100%;font-size:0.86rem;min-width:600px;}
+th,td{padding:0.55rem 0.7rem;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;}
+th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;}
+.journey{background:#fff;border:1px solid var(--line);border-top:4px solid var(--brand);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0;}
+.journey h3{margin-top:0;} .journey ol li{margin:0.35rem 0;} .journey .expect{display:block;color:var(--slate);font-size:0.85rem;margin-top:0.1rem;}
+.journey .who{display:inline-block;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;background:#FDECEB;color:var(--accent);padding:0.15rem 0.5rem;border-radius:99px;margin-left:0.4rem;vertical-align:middle;}
+.check{list-style:none;padding:0;} .check li{padding:0.35rem 0 0.35rem 1.8rem;position:relative;border-bottom:1px dashed var(--line);}
+.check li::before{content:"";position:absolute;left:0.2rem;top:0.55rem;width:0.95rem;height:0.95rem;border:2px solid var(--slate);border-radius:3px;}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1rem 1.2rem;margin:0.8rem 0;}
+.cta{display:inline-block;background:var(--navy);color:#fff;padding:0.7rem 1.4rem;border-radius:4px;font-weight:600;margin:0.4rem 0.4rem 0 0;} .cta:hover{text-decoration:none;opacity:0.92;}
+.tag{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.1rem 0.45rem;border-radius:3px;white-space:nowrap;}
+.open{background:#FEF3C7;color:var(--warn);} .done{background:#DCFCE7;color:var(--good);} .held{background:#E2E8F0;color:var(--slate);}
+.note{font-size:0.82rem;color:var(--slate);}
+@media print{header{background:#fff;color:var(--navy);} .cta{display:none;}}
+</style>
+</head>
+<body>
+<header>
+<h1>Project Diamond: end-to-end review</h1>
+<p>For David and Marcus · the six-door front door on branch <code>feature/front-door-six-streams</code> · 6 September 2026. Every link here opens the build as it stands, on any device, with no account. Nothing is live: the branch is not merged and no pull request is open. Allow about forty-five minutes for all three journeys, or fifteen for the one closest to you.</p>
+</header>
+<main>
+
+<section>
+<span class="kicker">Before you start</span>
+<h2>How to review, and what to look for</h2>
+<p>Do each journey as a founder would: on your phone first, then on a laptop. Answer the assessments with a real business in mind (or the test business below) so the reports have something to say. Use a test email address at the gates; the details go into our own leads table and nowhere else, and we will delete the test rows before launch.</p>
+<div class="card">
+<b style="color:var(--navy);">The test business, if you would rather not use a real one.</b>
+<p>Northwind Components Ltd. Founder-led engineering business, £6.5m turnover, 42 staff, 14 years old. Wants to sell in three years, has never raised, top three customers are 55% of revenue, management accounts arrive three weeks after month end, no finance director. Answer as its founder would: honest, slightly optimistic.</p>
+</div>
+<h3>Five things to judge on every page</h3>
+<ul class="check">
+<li><b>Brand.</b> Dark header with the red rule, brand red above the fold, charcoal booking buttons, red form buttons, Georgia headings. Anything gold, blue or off-palette is a fault.</li>
+<li><b>Words.</b> UK English, founder-first, no jargon, no em dashes, nothing that promises an investor's decision or a match. "Free" only on the assessment, never on the service.</li>
+<li><b>Inputs.</b> Every question answerable by tap or keyboard; errors say what to fix; the gate asks for name, work email, company, role and consent and nothing more.</li>
+<li><b>Outputs.</b> The headline score and band appear before the gate; the full written report renders after it; the report reads as a document you would send a client: score, the line to the target, levers, a plan, the next step. Print it (Ctrl+P or Share, Print) and check it still looks right.</li>
+<li><b>Links.</b> Every link lands where its label says. The Book a call button opens the GoHighLevel calendar, and after an assessment its address carries the assessment code, score and band.</li>
+</ul>
+</section>
+
+<section>
+<span class="kicker">The journeys</span>
+<h2>Three scripted journeys, one per answer to "What do you want?"</h2>
+
+<div class="journey">
+<h3>Journey A · "To raise" <span class="who">David</span></h3>
+<ol>
+<li>Open the <a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">homepage</a>. Read the first screen. <span class="expect">Expect: one question, three answers, the red mark. On a phone the doors sit one screen down.</span></li>
+<li>Tap <b>To raise</b>. <span class="expect">Expect: the heading changes to "Raising? Start with these." Four doors carry START HERE; the rest stay open. Tap again to clear.</span></li>
+<li>Open the <b>Funding Scorecard</b> door. Answer the 14 questions. Press Calculate. <span class="expect">Expect: headline score and band (Raise Ready, Almost Ready or Getting Ready), then the gate.</span></li>
+<li>Try to submit the gate empty, then with a bad email, then without consent. <span class="expect">Expect: three different plain-English messages. No report until consent is ticked.</span></li>
+<li>Complete the gate. <span class="expect">Expect: "Preparing your report…" for at most six seconds, then the full report: priority gaps, the line to the target, levers, the plan by band, the next step. Print it.</span></li>
+<li>Press <b>Book your Readiness Call</b>. <span class="expect">Expect: the GoHighLevel calendar opens in a new tab. Its address ends with fr_assessment=IR, your score, your band and a source. Do not book unless you want a real slot.</span></li>
+<li>Back on the homepage, open <b>Pitching</b>. Take the eight-statement self-assessment. <span class="expect">Expect: no gate; score, band, weakest statements, a route (the Pitching programme, Finance Advisory, or straight to a call) and a written report with Copy summary and Print.</span></li>
+<li>Open <b>Funding</b> from the footer. Paste a paragraph of your own pitch into the language review. Fill the grant builder. <span class="expect">Expect: flags read as prompts, not verdicts; the draft assembles in the browser; nothing is stored.</span></li>
+</ol>
+</div>
+
+<div class="journey">
+<h3>Journey B · "To buy" <span class="who">Marcus</span></h3>
+<ol>
+<li>Homepage, tap <b>To buy</b>. <span class="expect">Expect: Grow by Acquiring, Commercial Acceleration and Finance Advisory marked START HERE.</span></li>
+<li>Open <b>Grow by Acquiring</b>. Read the seven-phase route. <span class="expect">Expect: heads of terms and due diligence written out on first use; the intake link says it opens after a Readiness Call; the funding cards say the platform prepares and never matches.</span></li>
+<li>Take the <b>Ethical Acquisitions Scorecard</b> as a buyer. <span class="expect">Expect: the first question asks which best describes you; the result says it is a framework, not an ethical grade; the gate, then the full report with an automated-suggestion line under the service match.</span></li>
+<li>Open <b>Commercial Acceleration</b>. Take the self-assessment answering "Slightly" to the business case and revenue statements. <span class="expect">Expect: the route sends you to Finance Advisory, whatever the commercial score. Answer them "Mostly" and re-run: the route changes.</span></li>
+<li>Open <b>Insourcing: Finance Advisory</b>. Check the price line and the scope. Take the self-assessment. <span class="expect">Expect: "from £1,000 plus VAT per month, with final pricing agreed following scoping"; the finance route on this page points to the Roadmap.</span></li>
+<li>Open the old address <a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/sourcing.html">sourcing.html</a>. <span class="expect">Expect: it forwards to Finance Advisory.</span></li>
+<li>Open <b>Investors</b> from the nav (Network). <span class="expect">Expect: the four-layer boundary in plain words: automated report, adviser recommendation, engagement, offline introduction through the partner. This is the wording awaiting David's sign-off.</span></li>
+</ol>
+</div>
+
+<div class="journey">
+<h3>Journey C · "To sell" <span class="who">Both</span></h3>
+<ol>
+<li>Homepage, tap <b>To sell</b>, open <b>Exit Ready</b>. <span class="expect">Expect: the Multiplier Diagnostic, with a paragraph explaining why an exit starts with the whole business and when Transaction Readiness follows.</span></li>
+<li>Answer the 20 questions as Northwind's founder. Gate, then report. <span class="expect">Expect: six theme scores, top gaps, the service suggestion with its automated-suggestion line, the plan, and the offer to go one level deeper.</span></li>
+<li>Take the <b>Transaction Readiness Assessment</b>. <span class="expect">Expect: 24 metrics with a rubric each; a band from Transaction-Ready to Foundation Tier; the note that answers are self-reported until an adviser verifies them.</span></li>
+<li>Open <b>Readiness Projects</b>. <span class="expect">Expect: the 90-day arc with transaction launch conditional on what discovery finds; the three turnover tiers with no gaps; David leading from inside the client company.</span></li>
+<li>Try the <b>Not sure yet?</b> link on the homepage. <span class="expect">Expect: the same Multiplier Diagnostic. That is deliberate and the page now says so.</span></li>
+<li>Open <b>Privacy</b> from any footer. <span class="expect">Expect: the notice, with two highlighted brackets for David: hosting region and retention period.</span></li>
+</ol>
+</div>
+</section>
+
+<section>
+<span class="kicker">Every page</span>
+<h2>Page index</h2>
+<div class="tablewrap"><table>
+<tr><th>Page</th><th>Role</th><th>Review link</th></tr>
+<tr><td>Homepage</td><td>The question and the six doors</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">index.html</a></td></tr>
+<tr><td>Funding Scorecard</td><td>Door 1 · Fund · gated · IR</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">investor-ready.html</a></td></tr>
+<tr><td>Grow by Acquiring</td><td>Door 2 · Acquire</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/deal-ready.html">deal-ready.html</a></td></tr>
+<tr><td>Ethical Acquisitions Scorecard</td><td>Behind door 2 · gated</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/ethical-acquisitions.html">ethical-acquisitions.html</a></td></tr>
+<tr><td>Commercial Acceleration</td><td>Door 3 · Consolidate · open · CA</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">commercial-acceleration.html</a></td></tr>
+<tr><td>Insourcing: Finance Advisory</td><td>Door 4 · Consolidate · open · FA</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/finance-advisory.html">finance-advisory.html</a></td></tr>
+<tr><td>Pitching</td><td>Door 5 · Fund and Exit · open · PI</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/pitch.html">pitch.html</a></td></tr>
+<tr><td>Exit Ready: the Multiplier Diagnostic</td><td>Door 6 · Exit · gated</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">diagnostic.html</a></td></tr>
+<tr><td>Transaction Readiness Assessment</td><td>One level deeper · gated · RD</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/transaction-readiness.html">transaction-readiness.html</a></td></tr>
+<tr><td>Personalised Roadmap</td><td>Step 02</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/roadmap.html">roadmap.html</a></td></tr>
+<tr><td>Readiness Projects</td><td>Step 04 and the tiers</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/readiness-project.html">readiness-project.html</a></td></tr>
+<tr><td>Funding module</td><td>Supporting · open · FFF</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/funding.html">funding.html</a></td></tr>
+<tr><td>Investors</td><td>Ecosystem and the boundary</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investors.html">investors.html</a></td></tr>
+<tr><td>Founder CEO Network</td><td>Ecosystem</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/founders.html">founders.html</a></td></tr>
+<tr><td>Privacy notice</td><td>Every footer</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/privacy.html">privacy.html</a></td></tr>
+</table></div>
+<p class="note">The paid workspace (intake, the two workspaces, the advisor console, the mandate register) is unchanged by this work and needs a Supabase sign-in; it is not part of this review.</p>
+</section>
+
+<section>
+<span class="kicker">Already known</span>
+<h2>What you do not need to report</h2>
+<p>These are logged and owned. Anything else you find is new and we want it.</p>
+<div class="tablewrap"><table>
+<tr><th>Item</th><th>Status</th><th>Owner</th></tr>
+<tr><td>Final regulatory wording, "Where we stand" and the footer line; "authorised" versus "specialist" transaction partner; the sentence "exits are not a regulated activity"</td><td><span class="tag held">Held</span></td><td>David</td></tr>
+<tr><td>Turnover tiers; company details, retention and hosting region on the privacy notice; a dated source for the 3,000 founders; the primary source for the thirteen-times claim</td><td><span class="tag held">Held</span></td><td>David</td></tr>
+<tr><td>Funding Scorecard scoring floor (lowest answers score 25%) and stage, sector and not-applicable logic</td><td><span class="tag open">Needs a scoring decision</span></td><td>David and Marcus</td></tr>
+<tr><td>Ethical Acquisitions: separate buyer and seller question sets and role-specific scoring; AML, source of funds, conflicts, seller vulnerability, independent advice</td><td><span class="tag open">Not built</span></td><td>Madeleine, once David sets the framework</td></tr>
+<tr><td>Transaction Readiness: sector and business-model variations, not-applicable options</td><td><span class="tag open">Not built</span></td><td>Madeleine and David</td></tr>
+<tr><td>Commercial Acceleration and Finance Advisory: owner, outputs, time commitment, commercial model from Marcus's three definitions</td><td><span class="tag open">Copy to follow</span></td><td>Madeleine from Marcus's documents</td></tr>
+<tr><td>Roadmap: sample deliverable, methodology, data sources, named approver, inputs, duration, price</td><td><span class="tag open">Before it is sold</span></td><td>David and Madeleine</td></tr>
+<tr><td>Founders page: what membership means, who qualifies, what it costs, how to join</td><td><span class="tag open">Needs David's definition</span></td><td>David</td></tr>
+<tr><td>GoHighLevel fields, tags, workflows; the CA code; Almost Ready versus Nearly Ready</td><td><span class="tag open">With Marcus</span></td><td>Marcus</td></tr>
+<tr><td>Investor research in the public repository</td><td><span class="tag open">Make the repo private, establish exposure</span></td><td>David and Madeleine</td></tr>
+<tr><td>Tracking of assessment starts</td><td><span class="tag open">Decision</span></td><td>Madeleine and David</td></tr>
+<tr><td>Marcus's 2 and 4 September copy points: "free assessment", the shortlist promise, "score a target", no-money-down, "yours to keep", the promotion test, "significantly better outcomes", "deal-grade", $8.7tn as an extrapolation, benchmarking labelled planned, transaction launch conditional</td><td><span class="tag done">Done 6 September</span></td><td></td></tr>
+</table></div>
+</section>
+
+<section>
+<span class="kicker">Send it back</span>
+<h2>How to report what you find</h2>
+<p>One email per journey is ideal. Say the page, what you did, what you expected and what happened, and add a screenshot if it is visual. The button below opens a pre-addressed email.</p>
+<a class="cta" href="mailto:madeleine@addthenmultiply.com?subject=Project%20Diamond%20review%3A%20Journey%20A%20(To%20raise)&body=Page%3A%0AWhat%20I%20did%3A%0AWhat%20I%20expected%3A%0AWhat%20happened%3A%0ADevice%20and%20browser%3A%0A">Report on Journey A</a>
+<a class="cta" href="mailto:madeleine@addthenmultiply.com?subject=Project%20Diamond%20review%3A%20Journey%20B%20(To%20buy)&body=Page%3A%0AWhat%20I%20did%3A%0AWhat%20I%20expected%3A%0AWhat%20happened%3A%0ADevice%20and%20browser%3A%0A">Report on Journey B</a>
+<a class="cta" href="mailto:madeleine@addthenmultiply.com?subject=Project%20Diamond%20review%3A%20Journey%20C%20(To%20sell)&body=Page%3A%0AWhat%20I%20did%3A%0AWhat%20I%20expected%3A%0AWhat%20happened%3A%0ADevice%20and%20browser%3A%0A">Report on Journey C</a>
+<p class="note" style="margin-top:1rem;">Or comment on the Strety to-do for the page. Findings go into the site audit doc and the priorities doc the same day.</p>
+</section>
+
+</main>
+</body>
+</html>
