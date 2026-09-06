@@ -3,9 +3,9 @@ const { chromium } = require(process.env.PW || 'playwright');
 const path = require('path');
 const ROOT = require('path').resolve(__dirname, '..');
 const SHOT = require('path').resolve(__dirname, 'out');
-const PAGES = ['index.html','investor-ready.html','diagnostic.html','transaction-readiness.html','ethical-acquisitions.html','deal-ready.html','commercial-acceleration.html','finance-advisory.html','pitch.html','roadmap.html','readiness-project.html','funding.html','investors.html','founders.html','privacy.html'];
+const PAGES = ['index.html','investor-ready.html','diagnostic.html','transaction-readiness.html','ethical-acquisitions.html','deal-ready.html','commercial-acceleration.html','finance-advisory.html','pitch.html','roadmap.html','readiness-project.html','funding.html','investors.html','founders.html','privacy.html','founder-dependence.html','personal-exit-readiness.html'];
 const GATED = ['investor-ready.html','diagnostic.html','transaction-readiness.html','ethical-acquisitions.html'];
-const SELF = ['pitch.html','commercial-acceleration.html','finance-advisory.html'];
+const SELF = ['pitch.html','commercial-acceleration.html','finance-advisory.html','founder-dependence.html','personal-exit-readiness.html'];
 const out = { mobile: [], keyboard: [], validation: [], recovery: [], redirects: [], handoff: [], consent: [] };
 const url = p => 'file://' + path.join(ROOT, p);
 (async () => {
@@ -91,9 +91,9 @@ const url = p => 'file://' + path.join(ROOT, p);
     await page.evaluate(() => submitLead()); const e3 = await gate();
     await page.evaluate(() => { document.getElementById('ld-consent').checked = true; });
     await page.evaluate(() => submitLead()); await page.waitForTimeout(700);
-    const after = await page.evaluate(() => ({ full: document.getElementById('fullReport').style.display, err: getComputedStyle(document.getElementById('ld-error')).display !== 'none', sb: typeof sb === 'undefined' ? 'undefined' : (sb ? 'client' : 'null') }));
+    const after = await page.evaluate(() => { const e = document.getElementById('ld-error'); return { full: document.getElementById('fullReport').style.display, err: !!(e && getComputedStyle(e).display !== 'none'), sent: /On its way/.test((document.getElementById('leadgate') || {}).textContent || ''), sb: typeof sb === 'undefined' ? 'undefined' : (sb ? 'client' : 'null') }; });
     out.validation.push({ page: p, unansweredMessage: unanswered, resultsHiddenUntilAnswered: !resultsShown, teaser, emptyGate: e1, badEmail: e2, noConsent: e3 });
-    out.recovery.push({ page: p, supabaseClient: after.sb, reportRendersWhenInsertFails: after.full === 'block', errorShownToFounder: after.err, jsErrors: errs.length });
+    out.recovery.push({ page: p, supabaseClient: after.sb, reportRendersWhenInsertFails: after.full === 'block', optInConfirmsWhenInsertFails: after.sent, errorShownToFounder: after.err, jsErrors: errs.length });
     await ctx.close();
   }
   for (const p of SELF) {

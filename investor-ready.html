@@ -140,8 +140,8 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
                 </div>
 
                 <section id="leadgate" style="display:none;">
-                    <h3 style="font-family:Georgia,serif;font-size:1.3rem;color:var(--navy);margin-bottom:0.6rem;">Unlock your full report</h3>
-                    <p style="font-size:0.9rem;color:var(--slate);margin-bottom:1rem;">That is your headline score and band. Your Priority Gap Analysis (the specific gaps to close before you approach a single investor) is one step away. Tell us where to send it. Your answers stay confidential to Add Then Multiply.</p>
+                    <h3 style="font-family:Georgia,serif;font-size:1.3rem;color:var(--navy);margin-bottom:0.6rem;">Keep this report</h3>
+                    <p style="font-size:0.9rem;color:var(--slate);margin-bottom:1rem;">Your full report is above, and it lives only on this screen. Tell us where to send a copy and we will email it to you and prepare your Readiness Call around it. Nothing is stored until you press the button.</p>
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;">
                         <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
                         <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
@@ -151,7 +151,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
                     </div>
                     <label style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:var(--slate);margin-top:1rem;" for="ld-consent"><input id="ld-consent" type="checkbox" style="margin-top:0.2rem;accent-color:var(--accent);">I agree to Add Then Multiply storing my answers and contacting me about my results.</label>
                     <p id="ld-error" style="display:none;color:var(--bad);font-size:0.82rem;margin-top:0.6rem;" role="alert"></p>
-                    <button class="btn" style="width:auto;margin-top:1.2rem;" onclick="submitLead()">Show my full report</button>
+                    <button class="btn" style="width:auto;margin-top:1.2rem;" onclick="submitLead()">Send me my report</button>
                 </section>
 
                 <div id="fullReport" style="display:none;">
@@ -171,7 +171,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
                         <h3>Suggested engagement plan</h3>
                         <p class="ir-note" id="ir-planText"></p>
                         <ol class="stream-steps" id="ir-planSteps"></ol>
-                        <p class="ir-note" style="margin-top:0.8rem;">Scope and fee are agreed on the Readiness Call. Any investor introductions happen only through ATM's authorised transaction partner.</p>
+                        <p class="ir-note" style="margin-top:0.8rem;">Scope and fee are agreed on the Readiness Call. Any investor introductions happen only through ATM's specialist transaction partner.</p>
                     </div>
 
                     <div class="cta-section">
@@ -182,7 +182,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
                 </div>
             </div>
         </div>
-        <p style="font-size: 0.78rem; opacity: 0.75; max-width: 68ch; margin: 2.5rem auto 0; text-align: center;">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic is educational. It is not financial advice and not a financial promotion. Add Then Multiply does not arrange investments, introductions happen only offline, through our authorised transaction partner.</p>
+        <p style="font-size: 0.78rem; opacity: 0.75; max-width: 68ch; margin: 2.5rem auto 0; text-align: center;">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic is educational. It is not financial advice and not a financial promotion. Add Then Multiply does not arrange investments, introductions happen only offline, through our specialist transaction partner.</p>
     </main>
 
     <footer>&copy; Add Then Multiply &middot; Fractional finance and M&amp;A advisory for ambitious founder-led businesses &middot; <a href="roadmap.html">Roadmap</a> &middot; <a href="readiness-project.html">Readiness Projects</a> &middot; <a href="funding.html">Funding</a> &middot; <a href="founders.html">Founders</a> &middot; <a href="privacy.html">Privacy</a><br><small class="legal" style="display:block;margin-top:0.6rem;font-size:0.72rem;max-width:70ch;margin-left:auto;margin-right:auto;">Add Then Multiply Limited is registered in England and Wales, company number 04623437. It is not authorised or regulated by the Financial Conduct Authority. This site describes advisory services and is not a financial promotion.</small></footer>
@@ -544,10 +544,9 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
             window.scrollTo(0, 0);
 
             pending = { results, band: bandFor(results.percentage) };
-            // Headline score and band are free; the gap analysis is behind the gate.
-            renderTeaser();
-            document.getElementById('leadgate').style.display = 'block';
-            document.getElementById('fullReport').style.display = 'none';
+            // The full report is free. The opt-in below it sends a copy and books the call.
+            renderResults();
+            offerReport();
         }
 
         function renderTeaser() {
@@ -600,20 +599,38 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
             }
             err.style.display = "none";
             const gateBtn = document.querySelector("#leadgate button"), gateLabel = gateBtn ? gateBtn.textContent : "";
-            if(gateBtn){ gateBtn.disabled = true; gateBtn.textContent = "Preparing your report…"; }
+            if(gateBtn){ gateBtn.disabled = true; gateBtn.textContent = "Sending…"; }
+            const leadId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : null;
             if(sb){
                 /* Save the lead, but never make the founder wait on it: the report renders after
                    six seconds even if the database has not answered, and on any failure. */
-                try { await Promise.race([sb.from("leads").insert(buildLeadPayload(pending.results, pending.band, contact)), new Promise(function(r){ setTimeout(r, 6000); })]); }
+                try { await Promise.race([sb.from("leads").insert(Object.assign(buildLeadPayload(pending.results, pending.band, contact), {id: leadId, report_requested: true, report_html: reportHtml()})), new Promise(function(r){ setTimeout(r, 6000); })]); }
                 catch(e) { /* never block the founder's results on a network failure */ }
             }
+            try { if(leadId) await Promise.race([sb.functions.invoke("send-report", { body: { lead_id: leadId } }), new Promise(function(r){ setTimeout(r, 6000); })]); }
+            catch(e) { /* the copy is sent by the server; a slow send never blocks the founder */ }
             if(gateBtn){ gateBtn.disabled = false; gateBtn.textContent = gateLabel; }
-            renderResults();
+            showSent(contact.email);
         }
 
+
+        /* The report is free; these three support the opt-in below it. */
+        function offerReport(){
+          const gate = document.getElementById("leadgate"), full = document.getElementById("fullReport");
+          if(gate && full && full.nextElementSibling !== gate) full.after(gate);
+          if(gate) gate.style.display = "block";
+        }
+        function reportHtml(){
+          const full = document.getElementById("fullReport");
+          return full ? full.innerHTML.slice(0, 120000) : "";
+        }
+        function showSent(email){
+          const gate = document.getElementById("leadgate");
+          if(!gate) return;
+          gate.innerHTML = '<div class="scorebox" role="status"><h2 style="margin-top:0;font-size:1.15rem;">On its way to ' + String(email).replace(/[<>&]/g, "") + '</h2><p style="font-size:0.9rem;color:#334155;max-width:60ch;">Your report is being sent, and an adviser will read it before your Readiness Call. If it has not arrived in ten minutes, check your junk folder, then book the call and we will bring a copy.</p></div>';
+        }
         function renderResults() {
             const { results, band } = pending;
-            document.getElementById('leadgate').style.display = 'none';
             renderTeaser();
 
             // Carry the result context into the booking hand-off.
@@ -647,7 +664,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
            are untouched; these read the band and the ranked gaps they produce. */
         const IR_STEPS = [["diagnostic.html","01 · Diagnostic","Funding Scorecard · done"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["finance-advisory.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
         const IR_PLAN = {
-            "Raise Ready":   { entry: 4, text: "You are Raise Ready. The suggested plan goes straight to a Readiness Project: the 90-day arc that builds the data room, strengthens the bench and takes the raise to market, with investor engagement handled through ATM's authorised transaction partner. Your entry point is step 04." },
+            "Raise Ready":   { entry: 4, text: "You are Raise Ready. The suggested plan goes straight to a Readiness Project: the 90-day arc that builds the data room, strengthens the bench and takes the raise to market, with investor engagement handled through ATM's specialist transaction partner. Your entry point is step 04." },
             "Almost Ready":  { entry: 2, text: "You are Almost Ready. The suggested plan is a Personalised Roadmap that turns the gaps above into a sequenced plan, then Pitching where the story and the fundraising assets are the gap, Commercial Acceleration where the growth engine is, and Finance Advisory where the numbers are. Your entry point is step 02." },
             "Getting Ready": { entry: 2, text: "You are Getting Ready. The suggested plan starts with the free tools on the Funding page and a Personalised Roadmap that sequences the priority gaps; where the numbers are the gap, Finance Advisory's Financial Deep Dive comes first. Your entry point is step 02." }
         };
@@ -775,8 +792,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
             // Test 9: the gate, headline score is free, the gap analysis is not
             assert(typeof window.skipLead === "undefined", "no skip bypass exists");
             assert(document.getElementById('fullReport').style.display === "none", "full report starts hidden");
-            assert(document.getElementById('leadgate').compareDocumentPosition(document.getElementById('fullReport')) & Node.DOCUMENT_POSITION_FOLLOWING,
-                "gate sits between the teaser and the full report");
+            assert(!!document.getElementById("leadgate") && typeof offerReport === "function", "the opt-in section exists and the report is not gated");
             assert(["ld-name","ld-email","ld-company","ld-role","ld-consent"].every(id=>document.getElementById(id)),
                 "gate collects identity + consent");
             assert(["ld-name","ld-email","ld-company","ld-role","ld-revenue","ld-consent"]

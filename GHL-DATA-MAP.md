@@ -69,10 +69,11 @@ existing scoring; only the names are new:
 Per your instruction, the Funded Female Founders module has **no** band model
 and creates no band tags.
 
-### Proposed: four stream self-assessments, awaiting your confirmation
+### Proposed: five stream self-assessments, awaiting your confirmation
 
 The six-door front door adds a free, ungated eight-statement self-assessment
-to each of the four stream pages that do not already carry a diagnostic. Each
+to each of the three stream pages that do not already carry a diagnostic, plus
+two standalone instruments (Founder Dependence and Personal Exit Readiness). Each
 scores 1–5 per statement, reports a percentage of the maximum, and shares one
 band model. These codes and band names are **our proposal**; nothing is
 final until you confirm them.
@@ -82,6 +83,8 @@ final until you confirm them.
 | `pitch.html` | `PI` | Pitching |
 | `commercial-acceleration.html` | `CA` | Commercial Acceleration |
 | `finance-advisory.html` | `FA` | Insourcing: Finance Advisory |
+| `founder-dependence.html` | `FD` | Founder Dependence (Consolidate), added 6 September |
+| `personal-exit-readiness.html` | `PX` | Personal Exit Readiness (Exit, Founder Clarity), added 6 September |
 
 Shared bands (identical on all four):
 
@@ -130,7 +133,7 @@ Parameters are appended to it, all values URL-encoded:
 
 | Parameter | Value | Sent from |
 |---|---|---|
-| `fr_assessment` | `RD`, `IR` or `FFF`, plus the proposed `PI`, `CA`, `FA` | the assessment pages |
+| `fr_assessment` | `RD`, `IR` or `FFF`, plus the proposed `PI`, `CA`, `FA`, `FD`, `PX` | the assessment pages |
 | `fr_score` | integer percentage, `0`–`100` | scored assessments only |
 | `fr_band` | the exact band name string | scored assessments only |
 | `fr_source` | one controlled source value (below) | every booking link |
@@ -146,6 +149,8 @@ Which page sends what:
 | `pitch.html` | `PI` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | `commercial-acceleration.html` | `CA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | `finance-advisory.html` | `FA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `founder-dependence.html` | `FD` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `personal-exit-readiness.html` | `PX` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
 | all other pages with a booking CTA | *(none)* | no | no |
 
 `fr_source` is always present. `fr_assessment` appears only on the assessment
@@ -193,12 +198,16 @@ founder's identity and their marketing consent *for the booking* are collected
 by the GHL booking form, at the point of booking, never in the link. That has
 not changed.
 
-**But the platform now does collect identity, at the assessment.** On ATM's
-instruction, all four scored assessments are gated: the founder sees their
-headline score and band for free, then must give first name, work email,
-company, role and revenue band, and tick an explicit consent box, before the
-full report renders. There is no skip. On submit, the answers, score, band and
-those details are written to ATM's own Supabase `leads` table, not to GHL.
+**The platform collects identity only when the founder asks to keep the
+report (decision of 6 September, replacing the gate).** On the four scored
+instruments the full report renders free. Under it sits one opt-in, "Send me my
+report": first name, work email, company, role and turnover band, plus an
+explicit consent tick. On submit the answers, score, band, those details and
+the rendered report are written to ATM's own Supabase `leads` table
+(`report_requested`, `report_html`), and the `send-report` Edge Function emails
+the copy through Resend and stamps `report_sent_at`. Nothing is written until
+that button is pressed. This answers your question of 4 September: the
+assessment is anonymous; identification happens at the opt-in, before booking.
 
 Two consequences worth planning for on your side:
 

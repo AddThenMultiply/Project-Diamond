@@ -54,8 +54,8 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <ul class="check">
 <li><b>Brand.</b> Dark header with the red rule, brand red above the fold, charcoal booking buttons, red form buttons, Georgia headings. Anything gold, blue or off-palette is a fault.</li>
 <li><b>Words.</b> UK English, founder-first, no jargon, no em dashes, nothing that promises an investor's decision or a match. "Free" only on the assessment, never on the service.</li>
-<li><b>Inputs.</b> Every question answerable by tap or keyboard; errors say what to fix; the gate asks for name, work email, company, role and consent and nothing more.</li>
-<li><b>Outputs.</b> The headline score and band appear before the gate; the full written report renders after it; the report reads as a document you would send a client: score, the line to the target, levers, a plan, the next step. Print it (Ctrl+P or Share, Print) and check it still looks right.</li>
+<li><b>Inputs.</b> Every question answerable by tap or keyboard; errors say what to fix; the "Send me my report" opt-in asks for name, work email, company, role and consent and nothing more.</li>
+<li><b>Outputs.</b> The full written report renders straight away, with no gate; it should read as a document you would send a client: score, the line to the target, levers, a plan, the next step. Under it, one opt-in offers to email a copy. Print it (Ctrl+P or Share, Print) and check it still looks right.</li>
 <li><b>Links.</b> Every link lands where its label says. The Book a call button opens the GoHighLevel calendar, and after an assessment its address carries the assessment code, score and band.</li>
 </ul>
 </section>
@@ -69,9 +69,9 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <ol>
 <li>Open the <a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">homepage</a>. Read the first screen. <span class="expect">Expect: one question, three answers, the red mark. On a phone the doors sit one screen down.</span></li>
 <li>Tap <b>To raise</b>. <span class="expect">Expect: the heading changes to "Raising? Start with these." Four doors carry START HERE; the rest stay open. Tap again to clear.</span></li>
-<li>Open the <b>Funding Scorecard</b> door. Answer the 14 questions. Press Calculate. <span class="expect">Expect: headline score and band (Raise Ready, Almost Ready or Getting Ready), then the gate.</span></li>
-<li>Try to submit the gate empty, then with a bad email, then without consent. <span class="expect">Expect: three different plain-English messages. No report until consent is ticked.</span></li>
-<li>Complete the gate. <span class="expect">Expect: "Preparing your report…" for at most six seconds, then the full report: priority gaps, the line to the target, levers, the plan by band, the next step. Print it.</span></li>
+<li>Open the <b>Funding Scorecard</b> door. Answer the 14 questions. Press Calculate. <span class="expect">Expect: headline score and band (Raise Ready, Almost Ready or Getting Ready), then the full report immediately: priority gaps, the line to the target, levers, the plan by band, the next step. Below it, "Keep this report".</span></li>
+<li>Try the opt-in empty, then with a bad email, then without consent. <span class="expect">Expect: three different plain-English messages. Nothing is stored until it succeeds.</span></li>
+<li>Complete the opt-in with a test email. <span class="expect">Expect: "Sending…" for at most six seconds, then "On its way to your address". The email itself arrives only once the send-report function and Resend are configured (see below); until then the lead is stored and the message still confirms.</span></li>
 <li>Press <b>Book your Readiness Call</b>. <span class="expect">Expect: the GoHighLevel calendar opens in a new tab. Its address ends with fr_assessment=IR, your score, your band and a source. Do not book unless you want a real slot.</span></li>
 <li>Back on the homepage, open <b>Pitching</b>. Take the eight-statement self-assessment. <span class="expect">Expect: no gate; score, band, weakest statements, a route (the Pitching programme, Finance Advisory, or straight to a call) and a written report with Copy summary and Print.</span></li>
 <li>Open <b>Funding</b> from the footer. Paste a paragraph of your own pitch into the language review. Fill the grant builder. <span class="expect">Expect: flags read as prompts, not verdicts; the draft assembles in the browser; nothing is stored.</span></li>
@@ -83,9 +83,10 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <ol>
 <li>Homepage, tap <b>To buy</b>. <span class="expect">Expect: Grow by Acquiring, Commercial Acceleration and Finance Advisory marked START HERE.</span></li>
 <li>Open <b>Grow by Acquiring</b>. Read the seven-phase route. <span class="expect">Expect: heads of terms and due diligence written out on first use; the intake link says it opens after a Readiness Call; the funding cards say the platform prepares and never matches.</span></li>
-<li>Take the <b>Ethical Acquisitions Scorecard</b> as a buyer. <span class="expect">Expect: the first question asks which best describes you; the result says it is a framework, not an ethical grade; the gate, then the full report with an automated-suggestion line under the service match.</span></li>
-<li>Open <b>Commercial Acceleration</b>. Take the self-assessment answering "Slightly" to the business case and revenue statements. <span class="expect">Expect: the route sends you to Finance Advisory, whatever the commercial score. Answer them "Mostly" and re-run: the route changes.</span></li>
-<li>Open <b>Insourcing: Finance Advisory</b>. Check the price line and the scope. Take the self-assessment. <span class="expect">Expect: "from £1,000 plus VAT per month, with final pricing agreed following scoping"; the finance route on this page points to the Roadmap.</span></li>
+<li>Take the <b>Ethical Acquisitions Scorecard</b> as a buyer. <span class="expect">Expect: the first question asks which best describes you; the result says it is a framework, not an ethical grade; the full report with an automated-suggestion line under the service match, and the opt-in below it.</span></li>
+<li>Open <b>Commercial Acceleration</b>. Read the five workstreams and the commercial model (from Marcus's definition). Take the self-assessment answering "Slightly" to the business case and revenue statements. <span class="expect">Expect: the route sends you to Finance Advisory, whatever the commercial score. Answer them "Mostly" and re-run: the route changes.</span></li>
+<li>Take <b>Founder Dependence</b> (linked from Commercial Acceleration and Finance Advisory). <span class="expect">Expect: six statements on how far the business depends on you; a route to Commercial Acceleration and Finance Advisory, Finance Advisory first, or a call.</span></li>
+<li>Open <b>Insourcing: Finance Advisory</b>. Check the pricing wording, the four modules and what the scoping review looks at (from Marcus's framework). Take the self-assessment. <span class="expect">Expect: entry-level finance operations from £1,000 plus VAT per month, CFO support priced after scoping, no CFO floor shown; the finance route on this page points to the Roadmap.</span></li>
 <li>Open the old address <a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/sourcing.html">sourcing.html</a>. <span class="expect">Expect: it forwards to Finance Advisory.</span></li>
 <li>Open <b>Investors</b> from the nav (Network). <span class="expect">Expect: the four-layer boundary in plain words: automated report, adviser recommendation, engagement, offline introduction through the partner. This is the wording awaiting David's sign-off.</span></li>
 </ol>
@@ -95,8 +96,9 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <h3>Journey C · "To sell" <span class="who">Both</span></h3>
 <ol>
 <li>Homepage, tap <b>To sell</b>, open <b>Exit Ready</b>. <span class="expect">Expect: the Multiplier Diagnostic, with a paragraph explaining why an exit starts with the whole business and when Transaction Readiness follows.</span></li>
-<li>Answer the 20 questions as Northwind's founder. Gate, then report. <span class="expect">Expect: six theme scores, top gaps, the service suggestion with its automated-suggestion line, the plan, and the offer to go one level deeper.</span></li>
+<li>Answer the 20 questions as Northwind's founder. <span class="expect">Expect: six theme scores, top gaps, the service suggestion with its automated-suggestion line, the plan, the offer to go one level deeper, and the opt-in below.</span></li>
 <li>Take the <b>Transaction Readiness Assessment</b>. <span class="expect">Expect: 24 metrics with a rubric each; a band from Transaction-Ready to Foundation Tier; the note that answers are self-reported until an adviser verifies them.</span></li>
+<li>Take <b>Personal Exit Readiness</b> (linked from the diagnostic and from Readiness Projects). <span class="expect">Expect: eight statements about you rather than the business; a route to Founder Clarity and the Roadmap, Finance Advisory, or the deep assessment; a written report.</span></li>
 <li>Open <b>Readiness Projects</b>. <span class="expect">Expect: the 90-day arc with transaction launch conditional on what discovery finds; the three turnover tiers with no gaps; David leading from inside the client company.</span></li>
 <li>Try the <b>Not sure yet?</b> link on the homepage. <span class="expect">Expect: the same Multiplier Diagnostic. That is deliberate and the page now says so.</span></li>
 <li>Open <b>Privacy</b> from any footer. <span class="expect">Expect: the notice, with two highlighted brackets for David: hosting region and retention period.</span></li>
@@ -123,6 +125,8 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 <tr><td>Funding module</td><td>Supporting · open · FFF</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/funding.html">funding.html</a></td></tr>
 <tr><td>Investors</td><td>Ecosystem and the boundary</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investors.html">investors.html</a></td></tr>
 <tr><td>Founder CEO Network</td><td>Ecosystem</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/founders.html">founders.html</a></td></tr>
+<tr><td>Founder Dependence (new)</td><td>Free self-assessment · Consolidate · FD</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/founder-dependence.html">founder-dependence.html</a></td></tr>
+<tr><td>Personal Exit Readiness (new)</td><td>Free self-assessment · Exit · PX</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/personal-exit-readiness.html">personal-exit-readiness.html</a></td></tr>
 <tr><td>Privacy notice</td><td>Every footer</td><td><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/privacy.html">privacy.html</a></td></tr>
 </table></div>
 <p class="note">The paid workspace (intake, the two workspaces, the advisor console, the mandate register) is unchanged by this work and needs a Supabase sign-in; it is not part of this review.</p>
@@ -130,20 +134,21 @@ th{background:#F1F5F9;color:var(--navy);font-size:0.78rem;letter-spacing:0.06em;
 
 <section>
 <span class="kicker">Already known</span>
+<p class="note">The gate is gone (6 September): every report is free and the opt-in under it is "Send me my report". The email copy arrives only once the send-report function is deployed with a Resend key; the lead is stored either way.</p>
 <h2>What you do not need to report</h2>
 <p>These are logged and owned. Anything else you find is new and we want it.</p>
 <div class="tablewrap"><table>
 <tr><th>Item</th><th>Status</th><th>Owner</th></tr>
-<tr><td>Final regulatory wording, "Where we stand" and the footer line; "authorised" versus "specialist" transaction partner; the sentence "exits are not a regulated activity"</td><td><span class="tag held">Held</span></td><td>David</td></tr>
-<tr><td>Turnover tiers; company details, retention and hosting region on the privacy notice; a dated source for the 3,000 founders; the primary source for the thirteen-times claim</td><td><span class="tag held">Held</span></td><td>David</td></tr>
+<tr><td>Regulatory wording: "specialist transaction partner" is now used everywhere ("authorised" returns when the FCA reference is on file); "Preparing a business for sale is not, in itself, a regulated activity" replaces the absolute sentence. David can still overrule either</td><td><span class="tag done">Decided 6 September, best judgement</span></td><td>David to confirm</td></tr>
+<tr><td>Turnover tiers accepted; retention set at 24 months; membership of the network described as by invitation from David; the thirteen-times claim kept with its citation. Still needed from David: the hosting region, a dated source for the 3,000 founders</td><td><span class="tag held">Two facts</span></td><td>David</td></tr>
 <tr><td>Funding Scorecard scoring floor (lowest answers score 25%) and stage, sector and not-applicable logic</td><td><span class="tag open">Needs a scoring decision</span></td><td>David and Marcus</td></tr>
 <tr><td>Ethical Acquisitions: separate buyer and seller question sets and role-specific scoring; AML, source of funds, conflicts, seller vulnerability, independent advice</td><td><span class="tag open">Not built</span></td><td>Madeleine, once David sets the framework</td></tr>
 <tr><td>Transaction Readiness: sector and business-model variations, not-applicable options</td><td><span class="tag open">Not built</span></td><td>Madeleine and David</td></tr>
-<tr><td>Commercial Acceleration and Finance Advisory: owner, outputs, time commitment, commercial model from Marcus's three definitions</td><td><span class="tag open">Copy to follow</span></td><td>Madeleine from Marcus's documents</td></tr>
+<tr><td>Commercial Acceleration and Finance Advisory rewritten from Marcus's Growth and Sales Uplift definition and Pricing and Scoping Framework</td><td><span class="tag done">Done 6 September</span></td><td>Marcus to check his words survived</td></tr>
 <tr><td>Roadmap: sample deliverable, methodology, data sources, named approver, inputs, duration, price</td><td><span class="tag open">Before it is sold</span></td><td>David and Madeleine</td></tr>
 <tr><td>Founders page: what membership means, who qualifies, what it costs, how to join</td><td><span class="tag open">Needs David's definition</span></td><td>David</td></tr>
 <tr><td>GoHighLevel fields, tags, workflows; the CA code; Almost Ready versus Nearly Ready</td><td><span class="tag open">With Marcus</span></td><td>Marcus</td></tr>
-<tr><td>Investor research in the public repository</td><td><span class="tag open">Make the repo private, establish exposure</span></td><td>David and Madeleine</td></tr>
+<tr><td>Investor research in the public repository</td><td><span class="tag open">Strety to-do assigned, due 8 September</span></td><td>Marcus</td></tr>
 <tr><td>Tracking of assessment starts</td><td><span class="tag open">Decision</span></td><td>Madeleine and David</td></tr>
 <tr><td>Marcus's 2 and 4 September copy points: "free assessment", the shortlist promise, "score a target", no-money-down, "yours to keep", the promotion test, "significantly better outcomes", "deal-grade", $8.7tn as an extrapolation, benchmarking labelled planned, transaction launch conditional</td><td><span class="tag done">Done 6 September</span></td><td></td></tr>
 </table></div>

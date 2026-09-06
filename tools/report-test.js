@@ -6,7 +6,7 @@ require('fs').mkdirSync(SHOT, { recursive: true });
 (async () => {
   const browser = await chromium.launch();
   const context = await browser.newContext({ viewport: { width: 1200, height: 900 }, permissions: ['clipboard-read', 'clipboard-write'] });
-  for (const p of ['pitch.html','commercial-acceleration.html','finance-advisory.html','diagnostic.html','investor-ready.html','transaction-readiness.html','index.html']) {
+  for (const p of ['pitch.html','commercial-acceleration.html','finance-advisory.html','founder-dependence.html','personal-exit-readiness.html','diagnostic.html','investor-ready.html','transaction-readiness.html','index.html']) {
     const page = await context.newPage();
     const errs = [], logs = [];
     page.on('pageerror', e => errs.push(e.message));
@@ -18,7 +18,7 @@ require('fs').mkdirSync(SHOT, { recursive: true });
     const summary = logs.find(l => /tests passed|Test Summary/.test(l));
     const fails = logs.filter(l => /^FAIL/.test(l));
     console.log(p, '| runTests:', r, '|', (summary || '').trim(), fails.length ? '| FAILS: ' + fails.join(' || ') : '', '| errors:', errs.length ? errs : 'none');
-    if (['pitch.html','commercial-acceleration.html','finance-advisory.html'].includes(p)) {
+    if (['pitch.html','commercial-acceleration.html','finance-advisory.html','founder-dependence.html','personal-exit-readiness.html'].includes(p)) {
       await page.evaluate(() => { [2,3,1,4,2,5,5,4].forEach((v, i) => document.querySelector(`input[name=q${i}][value="${v}"]`).click()); });
       await page.click('button.cta'); await page.waitForTimeout(300);
       const st = await page.evaluate(() => ({

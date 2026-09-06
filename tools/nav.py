@@ -24,6 +24,8 @@ ACTIVE = {
     "investors.html": "investors.html",
     "founders.html": "investors.html",
     "privacy.html": None,
+    "founder-dependence.html": "index.html#services",
+    "personal-exit-readiness.html": "diagnostic.html",
 }
 LEGAL = '<br><small class="legal" style="display:block;margin-top:0.6rem;font-size:0.72rem;max-width:70ch;margin-left:auto;margin-right:auto;">Add Then Multiply Limited is registered in England and Wales, company number 04623437. It is not authorised or regulated by the Financial Conduct Authority. This site describes advisory services and is not a financial promotion.</small>'
 FOOT_LINKS = ' · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a> · <a href="privacy.html">Privacy</a>' + LEGAL

@@ -87,7 +87,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
   <span class="kicker rise">The Multiplier Diagnostic · 20 questions · 3 minutes · instant results</span>
   <h1 class="rise d1">Is your business ready to multiply?</h1>
   <p class="lede rise d2">Growing organically is slow. Businesses that fund, acquire, consolidate and exit multiply instead. This diagnostic measures your readiness for exponential growth across six dimensions, and shows you exactly where to start. Answer each question honestly, on a scale from "not at all" to "completely".</p>
-  <p class="rise d3" style="max-width:66ch;color:#334155;font-size:0.92rem;margin-top:0.8rem;"><b style="color:var(--navy);">Arrived here from Exit Ready, or not sure where to start?</b> Either way this is the right first step. An exit is decided by the whole business, so we read all six dimensions before going deeper, and your answers on funding and exit carry extra weight in the score. If the result points to a sale, your report offers the <a href="transaction-readiness.html">Transaction Readiness Assessment</a>: 24 metrics at the depth a buyer's advisers would test.</p>
+  <p class="rise d3" style="max-width:66ch;color:#334155;font-size:0.92rem;margin-top:0.8rem;"><b style="color:var(--navy);">Arrived here from Exit Ready, or not sure where to start?</b> Either way this is the right first step. An exit is decided by the whole business, so we read all six dimensions before going deeper, and your answers on funding and exit carry extra weight in the score. If the result points to a sale, your report offers the <a href="transaction-readiness.html">Transaction Readiness Assessment</a>: 24 metrics at the depth a buyer's advisers would test. And because an exit is a life event, there is a separate ten-minute <a href="personal-exit-readiness.html">Personal Exit Readiness</a> self-assessment for you rather than the business.</p>
   <form id="diag"></form>
   <p id="diag-err" class="inline-err" role="alert" style="display:none;"></p>
   <button class="cta" onclick="scoreDiagnostic()">Calculate my Multiplier Score</button>
@@ -99,8 +99,8 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
     </div>
     <section id="leadgate" style="display:none;">
       <div class="scorebox">
-        <h2 style="margin-top:0;font-size:1.15rem;">Unlock your full report</h2>
-        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">That is your headline score. Your full report (the six theme scores, your immediate priorities and the service match) is one step away. Tell us where to send it and we'll prepare your personalised readiness report. Your answers stay confidential to Add Then Multiply.</p>
+        <h2 style="margin-top:0;font-size:1.15rem;">Keep this report</h2>
+        <p style="font-size:0.9rem;color:#334155;max-width:60ch;">Your full report is above, and it lives only on this screen. Tell us where to send a copy and we will email it to you and prepare your Readiness Call around it. Nothing is stored until you press the button.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem;">
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-name">First name<input id="ld-name" type="text" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
           <label style="font-size:0.8rem;color:var(--slate);" for="ld-email">Work email<input id="ld-email" type="email" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:4px;margin-top:0.2rem;"></label>
@@ -111,7 +111,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
         <label style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.8rem;color:var(--slate);margin-top:1rem;" for="ld-consent"><input id="ld-consent" type="checkbox" style="margin-top:0.2rem;accent-color:var(--accent);">I agree to Add Then Multiply storing my answers and contacting me about my results.</label>
         <p id="ld-error" style="display:none;color:var(--bad);font-size:0.82rem;margin-top:0.6rem;" role="alert"></p>
         <div style="display:flex;gap:1rem;align-items:center;margin-top:1.2rem;flex-wrap:wrap;">
-          <button class="cta" style="margin-top:0;" onclick="submitLead()">Show my full report</button>
+          <button class="cta" style="margin-top:0;" onclick="submitLead()">Send me my report</button>
         </div>
       </div>
     </section>
@@ -135,7 +135,7 @@ input[type=text],input[type=email],select,textarea{font-size:1rem;}
       </div>
     </div>
   </section>
-  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic indicates business readiness only, it is not financial or investment advice, and any investor introductions happen exclusively through ATM's authorised transaction partner. Methodology: FACE (Fund, Acquire, Consolidate, Exit) from <em>Add Then Multiply</em> by David B Horne.</p>
+  <p class="note">Your answers are scored in your browser. To see your full report you give us your name, work email and company, and tick the consent box; at that point your answers, your score and those details are stored securely by Add Then Multiply so we can follow up, and they are never sold or shared with third parties. If you then book a Readiness Call, your score and band travel with the booking link. This diagnostic indicates business readiness only, it is not financial or investment advice, and any investor introductions happen exclusively through ATM's specialist transaction partner. Methodology: FACE (Fund, Acquire, Consolidate, Exit) from <em>Add Then Multiply</em> by David B Horne.</p>
 </main>
 <footer>© Add Then Multiply · Fractional finance and M&amp;A advisory for ambitious founder-led businesses · <a href="roadmap.html">Roadmap</a> · <a href="readiness-project.html">Readiness Projects</a> · <a href="funding.html">Funding</a> · <a href="founders.html">Founders</a> · <a href="privacy.html">Privacy</a><br><small class="legal" style="display:block;margin-top:0.6rem;font-size:0.72rem;max-width:70ch;margin-left:auto;margin-right:auto;">Add Then Multiply Limited is registered in England and Wales, company number 04623437. It is not authorised or regulated by the Financial Conduct Authority. This site describes advisory services and is not a financial promotion.</small></footer>
 <script src="assets/supabase.js"></script>
@@ -314,13 +314,9 @@ function scoreDiagnostic(){
   document.getElementById("diag-err").style.display = "none";
   const {themeScores, total} = computeScores(answers);
   pending = {answers, themeScores, total, band: bandFor(total)};
-  // Headline score is free; the full report is behind the gate.
-  renderTeaser();
-  const res = document.getElementById("results");
-  res.style.display = "block";
-  document.getElementById("leadgate").style.display = "block";
-  document.getElementById("fullReport").style.display = "none";
-  res.scrollIntoView({behavior:"smooth"});
+  // The full report is free. The opt-in below it sends a copy and books the call.
+  renderResults();
+  offerReport();
 }
 
 function renderTeaser(){
@@ -352,21 +348,39 @@ async function submitLead(){
   }
   err.style.display = "none";
   const gateBtn = document.querySelector("#leadgate button"), gateLabel = gateBtn ? gateBtn.textContent : "";
-  if(gateBtn){ gateBtn.disabled = true; gateBtn.textContent = "Preparing your report…"; }
+  if(gateBtn){ gateBtn.disabled = true; gateBtn.textContent = "Sending…"; }
+  const leadId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : null;
   if(sb){
       /* Save the lead, but never make the founder wait on it: the report renders after
          six seconds even if the database has not answered, and on any failure. */
-      try { await Promise.race([sb.from("leads").insert(buildLeadPayload(pending.answers, pending.themeScores, pending.total, pending.band, contact)), new Promise(function(r){ setTimeout(r, 6000); })]); }
+      try { await Promise.race([sb.from("leads").insert(Object.assign(buildLeadPayload(pending.answers, pending.themeScores, pending.total, pending.band, contact), {id: leadId, report_requested: true, report_html: reportHtml()})), new Promise(function(r){ setTimeout(r, 6000); })]); }
       catch(e) { /* never block the founder's results on a network failure */ }
   }
+  try { if(leadId) await Promise.race([sb.functions.invoke("send-report", { body: { lead_id: leadId } }), new Promise(function(r){ setTimeout(r, 6000); })]); }
+  catch(e) { /* the copy is sent by the server; a slow send never blocks the founder */ }
   if(gateBtn){ gateBtn.disabled = false; gateBtn.textContent = gateLabel; }
-  renderResults();
+  showSent(contact.email);
 }
 
+
+/* The report is free; these three support the opt-in below it. */
+function offerReport(){
+  const gate = document.getElementById("leadgate"), full = document.getElementById("fullReport");
+  if(gate && full && full.nextElementSibling !== gate) full.after(gate);
+  if(gate) gate.style.display = "block";
+}
+function reportHtml(){
+  const full = document.getElementById("fullReport");
+  return full ? full.innerHTML.slice(0, 120000) : "";
+}
+function showSent(email){
+  const gate = document.getElementById("leadgate");
+  if(!gate) return;
+  gate.innerHTML = '<div class="scorebox" role="status"><h2 style="margin-top:0;font-size:1.15rem;">On its way to ' + String(email).replace(/[<>&]/g, "") + '</h2><p style="font-size:0.9rem;color:#334155;max-width:60ch;">Your report is being sent, and an adviser will read it before your Readiness Call. If it has not arrived in ten minutes, check your junk folder, then book the call and we will bring a copy.</p></div>';
+}
 function renderResults(){
   const {answers, themeScores, total, band} = pending;
   const allQs = THEMES.flatMap(t=>t.qs);
-  document.getElementById("leadgate").style.display = "none";
   renderTeaser();
   document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
     const s = themeScores[t.key];
@@ -379,7 +393,7 @@ function renderResults(){
   let svcHtml = cfg ? `<b>Your ATM service match:</b> ${cfg.service}` : band.svc;
   svcHtml += `<br><span style="font-size:0.8rem;color:var(--slate);">This is an automated suggestion from your answers; an adviser confirms the next step on the Readiness Call.</span>`;
   if(cfg && cfg.partner_only){
-    svcHtml += `<br><span style="font-size:0.8rem;color:var(--slate);">Any investor introductions are made exclusively through ATM's authorised transaction partner.</span>`;
+    svcHtml += `<br><span style="font-size:0.8rem;color:var(--slate);">Any investor introductions are made exclusively through ATM's specialist transaction partner.</span>`;
   }
   document.getElementById("svcMatch").innerHTML = svcHtml;
   document.getElementById("ctaLine").innerHTML = `<b>${cfg ? cfg.cta : band.cta}</b>`;
@@ -395,7 +409,7 @@ function renderResults(){
    above are untouched; these read the band and the answers they produce. */
 const MD_STEPS = [["diagnostic.html","01 · Diagnostic","Multiplier Diagnostic · done"],["roadmap.html","02 · Personalised Roadmap","Your gaps, reverse-engineered"],["finance-advisory.html","03 · Insourcing","Finance Advisory · capability, embedded"],["readiness-project.html","04 · Readiness Project","The full engagement"]];
 const MD_PLAN = {
-  "Highly Ready":     {entry:4, text:"You are Highly Ready. The suggested plan runs the full FACE pathway with a Readiness Project: the 90-day arc from discovery and audit through value enhancement to transaction launch, with buyer and investor engagement through ATM's authorised transaction partner. Go a level deeper first with the Transaction Readiness Assessment. Your entry point is step 04."},
+  "Highly Ready":     {entry:4, text:"You are Highly Ready. The suggested plan runs the full FACE pathway with a Readiness Project: the 90-day arc from discovery and audit through value enhancement to transaction launch, with buyer and investor engagement through ATM's specialist transaction partner. Go a level deeper first with the Transaction Readiness Assessment. Your entry point is step 04."},
   "Strong Potential": {entry:2, text:"You have Strong Potential. The suggested plan starts with a Personalised Roadmap that turns the gaps above into a sequenced plan, then the sprints that close them: Pitching where the story is the gap, Commercial Acceleration where the growth engine is, and Finance Advisory where the numbers are. Your entry point is step 02."},
   "Emerging":         {entry:3, text:"You are Emerging. The suggested plan starts with Finance Advisory, a Financial Deep Dive to establish the true picture, then an insourced CFO and a decision-grade model, before the roadmap and the readiness work make sense. Your entry point is step 03."},
   "At Risk":          {entry:3, text:"You are At Risk, which is the map, not the verdict. The suggested plan starts with Finance Advisory: a Financial Deep Dive first, then an insourced finance function to build the rhythm growth needs. The roadmap follows once the numbers hold. Your entry point is step 03."}
@@ -485,8 +499,7 @@ function runTests(){
   // Gate: headline score is free, the full report is not
   t("no skip bypass exists", typeof window.skipLead === "undefined");
   t("full report starts hidden", document.getElementById("fullReport").style.display === "none");
-  t("gate sits between the teaser and the full report",
-    document.getElementById("leadgate").compareDocumentPosition(document.getElementById("fullReport")) & Node.DOCUMENT_POSITION_FOLLOWING);
+  t("the opt-in section exists and the report is not gated", !!document.getElementById("leadgate") && typeof offerReport === "function");
   t("gate collects identity + consent",
     ["ld-name","ld-email","ld-company","ld-role","ld-consent"].every(id=>document.getElementById(id)));
   t("every gate field is labelled",
