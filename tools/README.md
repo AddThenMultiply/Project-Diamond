@@ -11,3 +11,12 @@ Small scripts that keep the single-file pages consistent and prove they work. No
 | `keyboard-gate-test.js` | Keyboard-only completion of the four gated instruments, timing the report after Enter. | `PW=$(npm root -g)/playwright node tools/keyboard-gate-test.js` |
 
 Playwright is expected as a global install with Chromium available; set `PW` to its module path. Nothing here runs in the browser of a visitor and nothing is deployed.
+
+## Live tests against the ATM Supabase project
+
+| Script | What it does | Run |
+|---|---|---|
+| `live-lead-test.mjs` | Posts one clearly marked test lead with the exact payload the diagnostic page sends, then calls the `send-report` function. Expect `insert: 201` and, until a Resend key is set, `send-report: 503 mail not configured`. Delete the row afterwards with the SQL in the file header. | `node tools/live-lead-test.mjs` |
+| `live-browser-test.js` | The same journey from a real Chromium: answers, report, opt-in, insert, send-report. Needs a browser with a working network path. | `PW=$(npm root -g)/playwright node tools/live-browser-test.js` |
+
+The pages talk to the project named in their `SUPABASE_URL` constant; nothing in these scripts changes the pages.
