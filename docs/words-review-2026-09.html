@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="only light">
+<meta name="robots" content="noindex, nofollow">
+<title>Project Diamond: the words review</title>
+<style>
+:root{color-scheme:only light;--ink:#111827;--slate:#475569;--bg:#F8FAFC;--line:#E2E8F0;--navy:#2B2A29;--accent:#C8231C;--brand:#E4342D;--good:#15803D;--warn:#B45309;--bad:#B91C1C;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+header{background:var(--navy);color:#fff;padding:1.4rem 1.5rem;border-bottom:4px solid var(--brand);}
+header .mark{font-family:Georgia,serif;font-size:0.95rem;letter-spacing:0.08em;opacity:0.9;margin-bottom:0.4rem;} header .mark span{color:#F38E00;}
+header h1{font-family:Georgia,serif;font-size:1.5rem;} header p{color:#fff;font-size:0.85rem;opacity:0.85;margin-top:0.3rem;max-width:80ch;}
+main{max-width:900px;margin:0 auto;padding:1.5rem;}
+section{margin:2rem 0;}
+h2{font-family:Georgia,serif;font-size:1.4rem;color:var(--navy);margin-bottom:0.5rem;padding-top:0.5rem;border-top:1px solid var(--line);}
+h3{font-family:Georgia,serif;font-size:1.1rem;color:var(--navy);margin:0 0 0.4rem;}
+p,li{font-size:0.95rem;color:#334155;max-width:78ch;} ul,ol{padding-left:1.3rem;margin:0.4rem 0 0.8rem;}
+.kicker{display:block;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.3rem;}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1rem 1.2rem;margin:0.8rem 0;}
+.item{background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0;}
+.item .ex{list-style:none;padding:0;margin:0.4rem 0 0.6rem;} .item .ex li{font-size:0.88rem;color:var(--slate);padding:0.25rem 0 0.25rem 0.9rem;border-left:2px solid var(--line);margin:0.2rem 0;}
+.item .ex li a{font-weight:600;}
+.alt{background:#F1F5F9;border-radius:4px;padding:0.5rem 0.7rem;margin-top:0.4rem;}
+.note{font-size:0.82rem;color:var(--slate);}
+.num{display:inline-block;background:var(--navy);color:#fff;font-family:Georgia,serif;width:1.7rem;height:1.7rem;line-height:1.7rem;text-align:center;border-radius:50%;margin-right:0.5rem;font-size:0.9rem;}
+.choice{display:flex;flex-wrap:wrap;gap:0.4rem 1.2rem;margin-top:0.7rem;align-items:center;}
+.choice label{font-size:0.9rem;color:var(--ink);display:inline-flex;align-items:center;gap:0.35rem;min-height:44px;}
+.choice input[type=radio]{width:1.1rem;height:1.1rem;accent-color:var(--accent);}
+.choice .own{flex:1 1 220px;font-size:16px;padding:0.5rem 0.6rem;border:1px solid var(--line);border-radius:4px;}
+textarea{width:100%;font-size:16px;padding:0.6rem;border:1px solid var(--line);border-radius:4px;min-height:120px;font-family:inherit;}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;padding:0.75rem 1.4rem;border-radius:4px;font-weight:600;font-size:1rem;cursor:pointer;margin:0.4rem 0.4rem 0 0;} .btn:hover{background:#A61D17;}
+.cta{display:inline-block;background:var(--navy);color:#fff;padding:0.7rem 1.4rem;border-radius:4px;font-weight:600;margin:0.4rem 0.4rem 0 0;} .cta:hover{text-decoration:none;opacity:0.92;}
+.tag{display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.1rem 0.45rem;border-radius:3px;white-space:nowrap;background:#E2E8F0;color:var(--slate);margin:0.15rem 0.2rem 0.15rem 0;}
+#status{font-size:0.9rem;color:var(--good);margin-top:0.5rem;min-height:1.4rem;}
+pre{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:6px;padding:1rem;font-size:0.85rem;display:none;}
+@media print{header{background:#fff;color:var(--navy);} .btn,.cta{display:none;} .item{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header>
+<div class="mark">ADD THEN <span>MULTIPLY</span></div>
+<h1>The words review: consulting speak, for David to tick or cross</h1>
+<p>21 September 2026. You said a couple of phrases read as consulting speak. This is every candidate we could find across the seventeen public pages, with where it appears, what it is doing there, and a plainer version. For each one choose keep, change, or give us your own words. At the end, one button copies your answers so you can paste them into an email. Nothing on this page is saved anywhere; if you leave it, your ticks go with it, so finish in one sitting or print the page and mark it by hand.</p>
+</header>
+<main>
+
+<section>
+<span class="kicker">How this was done</span>
+<h2>The sweep</h2>
+<p>We read the visible text of every public page, including the questions, the written reports and the email copy, against a list of the words consultancies lean on: leverage, drive, unlock, robust, holistic, stakeholder, deliverable, workstream, optimise, synergy, ecosystem, value stream, end-to-end, alignment, enable, empower, framework, actionable, strategic, capability, streamline, playbook, cadence, and about thirty more. Most were absent. What follows is what was there, worst first, then the words that are ATM's own and only need confirming.</p>
+<p>Two things are deliberately not in the list. Investor and buyer vocabulary that a founder must learn anyway (data room, due diligence, heads of terms, traction, comparable rounds) and the regulatory wording, which is Eversheds-cleared and yours to change only on advice.</p>
+</section>
+
+<section>
+<span class="kicker">Tick or cross</span>
+<h2>31 phrases, worst first</h2>
+<div class="item" data-phrase="the value stream" data-alt="&quot;the four steps&quot;, or &quot;where this sits on the way to an exit&quot;">
+<h3><span class="num">1</span>the value stream</h3>
+<p>A supply-chain term. Founders will not know what it means and it names our four steps, not theirs.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: The value stream</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: In the value stream it sits at step 03, Insourcing, alongside Finance Advisory, once the diagnostic and the roadmap have shown where the engine is missing.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: The value stream this feeds</li></ul><p class="note">5 mentions on 4 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;the four steps&quot;, or &quot;where this sits on the way to an exit&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w1" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w1" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w1" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for the value stream">
+</div>
+</div><div class="item" data-phrase="levers / value levers" data-alt="&quot;the three things that move your score&quot; in the reports; &quot;what adds value&quot; elsewhere">
+<h3><span class="num">2</span>levers / value levers</h3>
+<p>The word every consultancy uses for &quot;the things that change the number&quot;. In the reports it is the heading over the three priorities.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Your diagnostic becomes a plan: gaps mapped to milestones and value levers.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Personalised Roadmap Your gaps, reverse-engineered into milestones and value levers.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: The gaps below, in priority order, are the levers that get you there, each with the thing we would do first.</li></ul><p class="note">17 mentions on 7 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;the three things that move your score&quot; in the reports; &quot;what adds value&quot; elsewhere</p><p class="note">Used as a fixed heading in every report, so one decision changes all nine instruments.</p>
+<div class="choice">
+<label><input type="radio" name="w2" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w2" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w2" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for levers / value levers">
+</div>
+</div><div class="item" data-phrase="the FACE methodology" data-alt="&quot;the FACE method&quot;, or simply &quot;FACE, from Add Then Multiply&quot;">
+<h3><span class="num">3</span>the FACE methodology</h3>
+<p>Methodology is the consultant&#x27;s word for a method. FACE is yours, so it can carry its own name.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Founder readiness · built on the FACE methodology</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: The methodology</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Shared experience and the FACE methodology in practice, the community your preparation plugs into.</li></ul><p class="note">11 mentions on 8 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;the FACE method&quot;, or simply &quot;FACE, from Add Then Multiply&quot;</p><p class="note">Appears in the credit line under every assessment.</p>
+<div class="choice">
+<label><input type="radio" name="w3" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w3" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w3" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for the FACE methodology">
+</div>
+</div><div class="item" data-phrase="the ecosystem" data-alt="&quot;Who is around you&quot;, or &quot;The network&quot;">
+<h3><span class="num">4</span>the ecosystem</h3>
+<p>Three section headings. A word from platform businesses, not from a founder&#x27;s world.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: The ecosystem</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investors.html">Investors</a>: The ecosystem · buy-side and growth capital</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/founders.html">Founders</a>: The ecosystem · peers who have done it</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;Who is around you&quot;, or &quot;The network&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w4" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w4" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w4" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for the ecosystem">
+</div>
+</div><div class="item" data-phrase="capability / &quot;the capability stays in your business&quot;" data-alt="&quot;the skills stay in your business&quot;, or &quot;your team keeps what we build&quot;">
+<h3><span class="num">5</span>capability / &quot;the capability stays in your business&quot;</h3>
+<p>A consulting abstraction for skills, people and systems. Nine pages carry it, mostly in the Finance Advisory line.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Finance Advisory and Commercial Acceleration, embedded in your business; the capability stays with it.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: Finance Advisory · capability, embedded</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: The capability stays in your business when the sprint ends.</li></ul><p class="note">7 mentions on 6 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;the skills stay in your business&quot;, or &quot;your team keeps what we build&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w5" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w5" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w5" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for capability / &quot;the capability stays in your business&quot;">
+</div>
+</div><div class="item" data-phrase="deliverables / deliverable by your team" data-alt="&quot;the work the roadmap set&quot; in Finance Advisory; &quot;a story your team can tell without you&quot; in Pitching">
+<h3><span class="num">6</span>deliverables / deliverable by your team</h3>
+<p>Project-management vocabulary. In Pitching it is used to mean &quot;your team can tell the story without you&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/finance-advisory.html">Finance Advisory</a>: A transaction-experienced finance leader, or the function around one, embedded on a defined 90-day sprint with deliverables the roadmap set.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/finance-advisory.html">Finance Advisory</a>: Embedded 90-day sprint engagements with defined deliverables</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/finance-advisory.html">Finance Advisory</a>: Insource a CFO or finance leader who has been through a funding round or a sale, on a 90-day sprint with the deliverables the roadmap set.</li></ul><p class="note">5 mentions on 2 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;the work the roadmap set&quot; in Finance Advisory; &quot;a story your team can tell without you&quot; in Pitching</p>
+<div class="choice">
+<label><input type="radio" name="w6" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w6" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w6" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for deliverables / deliverable by your team">
+</div>
+</div><div class="item" data-phrase="strategic logic" data-alt="&quot;the reason to buy&quot;, or &quot;why buy rather than build&quot;">
+<h3><span class="num">7</span>strategic logic</h3>
+<p>Four uses on the acquisition pages, meaning &quot;the reason to buy rather than build&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Grow by Acquiring The seven-phase route from strategic logic to integration.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/deal-ready.html">Grow by Acquiring</a>: Strategic logic Is buying genuinely faster and smarter than building?</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/pitch.html">Pitching</a>: The strategic logic, the value levers and the life-after-exit story a buyer needs to hear from you, built on the Exit Ready diagnostic</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;the reason to buy&quot;, or &quot;why buy rather than build&quot;</p><p class="note">&quot;Strategic buyers&quot; on the Investors page is a market term and is not included here.</p>
+<div class="choice">
+<label><input type="radio" name="w7" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w7" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w7" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for strategic logic">
+</div>
+</div><div class="item" data-phrase="Financial Deep Dive" data-alt="&quot;Financial Review&quot;, or &quot;the first look at the numbers&quot;">
+<h3><span class="num">8</span>Financial Deep Dive</h3>
+<p>Reads as consulting. It is also the name of Finance Advisory&#x27;s first module, taken from Marcus&#x27;s definition, so check with him before changing.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: A Financial Deep Dive first, then the CFO and finance function embedded in your business, built to stay there.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Insourcing: Finance Advisory Financial Deep Dive, insourced CFO or finance function, the wider bench.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: The suggested plan starts with the free tools on the Funding page and a Personalised Roadmap that sequences the priority gaps; where the numbers are the gap, Finance Advisory&#x27;s Financial Deep Dive comes first.</li></ul><p class="note">10 mentions on 5 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;Financial Review&quot;, or &quot;the first look at the numbers&quot;</p><p class="note">Eleven mentions on six pages, all as the module name.</p>
+<div class="choice">
+<label><input type="radio" name="w8" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w8" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w8" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for Financial Deep Dive">
+</div>
+</div><div class="item" data-phrase="proposition" data-alt="&quot;your offer&quot;, or &quot;what you sell, to whom, and why they buy&quot;">
+<h3><span class="num">9</span>proposition</h3>
+<p>Marketing shorthand, ten uses on Commercial Acceleration and the Overview.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Proposition, pricing, pipeline and a sales process that wins revenue without you in every deal.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Commercial Acceleration Proposition, pricing, pipeline and a sales process that runs without you.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: A proposition that is clear, pricing that holds, a pipeline you can forecast, and a sales process that runs without the founder in every deal.</li></ul><p class="note">11 mentions on 2 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;your offer&quot;, or &quot;what you sell, to whom, and why they buy&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w9" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w9" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w9" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for proposition">
+</div>
+</div><div class="item" data-phrase="align / alignment" data-alt="&quot;fits&quot;, &quot;matches&quot;, &quot;agrees with&quot;; for the Personal Exit line, &quot;Finding out late that you disagree is the most expensive kind&quot;">
+<h3><span class="num">10</span>align / alignment</h3>
+<p>Six uses in questions and headings (&quot;Governance alignment&quot;, &quot;Alignment found late is the most expensive kind&quot;).</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Align your personal exit plan with the business plan</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Do you have a clear personal exit plan that aligns with your financial goals?</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/ethical-acquisitions.html">Ethical Acquisitions</a>: Clear goals, ethical alignment, and strong financial and strategic readiness.</li></ul><p class="note">6 mentions on 5 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;fits&quot;, &quot;matches&quot;, &quot;agrees with&quot;; for the Personal Exit line, &quot;Finding out late that you disagree is the most expensive kind&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w10" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w10" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w10" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for align / alignment">
+</div>
+</div><div class="item" data-phrase="end to end" data-alt="&quot;from start to finish&quot;, or &quot;the whole route&quot;">
+<h3><span class="num">11</span>end to end</h3>
+<p>Four uses. Fine in speech, but it is the phrase every services firm uses.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/deal-ready.html">Grow by Acquiring</a>: The route, end to end</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/readiness-project.html">Readiness Projects</a>: It is managed end to end, from inside your company.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/readiness-project.html">Readiness Projects</a>: End-to-end exit advisory: the full engagement that takes a founder-led business to market, with our transaction partner and investor relationships behind it.</li></ul><p class="note">4 mentions on 3 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;from start to finish&quot;, or &quot;the whole route&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w11" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w11" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w11" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for end to end">
+</div>
+</div><div class="item" data-phrase="benchmark / benchmarking" data-alt="Keep in the investor context; &quot;compared with businesses like yours&quot; elsewhere">
+<h3><span class="num">12</span>benchmark / benchmarking</h3>
+<p>Nine uses. In the Funding Scorecard investors themselves say &quot;benchmarked against comparable rounds&quot;, which is fair. The &quot;Peer benchmarking, planned&quot; and &quot;Sector benchmarking&quot; labels are ours.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Peer benchmarking follows once there is enough assessment data behind it.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: A rough range, not benchmarked against comparable raises.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: A range benchmarked against comparable companies at our stage and sector.</li></ul><p class="note">9 mentions on 5 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> Keep in the investor context; &quot;compared with businesses like yours&quot; elsewhere</p>
+<div class="choice">
+<label><input type="radio" name="w12" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w12" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w12" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for benchmark / benchmarking">
+</div>
+</div><div class="item" data-phrase="KPI dashboard" data-alt="&quot;a dashboard of the numbers that matter&quot;">
+<h3><span class="num">13</span>KPI dashboard</h3>
+<p>Three uses. Founders know the letters, but it is jargon.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Install a 13-week cashflow and KPI dashboard</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/transaction-readiness.html">Transaction Readiness</a>: Management pack within ten days of month end; core KPIs tracked</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/ethical-acquisitions.html">Ethical Acquisitions</a>: Prepare a pre-funding data room and KPI dashboard</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;a dashboard of the numbers that matter&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w13" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w13" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w13" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for KPI dashboard">
+</div>
+</div><div class="item" data-phrase="unlock" data-alt="&quot;Sharpen your numbers and your plan, and the next band is within reach.&quot;">
+<h3><span class="num">14</span>unlock</h3>
+<p>Two uses, including &quot;Let&#x27;s sharpen your financials and strategy to unlock the next level.&quot;</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: Now link every line to the milestone it unlocks.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Let&#x27;s sharpen your financials and strategy to unlock the next level.</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;Sharpen your numbers and your plan, and the next band is within reach.&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w14" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w14" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w14" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for unlock">
+</div>
+</div><div class="item" data-phrase="robust" data-alt="&quot;How well would your projections stand up to a challenge?&quot;">
+<h3><span class="num">15</span>robust</h3>
+<p>&quot;How robust are your financial projections?&quot;</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: How robust are your financial projections?</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;How well would your projections stand up to a challenge?&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w15" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w15" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w15" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for robust">
+</div>
+</div><div class="item" data-phrase="cadence" data-alt="&quot;rhythm&quot;, or &quot;a review every week&quot;">
+<h3><span class="num">16</span>cadence</h3>
+<p>Two uses on Commercial Acceleration.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: A roadmap with measures, owners and a cadence the business runs itself</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: A 90-day roadmap with measures, owners and a review cadence.</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;rhythm&quot;, or &quot;a review every week&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w16" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w16" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w16" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for cadence">
+</div>
+</div><div class="item" data-phrase="Workstream" data-alt="&quot;What we work on&quot;">
+<h3><span class="num">17</span>Workstream</h3>
+<p>A table heading on Commercial Acceleration.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: Workstream</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;What we work on&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w17" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w17" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w17" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for Workstream">
+</div>
+</div><div class="item" data-phrase="Month 2: Optimisation" data-alt="&quot;Month 2: Improve&quot;">
+<h3><span class="num">18</span>Month 2: Optimisation</h3>
+<p>A stage name on the Roadmap page.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/roadmap.html">Roadmap</a>: Month 2: Optimisation</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;Month 2: Improve&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w18" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w18" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w18" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for Month 2: Optimisation">
+</div>
+</div><div class="item" data-phrase="The 90-day transformation arc" data-alt="&quot;The 90 days, step by step&quot;">
+<h3><span class="num">19</span>The 90-day transformation arc</h3>
+<p>A heading on Readiness Projects.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/readiness-project.html">Readiness Projects</a>: The 90-day transformation arc</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;The 90 days, step by step&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w19" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w19" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w19" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for The 90-day transformation arc">
+</div>
+</div><div class="item" data-phrase="world-class preparation" data-alt="&quot;the best preparation&quot;">
+<h3><span class="num">20</span>world-class preparation</h3>
+<p>One use on the Founders page.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/founders.html">Founders</a>: The network exists to make world-class preparation available to every ambitious founder, explicitly including the female founders the funding market persistently underserves.</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;the best preparation&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w20" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w20" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w20" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for world-class preparation">
+</div>
+</div><div class="item" data-phrase="Exit Planning &amp; Value Creation" data-alt="&quot;Exit Planning and Building Value&quot;">
+<h3><span class="num">21</span>Exit Planning &amp; Value Creation</h3>
+<p>A theme name in the Exit Ready diagnostic.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Exit Planning &amp; Value Creation</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;Exit Planning and Building Value&quot;</p><p class="note">Theme names appear in the report and the email; the scoring does not change.</p>
+<div class="choice">
+<label><input type="radio" name="w21" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w21" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w21" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for Exit Planning &amp; Value Creation">
+</div>
+</div><div class="item" data-phrase="Operational Efficiency &amp; Scalability" data-alt="&quot;Operations and Room to Grow&quot;">
+<h3><span class="num">22</span>Operational Efficiency &amp; Scalability</h3>
+<p>A theme name in the Exit Ready diagnostic.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Operational Efficiency &amp; Scalability</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;Operations and Room to Grow&quot;</p><p class="note">As above.</p>
+<div class="choice">
+<label><input type="radio" name="w22" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w22" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w22" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for Operational Efficiency &amp; Scalability">
+</div>
+</div><div class="item" data-phrase="embedded / &quot;embedded in your business&quot;" data-alt="&quot;working inside your business&quot;, or &quot;in your business, not at arm&#x27;s length&quot;">
+<h3><span class="num">23</span>embedded / &quot;embedded in your business&quot;</h3>
+<p>Ten pages. A consulting favourite for &quot;working inside your business&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: A Financial Deep Dive first, then the CFO and finance function embedded in your business, built to stay there.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Finance Advisory and Commercial Acceleration, embedded in your business; the capability stays with it.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: Finance Advisory · capability, embedded</li></ul><p class="note">20 mentions on 10 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;working inside your business&quot;, or &quot;in your business, not at arm&#x27;s length&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w23" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w23" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w23" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for embedded / &quot;embedded in your business&quot;">
+</div>
+</div><div class="item" data-phrase="90-day sprint" data-alt="&quot;90-day programme&quot;, or simply &quot;90 days&quot;">
+<h3><span class="num">24</span>90-day sprint</h3>
+<p>Seven pages. Borrowed from software teams. Marcus&#x27;s definitions use it, so a change is his call as much as yours.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: The suggested plan starts with a Personalised Roadmap that turns the gaps above into a sequenced plan, then the sprints that close them: Pitching where the story is the gap, Commercial Acceleration where the growth engine is, and Finance Advisory where the numbers are.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/transaction-readiness.html">Transaction Readiness</a>: A focused 30–90 day value sprint would close the remaining gaps and materially improve your position at the table.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: The capability stays in your business when the sprint ends.</li></ul><p class="note">27 mentions on 7 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;90-day programme&quot;, or simply &quot;90 days&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w24" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w24" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w24" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for 90-day sprint">
+</div>
+</div><div class="item" data-phrase="instrument" data-alt="&quot;assessment&quot;">
+<h3><span class="num">25</span>instrument</h3>
+<p>Six pages. We use it to mean &quot;assessment&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: Instrument the business now.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/diagnostic.html">Exit Ready diagnostic</a>: Go a level deeper with the Transaction Readiness Assessment : the 24-metric instrument a buyer&#x27;s advisers would use.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/transaction-readiness.html">Transaction Readiness</a>: This is the detailed instrument behind our Multiplier Diagnostic : 24 metrics at the depth a buyer, investor or their advisers would test.</li></ul><p class="note">8 mentions on 6 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;assessment&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w25" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w25" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w25" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for instrument">
+</div>
+</div><div class="item" data-phrase="sequences / sequenced" data-alt="&quot;puts in order&quot;, or &quot;decides what comes first&quot;">
+<h3><span class="num">26</span>sequences / sequenced</h3>
+<p>Six pages, as in &quot;the roadmap sequences the levers&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: A warm-introduction path mapped to most of the shortlist, with introducers briefed and sequenced.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: A sequenced warm-intro campaign creates the momentum that closes rounds.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: The suggested plan is a Personalised Roadmap that turns the gaps above into a sequenced plan, then Pitching where the story and the fundraising assets are the gap, Commercial Acceleration where the growth engine is, and Finance Advisory where the numbers are.</li></ul><p class="note">10 mentions on 6 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;puts in order&quot;, or &quot;decides what comes first&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w26" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w26" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w26" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for sequences / sequenced">
+</div>
+</div><div class="item" data-phrase="reverse-engineered" data-alt="&quot;worked back into milestones&quot;">
+<h3><span class="num">27</span>reverse-engineered</h3>
+<p>Overview and Roadmap: &quot;every gap reverse-engineered into milestones&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Personalised Roadmap Your gaps, reverse-engineered into milestones and value levers.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: Your gaps, reverse-engineered</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/finance-advisory.html">Finance Advisory</a>: 02 · Personalised RoadmapYour gaps, reverse-engineered</li></ul><p class="note">12 mentions on 10 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;worked back into milestones&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w27" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w27" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w27" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for reverse-engineered">
+</div>
+</div><div class="item" data-phrase="productised" data-alt="&quot;FACE, turned into tools you can use today.&quot;">
+<h3><span class="num">28</span>productised</h3>
+<p>Overview: &quot;The FACE methodology, productised.&quot;</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: The FACE methodology, productised.</li></ul>
+<p class="alt"><b>Plainer:</b> &quot;FACE, turned into tools you can use today.&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w28" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w28" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w28" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for productised">
+</div>
+</div><div class="item" data-phrase="the discipline" data-alt="&quot;the approach&quot;, or &quot;the assets Funded Female Founders says every raise needs&quot;">
+<h3><span class="num">29</span>the discipline</h3>
+<p>Five pages, as in &quot;the fundraising-asset discipline of Funded Female Founders&quot;.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: Based on the FACE methodology (Fund, Acquire, Consolidate, Exit) and the fundraising-asset discipline of Funded Female Founders.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: A tested 12-slide deck is precisely the fundraising-asset discipline that gets meetings.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/investor-ready.html">Funding Scorecard</a>: The longlist-to-shortlist discipline is how funded founders run a raise like a sales pipeline.</li></ul><p class="note">15 mentions on 5 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> &quot;the approach&quot;, or &quot;the assets Funded Female Founders says every raise needs&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w29" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w29" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w29" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for the discipline">
+</div>
+</div><div class="item" data-phrase="the commercial engine" data-alt="Keep if it is your language; otherwise &quot;the way the business sells&quot;">
+<h3><span class="num">30</span>the commercial engine</h3>
+<p>Three pages. A metaphor that may or may not be yours.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: Score my commercial engine Ten minutes.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: Not sure whether the gap is the engine or you?</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/commercial-acceleration.html">Commercial Acceleration</a>: We help you build a commercial engine that stands up to scrutiny; introductions to investors and buyers happen only offline, through our specialist transaction partner.</li></ul><p class="note">15 mentions on 3 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> Keep if it is your language; otherwise &quot;the way the business sells&quot;</p>
+<div class="choice">
+<label><input type="radio" name="w30" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w30" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w30" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for the commercial engine">
+</div>
+</div><div class="item" data-phrase="engagement" data-alt="Keep, or &quot;project&quot; if you prefer it in customer-facing copy">
+<h3><span class="num">31</span>engagement</h3>
+<p>Eleven pages. ATM&#x27;s own word for a paid piece of work, listed so you can confirm it rather than because it is wrong.</p>
+<ul class="ex"><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: Every good engagement starts with that question.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: All six assessments are free; the services behind them are engagements, scoped on the call.</li><li><a href="https://raw.githack.com/AddThenMultiply/Project-Diamond/feature/front-door-six-streams/index.html">Overview</a>: The full engagement that takes the business to market.</li></ul><p class="note">31 mentions on 11 pages. Change one and we change them all.</p>
+<p class="alt"><b>Plainer:</b> Keep, or &quot;project&quot; if you prefer it in customer-facing copy</p>
+<div class="choice">
+<label><input type="radio" name="w31" value="keep"> Keep as it is</label>
+<label><input type="radio" name="w31" value="change"> Change to the plainer version</label>
+<label><input type="radio" name="w31" value="own"> Change to my words:</label>
+<input type="text" class="own" placeholder="Your wording" aria-label="Your wording for engagement">
+</div>
+</div>
+</section>
+
+<section>
+<span class="kicker">Yours to confirm</span>
+<h2>Words that are ATM's own</h2>
+<p>These run through the whole site. None reads as consulting speak to us, but they are your terms and you should see them in one place: <span class="tag">readiness</span> <span class="tag">Readiness Call</span> <span class="tag">Readiness Project</span> <span class="tag">diagnostic</span> <span class="tag">Multiplier Diagnostic</span> <span class="tag">Personalised Roadmap</span> <span class="tag">Insourcing</span> <span class="tag">FACE</span> <span class="tag">Fund, Acquire, Consolidate, Exit</span> <span class="tag">Founder Clarity</span> <span class="tag">Gap Analysis</span> <span class="tag">Business Readiness</span> <span class="tag">Transaction Execution</span> <span class="tag">an exit is a life event</span> <span class="tag">think like a big business</span> <span class="tag">specialist transaction partner</span></p>
+<div class="choice"><label><input type="radio" name="own-terms" value="keep"> All fine</label><label><input type="radio" name="own-terms" value="note"> Some need a word, noted below</label></div>
+</section>
+
+<section>
+<span class="kicker">Your own catches</span>
+<h2>The phrases you spotted on the ferry</h2>
+<p>Anything we missed, or any sentence that does not sound like ATM. Page and the words are enough; we will find it.</p>
+<textarea id="catches" placeholder="For example: Pitching page, 'survives that room' feels too dramatic."></textarea>
+</section>
+
+<section>
+<span class="kicker">Send</span>
+<h2>Copy your answers</h2>
+<p>The button gathers every tick and your notes into plain text and copies it. Paste it into an email to Madeleine. The second button opens a blank email with the subject already set.</p>
+<button class="btn" onclick="copyAnswers()">Copy my answers</button>
+<a class="cta" href="mailto:madeleine@addthenmultiply.com?subject=Project%20Diamond%3A%20words%20review">Open an email to Madeleine</a>
+<div id="status" role="status"></div>
+<pre id="out"></pre>
+<p class="note">If copying does not work on your phone, the text appears below the buttons so you can select it by hand.</p>
+</section>
+
+</main>
+<script>
+function copyAnswers(){
+  const lines=["Project Diamond: words review, answers from David", "Date: " + new Date().toLocaleDateString("en-GB"), ""];
+  let keep=0, change=0, own=0, blank=0;
+  document.querySelectorAll(".item").forEach((it, idx) => {
+    const phrase=it.dataset.phrase, alt=it.dataset.alt;
+    const sel=it.querySelector("input[type=radio]:checked");
+    const words=(it.querySelector(".own").value||"").trim();
+    let verdict;
+    if(!sel && !words){ verdict="(no answer)"; blank++; }
+    else if(sel && sel.value==="keep"){ verdict="KEEP"; keep++; }
+    else if(sel && sel.value==="change"){ verdict="CHANGE to: " + alt; change++; }
+    else { verdict="CHANGE to my words: " + (words || "(none given)"); own++; }
+    lines.push((idx+1) + ". " + phrase + " => " + verdict);
+  });
+  const ot=document.querySelector("input[name=own-terms]:checked");
+  lines.push("", "ATM's own terms: " + (ot ? (ot.value==="keep" ? "all fine" : "some need a word, see notes") : "(no answer)"));
+  const c=(document.getElementById("catches").value||"").trim();
+  lines.push("", "Own catches:", c || "(none)");
+  lines.push("", "Summary: " + keep + " keep, " + change + " change to the plainer version, " + own + " change to David's words, " + blank + " unanswered.");
+  const text=lines.join("\n");
+  const out=document.getElementById("out"); out.textContent=text; out.style.display="block";
+  const st=document.getElementById("status");
+  const done=()=>{ st.textContent="Copied. Paste it into your email."; };
+  const fail=()=>{ st.textContent="Could not copy automatically; select the text below and copy it."; };
+  try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, fail); } else { fail(); } }catch(e){ fail(); }
+}
+</script>
+</body>
+</html>
