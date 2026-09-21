@@ -383,6 +383,8 @@ function renderResults(){
   const {answers, themeScores, total, band} = pending;
   const allQs = THEMES.flatMap(t=>t.qs);
   renderTeaser();
+  // Carry the result context into the booking hand-off (code MD, agreed by David 20 September).
+  setBooking(document.getElementById("bookBtn"), { assessment: "MD", score: total, band: band.label });
   document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
     const s = themeScores[t.key];
     return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name}: ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
@@ -506,11 +508,14 @@ function runTests(){
   t("every gate field is labelled",
     ["ld-name","ld-email","ld-company","ld-role","ld-revenue","ld-consent"]
       .every(id=>[...document.querySelectorAll("label[for]")].some(l=>l.getAttribute("for")===id)));
-  // Booking hand-off to GoHighLevel: this page carries no assessment context
+  // Booking hand-off to GoHighLevel: code MD, score and band once there is a result
   const link = bookingUrl(null, "?utm_source=LinkedIn%20Paid");
   t("booking link preserves the base BOOKING_URL", link.indexOf(BOOKING_URL)===0 && link.indexOf(BOOKING_URL+"?")===0);
-  t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);
-  t("no assessment, score or band leaks from this page", ["fr_assessment=","fr_score=","fr_band="].every(k=>link.indexOf(k)===-1));
+  t("the booking CTA is wired through the helper", /[?&]fr_source=/.test(document.getElementById("bookBtn").getAttribute("href")));
+  t("before a result, no assessment, score or band is sent", ["fr_assessment=","fr_score=","fr_band="].every(k=>link.indexOf(k)===-1));
+  const md = bookingUrl({assessment:"MD", score:76, band:"Strong Potential"}, "");
+  t("MD link carries assessment, score and band", md.indexOf("fr_assessment=MD")>-1 && md.indexOf("fr_score=76")>-1 && md.indexOf("fr_band=Strong%20Potential")>-1);
+  t("a zero MD score is still sent", bookingUrl({assessment:"MD", score:0, band:"At Risk"}, "").indexOf("fr_score=0")>-1);
   t("the Multiplier bands stay distinct from the RD band names", BANDS.map(b=>b.label).join("|")==="Highly Ready|Strong Potential|Emerging|At Risk");
   t("booking link carries the encoded campaign source", link.indexOf("fr_source=LinkedIn%20Paid")>-1);
   t("no unencoded spaces survive into the booking link", /^[^ ]+$/.test(link));

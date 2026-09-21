@@ -12,7 +12,7 @@ Public site pages (all single-file HTML): `index.html` (overview + value stream 
 
 **Header nav, every public page:** Overview · Funding Scorecard · Exit Ready · Services (`index.html#services`) · Network (`investors.html`) · a red "Book a call" button (`a.nav-cta`, the `BOOKING_URL`). `exit-ready.html` is a legacy redirect to the diagnostic and `sourcing.html` is a legacy redirect to `finance-advisory.html`; keep both. `deal-ready.html` is now the "Grow by Acquiring" landing page (the acquisition fork from the homepage hero).
 
-**The two scored front doors are different instruments and must not be conflated:** `diagnostic.html` is the 20-question Multiplier Diagnostic; `transaction-readiness.html` is the 24-metric Transaction Readiness Assessment. They have different band vocabularies. Booking hand-offs tag the latter as `RD`, see `GHL-DATA-MAP.md`.
+**The two scored front doors are different instruments and must not be conflated:** `diagnostic.html` is the 20-question Multiplier Diagnostic; `transaction-readiness.html` is the 24-metric Transaction Readiness Assessment. They have different band vocabularies. Booking hand-offs tag the former as `MD` and the latter as `RD`; all ten assessment codes (IR, RD, FFF, MD, EA, PI, CA, FA, FD, PX) were agreed by David on 20 September, see `GHL-DATA-MAP.md`.
 
 Authenticated pages (behind the paid workspace boundary): `intake.html` · `exit-ready-workspace.html` · `deal-ready-workspace.html` · `investor-mandates.html` (advisor-only register) · `advisor-console.html`.
 

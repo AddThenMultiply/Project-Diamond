@@ -2,7 +2,7 @@
 
 **For:** Marcus Jones, wiring the GoHighLevel side
 **From:** the ATM Founder Platform build
-**Status:** live on the site; parameter names await your confirmation
+**Status:** live on the site. All ten assessment codes were agreed by David on 20 September (IR, RD, FFF, MD, EA, PI, CA, FA, FD, PX); the parameter names still await your confirmation
 
 When a founder finishes an assessment and clicks through to book, the booking
 link now carries their result with them, so GHL can record where they came
@@ -49,11 +49,11 @@ Readiness Assessment calls itself "the deal-grade instrument behind our
 Multiplier Diagnostic".
 
 We renamed nothing. Because its band vocabulary is not RD's, `diagnostic.html`
-currently sends **`fr_source` only** (no assessment, no score, no band) so
-it cannot contaminate your RD band picklist. **If you want its results in GHL
-too, give us a fourth assessment code** (`MD` would be the obvious one) and
-the four band values above, and we will wire it in one edit. Until then those
-bookings arrive attributed but untagged.
+needed a code of its own so it could not contaminate your RD band picklist.
+**David agreed `MD` on 20 September** and the page now sends `fr_assessment=MD`
+with its score and one of the four band values above. Please add `MD` and those
+four bands to the picklists; until then the values arrive on the link but
+GHL has nowhere to put them.
 
 ### Funding Scorecard: now implemented
 
@@ -69,16 +69,16 @@ existing scoring; only the names are new:
 Per your instruction, the Funded Female Founders module has **no** band model
 and creates no band tags.
 
-### Proposed: five stream self-assessments, awaiting your confirmation
+### The five stream self-assessments (codes agreed by David, 20 September)
 
 The six-door front door adds a free, ungated eight-statement self-assessment
 to each of the three stream pages that do not already carry a diagnostic, plus
 two standalone instruments (Founder Dependence and Personal Exit Readiness). Each
 scores 1–5 per statement, reports a percentage of the maximum, and shares one
-band model. These codes and band names are **our proposal**; nothing is
-final until you confirm them.
+band model. David agreed these codes on 20 September; the four band names
+below are what the pages send.
 
-| Page | Proposed `fr_assessment` | Stream |
+| Page | `fr_assessment` | Stream |
 |---|---|---|
 | `pitch.html` | `PI` | Pitching |
 | `commercial-acceleration.html` | `CA` | Commercial Acceleration |
@@ -133,7 +133,7 @@ Parameters are appended to it, all values URL-encoded:
 
 | Parameter | Value | Sent from |
 |---|---|---|
-| `fr_assessment` | `RD`, `IR` or `FFF`, plus the proposed `PI`, `CA`, `FA`, `FD`, `PX` | the assessment pages |
+| `fr_assessment` | `RD`, `IR`, `FFF`, `MD`, `EA`, `PI`, `CA`, `FA`, `FD` or `PX` (all agreed by David, 20 September) | the assessment pages |
 | `fr_score` | integer percentage, `0`–`100` | scored assessments only |
 | `fr_band` | the exact band name string | scored assessments only |
 | `fr_source` | one controlled source value (below) | every booking link |
@@ -145,12 +145,13 @@ Which page sends what:
 | `transaction-readiness.html` | `RD` | yes | the four RD bands |
 | `investor-ready.html` | `IR` | yes | the three IR bands |
 | `funding.html` | `FFF` | no | no |
-| `diagnostic.html` | *(none: pending a code)* | no | no |
-| `pitch.html` | `PI` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `commercial-acceleration.html` | `CA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `finance-advisory.html` | `FA` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `founder-dependence.html` | `FD` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
-| `personal-exit-readiness.html` | `PX` *(proposed)* | yes, once scored | Strong / Building / Emerging / At risk |
+| `diagnostic.html` | `MD` | yes | Highly Ready / Strong Potential / Emerging / At Risk |
+| `ethical-acquisitions.html` | `EA` | yes | Highly Ready / Strong Potential / Emerging / At Risk |
+| `pitch.html` | `PI` | yes, once scored | Strong / Building / Emerging / At risk |
+| `commercial-acceleration.html` | `CA` | yes, once scored | Strong / Building / Emerging / At risk |
+| `finance-advisory.html` | `FA` | yes, once scored | Strong / Building / Emerging / At risk |
+| `founder-dependence.html` | `FD` | yes, once scored | Strong / Building / Emerging / At risk |
+| `personal-exit-readiness.html` | `PX` | yes, once scored | Strong / Building / Emerging / At risk |
 | all other pages with a booking CTA | *(none)* | no | no |
 
 `fr_source` is always present. `fr_assessment` appears only on the assessment

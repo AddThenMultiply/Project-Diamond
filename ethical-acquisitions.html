@@ -363,6 +363,8 @@ function renderResults(){
   const {answers, themeScores, total, band, role} = pending;
   const allQs = THEMES.flatMap(t=>t.qs);
   renderTeaser();
+  // Carry the result context into the booking hand-off (code EA, agreed by David 20 September).
+  setBooking(document.getElementById("bookBtn"), { assessment: "EA", score: total, band: band.label });
   document.getElementById("themeBars").innerHTML = THEMES.map(t=>{
     const s = themeScores[t.key];
     return `<div style="font-size:0.85rem;color:var(--navy);font-weight:600;">${t.name}: ${s}%</div><div class="bar"><i style="width:${s}%;background:${barColor(s)}"></i></div><p class="tinsight">${insightFor(t,s)}</p>`;
@@ -423,11 +425,14 @@ function runTests(){
   t("every gate field is labelled",
     ["ld-name","ld-email","ld-company","ld-revenue","ld-timeframe","ld-consent"]
       .every(id=>[...document.querySelectorAll("label[for]")].some(l=>l.getAttribute("for")===id)));
-  // Booking hand-off to GoHighLevel: this page carries no assessment context
+  // Booking hand-off to GoHighLevel: code EA, score and band once there is a result
   t("booking link preserves the base BOOKING_URL", bookingUrl(null,"?utm_source=Event").indexOf(BOOKING_URL+"?")===0);
-  t("a page with no assessment context sends fr_source only", bookingUrl(null,"?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
-  t("the booking CTA is wired through the helper", document.getElementById("bookBtn").getAttribute("href").indexOf(BOOKING_URL+"?fr_source=")===0);
-  t("no assessment, score or band leaks from this page", ["fr_assessment=","fr_score=","fr_band="].every(k=>bookingUrl(null,"").indexOf(k)===-1));
+  t("before a result, the link sends fr_source only", bookingUrl(null,"?utm_source=Event")===BOOKING_URL+"?fr_source=Event");
+  t("the booking CTA is wired through the helper", /[?&]fr_source=/.test(document.getElementById("bookBtn").getAttribute("href")));
+  t("before a result, no assessment, score or band is sent", ["fr_assessment=","fr_score=","fr_band="].every(k=>bookingUrl(null,"").indexOf(k)===-1));
+  const ea = bookingUrl({assessment:"EA", score:76, band:"Strong Potential"}, "");
+  t("EA link carries assessment, score and band", ea.indexOf("fr_assessment=EA")>-1 && ea.indexOf("fr_score=76")>-1 && ea.indexOf("fr_band=Strong%20Potential")>-1);
+  t("a zero EA score is still sent", bookingUrl({assessment:"EA", score:0, band:"At Risk"}, "").indexOf("fr_score=0")>-1);
   t("missing source defaults to Founder Readiness Direct", frSource("")==="Founder Readiness Direct");
   t("an unrecognised source maps to Other", frSource("?utm_source=wombat")==="Other");
   t("source matching is case-insensitive", frSource("?utm_source=investor%20network")==="Investor Network");
